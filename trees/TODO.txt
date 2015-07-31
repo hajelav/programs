@@ -1,0 +1,5 @@
+1. http://community.topcoder.com/stat?c=problem_statement&pm=6551&rd=9990
+2. http://www.geeksforgeeks.org/diagonal-sum-binary-tree/ 
+3. http://www.geeksforgeeks.org/given-n-appointments-find-conflicting-appointments/
+4. http://www.geeksforgeeks.org/minimum-iterations-pass-information-nodes-tree/
+5. http://www.geeksforgeeks.org/print-nodes-distance-k-given-node-binary-tree/

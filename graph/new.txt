@@ -1,0 +1,3 @@
+MENU OPTIONS
+1 -- create a graph     2 -- print graph        3 -- Prims Minimum spanning tree(MST)   4 -- BFS in a graph     5 -- DFS in a graph     6 -- Detect a cycle in a directed graph   7 -- Topological sorting        8 -- Kruskals minimum spanning tree(MST)        9 -- Print all paths from a given source to a destination
+Enter your choice

@@ -1,0 +1,2 @@
+https://www.youtube.com/watch?v=CWDQJGaN1gY
+https://github.com/mission-peace/interview/blob/master/src/com/interview/tree/FenwickTree.java
