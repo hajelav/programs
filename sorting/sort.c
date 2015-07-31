@@ -26,8 +26,58 @@ void print_1Darray(int *A, int n) {
     } 
 }
 
-/*mergesort*/
+void merge(int *A, int l, int i, int j, int h){
+    int *T, k;
+    int low, high;
+    if(l>=h)
+	return;
+    low = l;
+    high = h;
+    T = (int*)malloc(sizeof(int)*(h-l+1));
 
+    k=0;
+    while(l<=i && j<=h){
+	if(A[l] < A[j]){
+	    T[k] = A[l];
+	    l++;
+	} else if (A[l] > A[j]){
+	    T[k] = A[j];
+	    j++;
+	} else {
+	    T[k] = A[l];
+	    l++;
+	    j++;
+	}
+	k++;
+    }
+
+    //first half is bigger
+    if(l<=i){
+	while(l<=i){
+	    T[k] = A[l];
+	    l++;
+	    k++;
+	}
+
+    } else if(j<=h) { //second half is bigger
+	while(j<=h){
+	    T[k] = A[j];
+	    j++;
+	    k++;
+	}
+    }
+
+    //copy the temp array to A
+    k=0;
+    while(low <= high){
+	A[low] = T[k];
+	k++;
+	low++;
+    }
+    free(T);
+}
+
+/*mergesort : divide and conquer paradigm*/
 void mergesort(int *A, int low, int high) {
 
     int mid;
@@ -40,8 +90,22 @@ void mergesort(int *A, int low, int high) {
     mergesort(A, mid+1, high); //mergesort on right array
 
     //merge the array from low to low mid, and mid+1 to high)
-    merge(A, low, mid, m+1, high);
+    merge(A, low, mid, mid+1, high);
 }
+
+
+/*counting inversions : divide and conquer paradigm*/
+
+int count_inversions(int *A, int low, int high) {
+
+    int mid;
+    mid = (high+low)/2;
+
+
+
+}
+
+
 
 
 int main() {
@@ -51,6 +115,8 @@ int main() {
     do {
 
 	printf("MENU OPTIONS\n");
+	printf("1 -- Mergesort in an array\t");
+	printf("1 -- Counting inversions in an array\t");
 	printf("1 -- Mergesort\t");
 
 	printf("\n");
@@ -63,9 +129,18 @@ int main() {
 		A = create_1Darray(n);
 		input_array(A, n);
 
-		mergesort(A);
+		mergesort(A, 0, n-1);
 		print_1Darray(A, n);
 		free(A);
+		break;
+
+	    case 2:
+		printf("Enter no of elements in array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n);
+		input_array(A, n);
+		printf("Inversions :%d\n", count_inversions(A, 0, n-1));
+
 		break;
 
 	    default:
