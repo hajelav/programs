@@ -28,9 +28,19 @@ void print_1Darray(int *A, int n) {
 
 /*mergesort*/
 
-void mergesort(int *A, int n) {
+void mergesort(int *A, int low, int high) {
 
+    int mid;
+    if(low >= high)
+	return;
 
+    mid = (low+high)/2;
+
+    mergesort(A, low, mid);  //mergesort on left array
+    mergesort(A, mid+1, high); //mergesort on right array
+
+    //merge the array from low to low mid, and mid+1 to high)
+    merge(A, low, mid, m+1, high);
 }
 
 
@@ -55,6 +65,7 @@ int main() {
 
 		mergesort(A);
 		print_1Darray(A, n);
+		free(A);
 		break;
 
 	    default:
