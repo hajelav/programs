@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
 int* create_1Darray(int n) {
     int *A;
@@ -24,6 +25,25 @@ void print_1Darray(int *A, int n) {
     for(i=0;i<n;i++){
 	printf("%d ", A[i]);
     } 
+}
+
+void print_1Darray_index(int *A, int i, int j){
+int k;
+    for(k=i;k<=j;k++){
+	printf("%d ", A[k]);
+    } 
+    printf("\n");
+}
+
+void swap(int *A, int idx1, int idx2) {
+
+    int temp;
+   temp = A[idx1];
+   A[idx1] = A[idx2];
+   A[idx2] = temp;
+    /*A[idx1] = A[idx1] + A[idx2];*/
+    /*A[idx2] = A[idx1] - A[idx2];*/
+    /*A[idx1] = A[idx1] - A[idx2];*/
 }
 
 void merge(int *A, int l, int i, int j, int h){
@@ -168,18 +188,104 @@ int count_inversion(int *A, int low, int high) {
     return totInv;
 }
 
+int partition(int *A, int l, int h) {
+
+    int i, j, k, s;
+
+    j = 0; //points to the start of temp array T
+    k = h-l; //points to the end of temp array T
+    s = l; //store the lower index of array
 
 
+    //create a temp array 
+    int *T = (int*)calloc(h-l+1, sizeof(int));
+    for(i=l+1;i<=h;i++){
+	if(A[i] > A[l]){
+	    T[k] = A[i];
+	    k--;
+	} else {
+	    T[j] = A[i];
+	    j++;
+	}
+    }
+
+    //now fill the piv at the right place at the temp array
+    T[j] = A[l];
+
+    //copy the temp array back to input array A
+    k=0;
+    while(l <= h){
+	A[l] = T[k];
+	k++;
+	l++;
+    }
+    free(T);
+    return s+j;
+}
+
+void quicksort(int *A, int low, int high) {
+
+}
+
+int order_statistic(int  *A, int low , int high, int st) {
+
+
+    int piv, ret;
+    int j; //index of pivot element after partitioning
+
+    if(st > high) 
+	return -1;
+    if(low == high)
+	return A[low];
+
+    srand(time(NULL));
+    /*generate the random number between low to high+1(no of elements in array to be considered)*/
+    /*piv = rand()%(high+1);*/
+    piv = low;
+    printf("random pivot: %d\n",piv); 
+
+   /*preprocess the array and swap the elements of 0th and piv */
+    printf("before swap\n"); 
+    print_1Darray_index(A, low, high);
+    swap(A, low, piv);
+    printf("after swap\n"); 
+    print_1Darray_index(A, low, high);
+
+
+    /*partition the array so that the random pivot is at its correct position in array*/
+     j = partition(A, low, high);
+    printf("partition idx: %d\n",j); 
+    printf("After partition: %d\n",j); 
+    print_1Darray_index(A, low, high);
+    printf("-----------------------\n");
+    /*if we are in luck to get the random pivot as the desired ith order stats then return it*/
+    if(st == j){
+    return A[j];
+    }
+
+    /*
+     *if the pivot index(j) is greater than st(ith order statistic), then we need to recurse the array , right of pivot
+     *    ie, from j+1 to high and find st-j order stats  
+     */
+    if(st>j)
+    ret = order_statistic(A, j+1, high, st);
+    else 
+    ret = order_statistic(A, low, j-1, st);
+
+    return ret;
+}
 
 int main() {
     char c;
-    int choice, n;
+    int choice, n, s;
     int *A;
     do {
 
 	printf("MENU OPTIONS\n");
 	printf("1 -- Mergesort in an array\t");
-	printf("2 -- Counting inversions in an array\t");
+	printf("2 -- Counting inversions in an array(divide and conquer method)\t");
+	printf("3 -- Quicksort\t");
+	printf("4 -- ith order statistics\t");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -202,7 +308,27 @@ int main() {
 		A = create_1Darray(n);
 		input_array(A, n);
 		printf("Inversions :%d\n", count_inversion(A, 0, n-1));
+		free(A);
+		break;
 
+	    case 3:
+		printf("Enter no of elements in array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n);
+		input_array(A, n);
+		quicksort(A, 0, n-1);
+		break;
+
+	    case 4:
+		printf("Enter no of elements in array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n);
+		input_array(A, n);
+		printf("Enter ith order statistic\n");
+		scanf("%d", &s);
+		// to find s order statistic we need to find the element in index n-s
+		printf("%d order statistic:%d\n", s, order_statistic(A, 0, n-1, n-s));
+		free(A);
 		break;
 
 	    default:
