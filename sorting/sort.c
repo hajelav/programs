@@ -41,9 +41,12 @@ void swap(int *A, int idx1, int idx2) {
    temp = A[idx1];
    A[idx1] = A[idx2];
    A[idx2] = temp;
-    /*A[idx1] = A[idx1] + A[idx2];*/
-    /*A[idx2] = A[idx1] - A[idx2];*/
-    /*A[idx1] = A[idx1] - A[idx2];*/
+}
+
+int MIN(int a, int b) {
+
+    return a>b?b:a;
+
 }
 
 void merge(int *A, int l, int i, int j, int h){
@@ -241,31 +244,24 @@ int order_statistic(int  *A, int low , int high, int st) {
     srand(time(NULL));
     /*generate the random number between low to high+1(no of elements in array to be considered)*/
     /*piv = rand()%(high+1);*/
-    piv = low;
-    printf("random pivot: %d\n",piv); 
+    piv = low; //as of now we take pivot as the first element in the array
 
    /*preprocess the array and swap the elements of 0th and piv */
-    printf("before swap\n"); 
-    print_1Darray_index(A, low, high);
-    swap(A, low, piv);
-    printf("after swap\n"); 
-    print_1Darray_index(A, low, high);
+    swap(A, low, piv); //only required when we choose random pivot
 
+    /*
+     *partition the array so that the random pivot is at its correct position in array
+     *partition function places A[piv] to its correct position and returns its index
+     */
 
-    /*partition the array so that the random pivot is at its correct position in array*/
-     j = partition(A, low, high);
-    printf("partition idx: %d\n",j); 
-    printf("After partition: %d\n",j); 
-    print_1Darray_index(A, low, high);
-    printf("-----------------------\n");
+    j = partition(A, low, high);
     /*if we are in luck to get the random pivot as the desired ith order stats then return it*/
     if(st == j){
     return A[j];
     }
 
     /*
-     *if the pivot index(j) is greater than st(ith order statistic), then we need to recurse the array , right of pivot
-     *    ie, from j+1 to high and find st-j order stats  
+     *if the pivot index(j) is greater than st(ith order statistic), then we need to recurse the     array , right of pivot ie, from j+1 to high and find st-j order stats  
      */
     if(st>j)
     ret = order_statistic(A, j+1, high, st);
@@ -275,17 +271,54 @@ int order_statistic(int  *A, int low , int high, int st) {
     return ret;
 }
 
+int median_sorted_arrays(int *A, int *B, int lA, int hA, int lB, int hB) {
+
+   int midA, midB;
+   int rightAleftB;
+   /*int leftArightB;*/
+
+
+   if(lA>=hA && lB>=hB){
+       return (MIN(A[lA], B[lB]));
+
+   }
+   /*if((lA>=hA)) {*/
+       /*return A[lA]; */
+   /*}*/
+
+   /*if (lB>=hB) {*/
+       /*return B[lB];*/
+   /*}*/
+
+   midA = (lA+hA)/2;
+   midB = (lB+hB)/2;
+
+   if(A[midA] < B[midB]){
+       rightAleftB = median_sorted_arrays(A, B, midA+1, hA, lB, midB-1);   
+   } else if (A[midA] > B[midB]) {
+       /*leftArightB = median_sorted_arrays(A, B, lA, midA-1, midB+1, hB);   */
+       rightAleftB = median_sorted_arrays(A, B, lA, midA-1, midB+1, hB);   
+   } else {
+       return A[midA];
+   }
+
+   //return min of rightAleftB, leftArightB
+    /*return(MIN(rightAleftB, leftArightB));*/
+    return(rightAleftB);
+}
+
 int main() {
     char c;
-    int choice, n, s;
-    int *A;
+    int choice, n, m, s;
+    int *A, *B;
     do {
 
 	printf("MENU OPTIONS\n");
-	printf("1 -- Mergesort in an array\t");
-	printf("2 -- Counting inversions in an array(divide and conquer method)\t");
-	printf("3 -- Quicksort\t");
-	printf("4 -- ith order statistics\t");
+	printf("1 -- Mergesort in an array\n");
+	printf("2 -- Counting inversions in an array(divide and conquer method)\n");
+	printf("3 -- Quicksort\n");
+	printf("4 -- ith order statistics\n");
+	printf("5 -- Median of two sorted arrays(divide and conquer method[logn])\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -317,6 +350,7 @@ int main() {
 		A = create_1Darray(n);
 		input_array(A, n);
 		quicksort(A, 0, n-1);
+		free(A);
 		break;
 
 	    case 4:
@@ -329,6 +363,20 @@ int main() {
 		// to find s order statistic we need to find the element in index n-s
 		printf("%d order statistic:%d\n", s, order_statistic(A, 0, n-1, n-s));
 		free(A);
+		break;
+
+	    case 5:
+		printf("Enter no of elements in array1\n");
+		scanf("%d", &m);
+		A = create_1Darray(m);
+		input_array(A, m);
+		printf("Enter no of elements in array2\n");
+		scanf("%d", &n);
+		B = create_1Darray(n);
+		input_array(B, n);
+		printf("Median of two sorted arrays: %d", median_sorted_arrays(A, B, 0, m-1, 0, n-1));
+		free(A);
+		free(B);
 		break;
 
 	    default:
