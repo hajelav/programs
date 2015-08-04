@@ -130,6 +130,11 @@ int checkCircularpath(char *path){
 }
 
 
+void remove_dup_slashes( char *str) {
+
+}
+
+
 
 int main() {
     /*char c;*/
