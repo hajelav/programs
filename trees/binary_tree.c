@@ -30,6 +30,13 @@ typedef struct LIST {
     L_ORDER *tail;
 }LIST;
 
+int MIN(int a , int b) {
+    return(a<b?a:b);
+}
+int MAX(int a , int b) {
+    return(a<b?b:a);
+}
+
 L_ORDER* create_list(int val) {
     L_ORDER *lorder;
     lorder = (L_ORDER*)malloc(sizeof(L_ORDER));
@@ -1249,6 +1256,23 @@ void deepestLeftLeafNode(TREE* node, TREE** parent, int lvl, int *lln){
 
 } 
 
+int min_depth(TREE *node) {
+
+    int lefth, righth;
+    if(node == NULL)
+	return 0;
+
+    lefth = min_depth(node->left);
+    righth = min_depth(node->right);
+
+    //if any of the left or right child is null
+    if(lefth == 0 || righth == 0)
+	return MAX(lefth, righth)+1;
+
+    return MIN(lefth, righth)+1;
+
+}
+
 int main() {
     char c;
     int item,value,num,node1,node2,level,n;
@@ -1306,6 +1330,7 @@ int main() {
 	printf("39 -- Print all nodes that don’t have sibling\n");
 	printf("40 -- Convert to Doubly link list(method 2)\n");
 	printf("41 -- Deepest left leaf node in a binary tree\n");
+	printf("42 -- Minimum depth of the tree\n");
 	
 
 	printf("\n");
@@ -1609,6 +1634,11 @@ int main() {
 		parent = NULL;
 		deepestLeftLeafNode(trav, &parent, 0, &lln);
 		printf("%d", lln);
+		break;
+
+	    case 42:
+		trav = root;
+		printf("Minimum depth of tree: %d\n", min_depth(trav));
 		break;
 
 	    default:
