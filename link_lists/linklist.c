@@ -270,6 +270,25 @@ LIST* del_all_occurence(LIST* head, int value) {
     return head;
 }//function ends
 
+LIST* delete_all_occurences_recursive(LIST* node, int value) {
+
+    LIST* temp;
+
+
+    if(node && node->next == NULL)
+	return node;
+   if(!node)
+      return NULL;
+
+  temp = delete_all_occurences_recursive(node->next, value);
+  if(temp->value == value){
+      node->next = temp->next;
+      free(temp);
+  }
+  return node;
+
+}
+
 
 /*Pair waise swap of link list (just the valure)*/
 
@@ -698,7 +717,7 @@ int main() {
         printf("5--reverse recursively\t");
         printf("6--Merge\n");
         printf("7--Delete duplicate\t");
-        printf("8--Delete all occerences\t");
+        printf("8--Delete all occerences of a given value\t");
         printf("9--reverse iteratively\t");
         printf("a-Pair wise swap\t");
         printf("b-Sort the list\t");
@@ -778,7 +797,8 @@ int main() {
             case '8':
               printf("Enter the node to  be deleted\n");
               scanf("%d",&n1);
-            head = del_all_occurence(head,n1);
+            /*head = del_all_occurence(head,n1);*/
+            head = delete_all_occurences_recursive(head, n1);
             print_list(head);
               break;
             case '9':
