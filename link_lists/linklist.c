@@ -270,23 +270,44 @@ LIST* del_all_occurence(LIST* head, int value) {
     return head;
 }//function ends
 
-LIST* delete_all_occurences_recursive(LIST* node, int value) {
+/*
+ *LIST* delete_all_occurences_recursive(LIST* node, int value) {
+ *
+ *    LIST* temp;
+ *
+ *
+ *    if(node && node->next == NULL)
+ *        return node;
+ *   if(!node)
+ *      return NULL;
+ *
+ *  temp = delete_all_occurences_recursive(node->next, value);
+ *  if(temp->value == value){
+ *      node->next = temp->next;
+ *      free(temp);
+ *  }
+ *  return node;
+ *
+ *}
+ */
 
-    LIST* temp;
+void delete_all_occurences_recursive(LIST** node, int value) {
 
+    LIST *temp;
 
-    if(node && node->next == NULL)
-	return node;
-   if(!node)
-      return NULL;
+    if(node && (*node)->next == NULL)
+	return;
+    if(!node)
+	return;
 
-  temp = delete_all_occurences_recursive(node->next, value);
-  if(temp->value == value){
-      node->next = temp->next;
-      free(temp);
-  }
-  return node;
-
+    delete_all_occurences_recursive(&(*node)->next, value);
+    temp = (*node)->next;
+    if(temp) {
+	if(temp->value == value){
+	    (*node)->next = temp->next;
+	    free(temp);
+	}
+    }
 }
 
 
@@ -798,7 +819,8 @@ int main() {
               printf("Enter the node to  be deleted\n");
               scanf("%d",&n1);
             /*head = del_all_occurence(head,n1);*/
-            head = delete_all_occurences_recursive(head, n1);
+            /*head = delete_all_occurences_recursive(head, n1);*/
+            delete_all_occurences_recursive(&head, n1);
             print_list(head);
               break;
             case '9':
