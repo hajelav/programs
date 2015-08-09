@@ -11,7 +11,14 @@ typedef struct LIST {
     struct LIST *next;
 } LIST;
 
-LIST* create_node (value) {
+typedef struct DLIST {
+    int val;
+    struct LIST* next;
+    struct LIST* prev;
+
+} DLIST;
+
+LIST* create_node (int value) {
     LIST *temp = (LIST*)malloc(sizeof(LIST));
     temp->next = NULL;
     temp->random = NULL;
@@ -85,17 +92,17 @@ LIST* delete_item(LIST* head,int value) {
 }
 /*reverse the link list  by reversing the pointers*/
 LIST* reverse_list(LIST *node){
-	LIST *temp;
-	if(node == NULL)
-		return node;
-	temp = reverse_list(node->next);
-	if(temp==NULL)
-		temp=node;
-	else{
-		node->next->next = node;
-		node->next = NULL;
-	}
-	return temp; 
+    LIST *temp;
+    if(node == NULL)
+	return node;
+    temp = reverse_list(node->next);
+    if(temp==NULL)
+	temp=node;
+    else{
+	node->next->next = node;
+	node->next = NULL;
+    }
+    return temp; 
 }
 /*reverse the link list iteratively */
 
@@ -508,8 +515,8 @@ LIST* cloneLinkList(LIST* olist) {
     /*  pass 1: insert a node in front of each node of original list  */
     while(olist){
 
-	temp = create_node();
-	temp->value = olist->value;
+	temp = create_node(olist->value);
+	/*temp->value = olist->value;*/
 
 	temp->next = olist->next;
 	olist->next = temp;
@@ -751,6 +758,7 @@ int main() {
         printf("i--Delete nodes which have a greater value on right side\t");
         printf("j--Segregate even and odd nodes in a Linked List\t");
         printf("k--pair wise swap links\t");
+        printf("l--sort the list(efficient way)\t");
         printf("q--quit\n");
         printf("Enter your choice\n");
         scanf("%c",&c);
@@ -893,6 +901,9 @@ int main() {
 		    break;
 	    case 'k':
 		    print_list(pair_wise_swap_links(head));
+		    break;
+
+	    case 'l':
 		    break;
 
             case 'q':

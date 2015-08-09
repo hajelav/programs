@@ -37,6 +37,24 @@ int MAX(int a , int b) {
     return(a<b?b:a);
 }
 
+
+int* create_1Darray(int n) {
+    int *A;
+    A = (int*)calloc(n, sizeof(int));
+
+    if(!A)
+	return NULL;
+    return A;
+}
+
+void input_array(int *A, int n) {
+    int i;
+    printf("Enter elements\n");
+    for(i=0;i<n;i++){
+	scanf("%d", &A[i]);
+    } 
+}
+
 L_ORDER* create_list(int val) {
     L_ORDER *lorder;
     lorder = (L_ORDER*)malloc(sizeof(L_ORDER));
@@ -1273,6 +1291,28 @@ int min_depth(TREE *node) {
 
 }
 
+TREE* sorted_array_to_tree(int *A, int l, int h) {
+    TREE* node;
+    int mid;
+
+    if(l > h)
+	return NULL;
+
+    mid = (l+h)/2;
+
+    node = create_node();
+    node->value = A[mid];
+
+    node->left = sorted_array_to_tree(A, l, mid-1);
+    node->right = sorted_array_to_tree(A, mid+1, h);
+
+    return node;
+
+
+
+
+}
+
 int main() {
     char c;
     int item,value,num,node1,node2,level,n;
@@ -1284,6 +1324,7 @@ int main() {
     int i,no;
     int nodes;
     int *in, *pre;
+    int *A;
     TREE *parent;
     TREE *node;
     do {
@@ -1331,6 +1372,8 @@ int main() {
 	printf("40 -- Convert to Doubly link list(method 2)\n");
 	printf("41 -- Deepest left leaf node in a binary tree\n");
 	printf("42 -- Minimum depth of the tree\n");
+	printf("43 -- Convert a sorted array into a tree\n");
+	printf("44 -- Convert a sorted link list into a tree(in-place)\n");
 	
 
 	printf("\n");
@@ -1639,6 +1682,16 @@ int main() {
 	    case 42:
 		trav = root;
 		printf("Minimum depth of tree: %d\n", min_depth(trav));
+		break;
+
+	    case 43:
+		/*trav = NULL;*/
+		printf("Enter no of elements in array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n);
+		input_array(A, n);
+		trav = sorted_array_to_tree(A, 0, n-1);
+		print_inorder(trav);
 		break;
 
 	    default:
