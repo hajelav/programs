@@ -239,7 +239,6 @@ LIST* merge_list(LIST* head1, LIST* head2){
 	new = insert_item(new, trav->value);
 	trav = trav->next;
     }
-
     return new;
 }
 
@@ -385,33 +384,30 @@ int temp;
 }
 /*Sorting of linklist using bubble sort */
 void sort_list ( LIST *head) {
-	int count=0,tmp,i;
-	LIST *node;
-	 node=head;
-/*count the number of elements*/
-	while (node!=NULL){
-		count++;
-		node=node->next;
+    int count=0,tmp,i;
+    LIST *node;
+    node=head;
+    /*count the number of elements*/
+    while (node!=NULL){
+	count++;
+	node=node->next;
+    }
+    /*do a bubble sort */
+    for ( i=1;i<count;i++){
+	node = head;
+	while(node->next!=NULL){
+	    if(node->value > node->next->value)
+	    {
+		tmp = node->value;
+		node->value = node->next->value;
+		node->next->value = tmp;
+	    }
+	    node = node->next;
 	}
-/*do a bubble sort */
-	for ( i=1;i<count;i++){
-		node = head;
-		while(node->next!=NULL){
-			if(node->value > node->next->value)
-			{
-				tmp = node->value;
-				node->value = node->next->value;
-				node->next->value = tmp;
-			}
-				node = node->next;
-		}
-	}
-
-
-
+    }
 }
-/* method 1: delete alternate nodes */
 
+/* method 1: delete alternate nodes */
 void delete_alternate ( LIST* node ) {
 	LIST *temp;
 	while ( node!=NULL && node->next!= NULL) {
@@ -724,6 +720,10 @@ LIST* segEvenOddNodes(LIST* node){
  *http://www.geeksforgeeks.org/given-linked-list-line-segments-remove-middle-points/
  */
 
+void sort_linklist(LIST *node) {
+
+}
+
 int main() {
     int item,n,n1,n2,list1[50],list2[50];
     LIST *head1=NULL;
@@ -758,7 +758,7 @@ int main() {
         printf("i--Delete nodes which have a greater value on right side\t");
         printf("j--Segregate even and odd nodes in a Linked List\t");
         printf("k--pair wise swap links\t");
-        printf("l--sort the list(efficient way)\t");
+        printf("l--sort the list(efficient way:Quicksor)\t");
         printf("q--quit\n");
         printf("Enter your choice\n");
         scanf("%c",&c);
@@ -904,6 +904,7 @@ int main() {
 		    break;
 
 	    case 'l':
+		    sort_linklist(head);
 		    break;
 
             case 'q':

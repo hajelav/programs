@@ -1307,10 +1307,6 @@ TREE* sorted_array_to_tree(int *A, int l, int h) {
     node->right = sorted_array_to_tree(A, mid+1, h);
 
     return node;
-
-
-
-
 }
 
 int main() {
@@ -1373,8 +1369,6 @@ int main() {
 	printf("41 -- Deepest left leaf node in a binary tree\n");
 	printf("42 -- Minimum depth of the tree\n");
 	printf("43 -- Convert a sorted array into a tree\n");
-	printf("44 -- Convert a sorted link list into a tree(in-place)\n");
-	
 
 	printf("\n");
 	printf("Enter your choice\n");

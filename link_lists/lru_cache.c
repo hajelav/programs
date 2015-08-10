@@ -194,7 +194,5 @@ int main(){
 	refer_page(hash, q, pno);
     }
     print_cache(q);
-
-
     return 0;
 }
