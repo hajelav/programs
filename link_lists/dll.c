@@ -1,11 +1,8 @@
-
 /* link lists */
-
 #include <stdio.h>
 #include <stdlib.h>
 
 /*defining the link list structure*/
-
 typedef struct DLIST {
     int value;
     struct DLIST* next;
@@ -35,6 +32,7 @@ DLIST*  insert_item(DLIST* node,int value) {
     }
     return node;
 }
+
 /*prints the list*/
 void print_list(DLIST* head){
     DLIST* trav = head;
@@ -222,10 +220,11 @@ DLIST* get_middle(DLIST* node, DLIST** left, DLIST** right) {
 	temp = temp->prev;
     }
 
+    //store the pointers to the left and right list
     *left = temp;
     *right = slow->next;
 
-    //seperate the mid element form the mid element
+    //seperate the mid element from the link list
     if(slow->next) {
     slow->next->prev = NULL;
     slow->next = NULL;
@@ -263,7 +262,7 @@ int main() {
     char c;
     do  {
 	//scanf("%c",&c);
-	printf("MENU OPTIONS\n");
+	printf("\nMENU OPTIONS\n");
 	printf("1--insert\n");
 	printf("2--print\n");
 	printf("3--convert linklist to binary tree(in place)\n");

@@ -228,6 +228,14 @@ int partition(int *A, int l, int h) {
 
 void quicksort(int *A, int low, int high) {
 
+    int piv;
+
+    if(low>=high)
+	return;
+
+    piv = partition(A, low, high);
+    quicksort(A, low, piv-1);
+    quicksort(A, piv+1, high);
 }
 
 int order_statistic(int  *A, int low , int high, int st) {
@@ -307,10 +315,29 @@ int median_sorted_arrays(int *A, int *B, int lA, int hA, int lB, int hB) {
     return(rightAleftB);
 }
 
+int _2sum(int *A, int n, int sum) {
+
+    int i, j;
+    //sort the array first
+    mergesort(A, 0, n);
+    i =0, j = n;
+    while(i!=j){
+	if(A[i]+A[j] < sum)
+	    i++;
+	else if(A[i]+A[j] > sum)
+	    j--;
+	else
+	    return 1;
+    }
+    return 0;
+}
+
+
 int main() {
     char c;
     int choice, n, m, s;
     int *A, *B;
+    int sum;
     do {
 
 	printf("MENU OPTIONS\n");
@@ -319,6 +346,7 @@ int main() {
 	printf("3 -- Quicksort\n");
 	printf("4 -- ith order statistics\n");
 	printf("5 -- Median of two sorted arrays(divide and conquer method[logn])\n");
+	printf("6 -- 2 Sum problem\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -350,6 +378,7 @@ int main() {
 		A = create_1Darray(n);
 		input_array(A, n);
 		quicksort(A, 0, n-1);
+		print_1Darray(A, n);
 		free(A);
 		break;
 
@@ -378,6 +407,18 @@ int main() {
 		free(A);
 		free(B);
 		break;
+
+	    case 6:
+		printf("Enter no of elements in array1\n");
+		scanf("%d", &n);
+		A = create_1Darray(n);
+		input_array(A, n);
+		printf("Enter sum\n");
+		scanf("%d", &sum);
+
+		printf("2 sum exits: %s\n", _2sum(A, n-1, sum)?"Yes":"No");
+		break;
+
 
 	    default:
 		printf("Invalid option\n");
