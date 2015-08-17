@@ -235,6 +235,23 @@ void median(){
 }
 
 
+/*
+ *k-way merge sort 
+ *http://stackoverflow.com/questions/10414255/prove-the-algorithm-that-uses-min-heap-to-merge-k-sorted-lists
+ */
+
+
+/*
+ * facebook-interview-questions
+ * Given a list of n objects, write a function that outputs the minimum set of numbers that sum to at least K. (better than NLOGN)
+ *
+ *    1. create a max heap in O(n) time
+ *    2. extract the max element from the heap (say max)
+ *    3. if max>K then return 1;
+ *    4  otherwise decrease the size of heap by 1 and search for K-max in the  left heap (n-1)
+ *    5. update K = K-max
+ *    6. goto step 2 , until K = max
+ *    7. while looping continue the no of times the max was updated. this is the min no of element required.
 int main() {
     char c;
     int choice, n;
@@ -247,6 +264,7 @@ int main() {
 	printf("3 -- min-heapify(min element stays on top)\n");
 	printf("4 -- heapsort\n");
 	printf("5 -- Find median of stream of integers\n");
+	printf("6 -- K-way mergesort using min heap\n");
 
 	printf("Enter your choice\n");
 	scanf("%d",&choice);

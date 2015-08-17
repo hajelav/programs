@@ -441,7 +441,7 @@ void deleteAlternateNodes(LIST* node) {
 	}
 }
 /* function to print the middle element of a link list */
-LIST* printMiddleLinkList(LIST *node){
+LIST* get_middle(LIST *node){
 
     LIST *ptr1, *ptr2;
     if(node == NULL)
@@ -720,6 +720,8 @@ LIST* segEvenOddNodes(LIST* node){
  *http://www.geeksforgeeks.org/given-linked-list-line-segments-remove-middle-points/
  */
 
+
+/* mergesort on link list */
 void sort_linklist(LIST *node) {
 
 }
@@ -758,7 +760,7 @@ int main() {
         printf("i--Delete nodes which have a greater value on right side\t");
         printf("j--Segregate even and odd nodes in a Linked List\t");
         printf("k--pair wise swap links\t");
-        printf("l--sort the list(efficient way:Quicksor)\t");
+        printf("l--sort the list(efficient way:Mergesort)\t");
         printf("q--quit\n");
         printf("Enter your choice\n");
         scanf("%c",&c);
@@ -851,7 +853,7 @@ int main() {
 			print_list(head);
                     break;
 	    case 'd':
-		    temp = printMiddleLinkList(head);
+		    temp = get_middle(head);
 		    printf("Middle element: %d\n", temp?temp->value:0);
 		    break;
 

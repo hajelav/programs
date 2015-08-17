@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -48,6 +47,15 @@ void input_array(int *A, int n) {
     }
 }
 
+void init_2Darray(int **A, int r, int c, int val) {
+    int i, j;
+    for(i=0;i<r;i++){
+	for(j=0;j<c;j++){
+	    A[i][j] = val;
+	}
+    }
+}
+
 int** create_2Dmatrix(int xlen, int ylen) {
     int i;
     int **T = (int**)calloc(xlen, sizeof(int*));
@@ -65,6 +73,18 @@ void print_2Dmatrix(int **T, int xlen, int ylen) {
 	    printf("%d ",T[i][j]);
 	}
 	printf("\n");
+    }
+}
+
+
+void input_2Darray(int **A, int r, int c) {
+
+    int i, j;
+    printf("Enter elements\n");
+    for(i=0;i<r;i++){
+	for(j=0;j<c;j++){
+	    scanf("%d",&A[i][j]);
+	}
     }
 }
 
@@ -268,6 +288,76 @@ int max_area_rect_histogram(int *H, int low, int high) {
 	return max;
 }
 
+void get_island_util(int **A, int r, int c, int i, int j, int **V, int color) {
+    
+
+    if( i>r || i<0)
+	return ;
+    if(j<0 || j>r)
+	return ;
+    if(A[i][j] == (!color) || V[i][j] == 1)
+	return ;
+
+	    //recurese only when we find the color
+	    if(!V[i][j] && (A[i][j] == color)){
+		V[i][j] = 1; //mark as visited
+		 get_island_util(A, r, c, i+1,j, V, color);
+		 get_island_util(A, r, c, i,j+1, V, color);
+		 get_island_util(A, r, c, i+1,j+1, V, color);
+		 get_island_util(A, r, c, i-1,j, V, color);
+		 get_island_util(A, r, c, i,j-1, V, color);
+		 get_island_util(A, r, c, i-1,j-1, V, color);
+		 get_island_util(A, r, c, i+1,j-1, V, color);
+		 get_island_util(A, r, c, i-1,j+1, V, color);
+	    } 
+}
+
+/*
+ *http://www.careercup.com/question?id=3743299
+ */
+void get_island() {
+
+    int r, c, color;
+    int i, j;
+    int **A, **V;
+    int tot_islands = 0;
+    printf("Enter no of rows\n");
+    scanf("%d", &r);
+    printf("Enter no of cols\n");
+    scanf("%d", &c);
+
+    A = create_2Dmatrix(r, c);
+    input_2Darray(A, r, c);
+    print_2Dmatrix(A, r, c);
+    V = create_2Dmatrix(r, c);
+    init_2Darray(V, r, c , 0);
+
+    printf("Enter color\n");
+    scanf("%d", &color);
+
+
+    for(i=0;i<r;i++){
+	for(j=0;j<c;j++){
+	    if (!V[i][j] && A[i][j] == color) {
+		//run DFS on each island(group of 1's) if its not already visited
+		get_island_util(A, r-1, c-1, i, j, V, color);
+		tot_islands += 1;
+	    }
+	}
+    }
+    
+    printf("tot islands: %d\n", tot_islands);
+    free(A);
+    free(V);
+    
+
+}
+
+/*
+ *water cup puzzle 
+ *http://www.careercup.com/question?id=9820788
+ TBD
+ */
 int main(){
 
 
@@ -285,6 +375,7 @@ int main(){
 	printf("3 -- Convert string to int(atoi)\n");
 	printf("4 -- Subsets of an array\n");
 	printf("5 -- Max area histogram\n");
+	printf("6 -- Counting no of islands\n");
 
 
 	printf("\n");
@@ -334,6 +425,10 @@ int main(){
 		input_array(A, n1);
 		printf("Max of of rectangle : %d\n", max_area_rect_histogram(A, 0, n1-1));
 		free(A);
+		break;
+
+	    case 6:
+		get_island();
 		break;
 	}
 	printf("\n\n");

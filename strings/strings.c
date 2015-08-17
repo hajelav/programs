@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*
  *Remove spaces from a given string
@@ -135,6 +136,83 @@ void remove_dup_slashes( char *str) {
 }
 
 
+void print_word_util(char **S, char *str, int n, int j) {
+
+
+     int i;
+
+    if(j>n){
+	return;
+    }
+
+    str[j] =  S[i][j]; 
+    printf("%s\n", str)
+
+	
+
+    for(j=0;j<n;j++){
+	print_word_util(S, str, n, i, j++); 
+
+    }
+
+
+
+}
+
+void print_words(char *S) {
+
+    int len;
+    len = strlen(S);
+
+    //create an array to store  the words
+    char *str = (char*)malloc(sizeof(char) * (len+1));
+
+    /*print_word_util(&S, str, len, i, j);*/
+
+
+
+
+}
+
+
+int regex_match(char* str, char *pat) {
+
+
+
+
+}
+
+
+/*
+ *string reduction problem
+ *http://stackoverflow.com/questions/8551519/string-reduction-programming-contest-solution-needed/30156801#30156801
+
+
+sol : 
+1. put chars in a link list ( can use doubly link list)
+2. p1 = start of list
+3. p2 = p1->next;
+4. while (all elements in list become same) {
+
+	while(p2!=NUL){
+		if(p1=>value != p2->value){
+		p2 = p2->next;
+		p2->value = replace with 3rd char
+		del(p2);
+
+		} else {
+		p2 = p2->next;
+		p1 = p1->next;
+		}
+	}
+}
+
+5. after the loop ends all chars will be same. get the lenth of link list
+6. Reverse the orginal link list
+8. run step 4 on reversed link list 
+9. get the length on the list obtained in step 8
+10 return the min len of step 5 and 9
+ */
 
 int main() {
     /*char c;*/
@@ -146,6 +224,9 @@ int main() {
 	printf("MENU OPTIONS\n");
 	printf("1 -- remove spaces from string\n");
 	printf("2-- Check if a given sequence of moves for a robot is circular or not\n");
+	printf("3 -- print all possible words from phone digits\n");
+	printf("4 -- Regex matching problem\n");
+	
 	
 
 	printf("\n");
@@ -162,6 +243,9 @@ int main() {
 		scanf("%s", path);
 		printf("path is circular: %s", checkCircularpath(path)?"yes":"no");
 		break;
+
+	    case 4:
+		
 
 	    default:
 		printf("Invalid option\n");

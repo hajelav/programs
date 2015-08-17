@@ -163,7 +163,7 @@ int min_edit_distance(char *X, char *Y) {
     return T[ylen][xlen];
 }
 
-/*http://www.geeksforgeeks.org/dynamic-programming-set-6-min-cost-path/*/
+/*http://www.geeksforgeeks.org/dynamic-programming-set-6-min-cost-path*/
 
 int min_cost_path(int **A, int r, int c, int posi, int posj) {
 
@@ -449,6 +449,17 @@ int longest_palindromic_seq(char *S) {
 
     return ret;
 }
+
+/*
+ *weight interval scheduling problem
+ *http://www.careercup.com/question?id=9608562
+ */
+
+
+/*
+ *No of ways a number can be added
+ *http://www.careercup.com/question?id=12945663
+ */
 
 int main(){
 

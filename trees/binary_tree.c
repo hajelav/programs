@@ -1280,14 +1280,14 @@ int min_depth(TREE *node) {
     if(node == NULL)
 	return 0;
 
-    lefth = min_depth(node->left);
-    righth = min_depth(node->right);
+    lefth = min_depth(node->left)+1;
+    righth = min_depth(node->right)+1;
 
     //if any of the left or right child is null
     if(lefth == 0 || righth == 0)
-	return MAX(lefth, righth)+1;
+	return MAX(lefth, righth);
 
-    return MIN(lefth, righth)+1;
+    return MIN(lefth, righth);
 
 }
 
