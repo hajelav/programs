@@ -251,7 +251,7 @@ void median(){
  *    4  otherwise decrease the size of heap by 1 and search for K-max in the  left heap (n-1)
  *    5. update K = K-max
  *    6. goto step 2 , until K = max
- *    7. while looping continue the no of times the max was updated. this is the min no of element required.
+ *    7. while looping continue the no of times the max was updated. this is the min no of element required.8*/
 int main() {
     char c;
     int choice, n;

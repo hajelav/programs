@@ -358,6 +358,12 @@ void get_island() {
  *http://www.careercup.com/question?id=9820788
  TBD
  */
+
+ /*
+  *reverse the words from a huge file, with billions of records
+  *http://www.careercup.com/question?id=14118790
+  */
+
 int main(){
 
 

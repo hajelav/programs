@@ -333,6 +333,23 @@ int _2sum(int *A, int n, int sum) {
 }
 
 
+/*
+ *Examples of K-way external sorting using max-heap
+ *
+ *1.Determine the 10 most frequent words given a terabyte of strings.
+ *sol : Assuming that you have only 1 GB of RAM and 1TB file is stored on disk
+ *
+ *1. divide the file into 1024 chunks of 1 GB
+ *2. Copy the file into main memory and sort the words in lexicographical order.
+ *3. Parse the sorted words and maintain the count of each word, ex: <1000> "the", <200> "boy" in decresing order
+ *4. Do this procedure for each of 1024 1 GB chunk and write the data back to the disk.
+ *5. Now maintain a Max-Heap of 1024 elements and do K-way external merge sorting
+ *        5.1 delete the max element from the heap and replace it with the next element of that chunk which was just deleted.
+ *        5.2 repeat this procedure K times to get 10 most frequent words in 1 TB file.
+ *
+ */
+
+
 int main() {
     char c;
     int choice, n, m, s;

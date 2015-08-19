@@ -214,6 +214,28 @@ sol :
 10 return the min len of step 5 and 9
  */
 
+/*
+ *Beautiful string problem
+ *http://www.careercup.com/question?id=14463150
+ *
+ *Algo:
+ *
+ *For each i,
+ *    - Decrement Cnt[S[i]] by 1.
+ *    If S[i] is not in P: 
+ *    - Append it to the P and remove all the characters in P that are smaller than S[i] and that have at least one occurence (using Cnt[]) in the substring i+1...n of S. 
+ *    Else: 
+ *    - Skip it.
+ *
+ *run this algo for example string :abcbeccdbacde
+ *Cnt[] =  2 3 3 2 2 
+ *         a b c d e
+ *
+ *Output(most beautiful string) : ecdba
+ */
+
+
+
 int main() {
     /*char c;*/
     int choice;
