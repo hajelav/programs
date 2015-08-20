@@ -65,6 +65,16 @@ int** create_2Dmatrix(int xlen, int ylen) {
     return T;
 }
 
+char ** create_2Dchar_array(int r, int c) {
+
+    int i;
+    char **A = (char**)malloc(sizeof(char*)*r);
+    for(i=0;i<r;i++){
+	A[i] = (char*)malloc(sizeof(char)*(c+1));
+    }
+    return A;
+}
+
 void print_2Dmatrix(int **T, int xlen, int ylen) {
 
     int i, j;
@@ -87,7 +97,25 @@ void input_2Darray(int **A, int r, int c) {
 	}
     }
 }
+void input_2Dchar_array(char**A, int r, int c) {
 
+    int i;
+    printf("Enter elements\n");
+    for(i=0;i<r;i++){
+	    scanf("%s", A[i]);
+    }
+}
+
+void print_2Dchar_array(char **T, int xlen, int ylen) {
+
+    int i, j;
+    for(i=0;i<xlen;i++){
+	for(j=0;j<ylen;j++){
+	    printf("%c ",T[i][j]);
+	}
+	printf("\n");
+    }
+}
 /*
  *http://codinggeeks.blogspot.com/2010/04/computing-square-cube-roots.html
 
@@ -192,7 +220,7 @@ int myatoi(char *str) {
   *    total number of subsets = nC0 + nC1 + nC2 + nC3
   *
   *    using the combination recurrence ( choosing r elements at a time from a set of n elements)
-  *    n	   n-1        n-1
+  *    n	n-1        n-1
   *     C  =    C     +   C
   *      r       r-1       r
   *
@@ -364,6 +392,49 @@ void get_island() {
   *http://www.careercup.com/question?id=14118790
   */
 
+
+/*
+ *Given a sequence of numbers (34128) and an input map such as a dial pad on a phone (2-&gt;[a,b,c], 3-&gt;[d,e,f], 4-&gt;[g,h,i]) write an algorithm to return all possible words from the sequence. E.g. Input: 232 Output: [ada, adb, adc, aea, aeb, aec, afa, afb, afc, bda, bdb, bdc, bea, beb, bec, bfa, bfb, bfc, cda, cdb, cdc, cea, ceb, cec, cfa, cfb, cfc]  
+ */
+
+
+void keypad_util(char **A, int i, int r, int c, char *str) {
+    int j;
+
+    if(i==r) {
+	//we print only at the leaves
+	printf("%s ", str);
+	return;;
+    }
+
+    for(j=0;j<c;j++) {
+	str[i] = A[i][j];
+	keypad_util(A, i+1, r, c, str);
+    }
+}
+
+void keypad() {
+
+    char **A;
+    char *str;
+    int c = 3; // each number in a keypad as 3 letters
+    int r; // number of digits pressed
+
+    printf("enter number of digits pressed\n");
+    scanf("%d", &r);
+
+
+    A = create_2Dchar_array(r, c);
+    input_2Dchar_array(A, r, c);
+    print_2Dchar_array(A, r, c);
+
+
+    str = (char*)malloc(sizeof(char)*(r+1));
+    str[r] = '\0';
+    keypad_util(A, 0, r, c, str);
+}
+
+
 int main(){
 
 
@@ -382,6 +453,7 @@ int main(){
 	printf("4 -- Subsets of an array\n");
 	printf("5 -- Max area histogram\n");
 	printf("6 -- Counting no of islands\n");
+	printf("7 -- All possible sequences from a number keypad in phone\n");
 
 
 	printf("\n");
@@ -435,6 +507,10 @@ int main(){
 
 	    case 6:
 		get_island();
+		break;
+
+	    case 7:
+		keypad();
 		break;
 	}
 	printf("\n\n");
