@@ -1186,7 +1186,7 @@ int get_index(int *in, int key, int nodes){
 }
 
 /*
- *Construct Tree from given Inorder and Preorder traversals
+ *Construct Tree from given Inorder and Preorder traversals(de-serialize)
  */
 
 TREE* buildTree(int *in, int *pre, int low, int high, int nodes) {
@@ -1309,6 +1309,48 @@ TREE* sorted_array_to_tree(int *A, int l, int h) {
     return node;
 }
 
+/*
+ *given preorder traversal of BST, convert into a TREE( deserialize BST)
+ */
+
+int get_node_index(int *A, int l, int h) {
+
+    int i, k;
+    int val;
+    val = A[l];
+    k=l;
+
+    l = l+1;
+    while(l < h){
+	if(A[l] > val)
+	    return l;
+	l++;
+    }
+    return l;
+
+}
+
+TREE* buildBSTFromPreOrder(int *A, int l, int h) {
+
+    int j;
+    TREE *node;
+
+    if(l>h)
+	return NULL;
+
+    node = create_node();
+    node->value = A[l];
+
+    if(l==h)
+	return node;
+    j = get_node_index(A, l, h);
+
+    node->left = buildBSTFromPreOrder(A, l+1, j-1);
+    node->right = buildBSTFromPreOrder(A, j, h);
+
+    return node;
+}
+
 int main() {
     char c;
     int item,value,num,node1,node2,level,n;
@@ -1369,6 +1411,7 @@ int main() {
 	printf("41 -- Deepest left leaf node in a binary tree\n");
 	printf("42 -- Minimum depth of the tree\n");
 	printf("43 -- Convert a sorted array into a tree\n");
+	printf("44 -- Convert preorder to BST(deserialize BST)\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1687,6 +1730,16 @@ int main() {
 		trav = sorted_array_to_tree(A, 0, n-1);
 		print_inorder(trav);
 		break;
+
+	    case 44:
+		printf("Enter no of elements in array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n);
+		input_array(A, n);
+		trav = buildBSTFromPreOrder(A, 0, n-1);
+		print_inorder(trav);
+		break;
+
 
 	    default:
 		printf("Invalid option\n");
