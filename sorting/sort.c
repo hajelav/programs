@@ -315,12 +315,11 @@ int median_sorted_arrays(int *A, int *B, int lA, int hA, int lB, int hB) {
     return(rightAleftB);
 }
 
-int _2sum(int *A, int n, int sum) {
+int _2sum(int *A, int i, int j, int sum) {
 
-    int i, j;
     //sort the array first
-    mergesort(A, 0, n);
-    i =0, j = n;
+    mergesort(A, i, j);
+    /*i =0, j = n;*/
     while(i!=j){
 	if(A[i]+A[j] < sum)
 	    i++;
@@ -329,6 +328,22 @@ int _2sum(int *A, int n, int sum) {
 	else
 	    return 1;
     }
+    return 0;
+}
+
+int _3sum(int *A, int l, int h, int sum) {
+
+
+    int i;
+
+    if(!A || ((h-l+1) < 3))
+	return 0;
+    //sort the array first
+    mergesort(A, l, h);
+    for(i=l; i < h-1; i++){
+	if(_2sum(A, i+1, h, sum-A[i])) 
+		return 1;
+    }	
     return 0;
 }
 
@@ -364,6 +379,7 @@ int main() {
 	printf("4 -- ith order statistics\n");
 	printf("5 -- Median of two sorted arrays(divide and conquer method[logn])\n");
 	printf("6 -- 2 Sum problem\n");
+	printf("7 -- 3 Sum problem\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -433,7 +449,19 @@ int main() {
 		printf("Enter sum\n");
 		scanf("%d", &sum);
 
-		printf("2 sum exits: %s\n", _2sum(A, n-1, sum)?"Yes":"No");
+		printf("2 sum exits: %s\n", _2sum(A, 0, n-1, sum)?"Yes":"No");
+		break;
+
+	    case 7:
+
+		printf("Enter no of elements in array1\n");
+		scanf("%d", &n);
+		A = create_1Darray(n);
+		input_array(A, n);
+		printf("Enter sum\n");
+		scanf("%d", &sum);
+
+		printf("3 sum exits: %s\n", _3sum(A, 0, n-1, sum)?"Yes":"No");
 		break;
 
 

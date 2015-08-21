@@ -454,6 +454,7 @@ int main(){
 	printf("5 -- Max area histogram\n");
 	printf("6 -- Counting no of islands\n");
 	printf("7 -- All possible sequences from a number keypad in phone\n");
+	printf("8 -- 3 sum problem\n");
 
 
 	printf("\n");

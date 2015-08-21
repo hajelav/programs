@@ -1253,6 +1253,7 @@ void convertToDLL(TREE* node, TREE** ins){
     convertToDLL(node->left, ins);
 }
 
+
 /*
  * Deepest left leaf node in a binary tree
  * http://www.geeksforgeeks.org/deepest-left-leaf-node-in-a-binary-tree/
@@ -1702,6 +1703,7 @@ int main() {
 		ins = NULL;
 
 		convertToDLL(trav, &ins);
+		/*ins = convertToDLL(trav);*/
 		while(ins!=NULL){
 		    printf("%d-->",ins->value);
 		    ins = ins->right;
