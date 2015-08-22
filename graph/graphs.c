@@ -336,7 +336,7 @@ void BFS(GRAPH *g, int vtx, int n) {
 /* 
  * Topological ordering: its an ordering of vertices of a graph such that all of the directed edges only go
  * forward in the ordering. A necessary condition for a graph to have a topological ordering is that it should 
- * be acyclic
+ * be directed acyclic graph (DAG)
  *
  * Implementation : finding topological ordering is just a variant of DFS  */
 
@@ -372,11 +372,85 @@ void DFS_topological(GRAPH *g, int vtx, int *torder){
 
 void topological_sort(GRAPH *g, int n) {
 
-    int i, curr_torder;
+    int i ,curr_torder;
     //mark all the vertices as unvisited
     clear_visited_vertex(g, n);
 
     //set the current topological order = no of vertices
-     curr_torder = n;
+    curr_torder = n;
 
-     for(i=0;i<n;i++){
+    for(i=0;i<n;i++){
+	if(!isVisited(g, i)) {
+	    DFS_topological(g, i, &curr_torder);
+	}
+    }
+}
+
+int main() {
+    char c;
+    int choice, n, i, j,  adj, elen, vtx;
+    GRAPH *g;
+    do {
+	printf("MENU OPTIONS\n");
+	printf("1 -- create a graph\n");
+	printf("2 -- print graph\n");
+	printf("3 -- Prims minimum spanning tree(MST)\n");
+	printf("4 -- BFS\n");
+	printf("5 -- DFS in a graph\n");
+	printf("6 -- Detect cycle in a directed graph\n");
+	printf("7 -- Topological sorting\n");
+	printf("8 -- Kruskal's MST\n");
+	printf("9 -- Print all paths from source to destination\n");
+
+	printf("Enter your choice\n");
+	scanf("%d",&choice);
+	switch(choice){
+
+	    case 1: 
+		printf("Enter the number of vertices in graph\n");
+		scanf("%d", &n);
+
+		g = (GRAPH*)malloc(sizeof(GRAPH)*n);
+		init_graph(g, n);
+		printf("Enter adjecency nodes\n");
+		for(i=0;i<n;i++){
+		    printf("Enter no of adject nodes to vertex %d\n", i);
+		    scanf("%d", &adj);
+		    for(j=0;j<adj;j++){
+			printf("enter edge len and vertex\n");
+			scanf("%d %d", &elen, &vtx);
+			create_graph(&g[i], vtx, elen);
+		    }
+		}
+		break;
+	    case 2:
+		print_graph(g, n);
+		break;
+
+	    case 3:
+		break;
+
+	    case 4:
+		break;
+		
+	    case 5:
+		break;
+
+	    case 6:
+		break;
+
+	    case 7:
+		topological_sort(g, n);
+		print_topological_order(g, n);
+		break;
+
+
+	    default:
+		printf("Invalid option\n");
+		break;
+	}
+	printf("\n\n");
+    }while((c=getchar())!='q'); 
+    return 0;
+}
+
