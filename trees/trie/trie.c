@@ -8,17 +8,6 @@
 //forward declaration
  #define NO_OF_CHARS 27 //note that 27 char is the string termination char
 
-
-/*typedef struct NODE {*/
-	/*struct TNODE *next;*/
-	/*char c;*/
-/*} NODE;*/
-
-/*typedef struct TNODE {*/
-
-     /*struct NODE node[26]; */
-/*}TNODE;*/
-
 typedef struct TNODE {
     char c;
     struct TNODE *next[NO_OF_CHARS];
