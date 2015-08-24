@@ -6,30 +6,35 @@
 #include <string.h>
 
 //forward declaration
+ #define NO_OF_CHARS 27 //note that 27 char is the string termination char
 
-typedef struct NODE {
-	struct TNODE *next;
-	char c;
-} NODE;
+
+/*typedef struct NODE {*/
+	/*struct TNODE *next;*/
+	/*char c;*/
+/*} NODE;*/
+
+/*typedef struct TNODE {*/
+
+     /*struct NODE node[26]; */
+/*}TNODE;*/
 
 typedef struct TNODE {
-
-     struct NODE node[26]; 
+    char c;
+    struct TNODE *next[NO_OF_CHARS];
 }TNODE;
 
 TNODE *root = NULL;
 
 void initTnode(TNODE* tnode) {
     int i;
-    for(i=0;i<26;i++){
-
-	tnode->node[i].next = NULL;
-	tnode->node[i].c = '\0';
+    tnode->c = '\0';
+    for(i=0;i<NO_OF_CHARS;i++){
+	tnode->next[i] = NULL;
     }
 }
 
 TNODE* createTrieNode() {
-
     TNODE *node;
 	node = (TNODE*)malloc(sizeof(TNODE));
 	if(node) {
@@ -38,6 +43,15 @@ TNODE* createTrieNode() {
 	return node?node:NULL;
 }
 
+/*return 1 if this node is leaf node, else 0*/
+int isLeaf(TNODE* node) {
+    int i;
+    for(i=0;i<NO_OF_CHARS;i++){
+	if(node->next[i])
+	    return 0;
+    }
+ return 1;
+}
 
 void addWordInTrie(char *word, TNODE* troot) {
 
@@ -45,47 +59,54 @@ void addWordInTrie(char *word, TNODE* troot) {
     //create root, if not created
     if(troot == NULL) {
 	troot = createTrieNode();
-	root = troot;
+	root = troot; // assign this pointer to global root
     } 
 
     while(*word!='\0') {
 
-	if(troot->node[*word-'a'].next == NULL) {
+	if(troot->next[*word-'a'] == NULL) {
 	    temp1 = createTrieNode();
-	    troot->node[*word - 'a'].next  = temp1; 
-	    temp1->node[*word - 'a'].c = *word;
+	    troot->next[*word - 'a']  = temp1; 
+	    temp1->c = *word;
 	}
-	troot = troot->node[*word-97].next;
+	troot = troot->next[*word-'a'];
 	word++;
     }
+
+    /*
+     *once we have added the word, create a node for NULL char
+     *this is required if we want to print all the nodes in a trie
+     *for ex: to differenciate between words [ foo, food]
+     */
+    troot->next[NO_OF_CHARS-1] = createTrieNode();
 }
 
 /*search for the word in the trie */
 int  searchWordInTrie(TNODE* troot, char *word) {
 
-	if(troot==NULL || word == NULL) {
-	    return 0;
-	}
+    if(troot==NULL || word == NULL) {
+	return 0;
+    }
 
     while(*word!='\0') {
 
-	if(troot->node[*word-97].next == NULL) {
+	if(troot->next[*word-'a'] == NULL) {
 	    return 0;
 	}
-	troot = troot->node[*word-97].next;
+	troot = troot->next[*word-'a'];
 	word++;
     }
-
     return 1;
 }
 
 void create_suffix_tree(char *str) {
 /*
  * suffix tree can be created just by adding all the suffixes of the string to the trie
- * for eg: bear
- *     	 ear
- *         ar
- *         r
+ * for eg: bear#
+ *     	   ear#
+ *         ar#
+ *         r#
+ *         #
  *
  *         so first we get the suffixes from the string and keep on adding onto the trie
  */
@@ -97,11 +118,36 @@ void create_suffix_tree(char *str) {
 }
 
 
+/*
+ *this routine prints all the words in the trie, we use an auxillary array(path) to store the chars 
+ *of the trie as we traverse recursively in the trie.
+ */
+
+void print_words(TNODE *troot, char *path, int cnt) {
+
+    int i;
+    if(!troot->c) {
+	printf("%s\n", path);
+	return;
+    }
+    path[cnt] = troot->c;
+    for(i=0;i<NO_OF_CHARS;i++) {
+	if(troot->next[i]!=NULL){
+	    print_words(troot->next[i], path, ++cnt);
+	    //when the recursion returns, we remove the char from path array
+	    path[cnt] = '\0';
+	    cnt--;
+	}
+    }
+}
+
 int main() {
 
     char c;
     char str[256];
-    int choice;
+    char *path;
+    TNODE *troot;
+    int choice, i;
     do {
 
 	printf("MENU OPTIONS\n");
@@ -110,6 +156,7 @@ int main() {
 	printf("3 -- Create a suffix tree\n");
 	printf("4 -- Finding the longest repeated substring\n");
 	printf("5 -- Find the longest common substring\n");
+	printf("6 -- Print all the words in trie\n");
 	
 
 	printf("enter your choice\n");
@@ -139,6 +186,24 @@ int main() {
 		break;
 
 	    case 5:
+		break;
+
+	    case 6:
+		path = (char*)calloc(NO_OF_CHARS, sizeof(char));
+		/*
+		 *To iterate all the words we first go through the dummy nodes and find the first not NULL pointer
+		 *and we pass that address to our print routine.
+		 */
+		for(i=0;i<NO_OF_CHARS;i++){
+		    if(root->next[i]){
+			troot = root->next[i];
+			print_words(troot, path, 0);
+		    }
+		}
+		break;
+
+	    default:
+		printf("Invalid option\n");
 		break;
 
 

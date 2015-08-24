@@ -435,6 +435,10 @@ void keypad() {
 }
 
 
+void one_edit_dist() {
+
+
+}
 int main(){
 
 
@@ -454,7 +458,8 @@ int main(){
 	printf("5 -- Max area histogram\n");
 	printf("6 -- Counting no of islands\n");
 	printf("7 -- All possible sequences from a number keypad in phone\n");
-	printf("8 -- 3 sum problem\n");
+	printf("8 -- check if a string is palindrome((lowercase and uppercase characters are considered equal -special characters are ignored)\n");
+	printf("9 -- check if the two words are one edit away from each other. i.e one word can be formed from another by inserting/ deleting/replacing one character\n");
 
 
 	printf("\n");
@@ -513,6 +518,11 @@ int main(){
 	    case 7:
 		keypad();
 		break;
+
+	    case 8:
+		one_edit_dist();
+		break;
+
 	}
 	printf("\n\n");
     }while((c=getchar())!='q'); 

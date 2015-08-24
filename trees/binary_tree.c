@@ -253,6 +253,65 @@ int inOrderSuccInBST(TREE *node, int key){
     }
 }
 
+
+int isRightMost(TREE* node, int key){
+
+    if(!node)
+	return 0;
+
+    while(node->right!= NULL){
+	node = node->right;
+    }
+    if(node->value == key)
+	return 1;
+    else 
+	return 0;
+}
+
+TREE *get_left(TREE *node){
+    while(node->left!=NULL){
+	node = node->left;
+    }
+    return node;
+	
+}
+
+
+void inOrderSuccInBST_recur_util(TREE* node, int key, TREE** res) {
+
+    if(!node)
+	return;
+
+    if(key > node->value)
+	inOrderSuccInBST_recur_util(node->right, key, res);
+    else if (key < node->value)
+	inOrderSuccInBST_recur_util(node->left, key, res);
+    else if (key == node->value){
+	if(node->right!=NULL)
+	    *res = get_left(node->right);
+    }
+
+    //when the recursion returns, we store the first node > key , which is the successor 
+	if(!(*res) && node->value > key)
+	    *res = node;
+}
+
+TREE* inOrderSuccInBST_recur(TREE* node, int key) {
+
+    TREE *result = NULL;
+    //check for corner case when the key is the rightmost element in TREE
+    if(isRightMost(node, key))
+	return NULL;
+
+	inOrderSuccInBST_recur_util(node, key, &result);
+
+	return(result);
+
+
+
+
+}
+
 int inOrderPredInBST(TREE *node, int key){
 
     /* find the key first
@@ -1352,6 +1411,20 @@ TREE* buildBSTFromPreOrder(int *A, int l, int h) {
     return node;
 }
 
+void print_all_root_leaf_paths(TREE *node, int *sum) {
+
+    if(!node)
+	return;
+
+    *sum += node->value;
+    if(!node->left && !node->right) {
+	printf("Sum = %d\n", *sum);
+    }
+    print_all_root_leaf_paths(node->left, sum);
+    print_all_root_leaf_paths(node->right, sum);
+    *sum -= node->value;
+}
+
 int main() {
     char c;
     int item,value,num,node1,node2,level,n;
@@ -1413,6 +1486,8 @@ int main() {
 	printf("42 -- Minimum depth of the tree\n");
 	printf("43 -- Convert a sorted array into a tree\n");
 	printf("44 -- Convert preorder to BST(deserialize BST)\n");
+	printf("45 -- print all root to leaf paths in a binary tree\n");
+	printf("46 -- Sum of all the numbers that are formed from root to leaf paths\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1621,7 +1696,8 @@ int main() {
 		printf("Enter the key\n");
 		scanf("%d",&key);
 
-		printf("Inorder Successor = %d\n", inOrderSuccInBST(trav, key));
+		/*printf("Inorder Successor = %d\n", inOrderSuccInBST(trav, key));*/
+		printf("Inorder Successor = %d\n", inOrderSuccInBST_recur(trav, key)->value);
 		break;
 
 	    case 30:
@@ -1742,6 +1818,11 @@ int main() {
 		print_inorder(trav);
 		break;
 
+	    case 45:
+		trav = root;
+		sum = 0;
+		print_all_root_leaf_paths(trav, &sum);
+		break;
 
 	    default:
 		printf("Invalid option\n");

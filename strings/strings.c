@@ -246,8 +246,8 @@ int main() {
 	printf("MENU OPTIONS\n");
 	printf("1 -- remove spaces from string\n");
 	printf("2-- Check if a given sequence of moves for a robot is circular or not\n");
-	printf("3 -- print all possible words from phone digits\n");
-	printf("4 -- Regex matching problem\n");
+	printf("3 -- Regex matching problem\n");
+	printf("4 -- Palindrome detection with non-alphanumeric characters\n");
 	
 	
 
@@ -267,6 +267,7 @@ int main() {
 		break;
 
 	    case 4:
+		palindrome();
 		
 
 	    default:
