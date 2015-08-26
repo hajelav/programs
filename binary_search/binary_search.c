@@ -111,6 +111,23 @@ int citation(int *A, int l, int h) {
 
 }
 
+int rotated_sorted(int *A, int l, int h) {
+
+    int mid, res;
+
+    mid = (l+h)/2;
+
+    mid = (l+h)/2;
+    if(A[mid] > A[l])
+	res = rotated_sorted(A, mid+1, h);
+    else if(A[mid] < A[l])
+	res = rotated_sorted(A, l, mid);
+    else 
+	res = A[h];
+
+    return res;
+}
+
 int main() {
     char c;
     int choice, n;
@@ -119,6 +136,7 @@ int main() {
 
 	printf("MENU OPTIONS\n");
 	printf("1 -- citation problem\n");
+	printf("2 -- Find the minimum element in rotated sorted array\n");
 
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -132,6 +150,13 @@ int main() {
 		printf("h_index: %d\n", citation(A, 0, n-1));
 		free(A);
 		break;
+
+	    case 2:
+		printf("Enter the length of array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n); 
+		input_array(A, n);
+		printf("Minimum element: %d\n", rotated_sorted(A, 0, n-1));
 
 	    default:
 		break;

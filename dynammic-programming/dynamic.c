@@ -461,6 +461,32 @@ int longest_palindromic_seq(char *S) {
  *http://www.careercup.com/question?id=12945663
  */
 
+/*
+ *1--a 2--b ... 26--z given a digit , return the count of the   possible output eg. '1313' --- 4 acac mac mm acm '101' --1 ja cannot discard any digit .
+ *http://www.glassdoor.com/Interview/1-a-2-b-26-z-given-a-digit-return-the-count-of-the-possible-output-eg-1313-4-acac-mac-mm-acm-101-1-ja-QTN_785194.htm
+
+ Optimal substructure:
+
+ let Map[] be an array of char to int mapping such that
+ 
+ Map[] = {1, 2, 3, 4, ......, 26}
+          a  b  c  d          z
+
+	 Let L[j] denotes the array of no of ways a digit of length j can be represented.
+
+	 L[j] =  1  if (j==1) ie we have only one digit
+	         L[j-1] + 1   if the digit formed by Map[j-1]Map[j] < 26 and Map[j-1][j] ! = "01"
+
+ */
+void digits(){
+
+    //create a map array
+    //TBD
+
+   
+
+}
+
 int main(){
 
 
@@ -484,6 +510,7 @@ int main(){
 	printf("8 -- Egg dropping puzzle\n");
 	printf("9 -- Longest palindromic subsequence\n");
 	printf("10 -- Rod cutting\n");
+	printf("11 -- No of ways a digit can be represented\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -653,6 +680,7 @@ int main(){
 		break;
 
 	    case 11:
+		digits();
 		break;
 	    default:
 		printf("Invalid option\n");

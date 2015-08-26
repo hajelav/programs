@@ -1486,7 +1486,7 @@ int main() {
 	printf("42 -- Minimum depth of the tree\n");
 	printf("43 -- Convert a sorted array into a tree\n");
 	printf("44 -- Convert preorder to BST(deserialize BST)\n");
-	printf("45 -- print all root to leaf paths in a binary tree\n");
+	printf("45 -- print the sum of all root to leaf paths in a binary tree\n");
 	printf("46 -- Sum of all the numbers that are formed from root to leaf paths\n");
 
 	printf("\n");
