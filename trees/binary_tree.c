@@ -421,6 +421,52 @@ void level_order_tree(TREE* node, int lvl, LIST* list) {
 
 } 
 
+void enqueue(TREE** q, int front, int *end) {
+    if(q[front]){
+	if(q[front]->left != NULL){
+	    q[*end] = q[front]->left;
+	    (*end)++;
+	}
+	if(q[front]->right != NULL){
+	    q[*end] = q[front]->right;
+	    (*end)++;
+	}
+    }
+}
+
+void dequeue(TREE **q, int *front) {
+    if(q[*front]){
+	q[*front] = NULL;
+	(*front)++;
+    }
+}
+
+/*
+ *level order traversal of TREE(BFS) using Queue
+ */
+void level_order_traversal(TREE* node) {
+    /*
+     *create a array of pointers to the tree nodes(QUEUE) of arbitary length (say 20)
+     *Maintain two variables front and end. deletions happens from front and insertion happens from rear
+     *the Queue is initialized with root, front points to the first element end end points to the next
+     */
+
+    TREE **q = (TREE**)calloc(sizeof(TREE*), 20);
+    int front = 0;
+    int end = front+1;	
+
+    /*init the queue*/
+    q[0] = node;
+    while(front!=end) {
+	//insert the neighbors of front to the end of  queue
+	enqueue(q, front, &end);
+
+	//print from the front and dequeue 
+	printf("%d ", q[front]->value);
+	dequeue(q, &front);
+    }
+}
+
 /* function to check if a tree is a complete tree or not */
 
 /* for a tree to be complete these 3 conditions should be met
@@ -1488,6 +1534,7 @@ int main() {
 	printf("44 -- Convert preorder to BST(deserialize BST)\n");
 	printf("45 -- print the sum of all root to leaf paths in a binary tree\n");
 	printf("46 -- Sum of all the numbers that are formed from root to leaf paths\n");
+	printf("47 -- level order traversal(BFS) using queue\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1822,6 +1869,11 @@ int main() {
 		trav = root;
 		sum = 0;
 		print_all_root_leaf_paths(trav, &sum);
+		break;
+		
+	    case 47:
+		trav = root;
+		level_order_traversal(trav);
 		break;
 
 	    default:
