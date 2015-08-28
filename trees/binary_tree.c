@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 //define tree structure
 typedef struct TREE {
@@ -1471,9 +1472,38 @@ void print_all_root_leaf_paths(TREE *node, int *sum) {
     *sum -= node->value;
 }
 
+/*
+ *Given a BST with unique values find in a given tree a value closest to a given value X
+ *http://www.careercup.com/question?id=5709025037516800
+ */
+
+int MOD(int x, int y) {
+    return (x-y)>0?(x-y):(0-(x-y));
+}
+TREE* closest(TREE* node, int n, int *close) {
+
+    TREE* temp;
+
+    if(!node)
+	return NULL;
+
+
+    if(node->value > n)
+     temp = closest(node->left, n, close);
+    else if(node->value <= n)
+	temp = closest(node->right, n, close);
+
+    // if the difference between the node value and passed val is less than previously stored value, then update it
+    if(MOD(node->value, n) < *close) {
+	*close = MOD(node->value, n);
+	temp = node;
+    }
+    return temp;
+}
+
 int main() {
     char c;
-    int item,value,num,node1,node2,level,n;
+    int item,value,num,node1,node2,level,n, close;
     TREE  *trav;
     TREE *prev=NULL;
     int a,choice;
@@ -1535,6 +1565,7 @@ int main() {
 	printf("45 -- print the sum of all root to leaf paths in a binary tree\n");
 	printf("46 -- Sum of all the numbers that are formed from root to leaf paths\n");
 	printf("47 -- level order traversal(BFS) using queue\n");
+	printf("48 -- Given a BST with unique values find in a given tree a value closest to a given value X\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1875,6 +1906,16 @@ int main() {
 		trav = root;
 		level_order_traversal(trav);
 		break;
+
+	    case 48:
+		trav = root;
+		TREE *node;
+		close = INT_MAX;
+		printf("Enter no\n");
+		scanf("%d", &n);
+		node = closest(trav, n, &close);
+		printf("Closest node to %d: %d\n", n, node->value);
+		
 
 	    default:
 		printf("Invalid option\n");

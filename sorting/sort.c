@@ -365,6 +365,55 @@ int _3sum(int *A, int l, int h, int sum) {
  */
 
 
+/*
+ *http://www.careercup.com/question?id=4830599367884800
+ given an array of random integers, we have to divide the array into two equal halves, so
+ that the difference in their sum is minimum
+ */
+
+
+/* get of intergers from l to h */
+int get_sum(int *A, int l, int h) {
+    int i, sum = 0;
+    for(i=l;i<h;i++){
+	sum += A[l];
+    }
+    return sum;
+}
+
+int  divide_array(int *A, int l, int h) {
+
+    int mid, sumL, sumR, diff;
+    int min = INT_MAX;
+    //we first sort the array
+    mergesort(A, l, h);
+
+    mid = (l+h)/2;
+    sumL = get_sum(A, l, mid);
+    sumR = get_sum(A, mid+1, h);
+    while (h>=mid+1) {
+	while(l<=mid){
+	diff = h-l;
+
+	min = (sumR-diff) - (sumL + diff);
+	
+	if(((sumL + diff) <= (sumR-diff))){
+	    if (min< ((sumR-diff) - (sumL + diff)))
+		min = (sumR-diff) - (sumL + diff);
+	} else {
+	    if (min< ((sum-diff) - (sumL + diff)))
+		min = (sumR-diff) - (sumL + diff);
+
+
+	} 
+
+
+	}
+    }
+
+}
+
+
 int main() {
     char c;
     int choice, n, m, s;
@@ -380,6 +429,7 @@ int main() {
 	printf("5 -- Median of two sorted arrays(divide and conquer method[logn])\n");
 	printf("6 -- 2 Sum problem\n");
 	printf("7 -- 3 Sum problem\n");
+	printf("8 -- Divide it into two Equal(it is important) partitions\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -463,6 +513,17 @@ int main() {
 
 		printf("3 sum exits: %s\n", _3sum(A, 0, n-1, sum)?"Yes":"No");
 		break;
+
+	    case 8:
+		printf("Enter no of elements in array1\n");
+		scanf("%d", &n);
+		A = create_1Darray(n);
+		input_array(A, n);
+		printf("Min sum : %d\n", divide_array(A, 0, n-1));
+		break;
+
+		
+
 
 
 	    default:
