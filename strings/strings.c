@@ -18,7 +18,6 @@ void removeSpaces(char* str) {
 	}
     }
     str[cnt] = '\0';
-
 }
 
 
@@ -136,36 +135,40 @@ void remove_dup_slashes( char *str) {
 }
 
 
-void print_word_util(char **S, char *str, int n, int j) {
-
-
-     int i;
-
-    if(j>n){
-	return;
-    }
-
-    str[j] =  S[i][j]; 
-    printf("%s\n", str)
-
-	
-
-    for(j=0;j<n;j++){
-	print_word_util(S, str, n, i, j++); 
-
-    }
-
-
-
-}
+/*
+ *void print_word_util(char **S, char *str, int n, int j) {
+ *
+ *
+ *     int i;
+ *
+ *    if(j>n){
+ *        return;
+ *    }
+ *
+ *    str[j] =  S[i][j]; 
+ *    printf("%s\n", str)
+ *
+ *        
+ *
+ *    for(j=0;j<n;j++){
+ *        print_word_util(S, str, n, i, j++); 
+ *
+ *    }
+ *
+ *
+ *
+ *}
+ */
 
 void print_words(char *S) {
 
-    int len;
-    len = strlen(S);
+    /*int len;*/
+    /*
+     *len = strlen(S);
+     */
 
     //create an array to store  the words
-    char *str = (char*)malloc(sizeof(char) * (len+1));
+    /*char *str = (char*)malloc(sizeof(char) * (len+1));*/
 
     /*print_word_util(&S, str, len, i, j);*/
 
@@ -179,7 +182,7 @@ int regex_match(char* str, char *pat) {
 
 
 
-
+return 0;
 }
 
 
@@ -234,7 +237,59 @@ sol :
  *Output(most beautiful string) : ecdba
  */
 
+void palindrome() {
 
+}
+
+/*
+ *http://www.careercup.com/question?id=5665972218232832
+ */
+//push char c in a stack(N) with stack pointer as sp
+void push(char *N, char c, int *sp) {
+    N[*sp] = c;
+    *sp += 1;
+}
+
+//pop n elements from stack N , with stack pointer sp
+void pop(char *N, int n, int *sp) {
+
+    while(n>0){
+	N[*sp] = '\0';
+	n--;
+	*sp -= 1;
+    }
+}
+
+char* normalize(char *S) {
+
+    int len, i=0;
+
+    //stack pointer
+    int sp = 0;
+    char *N;
+    len = strlen(S);
+    if(len < 3)
+	return NULL;
+    //create space for normalized string
+    N = (char*)calloc(sizeof(char), len+1);
+
+    while(*S){
+	//if you get a ".", check if the pattern is "../" or "./"
+	if(S[i] == '.') {
+	    if(strncmp(S, "./", 2) == 0){
+		pop(N, 2, &sp); //pop last two chars 
+		S = S+2;  //move 2 char fwd if the pattern is "./" 
+	    } else if(strncmp(S, "../", 3) == 0){
+		S = S+3; //move 3 chars fwd if pattern is "../"	
+	    }
+	} else {
+	    push(N, S[i], &sp);
+	    S++;
+	}
+    }
+
+    return N;
+}
 
 int main() {
     /*char c;*/
@@ -248,6 +303,7 @@ int main() {
 	printf("2-- Check if a given sequence of moves for a robot is circular or not\n");
 	printf("3 -- Regex matching problem\n");
 	printf("4 -- Palindrome detection with non-alphanumeric characters\n");
+	printf("5 -- Normalize the path\n");
 	
 	
 
@@ -268,6 +324,13 @@ int main() {
 
 	    case 4:
 		palindrome();
+		break;
+		
+	    case 5:
+		printf("Enter path\n");
+		fgets(path, 128, stdin);
+		printf("Normalized path: %s\n", normalize(path));
+		break;
 		
 
 	    default:

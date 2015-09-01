@@ -439,6 +439,52 @@ void one_edit_dist() {
 
 
 }
+
+/*
+ *http://www.careercup.com/question?id=5085262709260288
+ */
+void num_problem_util(char A[][6], int i, int c, int n, char *path, int k, int l) {
+    int j;
+
+    if(k==n) {
+	//we print only at the leaves
+	printf("%s ", path);
+	return;;
+    }
+
+    for(j=0;j<c;j++) {
+	if(A[i][j] != 'x') {
+	    path[l] = A[i][j];
+	    num_problem_util(A, A[i][j]-'0', c, n, path, k+1, l+1);
+	}
+    }
+}
+void number_problem() {
+   //maintain the state information, ie for each digit we store the number of permissible next digits
+   char state[][6] = { {'4', '5', '6', '7', '8', '9'},   // digit 0
+   	              {'5', '6', '7', '8', '9', 'x'},    // digit 1
+		      {'6', '7', '8', '9', 'x', 'x'},
+		      {'7', '8', '9', 'x', 'x', 'x'},
+		      {'0', '8', '9', 'x', 'x', 'x'},
+   		      {'0', '1', '9', 'x', 'x', 'x'},
+		      {'0', '1', '2', 'x', 'x', 'x'},
+		      {'0', '1', '2', '3', 'x', 'x'},
+		      {'0', '1', '2', '3', '4', 'x'},
+		      {'0', '1', '2', '3', '4', '5'} }; // digit 9
+
+   /*
+    * now we create a path array array to store all the valid combination of the arrays
+    * the length of the array will be 6 ( max number of column in state array)
+    */
+
+   char *path = (char*)malloc(sizeof(char)*6);
+   int n;
+   printf("Enter length of digits\n");
+   scanf("%d", &n);
+
+   num_problem_util(state, 1, 6, n, path, 0, 0);
+}
+
 int main(){
 
 
@@ -460,6 +506,7 @@ int main(){
 	printf("7 -- All possible sequences from a number keypad in phone\n");
 	printf("8 -- check if a string is palindrome((lowercase and uppercase characters are considered equal -special characters are ignored)\n");
 	printf("9 -- check if the two words are one edit away from each other. i.e one word can be formed from another by inserting/ deleting/replacing one character\n");
+	printf("10 --Find how many numbers of length n are there such that each number is at least 4 smaller/greater than the number before and after it.\n");
 
 
 	printf("\n");
@@ -519,8 +566,12 @@ int main(){
 		keypad();
 		break;
 
-	    case 8:
+	    case 9:
 		one_edit_dist();
+		break;
+
+	    case 10:
+		number_problem();
 		break;
 
 	}

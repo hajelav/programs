@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <limits.h>
+
 
 int* create_1Darray(int n) {
     int *A;
@@ -46,6 +48,11 @@ void swap(int *A, int idx1, int idx2) {
 int MIN(int a, int b) {
 
     return a>b?b:a;
+
+}
+int MAX(int a, int b) {
+
+    return a>b?a:b;
 
 }
 
@@ -279,40 +286,39 @@ int order_statistic(int  *A, int low , int high, int st) {
     return ret;
 }
 
+/*
+ *note : this only works when size of both arrays are same
+ To be completed
+
+ */
 int median_sorted_arrays(int *A, int *B, int lA, int hA, int lB, int hB) {
 
    int midA, midB;
-   int rightAleftB;
-   /*int leftArightB;*/
+   int median;
 
+   
 
-   if(lA>=hA && lB>=hB){
-       return (MIN(A[lA], B[lB]));
-
+   if(hA-lA == 1 && hB-lB == 1){
+       //base case when both A and B have 2 elements
+       return (MIN(MAX(A[lA], B[lB]), MIN(A[hA], B[hB])));
    }
-   /*if((lA>=hA)) {*/
-       /*return A[lA]; */
-   /*}*/
 
-   /*if (lB>=hB) {*/
-       /*return B[lB];*/
-   /*}*/
+   //if there is only one element, in both arrays, then return the first element of first array
+   if(hA-lA == 0 && hB-lB == 0){
+       return A[lA];
+   }
 
    midA = (lA+hA)/2;
    midB = (lB+hB)/2;
 
    if(A[midA] < B[midB]){
-       rightAleftB = median_sorted_arrays(A, B, midA+1, hA, lB, midB-1);   
+       median = median_sorted_arrays(A, B, midA, hA, lB, midB);   
    } else if (A[midA] > B[midB]) {
-       /*leftArightB = median_sorted_arrays(A, B, lA, midA-1, midB+1, hB);   */
-       rightAleftB = median_sorted_arrays(A, B, lA, midA-1, midB+1, hB);   
+       median = median_sorted_arrays(A, B, lA, midA, midB, hB);  
    } else {
        return A[midA];
    }
-
-   //return min of rightAleftB, leftArightB
-    /*return(MIN(rightAleftB, leftArightB));*/
-    return(rightAleftB);
+    return median;
 }
 
 int _2sum(int *A, int i, int j, int sum) {
@@ -401,8 +407,8 @@ int  divide_array(int *A, int l, int h) {
 	    if (min< ((sumR-diff) - (sumL + diff)))
 		min = (sumR-diff) - (sumL + diff);
 	} else {
-	    if (min< ((sum-diff) - (sumL + diff)))
-		min = (sumR-diff) - (sumL + diff);
+	    /*if (min< ((sum-diff) - (sumL + diff)))*/
+		/*min = (sumR-diff) - (sumL + diff);*/
 
 
 	} 
@@ -410,7 +416,15 @@ int  divide_array(int *A, int l, int h) {
 
 	}
     }
+    //TBD
+return 0;
+}
 
+
+int NthOfSortedArrays(){
+
+    /* TBD */
+    return 0;
 }
 
 
@@ -430,6 +444,7 @@ int main() {
 	printf("6 -- 2 Sum problem\n");
 	printf("7 -- 3 Sum problem\n");
 	printf("8 -- Divide it into two Equal(it is important) partitions\n");
+	printf("9 -- Given two sorted arrays find the element which would be N-th in their merged and sorted combination.\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
