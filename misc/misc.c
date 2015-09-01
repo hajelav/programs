@@ -443,7 +443,7 @@ void one_edit_dist() {
 /*
  *http://www.careercup.com/question?id=5085262709260288
  */
-void num_problem_util(char A[][6], int i, int c, int n, char *path, int k, int l) {
+void num_problem_util(char A[][6], int i, int c, int n, char *path, int k) {
     int j;
 
     if(k==n) {
@@ -454,10 +454,14 @@ void num_problem_util(char A[][6], int i, int c, int n, char *path, int k, int l
 
     for(j=0;j<c;j++) {
 	if(A[i][j] != 'x') {
-	    path[l] = A[i][j];
-	    num_problem_util(A, A[i][j]-'0', c, n, path, k+1, l+1);
+	    path[k] = A[i][j];
+	    num_problem_util(A, A[i][j]-'0', c, n, path, k+1);
 	}
     }
+}
+
+void clear_path(char *path){
+    memset(path, '\0', strlen(path)+1);
 }
 void number_problem() {
    //maintain the state information, ie for each digit we store the number of permissible next digits
@@ -477,12 +481,35 @@ void number_problem() {
     * the length of the array will be 6 ( max number of column in state array)
     */
 
-   char *path = (char*)malloc(sizeof(char)*6);
-   int n;
+   char *path = (char*)malloc(sizeof(char)*(6+1));
+   int n, i;
    printf("Enter length of digits\n");
    scanf("%d", &n);
 
-   num_problem_util(state, 1, 6, n, path, 0, 0);
+   for(i=1;i<=9;i++){
+       path[0] = '0'+i;
+       num_problem_util(state, i, 6, n, path, 1);
+       clear_path(path);
+   }
+}
+
+
+void combination() {
+
+    int n, r;
+
+    printf("Enter the no of objects\n");
+    scanf("%d", &n);
+
+    printf("Enter the no of objects to be selected\n");
+    scanf("%d", &r);
+
+    /*
+     *in order to select r chars in a string of n chars, we store the string 
+     */
+    printf("Enter string\n");
+
+
 }
 
 int main(){
@@ -506,7 +533,8 @@ int main(){
 	printf("7 -- All possible sequences from a number keypad in phone\n");
 	printf("8 -- check if a string is palindrome((lowercase and uppercase characters are considered equal -special characters are ignored)\n");
 	printf("9 -- check if the two words are one edit away from each other. i.e one word can be formed from another by inserting/ deleting/replacing one character\n");
-	printf("10 --Find how many numbers of length n are there such that each number is at least 4 smaller/greater than the number before and after it.\n");
+	printf("10 -- Find how many numbers of length n are there such that each number is at least 4 smaller/greater than the number before and after it.\n");
+	printf("11 -- No of ways r objects can be choosen  from n objects(n C r)\n");
 
 
 	printf("\n");
@@ -572,6 +600,14 @@ int main(){
 
 	    case 10:
 		number_problem();
+		break;
+		 
+	    case 11:
+		combination();
+		break;
+
+	    default:
+		printf("invalid choice\n");
 		break;
 
 	}
