@@ -75,6 +75,14 @@ char ** create_2Dchar_array(int r, int c) {
     return A;
 }
 
+
+char* create_1Dchar_array(int n) {
+    char* temp;
+    temp = (char*)calloc(sizeof(char), n+1);
+    temp[n] = '\0';
+    return temp?temp:NULL;
+}
+
 void print_2Dmatrix(int **T, int xlen, int ylen) {
 
     int i, j;
@@ -486,6 +494,7 @@ void number_problem() {
    printf("Enter length of digits\n");
    scanf("%d", &n);
 
+   //scan through all the number starting from 1 and print valid digit combinations
    for(i=1;i<=9;i++){
        path[0] = '0'+i;
        num_problem_util(state, i, 6, n, path, 1);
@@ -494,9 +503,33 @@ void number_problem() {
 }
 
 
-void combination() {
+int get_one_count(int n) {
+    int cnt=0;
+    while(n>0){
+	if(n&1)
+	    cnt++;
+	n = n>>1;
+    }
+    return cnt;
+}
 
-    int n, r;
+void print(char *S, int n) {
+    int len;
+    len = strlen(S)-1;
+    while(n>0){
+	if(n&1) {
+	    printf("%c", S[len]);
+	}
+	len--;
+	n = n>>1;
+    }
+    printf("\n");
+}
+
+
+void combination() {
+    int n, r, i;
+    char *str;
 
     printf("Enter the no of objects\n");
     scanf("%d", &n);
@@ -504,12 +537,17 @@ void combination() {
     printf("Enter the no of objects to be selected\n");
     scanf("%d", &r);
 
-    /*
-     *in order to select r chars in a string of n chars, we store the string 
-     */
     printf("Enter string\n");
+    str = create_1Dchar_array(n);
+    scanf("%s", str);
 
-
+    for(i=1;i<pow(2, n);i++) {
+	//if the count of one in all numbers between 1 to 2^n is r
+	if(get_one_count(i) == r){
+	    print(str, i);
+	}
+    }
+    free(str);
 }
 
 int main(){
