@@ -550,6 +550,16 @@ void combination() {
     free(str);
 }
 
+/*
+ *given n rectangles in a 2D plane, represented by its minimum and maximum x and y cordinates,( ie x1, y1 and x2, y2)
+ * write a function which returns true if there exists an overlap between any two rectangles
+ *
+ * Algorithm :  maintain two seperate interval trees for each x and y coordinates , 
+ * 	      As you process each rectangle, do an INTERVAL_SEARCH( pg 348, CLRS) on X coordinate and Y coordinates
+ *              if you find any any rectangle ( ie x1-x2 and y1-y2) whose both x and y coordinates overlaps with their 
+ *              respective interval trees, then return true , else return false
+ */
+
 int main(){
 
 
