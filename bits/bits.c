@@ -1,7 +1,8 @@
 /*
  *Things to remember for bitwise operators
 
- *1. Subtraction of 1 from a number toggles all the bits (from right to left) till the rightmost set bit(including the righmost set bit). So if we subtract a number by 1 and do bitwise & with itself (n & (n-1)), we unset the righmost set bit. 
+ * 1. Subtraction of 1 from a number toggles all the bits (from right to left) till the rightmost set bit(including the righmost set bit). So if we subtract a number by 1 and do bitwise & with itself (n & (n-1)), we unset the righmost set bit. 
+   2. (n & -n ) gives the position of first set bit in number n 
  *
  */
 
