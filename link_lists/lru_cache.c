@@ -17,7 +17,7 @@ typedef struct QNODE {
  */
 
 typedef struct HASH {
-    int capacity; // no of types of pages that can be requested. for eg 0-9 in this implementation
+    int capacity; // no of pages that can be requested. for eg 0-9 in this implementation
     QNODE **arr;  //ptr to array of pointers to QNODEs 
 } HASH;
 

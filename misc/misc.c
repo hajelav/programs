@@ -560,13 +560,40 @@ void combination() {
  *              respective interval trees, then return true , else return false
  */
 
+
+double  my_pow(double x, int n) {
+
+    double temp;
+    if(n==0)
+	return 1;
+
+    temp = my_pow(x, n/2);
+	if(n%2 == 0)
+	    return temp*temp;
+	else 
+	    return x*temp*temp;
+}
+
+double my_pow_util(double x, int n) {
+
+    if(x == 0)
+	return 0;
+
+    if(n > 0){
+	return my_pow(x, n);
+    } else {
+	return 1/my_pow(x, n);
+    }
+}
+
 int main(){
 
 
     char c;
     int choice;
     double num;
-    int n1;
+    int n1, n;
+    double x;
     int *A;
     char str[100];
     do {
@@ -583,6 +610,7 @@ int main(){
 	printf("9 -- check if the two words are one edit away from each other. i.e one word can be formed from another by inserting/ deleting/replacing one character\n");
 	printf("10 -- Find how many numbers of length n are there such that each number is at least 4 smaller/greater than the number before and after it.\n");
 	printf("11 -- No of ways r objects can be choosen  from n objects(n C r)\n");
+	printf("12 -- implement POW function\n");
 
 
 	printf("\n");
@@ -652,6 +680,12 @@ int main(){
 		 
 	    case 11:
 		combination();
+		break;
+	    case 12:
+
+		printf("enter x and n\n");
+		scanf("%lf%d", &x, &n);
+		printf("%lf\n", my_pow_util(x, n));
 		break;
 
 	    default:
