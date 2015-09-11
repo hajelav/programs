@@ -586,6 +586,66 @@ double my_pow_util(double x, int n) {
     }
 }
 
+/*
+ *internationalization problem
+ *http://www.careercup.com/question?id=5733696185303040
+ */
+
+void print_i18n(char *S, int i, int j, int n) {
+
+    int k=0;
+
+    while(k<=i){
+	printf("%c", S[k]);
+	k++;
+    }
+    printf("%d", j-(i+1));
+    while(j<=n){
+	printf("%c", S[j]);
+	j++;
+    }
+    printf("\n");
+}
+
+void i18n(char *S, int i, int j, int n) {
+
+    if(j-i == 1)
+	return;
+
+    print_i18n(S, i, j, n);
+
+    i18n(S, i+1, j, n);
+    i18n(S, i, j-1, n);
+}
+
+/*
+ *wildcard problem
+ *http://www.careercup.com/question?id=5759440689037312
+ */
+
+void print_wildcard(char *S, char *res, int i, int n) {
+
+    if(i>n){
+	/*res[i] = S[i];*/
+	printf("%s\n", res);
+	return;
+    }
+
+    if(S[i]!='?'){
+	res[i] = S[i];
+	print_wildcard(S, res, i+1, n);
+
+    }else {
+	S[i] = '0';
+	res[i] = S[i];
+	print_wildcard(S, res, i+1, n);
+	S[i] = '1';
+	res[i] = S[i];
+	print_wildcard(S, res, i+1, n);
+	S[i] = '?'; //move the string back to the origial character
+    }
+}
+
 int main(){
 
 
@@ -595,6 +655,7 @@ int main(){
     int n1, n;
     double x;
     int *A;
+    char *S, *res;
     char str[100];
     do {
 
@@ -611,6 +672,9 @@ int main(){
 	printf("10 -- Find how many numbers of length n are there such that each number is at least 4 smaller/greater than the number before and after it.\n");
 	printf("11 -- No of ways r objects can be choosen  from n objects(n C r)\n");
 	printf("12 -- implement POW function\n");
+	printf("13 -- internationalization\n");
+	printf("14 -- wildcard\n");
+	
 
 
 	printf("\n");
@@ -686,6 +750,27 @@ int main(){
 		printf("enter x and n\n");
 		scanf("%lf%d", &x, &n);
 		printf("%lf\n", my_pow_util(x, n));
+		break;
+	    case 13:
+		printf("Enter string len\n");
+		scanf("%d", &n);
+
+		printf("Enter string\n");
+		S = create_1Dchar_array(n);
+		scanf("%s", S);
+		i18n(S, 0, n-1, n-1);
+		break;
+
+	    case 14:
+		printf("Enter string len\n");
+		scanf("%d", &n);
+
+		printf("Enter string\n");
+		S = create_1Dchar_array(n);
+		scanf("%s", S);
+		//create a result string to print the path
+		res = create_1Dchar_array(n);
+		print_wildcard(S, res, 0, n-1);
 		break;
 
 	    default:

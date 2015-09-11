@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
+#include <limits.h>
 
 /*function pointer of min/max heapify functions*/
 
@@ -128,15 +129,78 @@ int rotated_sorted(int *A, int l, int h) {
     return res;
 }
 
+int occurence(int *A, int l, int h, int num) {
+
+    int res, mid;
+
+    if(l>=h)
+	return l;
+    
+    mid = (l+h)/2;
+    if(A[mid] < num)
+	res = occurence(A, mid+1, h, num);
+    else 
+	res = occurence(A, l, mid, num);
+	return res;
+}
+
+/*
+ *http://www.careercup.com/question?id=5751441480220672
+ * In an array, find two numbers so that
+ * a) the difference between them is 1
+ * b) most number of elements in the array lie between them.
+ *  
+ */
+
+
+ float search(float *A, int l, int h, float num) {
+
+     int res, mid;
+     if(l>=h)
+	 return l;
+
+     mid = (l+h)/2;
+     if(A[mid] < num)
+	 res = search(A, mid+1, h, num);
+     else
+	 res = search(A, l , mid, num);
+
+	     return res;
+
+ }
+
+ void range(float *A, int n) {
+
+     int i;
+     float count = LONG_MIN;
+
+     for(i=0;i<n-1;i++){
+	 if(search(A, i+1, n, A[i]+1) - i > count)
+	     count = A[i];
+     }
+
+ }
+
+
+/*
+ *rotate the array n times
+  http://www.careercup.com/question?id=5695475640434688
+  TBD
+*/
+
 int main() {
     char c;
-    int choice, n;
+    int choice, n, num;
     int  *A;
+    float Arr[6] = {12.3, 12.5, 12.9, 13.3, 13.7, 14.9};
     do {
 
 	printf("MENU OPTIONS\n");
 	printf("1 -- citation problem\n");
 	printf("2 -- Find the minimum element in rotated sorted array\n");
+	printf("3 -- Find the number of occurances of a given number in a sorted array\n");
+	printf("4 -- Max range in an array\n");
+	
 
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -157,6 +221,22 @@ int main() {
 		A = create_1Darray(n); 
 		input_array(A, n);
 		printf("Minimum element: %d\n", rotated_sorted(A, 0, n-1));
+
+	    case 3:
+		printf("Enter the length of array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n); 
+		input_array(A, n);
+		printf("Enter the number\n");
+		scanf("%d", &num);
+		printf("Index: %d\n", occurence(A, 0, n-1, num));
+		break;
+
+	    case 4:
+		range(Arr, 6);
+		break;
+
+
 
 	    default:
 		break;

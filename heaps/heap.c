@@ -252,6 +252,39 @@ void median(){
  *    5. update K = K-max
  *    6. goto step 2 , until K = max
  *    7. while looping continue the no of times the max was updated. this is the min no of element required.8*/
+
+/*
+ *google interview questions
+ *http://www.careercup.com/question?id=5658326589243392
+ *Given a max-heap represented as an array, return the kth largest element without modifying the heap. I was asked to do it in linear time, but was told it can be done in log time.
+ *
+ *algorithm :
+ *1. Let A be the the orginal max-heap array
+ *2. Initially queue is empty and rank = 0
+ *3. Insert root(max element of A) in queue
+ *4. while(Queue!= empty){
+ *
+ * //add queue currents node's left  and right child to the queue
+ * enqueue(leftchild);
+ * enqueue(rightchild);
+ * //heapify the queue
+ * heapify(Queue);
+ *
+ * //delete node from queue (deletion is done from front and insertion from tail, like BFS)
+ * dequeue(Queue);
+ *
+ * rank++;
+ *
+ * if(rank == ith order statsictic)
+ *     return the dequeued element
+ *
+ *}
+ *
+ *complexity : since to find Kth largest we atleast need to dequeue K element , and for each element , we need to heapify the 
+ *queue which take log(n) time , n-> no of elements in the queue at a given time,
+ *      so total time = Klog(n)
+ */
+
 int main() {
     char c;
     int choice, n;
