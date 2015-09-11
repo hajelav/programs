@@ -428,6 +428,44 @@ int NthOfSortedArrays(){
 }
 
 
+/*
+ *radix sorting
+ *https://www.youtube.com/watch?v=m-2jU13HuBU
+ *
+ *Example: 
+ *
+ *sort the sequence COW, DOG, SEA, RUG, ROW, MOB, BOX, TAB, BAR, EAR
+ *
+ *STEP 1:  start from the rightmost char, and but the chars into the buckets( 0- 25 buckets from A, Z)
+ *   BUCKET		STRINGS
+ *    A: 		SEA
+ *    B: 		MOB, TAB
+ *    G:		DOG, RUG
+ *    R:		BAR, EAR
+ *    W:		COW, ROW
+ *    X:		BOX
+ *
+ *STEP 2: Repeat the same process for the 2nd char from right
+ *   BUCKET	STRINGS
+ *   A:		TAB, BAR, EAR
+ *   E:		SEA,
+ *   O:		MOB, DOG, COW, ROW, BOX
+ *   U:		RUG
+ *
+ *STEP 2: Repeat the same process for the 3rd char from right(continue this process till you reach the end)
+ *   BUCKET	STRINGS
+ *   B:		BAR, BOX
+ *   E:		EAR
+ *   C:		COW,
+ *   D:		DOG
+ *   M:		MOB
+ *   R:		ROW, RUG
+ *   S:		SEA
+ *   T:		TAB
+ *
+ *   At the end you get the sorted order
+ */
+
 int main() {
     char c;
     int choice, n, m, s;
