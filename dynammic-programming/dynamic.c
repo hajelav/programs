@@ -487,6 +487,18 @@ void digits(){
 
 }
 
+/*
+ *maximum sum contiguos array
+ *recurrence
+ *
+ *Let S be the max sum array such that S[i] be the max sum contiguos sum till i
+ *A be the original array
+ *
+ *recurrence :  
+ *
+ *S[j] = max(S[j-1]+A[j], A[j])
+ */
+
 int main(){
 
 

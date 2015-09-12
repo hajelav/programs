@@ -483,6 +483,7 @@ int main() {
 	printf("7 -- 3 Sum problem\n");
 	printf("8 -- Divide it into two Equal(it is important) partitions\n");
 	printf("9 -- Given two sorted arrays find the element which would be N-th in their merged and sorted combination.\n");
+	printf("10 -- Maximum contigous subarray using divide and conquer(nlogn)\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
