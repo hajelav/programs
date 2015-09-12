@@ -19,6 +19,21 @@ void init_array(int *arr, int n){
     }
 }
 
+int* create_1Darray(int n) {
+    int *A;
+    A = (int*)calloc(n, sizeof(int));
+
+    if(!A)
+	return NULL;
+    return A;
+}
+void input_1Darray(int *A, int n) {
+
+    int i;
+    for(i=0;i<n;i++){
+	scanf("%d", &A[i]);
+    }
+}
 int** create_2Darray(int xlen, int ylen) {
     int i;
     int **T = (int**)calloc(xlen, sizeof(int*));
@@ -28,6 +43,23 @@ int** create_2Darray(int xlen, int ylen) {
     return T;
 }
 
+char ** create_2Dchar_array(int r, int c) {
+
+    int i;
+    char **A = (char**)malloc(sizeof(char*)*r);
+    for(i=0;i<r;i++){
+	A[i] = (char*)malloc(sizeof(char)*(c+1));
+    }
+    return A;
+}
+
+
+char* create_1Dchar_array(int n) {
+    char* temp;
+    temp = (char*)calloc(sizeof(char), n+1);
+    temp[n] = '\0';
+    return temp?temp:NULL;
+}
 void print_2Darray(int **T, int xlen, int ylen) {
 
     int i, j;
@@ -499,6 +531,47 @@ void digits(){
  *S[j] = max(S[j-1]+A[j], A[j])
  */
 
+
+/*
+ *cutting the rod
+ *http://www.geeksforgeeks.org/dynamic-programming-set-13-cutting-a-rod/
+ *Recurrence:
+ *
+ *L = rod lengths array
+ *P = price array
+ *M output array, where M[j] is the max value obtained for length j of rod
+ *
+ *base case: when the rod len is 1(j==1), then we can only have P[1] as the maximum length
+ *
+ *Now for any length j of rod , the maximum price(M[j]) that we can get :
+ *        Max of ( price of rod of jth len(P[j]) ,  for all lengths less than j( ie 0<i<j) P[i] + M[j-i]
+ */
+
+
+int rod_cutting() {
+    int l, p; //prices and 
+    int *L; // lengths of rod array
+    int *P; // price array
+    int *M; // output array(containing max value of a given length of rod
+
+    printf("Enter the 'rod length' array length\n");
+    scanf("%d", &l);
+    L = create_1Darray(l); 
+    input_1Darray(L, l);
+
+    printf("Enter the price array length\n");
+    scanf("%d", &p);
+    P = create_1Darray(p); 
+    input_1Darray(L, p);
+
+    //create an output array
+    M  = create_1Darray(p); 
+
+//TBD
+   
+
+}
+
 int main(){
 
 
@@ -523,6 +596,7 @@ int main(){
 	printf("9 -- Longest palindromic subsequence\n");
 	printf("10 -- Rod cutting\n");
 	printf("11 -- No of ways a digit can be represented\n");
+	printf("12 -- Cutting the rod\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -693,6 +767,9 @@ int main(){
 
 	    case 11:
 		digits();
+
+	    case 12:
+		rod_cutting();
 		break;
 	    default:
 		printf("Invalid option\n");
