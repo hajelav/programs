@@ -385,8 +385,6 @@ void get_island() {
     printf("tot islands: %d\n", tot_islands);
     free(A);
     free(V);
-    
-
 }
 
 /*
@@ -404,7 +402,6 @@ void get_island() {
 /*
  *Given a sequence of numbers (34128) and an input map such as a dial pad on a phone (2-&gt;[a,b,c], 3-&gt;[d,e,f], 4-&gt;[g,h,i]) write an algorithm to return all possible words from the sequence. E.g. Input: 232 Output: [ada, adb, adc, aea, aeb, aec, afa, afb, afc, bda, bdb, bdc, bea, beb, bec, bfa, bfb, bfc, cda, cdb, cdc, cea, ceb, cec, cfa, cfb, cfc]  
  */
-
 
 void keypad_util(char **A, int i, int r, int c, char *str) {
     int j;
@@ -442,6 +439,50 @@ void keypad() {
     keypad_util(A, 0, r, c, str);
 }
 
+
+void permutation_util(char **A, char *V, int r, int c, int i, char *str) {
+    int j;
+
+    if(i==r) {
+	//we print only at the leaves
+	printf("%s ", str);
+	return;;
+    }
+
+    for(j=0;j<c;j++) {
+	if(!V[j]) {
+	    V[j] = 1;
+	    str[i] = A[i][j];
+	    permutation_util(A, V, r, c, i+1, str);
+	    V[j] = 0;
+	}
+    }
+}
+
+void permutation() {
+
+    char **A;
+    char *str; //storing the path 
+    char *V; // array to remember visited node 
+    int r; //length of string
+
+    printf("enter string length\n");
+    scanf("%d", &r);
+
+
+    A = create_2Dchar_array(r, r);
+    input_2Dchar_array(A, r, r);
+    print_2Dchar_array(A, r, r);
+
+
+    str = (char*)malloc(sizeof(char)*(r+1));
+    str[r] = '\0';
+    V = create_1Dchar_array(r);
+    permutation_util(A, V, r, r, 0, str);
+
+    free(A);
+    free(V);
+}
 
 void one_edit_dist() {
 
@@ -646,6 +687,11 @@ void print_wildcard(char *S, char *res, int i, int n) {
     }
 }
 
+/*
+ *snake and ladder problem
+ *http://www.geeksforgeeks.org/snake-ladder-problem-2/
+ */
+
 int main(){
 
 
@@ -674,6 +720,7 @@ int main(){
 	printf("12 -- implement POW function\n");
 	printf("13 -- internationalization\n");
 	printf("14 -- wildcard\n");
+	printf("15 -- permutations of a string\n");
 	
 
 
@@ -771,6 +818,10 @@ int main(){
 		//create a result string to print the path
 		res = create_1Dchar_array(n);
 		print_wildcard(S, res, 0, n-1);
+		break;
+
+	    case 15:
+		permutation();
 		break;
 
 	    default:

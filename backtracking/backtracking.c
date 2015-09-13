@@ -69,6 +69,9 @@ void input_string(char *str) {
     scanf("%s", str);
 }
 
+/*
+ *permutations of a string
+ */
 void string_permut(char *str, int l, int h) {
 
     int i;

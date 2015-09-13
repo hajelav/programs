@@ -192,7 +192,7 @@ int isVisited(GRAPH *g, int idx) {
     return(g[idx].processed);
 }
 
-/* DFS */
+/* DFS : O(V+E) */
 void DFS(GRAPH *g, int vtx){
 
     GNODE *trav;
@@ -275,7 +275,12 @@ int queue_empty(int *q, int n) {
     return 1;
 }
 
-/* BFS  for directed/undirected graphs*/
+/*
+ *BFS  for directed/undirected graphs
+ *Note : BFS can also be used to compute the shortest path from  a single source to a destination, when all 
+ *edge lenghts of a graph is equal(say 1). This property is used to solve snake and ladder problem
+ */
+
 void BFS(GRAPH *g, int vtx, int n) {
 
     //create a queue
@@ -322,6 +327,7 @@ void BFS(GRAPH *g, int vtx, int n) {
  *Dijiktra Algorithm : computes single source shortest path for non-negative edge graph
  1. does not work on non negative edge costs
  2. not very distributed, ie not good for applications where the entire graph cannot fit into the main memory(eg internet routing)
+ 3. Dijikra algo is used when the edge lengths are different
  */
 
 
@@ -386,6 +392,10 @@ void topological_sort(GRAPH *g, int n) {
     }
 }
 
+void single_source_shortest_path(){
+
+}
+
 int main() {
     char c;
     int choice, n, i, j,  adj, elen, vtx;
@@ -401,6 +411,7 @@ int main() {
 	printf("7 -- Topological sorting\n");
 	printf("8 -- Kruskal's MST\n");
 	printf("9 -- Print all paths from source to destination\n");
+	printf("10 -- single source shortest path using BFS(when all edge len = 1)\n");
 
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -442,6 +453,10 @@ int main() {
 	    case 7:
 		topological_sort(g, n);
 		print_topological_order(g, n);
+		break;
+
+	    case 10:
+		single_source_shortest_path();
 		break;
 
 
