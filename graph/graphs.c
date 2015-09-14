@@ -277,8 +277,8 @@ int queue_empty(int *q, int n) {
 
 /*
  *BFS  for directed/undirected graphs
- *Note : BFS can also be used to compute the shortest path from  a single source to a destination, when all 
- *edge lenghts of a graph is equal(say 1). This property is used to solve snake and ladder problem
+ *Note : BFS can also be used to compute the shortest path from  a single source to all destinations, when all 
+ *edge lenghts of a graph are equal(say 1). This property is used to solve snake and ladder problem(http://www.geeksforgeeks.org/snake-ladder-problem-2/)
  */
 
 void BFS(GRAPH *g, int vtx, int n) {
@@ -395,6 +395,14 @@ void topological_sort(GRAPH *g, int n) {
 void single_source_shortest_path(){
 
 }
+
+
+/*
+ *meuseum problem: http://www.careercup.com/question?id=5630807089610752
+ *this can be solved running BFS (ie using the variant of BFS where we use BFS to find single source shortest path.
+ *refer to single_source_shortest_path())
+ *we run BFS from each guard position,  and update the distance in the array only if the new distance is less than the old one
+ */
 
 int main() {
     char c;
