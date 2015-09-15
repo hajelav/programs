@@ -284,7 +284,7 @@ int queue_empty(int *q, int n) {
 void enqueue(GRAPH** q, GRAPH* g, int front, int *end) {
     GNODE *trav;
 
-    if(*q == NULL)
+    if(q[front] == NULL)
 	return;
 
     //get the neigbor vertices of q[front]
