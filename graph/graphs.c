@@ -18,7 +18,7 @@ typedef struct graph {
     GNODE *gnode;
     int torder; // topological order of the vertex
     unsigned int processed:1; //visited
-    
+    int dist;
 } GRAPH;
 
 typedef struct edge {
@@ -44,6 +44,7 @@ void init_graph(GRAPH *g, int n){
 	g[i].idx = i;
 	g[i].torder = 0;
 	g[i].gnode = NULL;
+	g[i].dist = 0;
     }
 }
 
@@ -242,7 +243,6 @@ void DFS_cycle(GRAPH *g, int vtx, int *path, int *cycle) {
 
 int  detect_cycle(GRAPH *g, int n) {
 
-
     int cycle = 0, i;
     /*
      *path array:if we havent visited a vertex, we add 1 to the corresponding index of the the vertex; eg path[vertex] = 1
@@ -281,47 +281,6 @@ int queue_empty(int *q, int n) {
  *edge lenghts of a graph are equal(say 1). This property is used to solve snake and ladder problem(http://www.geeksforgeeks.org/snake-ladder-problem-2/)
  */
 
-void BFS(GRAPH *g, int vtx, int n) {
-
-    //create a queue
-    int *q, i;
-    int head = 1, tail = 0;
-    GNODE *trav;
-
-    q  = (int*)malloc(sizeof(int)*n);
-    //set all elements of queue to -1
-    for(i=0;i<n;i++){
-	q[i] = -1;
-    }
-
-    // initialize the queue with the start vertex(vtx)
-    q[tail] = vtx;
-
-    //mark the start vertex(vtx) as visited
-    g[vtx].processed = 1;
-
-    while(!queue_empty(q, n)) {
-	
-	trav = g[q[tail]].gnode;
-	while(trav) {
-	    //if the vertices are not visited, then only add to the queue
-	    if(!g[trav->idx].processed){
-		//add the adject vertices of g[tail] in the queue
-		q[head] = trav->idx;
-		head++;
-		g[trav->idx].processed = 1;
-	    }
-	    trav = trav->next;
-	}
-	printf("%d->", q[tail]);
-	
-	//remove vertex from the queue
-	q[tail]  = -1;
-	tail++;
-    }
-    free(q);
-}
-
 void enqueue(GRAPH** q, GRAPH* g, int front, int *end) {
     GNODE *trav;
 
@@ -334,6 +293,8 @@ void enqueue(GRAPH** q, GRAPH* g, int front, int *end) {
 	/*insert into the q only if the vertex is not visited*/
 	if(!g[trav->idx].processed){
 	    q[*end] = &g[trav->idx];
+	    //update the distance
+	    q[*end]->dist = q[front]->dist + 1;
 	    (*end)++;
 	    g[trav->idx].processed = 1;
 	}
@@ -347,7 +308,11 @@ void dequeue(GRAPH **q, int *front) {
 	(*front)++;
     }
 }
-void BFS_new( GRAPH *g, int src, int n) {
+
+/*
+ *implementation of BFS in graphs using queue
+ */
+void BFS( GRAPH *g, int src, int n) {
 
     //create a queue of pointers to the the graph nodes
 
@@ -369,6 +334,25 @@ void BFS_new( GRAPH *g, int src, int n) {
 	//print from the front and dequeue 
 	printf("%d-->", q[front]->idx);
 	dequeue(q, &front);
+    }
+}
+
+/*
+ *this problem is just a variant of BFS, where we store an extra parameter(distance) at each node. After the BFS is complete
+ *the distance parameter at each vertex is the shortest distance from the source vertex
+ */
+
+void single_source_shortest_path(){
+
+    /*this program is exactly same as BFS. we are just updating the distances in the enqueue routing*/
+}
+
+void print_shortest_dist(GRAPH *g, int n) {
+    int i;
+
+    for(i=0;i<n;i++){
+	    printf("%d-->  %d", i, g[i].dist);
+	printf("\n");
     }
 }
 
@@ -441,9 +425,6 @@ void topological_sort(GRAPH *g, int n) {
     }
 }
 
-void single_source_shortest_path(){
-
-}
 
 
 /*
@@ -502,7 +483,7 @@ int main() {
 		printf("Enter the source vertex in graph\n");
 		scanf("%d", &vtx);
 		clear_visited_vertex(g, n);
-		BFS_new(g, vtx, n);
+		BFS(g, vtx, n);
 
 		
 		break;
@@ -519,7 +500,12 @@ int main() {
 		break;
 
 	    case 10:
-		single_source_shortest_path();
+		printf("Enter the source vertex to get shortest distance from\n");
+		scanf("%d", &vtx);
+		clear_visited_vertex(g, n);
+		BFS(g, vtx, n);
+		printf("\n");
+		print_shortest_dist(g, n);
 		break;
 
 
