@@ -434,6 +434,46 @@ void topological_sort(GRAPH *g, int n) {
  *we run BFS from each guard position,  and update the distance in the array only if the new distance is less than the old one
  */
 
+
+/*
+ *inorder traversal using stack
+ * Algo:
+ *
+ * inorder_stack(TREE * root) {
+ * 
+ * TREE * node;
+ * node = root;
+ * //create a stack 
+ *  S = malloc(...);
+ *
+ * //push the root in the stack
+ * push(node);
+ *
+ * while(!stack_empty(S)) {
+ * //check if node left is not NULL and we are not adding an element which is already adde
+ *   if(node->left!=NULL && node!= stack_top(S)) {
+ *	push(node->left);
+ *	node = node->left;
+ *
+ *   } else {
+ *	printf("%d", nod->val);
+ *	pop();
+ *	
+ *	if(node->right!=NULL){
+ *		node = node->right;
+ *		push(node);
+ *	} else {
+ *	node = stack_top(); // get the pointer to top of stack. returns NULL if empty
+ *	}
+ *
+ *   } //if-else ends
+ *
+ * }//while ends
+ *  
+ *}
+ *
+ */
+
 int main() {
     char c;
     int choice, n, i, j,  adj, elen, vtx;
