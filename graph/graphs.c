@@ -322,6 +322,55 @@ void BFS(GRAPH *g, int vtx, int n) {
     free(q);
 }
 
+void enqueue(GRAPH** q, GRAPH* g, int front, int *end) {
+    GNODE *trav;
+
+    if(*q == NULL)
+	return;
+
+    //get the neigbor vertices of q[front]
+    trav = q[front]->gnode;
+    while(trav){
+	/*insert into the q only if the vertex is not visited*/
+	if(!g[trav->idx].processed){
+	    q[*end] = &g[trav->idx];
+	    (*end)++;
+	    g[trav->idx].processed = 1;
+	}
+	trav = trav->next;
+    }
+}
+
+void dequeue(GRAPH **q, int *front) {
+    if(q[*front]){
+	q[*front] = NULL;
+	(*front)++;
+    }
+}
+void BFS_new( GRAPH *g, int src, int n) {
+
+    //create a queue of pointers to the the graph nodes
+
+    int front = 0, end; 
+    GRAPH **q;
+    q  = (GRAPH**)malloc(sizeof(GRAPH*)*n);
+
+    //initialize the queue with source vertex
+    q[0] =  &g[src];
+    //intitalize front to 0(queue is deleted from front)
+    front = 0;
+    //intitalize end to front+1(queue is inserted)
+    end = front + 1;
+
+    while(front!=end) {
+	//insert the neighbors from the end of queue
+	enqueue(q, g, front, &end);
+
+	//print from the front and dequeue 
+	printf("%d-->", q[front]->idx);
+	dequeue(q, &front);
+    }
+}
 
 /*
  *Dijiktra Algorithm : computes single source shortest path for non-negative edge graph
@@ -450,6 +499,12 @@ int main() {
 		break;
 
 	    case 4:
+		printf("Enter the source vertex in graph\n");
+		scanf("%d", &vtx);
+		clear_visited_vertex(g, n);
+		BFS_new(g, vtx, n);
+
+		
 		break;
 		
 	    case 5:

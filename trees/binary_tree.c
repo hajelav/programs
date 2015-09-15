@@ -441,7 +441,6 @@ void dequeue(TREE **q, int *front) {
 	(*front)++;
     }
 }
-
 /*
  *level order traversal of TREE(BFS) using Queue
  */
