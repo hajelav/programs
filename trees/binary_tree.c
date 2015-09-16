@@ -1500,6 +1500,32 @@ TREE* closest(TREE* node, int n, int *close) {
     return temp;
 }
 
+
+/*
+ *http://www.careercup.com/question?id=5648398726201344  [Google interview question]
+ *Given a Binary search tree of integer values. return the count of nodes where all the nodes under that sub-tree lies between a given range [x, y]. assume there are more than 100,000 nodes
+ *
+ *
+ *Algo: To solve this , we need an augmented data structure. where at each node(r) of BST, we maintain the number of nodes in the subtree rooted at r.(refer
+ *        page 340 CLRS). Now given a range first we try to reach to a node(n) such that x<=n<y. ie node lies between the given range. this can be done recursively.
+ *        
+ *Total nodes lying in the range = nodes > x on the left subtree rooted at n + nodes < y on the right subtree rooted at y + 1 ( the root node, n)
+ *                                        (part 1)						(part2)
+ *
+ *to calculate part1:
+ *1. start from node n
+ *2. if x < n, go left other wise go right
+ *3. while travering the BST if you find a node greater than x the keep a running count of node->right->size +1 
+ *4. continue this procedure till the search terminates.
+ *
+ *to calculate part2:
+ *everything remains same, except step 3
+ *3. while travering the BST if you find a node less than x the keep a running count of node->left->size +1 
+ *
+ *Finally total = part1 + part2 + 1
+ */
+
+
 int main() {
     char c;
     int item,value,num,node1,node2,level,n, close;
