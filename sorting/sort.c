@@ -466,6 +466,11 @@ int NthOfSortedArrays(){
  *   At the end you get the sorted order
  */
 
+/*
+ *http://www.careercup.com/question?id=14099679
+ *tetris game logic (Google interview question)
+ */
+
 int main() {
     char c;
     int choice, n, m, s;
