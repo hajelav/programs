@@ -245,6 +245,9 @@ void quicksort(int *A, int low, int high) {
     quicksort(A, piv+1, high);
 }
 
+/*
+ *order statistics using quickselect method (O(n) time)
+ */
 int order_statistic(int  *A, int low , int high, int st) {
 
 

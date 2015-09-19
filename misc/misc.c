@@ -688,9 +688,42 @@ void print_wildcard(char *S, char *res, int i, int n) {
 }
 
 /*
- *snake and ladder problem
+ *snake and ladder problem [google interview question]
  *http://www.geeksforgeeks.org/snake-ladder-problem-2/
  */
+
+/*
+ *http://www.careercup.com/question?id=12636664
+ *Given 2n points on a circle.find the number of ways to draw n non intersecting chords. [google interview question]
+ *
+ *can be solved using catalan number : 
+ * 
+ *Cat_no = 2n	
+ *           C * (1/n+1)
+ *            n 
+ */
+
+
+/*
+ *http://www.careercup.com/question?id=5094709806497792  [google interview question]
+ *Given an unsorted array of integers, you need to return maximum possible n such that the array consists at least n values greater than or equals to n. Array can contain duplicate values. 
+ *Sample input : [1, 2, 3, 4] -- output : 2 
+ *Sample input : [900, 2, 901, 3, 1000] -- output: 3
+ *
+ *Approach 1: O(1) space
+ *1. sort the array
+ *2. run a loop and check if (A[i] >= n-i) 
+ *3. keep a max of all i's such that condition at step 2 is satisfied (O(nlogn))
+ *
+ *Approach 2 : using augmented BST(CLRS 339)
+ *1. create an augmented BST with the array values(A[i]) -> O(n) time
+ *2. run a loop , i = 1 to n (order statistics), 
+ *    for each node found for ith order statistic , check if n-i >= A[i]
+ *    this can be done in logn time. 
+ */
+
+
+
 
 int main(){
 
