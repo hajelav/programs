@@ -705,7 +705,7 @@ void print_wildcard(char *S, char *res, int i, int n) {
 
 
 /*
- *http://www.careercup.com/question?id=5094709806497792  [google interview question]
+ *http://www.careercup.com/question?id=5094709806497792  [google interview question], good question
  *Given an unsorted array of integers, you need to return maximum possible n such that the array consists at least n values greater than or equals to n. Array can contain duplicate values. 
  *Sample input : [1, 2, 3, 4] -- output : 2 
  *Sample input : [900, 2, 901, 3, 1000] -- output: 3
@@ -724,6 +724,21 @@ void print_wildcard(char *S, char *res, int i, int n) {
  *Approach 3:  using linear selection algorithm(check out the reply by saurabh)
  */
 
+
+
+/*
+ *http://www.careercup.com/question?id=5104572540387328 [google interview question]
+ *Given a sorted array of integers, write a function that will return the number with the biggest number of repetitions. 
+ *(Asked to refine the solution to be more efficient)
+ *
+ *Approach : 
+ *
+ *1.Start the search from the end of the array
+ *2.run a variant of binary search, where you reach to the left most end of the searched element. remember the index(i) of that end and count of that number(n-i)
+ *3. Again run a binary search(step 2) with element at index-1, so that you reach till the left end of that number(at index-1)
+ *4. Continue this procedure till you reach 0th index.
+ *5. return the max of the count caluclated after each binary search
+ */
 
 
 
