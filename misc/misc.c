@@ -720,6 +720,8 @@ void print_wildcard(char *S, char *res, int i, int n) {
  *2. run a loop , i = 1 to n (order statistics), 
  *    for each node found for ith order statistic , check if n-i >= A[i]
  *    this can be done in logn time. 
+ *
+ *Approach 3:  using linear selection algorithm(check out the reply by saurabh)
  */
 
 
