@@ -246,7 +246,7 @@ void quicksort(int *A, int low, int high) {
 }
 
 /*
- *order statistics using quickselect method (O(n) time)
+ *order statistics using quickselect method (O(n) time). this is also known as linear selection algorithm
  */
 int order_statistic(int  *A, int low , int high, int st) {
 
