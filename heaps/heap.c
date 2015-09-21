@@ -238,6 +238,7 @@ void median(){
 /*
  *k-way merge sort 
  *http://stackoverflow.com/questions/10414255/prove-the-algorithm-that-uses-min-heap-to-merge-k-sorted-lists
+ TBD
  */
 
 
@@ -283,6 +284,23 @@ void median(){
  *complexity : since to find Kth largest we atleast need to dequeue K element , and for each element , we need to heapify the 
  *queue which take log(n) time , n-> no of elements in the queue at a given time,
  *      so total time = Klog(n)
+ */
+
+
+/*
+ *http://www.careercup.com/question?id=16759664 [google interview question]
+ *You have k lists of sorted integers. Find the smallest range that includes at least one number from each of the k lists. 
+ *
+ *For example, 
+ *    List 1: [4, 10, 15, 24, 26] 
+ *    List 2: [0, 9, 12, 20] 
+ *    List 3: [5, 18, 22, 30] 
+ *
+ *    The smallest range here would be [20, 24] as it contains 24 from list 1, 20 from list 2, and 22 from list 3.
+ *
+ * Approach: this can be done using a variant of k-way merge sort(using heap). we maintain a heap of size K , and keep on adding elements onto
+ * the heap as k-way merge sort. Also in the heap we maintain the difference between min and max as we go along. Finally when we are done adding
+ * elements into the heap, we return output as the the min max value of the smallest diff.
  */
 
 int main() {
