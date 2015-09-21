@@ -738,6 +738,7 @@ void print_wildcard(char *S, char *res, int i, int n) {
  *3. Again run a binary search(step 2) with element at index-1, so that you reach till the left end of that number(at index-1)
  *4. Continue this procedure till you reach 0th index.
  *5. return the max of the count caluclated after each binary search
+  time complexity : k*O(logn), where k is number of different digits in an array
  */
 
 
