@@ -660,7 +660,7 @@ void i18n(char *S, int i, int j, int n) {
 }
 
 /*
- *wildcard problem
+ *wildcard problem [google interview question]
  *http://www.careercup.com/question?id=5759440689037312
  */
 
