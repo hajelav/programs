@@ -358,7 +358,7 @@ void print_shortest_dist(GRAPH *g, int n) {
 
 /*
  *Dijiktra Algorithm : computes single source shortest path for non-negative edge graph
- 1. does not work on non negative edge costs
+ 1. does not work on negative edge costs
  2. not very distributed, ie not good for applications where the entire graph cannot fit into the main memory(eg internet routing)
  3. Dijikra algo is used when the edge lengths are different
  */
@@ -366,7 +366,7 @@ void print_shortest_dist(GRAPH *g, int n) {
 
 /*
  *Bellman-ford algorithm : Computes single source shortest path
- *1. can be used for negative edges
+ *1. can be used for negative edges (but should not include -ve cycles as finding shortest path in graphs having -ve cycles is NP hard problem)
  *2. is distributed in nature
  *3  does not work , if there is a negative cycles in the graph , but will show us the negative cycle
  *4. computes single source shortest path , if there are no negative cycles 
