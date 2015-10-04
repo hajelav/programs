@@ -1,4 +1,4 @@
-CC=gcc
+CC=gcc -Wall
 CFLAGS=-I.
 DEPS = graph_util.h
 OBJ = graph_util.o graphs.o 
