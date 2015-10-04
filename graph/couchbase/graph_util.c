@@ -2,7 +2,6 @@
  * @file    : graph_util.c
  * @brief   : graph util API
  * @author  : Vivek Hajela
- * @version : 0.1
  * @date    : 2015-10-03
  */
 
@@ -188,7 +187,6 @@ int read_graph(GRAPH *g, char *file_name, uint64_t n) {
 	    create_graph(&g[i], node);
             token = strtok(NULL, " ");
         }
-	/*printf("\n");*/
     }
     return 1;
 }

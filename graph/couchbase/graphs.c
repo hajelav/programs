@@ -7,34 +7,34 @@
  * @programming language: C
  */
 
+/* header file for graph utility */
 #include "graph_util.h"
 
 /*get the maximum path length */
 int get_max_path_len(GRAPH *g, uint64_t n) {
 
-	uint64_t max_dist = 0;
-	uint64_t i;
+    uint64_t max_dist = 0;
+    uint64_t i;
 
-	if(!g || n <= 0)
-	    return -1;
-
+    if(!g || n <= 0)
+	return -1;
+    /*iterate through all the nodes, and find out the max distance stored*/
     for(i=0;i<n;i++){
-	 if(g[i].dist > max_dist)
-	     max_dist = g[i].dist;
+	if(g[i].dist > max_dist)
+	    max_dist = g[i].dist;
     }
-
-
     return max_dist;
 }
+
 /**
- * @brief     : this function to show the logic of finding the max len
+ * @brief     : this function is to show the logic of finding the max path len
  * 	        when the graph dosent have loops. Note that we do not track 
- * 	        the visited nodes for no-loop(Directed acycclic graphs)
+ * 	        the visited nodes for no-loop graphs(Directed acycylic graphs)
  * 	        (NOTE: THIS FUNCTION IS NOT USED)
  *
  * @param g   : graph data structure 
  * @param vtx : node index
- * @param i   : variable used to track distance in DFS(depth first search)
+ * @param i   : recursion variable used to track distance in DFS(depth first search)
  */
 void max_path_len_no_loop(GRAPH *g, uint64_t vtx, uint64_t i){
 
@@ -53,13 +53,14 @@ void max_path_len_no_loop(GRAPH *g, uint64_t vtx, uint64_t i){
 
 /**
  * @brief      :  caluculates the max path length from the src node(may contain loops)
- * 	    	  We use a variant of DFS to get the max path. as we move along the nodes 
+ * 	    	  We use a variant of DFS to get the max path. As we move along the nodes 
  * 	    	  in DFS, we mark the nodes as visited(g[vtx].processed) and update the 
- * 	    	  distances for each node(g[vtx].dist) only if the new distance is more 
- * 	    	  than the distance already stored in the node. If the graph does not have
- * 	          loops, then we dont need to keep track of visited nodes as DFS recursion
- * 	          would termiate when there are no more chilren left to be traversed for
- * 	          a node.
+ * 	    	  distances for each node(g[vtx].dist) using a variable(i), only if the new
+ * 	    	  distance is more than the distance already stored in the node. If the graph 
+ * 	    	  does not have loops, then we dont need to keep track of visited nodes as DFS
+ * 	    	   recursion would termiate when there are no more chilren left to be traversed for
+ * 	          a node.However when the graph has loops the recursive call would return wheneven
+ * 	          a previously visited node is encountered. 
  * @param g   : graph data structure
  * @param vtx : node index
  * @param i   : variable used to track the distance in DFS
@@ -69,22 +70,29 @@ void max_path_len_loop(GRAPH *g, uint64_t vtx, uint64_t i){
     GNODE *trav;
 
     if(isVisited(g, vtx)){
-	/*if we reach here that means , we have already came to a vertex which is already visited.*/
+	/*if we reach here that means , we have came to a node which is already visited.*/
 	return;
     }
-    
+
+    /*update the distance only if its is more than previously stored distance*/
     if(i > g[vtx].dist)
 	g[vtx].dist = i;
 
+    /*once we visted a node, we mark it as visited*/
     g[vtx].processed = 1;
+
+    /*get the neighbors(children) of the node*/
     trav = g[vtx].gnode;
 
+    /*traverse the child nodes recursively*/
     while(trav){
 	max_path_len_loop(g, trav->idx, i+1);
 
 	trav = trav->next;
     }
-	g[vtx].processed = 0;
+
+    /*once we update the distance, we mark nodes as unvisited, so that distances can be updated again*/
+    g[vtx].processed = 0;
 }
 
 /**
@@ -151,6 +159,7 @@ int main (int argc, char *argv[]) {
 	    printf("\nMaximum path length : %d\n", get_max_path_len(g, n));
 	}
     }
+
     /*free the mem to avoid mem leak*/
     free_graph(g, n);
     return 0;
