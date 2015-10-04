@@ -157,3 +157,38 @@ void free_graph(GRAPH *g, uint64_t n) {
 
     free(g);
 }
+
+/*read graph from the input text file*/
+int read_graph(GRAPH *g, char *file_name, uint64_t n) {
+
+    char line[512];
+    char *token;
+    FILE *fp;
+    uint64_t i, node;
+
+
+    if(!g || !file_name || (n<=0))
+	return -1;
+
+    /*open the file*/
+    fp = fopen(file_name, "r");
+
+    if(!fp){
+	perror("error opening input file\n");
+ 	return -1;	
+    }
+    i = 0;
+    while(fgets(line, sizeof line, fp) != NULL) {
+        token = strtok(line, " ");
+        i = atoi(token);
+	token = strtok(NULL, " ,");
+        while(token != NULL) {
+            node  = atoi(token);
+	    /*printf("%d-->%d ", i , node);*/
+	    create_graph(&g[i], node);
+            token = strtok(NULL, " ");
+        }
+	/*printf("\n");*/
+    }
+    return 1;
+}

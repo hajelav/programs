@@ -32,6 +32,7 @@ void print_graph(GRAPH *g, uint64_t n);
 void print_dist(GRAPH *g, uint64_t n);
 int isVisited(GRAPH *g, uint64_t idx);
 void free_graph(GRAPH *g, uint64_t n);
+int read_graph(GRAPH *g, char *file_name, uint64_t n);
 
 #endif /*  _GRAPH_UTIL_H_ */ 
 

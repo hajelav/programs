@@ -118,125 +118,40 @@ int max_path_len(GRAPH *g, int src, uint64_t n) {
 }
 
 int main (int argc, char *argv[]) {
-    char line[512];
-    char *token;
-    FILE *fp;
-    int i, vtx;
+    int  vtx;
     uint64_t n; /* no of nodes in graph*/
     GRAPH *g;
 
     if(argc < 3){
-        printf("Incorrect number of arguments\n");
+	printf("Incorrect number of arguments\n");
 	printf("Usage : ./graphs <no of nodes> <input txt file>\n");
-        exit(0);
+	exit(0);
     }
 
     /*get the number of nodes from the program*/
     n = atoi(argv[1]);
 
-    /*open the file*/
-    fp = fopen(argv[2], "r");
-
-    if(!fp){
-	perror("error opening input file\n");
-	exit(0);
-    }
-
     g = (GRAPH*)malloc(sizeof(GRAPH)*n);
 
     if(!g)
 	perror("malloc failed. cannot init graph");
+
     init_graph(g, n);
-    i = 0;
-    /*j = 0;*/
-    int node;
-    while(fgets(line, sizeof line, fp) != NULL) {
-        /*token = strtok(line, " ");*/
-        token = strtok(line, " ");
-        i = atoi(token);
-	token = strtok(NULL, " ,");
-        /*token = strtok(NULL, " ");*/
-        while(token != NULL) {
 
-            node  = atoi(token);
-            /*token = strtok(NULL, " ,");*/
-            /*token = strtok(NULL, "\t");*/
-	    printf("%d-->%d ", i , node);
-	    create_graph(&g[i], node);
+    if(read_graph(g, argv[2], n) > 0) {
 
+	if(g && n > 0)
+	    print_graph(g, n);
 
-            /*token = strtok(NULL, " ,");*/
-            token = strtok(NULL, " ");
-        }
-	printf("\n");
-    }
+	printf("Enter the root node in graph\n");
+	scanf("%d", &vtx);
 
-      
-    if(g && n > 0)
-	print_graph(g, n);
-    printf("Enter the root node in graph\n");
-    scanf("%d", &vtx);
-    if(max_path_len(g, vtx, n) > 0) {
-	print_dist(g, n);
-	printf("\nMaximum path length : %d\n", get_max_path_len(g, n));
-
+	if(max_path_len(g, vtx, n) > 0) {
+	    print_dist(g, n);
+	    printf("\nMaximum path length : %d\n", get_max_path_len(g, n));
+	}
     }
     /*free the mem to avoid mem leak*/
     free_graph(g, n);
-
-    /*do {*/
-	/*printf("MENU OPTIONS\n");*/
-	/*[>printf("1 -- create a graph\n");<]*/
-	/*printf("2 -- print graph\n");*/
-	/*printf("3 -- max path len with loop\n");*/
-
-	/*printf("Enter your choice\n");*/
-	/*scanf("%d",&choice);*/
-	/*switch(choice){*/
-
-	    /*case 1: */
-		/*printf("Enter the number of nodes(vertices) in graph\n");*/
-		/*scanf("%lu", &n);*/
-
-		/*g = (GRAPH*)malloc(sizeof(GRAPH)*n);*/
-
-		/*if(!g)*/
-		    /*perror("malloc failed. cannot init graph");*/
-
-		/*init_graph(g, n);*/
-		/*printf("Enter adjecent nodes\n");*/
-		/*for(i=0;i<n;i++){*/
-		    /*printf("Enter no of children nodes to node %d\n", i);*/
-		    /*scanf("%d", &adj);*/
-		    /*for(j=0;j<adj;j++){*/
-			/*printf("enter child node\n");*/
-			/*scanf("%d", &vtx);*/
-			/*create_graph(&g[i], vtx);*/
-		    /*}*/
-		/*}*/
-		/*break;*/
-	    /*case 2:*/
-		/*if(g && n > 0)*/
-		/*print_graph(g, n);*/
-		/*break;*/
-
-	    /*case 3:*/
-		/*printf("Enter the root node in graph\n");*/
-		/*scanf("%d", &vtx);*/
-		/*if(max_path_len(g, vtx, n) > 0) {*/
-		    /*print_dist(g, n);*/
-		    /*printf("\nMaximum path length : %d\n", get_max_path_len(g, n));*/
-
-		/*}*/
-		/*[>free the mem to avoid mem leak<]*/
-		/*free_graph(g, n);*/
-		/*break;*/
-
-	    /*default:*/
-		/*printf("Invalid option\n");*/
-		/*break;*/
-	/*}*/
-	/*printf("\n");*/
-    /*}while((c=getchar())!='q'); */
     return 0;
 }
