@@ -31,7 +31,7 @@ IMPORTANT: THE API TO READ THE GRAPH STRICTLY ASSUMES THAT NODES ARE SEPERATED B
 
 		   - If the graphs has millions of nodes, then using recursion would BOMB the code.(basically 
 		     stack overflow). This should be clarified right at the design phase. If we know in advance
-		     there there is no limit to the number of nodes, then we have to go with application level
+		     that there is no limit to the number of nodes, then we have to go with application level
 		     stacks instead of recursion.
 		   - error checking with meaningful error messages.
 

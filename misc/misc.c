@@ -1,129 +1,125 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <string.h>
-#include <math.h>
+#include "../utils.h"
 
 #define EPS 0.000001
 
-/*returns the index of max node between parent,left child and right child*/
-int max_node(int a, int b, int c) {
+/*[>returns the index of max node between parent,left child and right child<]*/
+/*int max_node(int a, int b, int c) {*/
 
-    if((a-b >= 0) && (a-c >=0))
-	return a;
-    else if(b-a >= 0 && b-c >= 0 )
-	return b;
-    else 
-	return c;
-}
+    /*if((a-b >= 0) && (a-c >=0))*/
+	/*return a;*/
+    /*else if(b-a >= 0 && b-c >= 0 )*/
+	/*return b;*/
+    /*else */
+	/*return c;*/
+/*}*/
 
-int MAX(int a, int b) {
-    return (a>b?a:b);
-}
-int MIN(int a, int b) {
-    return (a>b?b:a);
-}
+/*int MAX(int a, int b) {*/
+    /*return (a>b?a:b);*/
+/*}*/
+/*int MIN(int a, int b) {*/
+    /*return (a>b?b:a);*/
+/*}*/
 
-void init_array(int *arr, int n){
-    int i;
-    for(i=0;i<n;i++){
-	arr[i] = 1;
-    }
-}
+/*void init_array(int *arr, int n){*/
+    /*int i;*/
+    /*for(i=0;i<n;i++){*/
+	/*arr[i] = 1;*/
+    /*}*/
+/*}*/
 
-int* create_1Darray(int n) {
-    int *A;
-    A = (int*)calloc(n, sizeof(int));
+/*int* create_1Darray(int n) {*/
+    /*int *A;*/
+    /*A = (int*)calloc(n, sizeof(int));*/
 
-    if(!A)
-	return NULL;
-    return A;
-}
-void input_array(int *A, int n) {
+    /*if(!A)*/
+	/*return NULL;*/
+    /*return A;*/
+/*}*/
+/*void input_array(int *A, int n) {*/
 
-    int i;
-    for(i=0;i<n;i++){
-	scanf("%d", &A[i]);
-    }
-}
+    /*int i;*/
+    /*for(i=0;i<n;i++){*/
+	/*scanf("%d", &A[i]);*/
+    /*}*/
+/*}*/
 
-void init_2Darray(int **A, int r, int c, int val) {
-    int i, j;
-    for(i=0;i<r;i++){
-	for(j=0;j<c;j++){
-	    A[i][j] = val;
-	}
-    }
-}
+/*void init_2Darray(int **A, int r, int c, int val) {*/
+    /*int i, j;*/
+    /*for(i=0;i<r;i++){*/
+	/*for(j=0;j<c;j++){*/
+	    /*A[i][j] = val;*/
+	/*}*/
+    /*}*/
+/*}*/
 
-int** create_2Dmatrix(int xlen, int ylen) {
-    int i;
-    int **T = (int**)calloc(xlen, sizeof(int*));
-    for(i=0;i<xlen;i++){
-	T[i] = (int*)calloc(ylen, sizeof(int));
-    }
-    return T;
-}
+/*int** create_2Dmatrix(int xlen, int ylen) {*/
+    /*int i;*/
+    /*int **T = (int**)calloc(xlen, sizeof(int*));*/
+    /*for(i=0;i<xlen;i++){*/
+	/*T[i] = (int*)calloc(ylen, sizeof(int));*/
+    /*}*/
+    /*return T;*/
+/*}*/
 
-char ** create_2Dchar_array(int r, int c) {
+/*char ** create_2Dchar_array(int r, int c) {*/
 
-    int i;
-    char **A = (char**)malloc(sizeof(char*)*r);
-    for(i=0;i<r;i++){
-	A[i] = (char*)malloc(sizeof(char)*(c+1));
-    }
-    return A;
-}
-
-
-char* create_1Dchar_array(int n) {
-    char* temp;
-    temp = (char*)calloc(sizeof(char), n+1);
-    temp[n] = '\0';
-    return temp?temp:NULL;
-}
-
-void print_2Dmatrix(int **T, int xlen, int ylen) {
-
-    int i, j;
-    for(i=0;i<xlen;i++){
-	for(j=0;j<ylen;j++){
-	    printf("%d ",T[i][j]);
-	}
-	printf("\n");
-    }
-}
+    /*int i;*/
+    /*char **A = (char**)malloc(sizeof(char*)*r);*/
+    /*for(i=0;i<r;i++){*/
+	/*A[i] = (char*)malloc(sizeof(char)*(c+1));*/
+    /*}*/
+    /*return A;*/
+/*}*/
 
 
-void input_2Darray(int **A, int r, int c) {
+/*char* create_1Dchar_array(int n) {*/
+    /*char* temp;*/
+    /*temp = (char*)calloc(sizeof(char), n+1);*/
+    /*temp[n] = '\0';*/
+    /*return temp?temp:NULL;*/
+/*}*/
 
-    int i, j;
-    printf("Enter elements\n");
-    for(i=0;i<r;i++){
-	for(j=0;j<c;j++){
-	    scanf("%d",&A[i][j]);
-	}
-    }
-}
-void input_2Dchar_array(char**A, int r, int c) {
+/*void print_2Dmatrix(int **T, int xlen, int ylen) {*/
 
-    int i;
-    printf("Enter elements\n");
-    for(i=0;i<r;i++){
-	    scanf("%s", A[i]);
-    }
-}
+    /*int i, j;*/
+    /*for(i=0;i<xlen;i++){*/
+	/*for(j=0;j<ylen;j++){*/
+	    /*printf("%d ",T[i][j]);*/
+	/*}*/
+	/*printf("\n");*/
+    /*}*/
+/*}*/
 
-void print_2Dchar_array(char **T, int xlen, int ylen) {
 
-    int i, j;
-    for(i=0;i<xlen;i++){
-	for(j=0;j<ylen;j++){
-	    printf("%c ",T[i][j]);
-	}
-	printf("\n");
-    }
-}
+/*void input_2Darray(int **A, int r, int c) {*/
+
+    /*int i, j;*/
+    /*printf("Enter elements\n");*/
+    /*for(i=0;i<r;i++){*/
+	/*for(j=0;j<c;j++){*/
+	    /*scanf("%d",&A[i][j]);*/
+	/*}*/
+    /*}*/
+/*}*/
+/*void input_2Dchar_array(char**A, int r, int c) {*/
+
+    /*int i;*/
+    /*printf("Enter elements\n");*/
+    /*for(i=0;i<r;i++){*/
+	    /*scanf("%s", A[i]);*/
+    /*}*/
+/*}*/
+
+/*void print_2Dchar_array(char **T, int xlen, int ylen) {*/
+
+    /*int i, j;*/
+    /*for(i=0;i<xlen;i++){*/
+	/*for(j=0;j<ylen;j++){*/
+	    /*printf("%c ",T[i][j]);*/
+	/*}*/
+	/*printf("\n");*/
+    /*}*/
+/*}*/
 /*
  *http://codinggeeks.blogspot.com/2010/04/computing-square-cube-roots.html
 

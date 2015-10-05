@@ -52,18 +52,18 @@ void max_path_len_no_loop(GRAPH *g, uint64_t vtx, uint64_t i){
 }
 
 /**
- * @brief      :  caluculates the max path length from the src node(may contain loops)
- * 	    	  We use a variant of DFS to get the max path. As we move along the nodes 
- * 	    	  in DFS, we mark the nodes as visited(g[vtx].processed) and update the 
- * 	    	  distances for each node(g[vtx].dist) using a variable(i), only if the new
- * 	    	  distance is more than the distance already stored in the node. If the graph 
- * 	    	  does not have loops, then we dont need to keep track of visited nodes as DFS
- * 	    	  recursion would termiate when there are no more chilren left to be traversed for
- * 	          a node.However when the graph has loops the recursive call would return wheneven
- * 	          a previously visited node is encountered. 
- * @param g   : graph data structure
- * @param vtx : node index
- * @param i   : variable used to track the distance in DFS
+ * @brief      	     : calculates the max path length from the src node(may contain loops)
+ * 	    	       We use a variant of DFS to get the max path. As we move along the nodes 
+ * 	    	       in DFS, we mark the nodes as visited(g[vtx].processed) and update the 
+ * 	    	       distances for each node(g[vtx].dist) using a variable(i), only if the new
+ * 	    	       distance is more than the distance already stored in the node. If the graph 
+ * 	    	       does not have loops, then we dont need to keep track of visited nodes as DFS
+ * 	    	       recursion would termiate when there are no more chilren left to be traversed for
+ * 	               a node.However when the graph has loops the recursive call would return whenever
+ * 	               a previously visited node is encountered. 
+ * @param g          : graph data structure
+ * @param vtx 	     : node index
+ * @param path_len   : distance of node from the source node
  */
 void max_path_len_loop(GRAPH *g, uint64_t vtx, uint64_t path_len){
 
@@ -87,7 +87,6 @@ void max_path_len_loop(GRAPH *g, uint64_t vtx, uint64_t path_len){
     /*traverse the child nodes recursively*/
     while(trav){
 	max_path_len_loop(g, trav->idx, path_len+1);
-
 	trav = trav->next;
     }
 
@@ -100,7 +99,6 @@ void max_path_len_loop(GRAPH *g, uint64_t vtx, uint64_t path_len){
  * @param g   : graph data structure
  * @param src : source(root) node
  * @param n   : total number of nodes
- * @param c   : with loop or without loop
  */
 int max_path_len(GRAPH *g, int src, uint64_t n) {
 
