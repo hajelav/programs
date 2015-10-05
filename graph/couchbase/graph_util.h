@@ -17,7 +17,7 @@ typedef struct gnode {
 
 /*adjacency list for graph data structure. */
 typedef struct graph {
-    uint64_t idx; 		/*index of vertex node			*/
+    uint64_t idx; 		/*index of node				*/
     GNODE *gnode;		/*adjacency list for each node		*/
     size_t dist;		/*stores the distance from the root	*/
     int  processed:1;   	/*check if visited. 			*/

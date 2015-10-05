@@ -16,7 +16,7 @@
 void init_graph(GRAPH *g, uint64_t n){
 
     uint64_t i;
-    if(!g || n<=0){
+    if(!g || n==0){
 	perror("Error initilizing graph");
 	return;
     }
@@ -100,7 +100,7 @@ void print_graph(GRAPH *g, uint64_t n) {
     uint64_t i;
     GNODE *trav;
 
-    if(!g || n <= 0){
+    if(!g || n == 0){
 	perror("Error printing graph.");
 	return;
     }
@@ -121,7 +121,7 @@ void print_graph(GRAPH *g, uint64_t n) {
 void print_dist(GRAPH *g, uint64_t n) {
     uint64_t i;
 
-    if(!g || n <= 0){
+    if(!g || n == 0){
 	perror("Error printing distance.");
 	return;
     }
@@ -136,6 +136,8 @@ int isVisited(GRAPH *g, uint64_t idx) {
     return(g[idx].processed);
 }
 
+/*free the graph data structure, first free all the neighbors and then the
+ *graph itself*/
 void free_graph(GRAPH *g, uint64_t n) {
 
     uint64_t i;
@@ -166,7 +168,7 @@ int read_graph(GRAPH *g, char *file_name, uint64_t n) {
     uint64_t i, node;
 
 
-    if(!g || !file_name || (n<=0))
+    if(!g || !file_name || (n==0))
 	return -1;
 
     /*open the file*/
