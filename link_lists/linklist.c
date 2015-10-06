@@ -611,7 +611,8 @@ LIST* addNumbers(LIST* list1, LIST* list2){
 	l2 = l2->next;
     }
 
-    //check which of the list is smaller
+    //check which of the list is smaller, the one which is not NULL will obviously be bigger
+
     trav = l1?l1:l2;
     if(trav) { //atleast one list is longer
 

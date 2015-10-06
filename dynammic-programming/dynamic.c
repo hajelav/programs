@@ -551,8 +551,8 @@ void digits(){
 int rod_cutting() {
     int l, p; //prices and 
     int *L; // lengths of rod array
-    int *P; // price array
-    int *M; // output array(containing max value of a given length of rod
+    /*int *P; // price array*/
+    /*int *M; // output array(containing max value of a given length of rod*/
 
     printf("Enter the 'rod length' array length\n");
     scanf("%d", &l);
@@ -561,15 +561,55 @@ int rod_cutting() {
 
     printf("Enter the price array length\n");
     scanf("%d", &p);
-    P = create_1Darray(p); 
+    /*P = create_1Darray(p); */
     input_1Darray(L, p);
 
     //create an output array
-    M  = create_1Darray(p); 
+    /*M  = create_1Darray(p); */
 
 //TBD
+ return 0;
    
 
+}
+
+/*
+ *https://leetcode.com/problems/longest-substring-without-repeating-characters/
+ *http://www.geeksforgeeks.org/length-of-the-longest-substring-without-repeating-characters/
+ Length of the longest substring without repeating characters
+ */
+
+int lengthOfLongestSubstring(char* s) {
+
+    int ptr1 = 0, ptr2, i = 0;
+    int max_len = 1, count = 0;
+    int hash[26];
+    int len;
+    //string is NULL, return len as 0
+    if (!s)
+	return 0;
+
+    len = strlen(s);
+
+    memset(hash, 0, sizeof(hash));
+    for(ptr2 =0;ptr2< len; ptr2++){
+
+	if(!hash[s[ptr2]-'a']) {
+	    hash[s[ptr2]-'a'] = 1;
+	} else {
+	    /*memset(haddsh, 0, sizeof(hash));*/
+	    while(i <= ptr1){
+		hash[i] = 0;
+		i++;
+	    }
+	    hash[s[ptr1]-'a'] = 1;
+	    ptr1++;
+	}
+	    count = ptr2 - ptr1 +1;
+	    if(count > max_len)
+		max_len = count;
+    }
+    return max_len;
 }
 
 int main(){
@@ -582,6 +622,7 @@ int main(){
     int **A, *W, *V;
     int *C, sum; // coins denominations and sum
     int m, n, N; // no of elements in array1 and array2
+    char s[256];
     do {
 
 	printf("MENU OPTIONS\n");
@@ -597,6 +638,7 @@ int main(){
 	printf("10 -- Rod cutting\n");
 	printf("11 -- No of ways a digit can be represented\n");
 	printf("12 -- Cutting the rod\n");
+	printf("13 -- Longest Substring Without Repeating Characters\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -771,6 +813,13 @@ int main(){
 	    case 12:
 		rod_cutting();
 		break;
+	    case 13:
+		printf("enter string\n");
+		scanf("%s", s);
+
+		printf("Length: %d\n", lengthOfLongestSubstring(s));
+		break;
+
 	    default:
 		printf("Invalid option\n");
 		break;
