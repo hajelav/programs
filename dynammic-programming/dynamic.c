@@ -1,75 +1,4 @@
-
-//http://www.geeksforgeeks.org/dynamic-programming-set-14-maximum-sum-increasing-subsequence/
-//gcc  minCostPath_recursive.c -Wall -o minCostPath_recursive
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <string.h>
-
-
-int MAX(int a, int b) {
-    return (a>b?a:b);
-}
-
-void init_array(int *arr, int n){
-    int i;
-    for(i=0;i<n;i++){
-	arr[i] = 1;
-    }
-}
-
-int* create_1Darray(int n) {
-    int *A;
-    A = (int*)calloc(n, sizeof(int));
-
-    if(!A)
-	return NULL;
-    return A;
-}
-void input_1Darray(int *A, int n) {
-
-    int i;
-    for(i=0;i<n;i++){
-	scanf("%d", &A[i]);
-    }
-}
-int** create_2Darray(int xlen, int ylen) {
-    int i;
-    int **T = (int**)calloc(xlen, sizeof(int*));
-    for(i=0;i<xlen;i++){
-	T[i] = (int*)calloc(ylen, sizeof(int));
-    }
-    return T;
-}
-
-char ** create_2Dchar_array(int r, int c) {
-
-    int i;
-    char **A = (char**)malloc(sizeof(char*)*r);
-    for(i=0;i<r;i++){
-	A[i] = (char*)malloc(sizeof(char)*(c+1));
-    }
-    return A;
-}
-
-
-char* create_1Dchar_array(int n) {
-    char* temp;
-    temp = (char*)calloc(sizeof(char), n+1);
-    temp[n] = '\0';
-    return temp?temp:NULL;
-}
-void print_2Darray(int **T, int xlen, int ylen) {
-
-    int i, j;
-    for(i=0;i<xlen;i++){
-	for(j=0;j<ylen;j++){
-	    printf("%d ",T[i][j]);
-	}
-	printf("\n");
-    }
-}
+#include "../utils.h"
 
 /*
  *https://www.youtube.com/watch?v=CE2b_-XfVDk&index=35&list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr
@@ -122,15 +51,6 @@ int LIS(int *a, int elem) {
  *We compare the last character in each string. We have three possible operations that we can do. The first option is to delete the last character from the first string then convert the remaining characters in the first string to the second string. The second option is to insert the last character from the second string into the end of the first string then convert the first string (before the insertion) into the remaining characters of the second string (excluding the last character). The third option is to replace the last character in the first string with the last character from the second string if they are different otherwise no operation is needed
  */
 
-int MIN(int a, int b, int c) {
-
-    if(a-b <= 0 && a-c <=0)
-	return a;
-    else if(b-a <= 0 && b-c <= 0 )
-	return b;
-    else 
-	return c;
-}
 void print_array(int **T, int xlen, int ylen) {
 
     int i, j;
@@ -185,7 +105,7 @@ int min_edit_distance(char *X, char *Y) {
 	    if(X[j-1] == Y[i-1]){  // we do j-1 and i-1 because index of X and Y start with 0
 		T[i][j] = T[i-1][j-1];
 	    } else {
-		T[i][j] = MIN(T[i-1][j], T[i][j-1], T[i-1][j-1]) + 1;
+		T[i][j] = MIN_three(T[i-1][j], T[i][j-1], T[i-1][j-1]) + 1;
 	    }
 	}
     }
@@ -217,7 +137,7 @@ int min_cost_path(int **A, int r, int c, int posi, int posj) {
 
     for(i=1;i<r+1;i++) {
 	for (j=1;j<c+1;j++) {
-	    T[i][j] = MIN(T[i-1][j], T[i][j-1], T[i-1][j-1]) + A[i-1][j-1]; // optimal substructure property
+	    T[i][j] = MIN_three(T[i-1][j], T[i][j-1], T[i-1][j-1]) + A[i-1][j-1]; // optimal substructure property
 	}
     }
 
@@ -531,7 +451,6 @@ void digits(){
  *S[j] = max(S[j-1]+A[j], A[j])
  */
 
-
 /*
  *cutting the rod
  *http://www.geeksforgeeks.org/dynamic-programming-set-13-cutting-a-rod/
@@ -613,6 +532,19 @@ int lengthOfLongestSubstring(char* s) {
     return max_len;
 }
 
+/*
+ *leetcode problem 5
+ *https://leetcode.com/problems/longest-palindromic-substring/
+ *http://www.geeksforgeeks.org/longest-palindrome-substring-set-1/
+ */
+
+int longest_palindromic_substring(char *s) {
+
+
+
+return 0;
+}
+
 int main(){
 
 
@@ -640,6 +572,7 @@ int main(){
 	printf("11 -- No of ways a digit can be represented\n");
 	printf("12 -- Cutting the rod\n");
 	printf("13 -- Longest Substring Without Repeating Characters\n");
+	printf("14 -- Longest palindromic substring\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -817,9 +750,13 @@ int main(){
 	    case 13:
 		printf("enter string\n");
 		scanf("%s", s);
-
 		printf("Length: %d\n", lengthOfLongestSubstring(s));
 		break;
+
+	    case 14:
+		printf("enter string\n");
+		scanf("%s", s);
+		printf("Length: %d\n", longest_palindromic_substring(s));
 
 	    default:
 		printf("Invalid option\n");

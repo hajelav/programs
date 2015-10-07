@@ -18,6 +18,16 @@ int MIN(int a, int b) {
     return (a>b?b:a);
 }
 
+int MIN_three(int a, int b, int c) {
+
+    if(a-b <= 0 && a-c <=0)
+	return a;
+    else if(b-a <= 0 && b-c <= 0 )
+	return b;
+    else 
+	return c;
+}
+
 void init_array(int *arr, int n){
     int i;
     for(i=0;i<n;i++){
@@ -77,6 +87,15 @@ char* create_1Dchar_array(int n) {
     return temp?temp:NULL;
 }
 
+int** create_2Darray(int xlen, int ylen) {
+    int i;
+    int **T = (int**)calloc(xlen, sizeof(int*));
+    for(i=0;i<xlen;i++){
+	T[i] = (int*)calloc(ylen, sizeof(int));
+    }
+    return T;
+}
+
 void print_2Dmatrix(int **T, int xlen, int ylen) {
 
     int i, j;
@@ -88,6 +107,17 @@ void print_2Dmatrix(int **T, int xlen, int ylen) {
     }
 }
 
+
+void print_2Darray(int **t, int xlen, int ylen) {
+
+    int i, j;
+    for(i=0;i<xlen;i++){
+	for(j=0;j<ylen;j++){
+	    printf("%d ",t[i][j]);
+	}
+	printf("\n");
+    }
+}
 
 void input_2Darray(int **A, int r, int c) {
 
@@ -108,6 +138,13 @@ void input_2Dchar_array(char**A, int r, int c) {
     }
 }
 
+void input_1Darray(int *A, int n) {
+
+    int i;
+    for(i=0;i<n;i++){
+	scanf("%d", &A[i]);
+    }
+}
 void print_2Dchar_array(char **T, int xlen, int ylen) {
 
     int i, j;
