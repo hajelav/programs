@@ -538,11 +538,52 @@ int lengthOfLongestSubstring(char* s) {
  *http://www.geeksforgeeks.org/longest-palindrome-substring-set-1/
  */
 
-int longest_palindromic_substring(char *s) {
+/*
+ *recurrence relation :  O(n2) time complexity
+ *L store the lengh of all palidromic substring for the given string S
+ *and i and j be any index. Now the longest palidromic subsequence at any i, j
+ *
+ *L[i][j] =  L[i+1][j-1] + 2 , if S[i] == S[j] and i+1 ... j-1 is a palindrome
+ *           else
+ *        =   1 
+ */
+
+int longest_palindromic_substring(char *S) {
+
+    int i, j, k;
+    int **L; // declare a 2D array to store the lengths of palindromes
+    int len;
+
+    if(!S)
+	return 0;
+
+    len = strlen(S);
+
+    //create a 2D array to store palindromic len
+    L = create_2Darray(len, len);
+    /*memset(L, 0, sizeof(L));*/
+    init_2Darray(L, len, len, 0);
+
+    //all the indices from i to i have len 1
+    for(i=0;i<len;i++){
+	L[i][i] = 1;
+    }
 
 
+    //run the loop diagonally
+    for(j=1;j<len;j++) {
 
-return 0;
+	k=j;	
+	for(i=0;i<len && k<len;i++,k++){
+	    if(S[i] == S[k] && (S[i+1] == S[k-1])){
+		L[i][k] = L[i+1][k-1] + 2;
+	    } else {
+		L[i][k] = 0;
+	    }
+	}
+    }
+    print_2Darray(L, len, len);
+    return 0;
 }
 
 int main(){
