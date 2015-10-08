@@ -353,10 +353,17 @@ int swapNibbles(int n) {
      return x|y;
 }
 
+int my_pow(int a, int b) {
+
+
+
+}
+
 int main() {
     char c;
     int choice, n, shift, posx, posy;
     int *x, *y;
+    int a, b;
     int arr[] = {2, 3, 7, 9, 11, 2, 3, 11};
     do {
 
@@ -373,6 +380,7 @@ int main() {
 	printf("10 -- Swap position x and y\t");
 	printf("11 -- Swap all odd and even bits\t");
 	printf("12 -- Swap even and odd nibbles\t");
+	printf("13 -- Implement pow function\t");
 
 	
 
@@ -464,6 +472,16 @@ int main() {
 		printf("%d\n",swapNibbles(n));
 		printBinary(swapNibbles(n));
 		break;
+
+	    case 13:
+		printf("enter no\n");
+		scanf("%d", &a);
+		printf("enter no\n");
+		scanf("%d", &b);
+		printf("%d\n",my_pow(a, b));
+		break;
+
+
 
 
 	    default:

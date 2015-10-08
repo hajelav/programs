@@ -764,7 +764,7 @@ int main(){
 	printf("9 -- check if the two words are one edit away from each other. i.e one word can be formed from another by inserting/ deleting/replacing one character\n");
 	printf("10 -- Find how many numbers of length n are there such that each number is at least 4 smaller/greater than the number before and after it.\n");
 	printf("11 -- No of ways r objects can be choosen  from n objects(n C r)\n");
-	printf("12 -- implement POW function\n");
+	printf("12 -- implement pow function\n");
 	printf("13 -- internationalization\n");
 	printf("14 -- wildcard\n");
 	printf("15 -- permutations of a string\n");
