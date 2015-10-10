@@ -80,12 +80,14 @@ void max_path_len_loop(GRAPH *g, uint64_t vtx, uint64_t path_len){
 
     /*once we visted a node, we mark it as visited*/
     g[vtx].processed = 1;
+    printf("Processing node:%zu\n", g[vtx].idx);
 
     /*get the neighbors(children) of the node*/
     trav = g[vtx].gnode;
 
     /*traverse the child nodes recursively*/
     while(trav){
+    /*printf("Processing edge:%zu-->%zu\n", g[vtx].idx, trav->idx);*/
 	max_path_len_loop(g, trav->idx, path_len+1);
 	trav = trav->next;
     }
@@ -124,7 +126,7 @@ int max_path_len(GRAPH *g, int src, uint64_t n) {
 }
 
 int main (int argc, char *argv[]) {
-    int  vtx;
+    /*int  vtx;*/
     uint64_t n; /* no of nodes in graph*/
     GRAPH *g;
 
@@ -150,9 +152,9 @@ int main (int argc, char *argv[]) {
 	    print_graph(g, n);
 
 	printf("Enter the root node in graph\n");
-	scanf("%d", &vtx);
+	/*scanf("%d", &vtx);*/
 
-	if(max_path_len(g, vtx, n) > 0) {
+	if(max_path_len(g, 0, n) > 0) {
 	    print_dist(g, n);
 	    printf("\nMaximum path length : %d\n", get_max_path_len(g, n));
 	}

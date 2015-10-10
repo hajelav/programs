@@ -1,48 +1,60 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-#include <string.h>
+#include "../utils.h"
 
+/*http://stackoverflow.com/questions/20577117/algorithm-to-modify-a-matrix-and-set-columns-and-rows-to-zero*/
+void row_col_zero(int **A, int row, int col) {
 
-int MAX(int a, int b) {
-    return (a>b?a:b);
-}
+    int r, c;
+    printf("Input array\n");
+    print_2Darray(A, row, col);
 
-void init_array(int *arr, int n){
-    int i;
-    for(i=0;i<n;i++){
-	arr[i] = 1;
-    }
-}
+    /*first pass: traverse through the matrix , whenever you find a 0, make the first last element of  that row and colum as 0*/
 
-int** create_2Dmatrix(int xlen, int ylen) {
-    int i;
-    int **T = (int**)calloc(xlen, sizeof(int*));
-    for(i=0;i<xlen;i++){
-	T[i] = (int*)calloc(ylen, sizeof(int));
-    }
-    return T;
-}
-
-void print_2Dmatrix(int **T, int xlen, int ylen) {
-
-    int i, j;
-    for(i=0;i<xlen;i++){
-	for(j=0;j<ylen;j++){
-	    printf("%d ",T[i][j]);
+    for(r=0;r<row;r++){
+	for(c=0;c<col;c++){
+	    if(A[r][c] == 0){
+		//make first and last element of that row as 0
+		A[r][0] = A[r][col-1] = 8;
+		//make first and last element of that col as 0
+		A[0][c] = A[row-1][c] = 8;
+	    }
 	}
-	printf("\n");
+    }
+
+    printf("after first pass\n");
+    print_2Darray(A, row, col);
+    /*second pass: go through all the cols and fill all such colums with zero, where you find first and last element as zero*/
+    for(c=0;c<col;c++){
+	//check for first and last element of that col
+	if(A[0][c] == 8 && A[row-1][c] == 8){
+	    for(r=0;r<row;r++){
+		A[r][c] = 0;
+	    }
+	}
+    }
+    printf("after second pass\n");
+    print_2Darray(A, row, col);
+
+    /*third pass: go through all the rows and fill all such rows with zero, where you find first and last element as zero*/
+    for(r=0;r<row;r++){
+	//check for first and last element of that col
+	if(A[r][0] == 8 || A[r][col-1] == 8) {
+	    for(c=0;c<col;c++){
+		A[r][c] = 0;
+	    }
     }
 }
 
-int ** rotate_matrix(int r, int c) {
+    printf("after third pass\n");
+    print_2Darray(A, row, col);
 
 }
 
+int** rotate_matrix(int r, int c) {
+
+    return NULL;
+}
 
 int main(){
-
-
     char c;
     int choice;
     int row, col;
@@ -51,6 +63,7 @@ int main(){
 
 	printf("MENU OPTIONS\n");
 	printf("1 -- Rotate matrix by 90 degree\n");
+	printf("2 -- Make entire row and col zero , if you find an element as zero\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -64,6 +77,17 @@ int main(){
 		A = rotate_matrix(row, col);
 		print_2Dmatrix(A, col, row);
 		break;
+
+	    case 2:
+		printf("Enter no of rows\n");
+		scanf("%d", &row);
+		printf("Enter no of cols\n");
+		scanf("%d", &col);
+		A = create_2Darray(row, col);
+		input_2Darray(A, row, col);
+		row_col_zero(A, row, col);
+		break;
+
 
 	}
 	printf("\n\n");

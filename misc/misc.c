@@ -2,124 +2,6 @@
 
 #define EPS 0.000001
 
-/*[>returns the index of max node between parent,left child and right child<]*/
-/*int max_node(int a, int b, int c) {*/
-
-    /*if((a-b >= 0) && (a-c >=0))*/
-	/*return a;*/
-    /*else if(b-a >= 0 && b-c >= 0 )*/
-	/*return b;*/
-    /*else */
-	/*return c;*/
-/*}*/
-
-/*int MAX(int a, int b) {*/
-    /*return (a>b?a:b);*/
-/*}*/
-/*int MIN(int a, int b) {*/
-    /*return (a>b?b:a);*/
-/*}*/
-
-/*void init_array(int *arr, int n){*/
-    /*int i;*/
-    /*for(i=0;i<n;i++){*/
-	/*arr[i] = 1;*/
-    /*}*/
-/*}*/
-
-/*int* create_1Darray(int n) {*/
-    /*int *A;*/
-    /*A = (int*)calloc(n, sizeof(int));*/
-
-    /*if(!A)*/
-	/*return NULL;*/
-    /*return A;*/
-/*}*/
-/*void input_array(int *A, int n) {*/
-
-    /*int i;*/
-    /*for(i=0;i<n;i++){*/
-	/*scanf("%d", &A[i]);*/
-    /*}*/
-/*}*/
-
-/*void init_2Darray(int **A, int r, int c, int val) {*/
-    /*int i, j;*/
-    /*for(i=0;i<r;i++){*/
-	/*for(j=0;j<c;j++){*/
-	    /*A[i][j] = val;*/
-	/*}*/
-    /*}*/
-/*}*/
-
-/*int** create_2Dmatrix(int xlen, int ylen) {*/
-    /*int i;*/
-    /*int **T = (int**)calloc(xlen, sizeof(int*));*/
-    /*for(i=0;i<xlen;i++){*/
-	/*T[i] = (int*)calloc(ylen, sizeof(int));*/
-    /*}*/
-    /*return T;*/
-/*}*/
-
-/*char ** create_2Dchar_array(int r, int c) {*/
-
-    /*int i;*/
-    /*char **A = (char**)malloc(sizeof(char*)*r);*/
-    /*for(i=0;i<r;i++){*/
-	/*A[i] = (char*)malloc(sizeof(char)*(c+1));*/
-    /*}*/
-    /*return A;*/
-/*}*/
-
-
-/*char* create_1Dchar_array(int n) {*/
-    /*char* temp;*/
-    /*temp = (char*)calloc(sizeof(char), n+1);*/
-    /*temp[n] = '\0';*/
-    /*return temp?temp:NULL;*/
-/*}*/
-
-/*void print_2Dmatrix(int **T, int xlen, int ylen) {*/
-
-    /*int i, j;*/
-    /*for(i=0;i<xlen;i++){*/
-	/*for(j=0;j<ylen;j++){*/
-	    /*printf("%d ",T[i][j]);*/
-	/*}*/
-	/*printf("\n");*/
-    /*}*/
-/*}*/
-
-
-/*void input_2Darray(int **A, int r, int c) {*/
-
-    /*int i, j;*/
-    /*printf("Enter elements\n");*/
-    /*for(i=0;i<r;i++){*/
-	/*for(j=0;j<c;j++){*/
-	    /*scanf("%d",&A[i][j]);*/
-	/*}*/
-    /*}*/
-/*}*/
-/*void input_2Dchar_array(char**A, int r, int c) {*/
-
-    /*int i;*/
-    /*printf("Enter elements\n");*/
-    /*for(i=0;i<r;i++){*/
-	    /*scanf("%s", A[i]);*/
-    /*}*/
-/*}*/
-
-/*void print_2Dchar_array(char **T, int xlen, int ylen) {*/
-
-    /*int i, j;*/
-    /*for(i=0;i<xlen;i++){*/
-	/*for(j=0;j<ylen;j++){*/
-	    /*printf("%c ",T[i][j]);*/
-	/*}*/
-	/*printf("\n");*/
-    /*}*/
-/*}*/
 /*
  *http://codinggeeks.blogspot.com/2010/04/computing-square-cube-roots.html
 
@@ -146,8 +28,6 @@ double sqroot(double low, double high, double num) {
 
     return sqrt;
 }
-
-
 
 int GCD(int a, int b) {
 
@@ -737,10 +617,63 @@ void print_wildcard(char *S, char *res, int i, int n) {
   time complexity : k*O(logn), where k is number of different digits in an array
  */
 
+/*
+ *leetcode problem 6
+ *https://leetcode.com/problems/zigzag-conversion/
+ */
+void zigzag(char *S, int nrows) {
 
+    int rows, cols, len, k;
+    int i=0, j=0;
+    int zigzag;
+    char **str;
 
-int main(){
+    if(!S || nrows<0)
+	return;
 
+    len = strlen(S);
+
+    /*if there is only one element in the string, then just print that element*/
+    if(len < 1){
+	printf("%s\n", S);
+	return;
+    }
+
+    /*get the rows and cols of the new array which will be used to print the zigzag order*/
+    rows = len/nrows;
+    cols = len%nrows + rows+1; 
+
+    str = create_2Dchar_array(nrows, cols);
+
+    k = 0;
+    zigzag = nrows - 1;
+    while(j<cols) {
+
+	if(i< nrows) {
+	    while(i<nrows){
+		str[i][j] = S[k];
+		printf("%c ", str[i][j]); 
+		k++;
+		i++;
+		if(i == nrows-1)
+		    zigzag = i-1;
+	    }
+	} else {
+	    /*--zigzag;*/
+	    str[zigzag][j] = S[k];
+		printf("%c ", str[zigzag][j]); 
+	    if(zigzag == 0){
+		i = 0;
+	    }
+	    k++;
+	}
+	j++;
+    }
+    printf("\n");
+    print_2Dchar_array(str, nrows, cols);
+}
+
+int main() {
 
     char c;
     int choice;
@@ -768,8 +701,7 @@ int main(){
 	printf("13 -- internationalization\n");
 	printf("14 -- wildcard\n");
 	printf("15 -- permutations of a string\n");
-	
-
+	printf("16 -- zigzag printing of string\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -870,6 +802,13 @@ int main(){
 	    case 15:
 		permutation();
 		break;
+	    case 16:
+		printf("Enter string\n");
+		scanf("%s", str);
+		printf("Enter row length\n");
+		scanf("%d", &n);
+		zigzag(str, n);
+
 
 	    default:
 		printf("invalid choice\n");

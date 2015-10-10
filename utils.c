@@ -74,7 +74,7 @@ char ** create_2Dchar_array(int r, int c) {
     int i;
     char **A = (char**)malloc(sizeof(char*)*r);
     for(i=0;i<r;i++){
-	A[i] = (char*)malloc(sizeof(char)*(c+1));
+	A[i] = (char*)calloc(c+1, sizeof(char));
     }
     return A;
 }
@@ -113,7 +113,7 @@ void print_2Darray(int **t, int xlen, int ylen) {
     int i, j;
     for(i=0;i<xlen;i++){
 	for(j=0;j<ylen;j++){
-	    printf("%d ",t[i][j]);
+	    printf("%d  ",t[i][j]);
 	}
 	printf("\n");
     }
@@ -150,6 +150,7 @@ void print_2Dchar_array(char **T, int xlen, int ylen) {
     int i, j;
     for(i=0;i<xlen;i++){
 	for(j=0;j<ylen;j++){
+	    if(T[i][j])
 	    printf("%c ",T[i][j]);
 	}
 	printf("\n");
