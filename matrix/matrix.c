@@ -1,52 +1,70 @@
 #include "../utils.h"
 
 /*http://stackoverflow.com/questions/20577117/algorithm-to-modify-a-matrix-and-set-columns-and-rows-to-zero*/
+/*
+ *Time : O(n2)
+ *space : O(1)
+ */
 void row_col_zero(int **A, int row, int col) {
 
     int r, c;
+    int setFirstRow = 0;//to check if we find 0 in first row
+    int setFirstCol = 0;//to check if we find 0 in first col
+
     printf("Input array\n");
     print_2Darray(A, row, col);
 
-    /*first pass: traverse through the matrix , whenever you find a 0, make the first last element of  that row and colum as 0*/
+    /*first pass: traverse through first row and column and check if we find a 0*/
 
-    for(r=0;r<row;r++){
-	for(c=0;c<col;c++){
-	    if(A[r][c] == 0){
-		//make first and last element of that row as 0
-		A[r][0] = A[r][col-1] = 8;
-		//make first and last element of that col as 0
-		A[0][c] = A[row-1][c] = 8;
-	    }
-	}
-    }
-
-    printf("after first pass\n");
-    print_2Darray(A, row, col);
-    /*second pass: go through all the cols and fill all such colums with zero, where you find first and last element as zero*/
     for(c=0;c<col;c++){
-	//check for first and last element of that col
-	if(A[0][c] == 8 && A[row-1][c] == 8){
-	    for(r=0;r<row;r++){
+	if(A[0][c] == 0)
+	    setFirstRow = 1;
+    }
+
+    for(r=0;r<row;r++){
+	if(A[r][0] == 0)
+	    setFirstCol = 1;
+    }
+
+/*
+ *second pass: go through the matrix row-1 and col-1 and look for any 0, if found update the first row and colum
+ *    here the first row and column serve as auxillary array
+ */
+    for(r=1;r<row;r++){
+	for(c=1;c<col;c++){
+	    if(A[r][c] == 0){
+		//make first element of that row and column as 0
+		A[r][0] = 0;
+		A[0][c] = 0;
+	    }
+	}
+    }
+
+    /*third pass: go through the row-1 , col-1 array, and whenever u find corresponding 0 in first row or first column , mark that element is zero*/
+
+    for(r=1;r<row;r++){
+	for(c=1;c<col;c++){
+	    if(A[r][0] == 0 ||  A[0][c] == 0){
 		A[r][c] = 0;
 	    }
 	}
     }
-    printf("after second pass\n");
-    print_2Darray(A, row, col);
 
-    /*third pass: go through all the rows and fill all such rows with zero, where you find first and last element as zero*/
-    for(r=0;r<row;r++){
-	//check for first and last element of that col
-	if(A[r][0] == 8 || A[r][col-1] == 8) {
-	    for(c=0;c<col;c++){
-		A[r][c] = 0;
-	    }
+    /*fourth pass: go through the first row and colum and set all elements as 0 if you find varibles set in first pass*/
+    if(setFirstRow) {
+	for(c=0;c<col;c++){
+	    A[0][c] = 0;
+	}
     }
-}
 
-    printf("after third pass\n");
+    if(setFirstCol) {
+	for(r=0;r<row;r++){
+	    A[r][0] = 0;
+	}
+    }
+
+    printf("Output array\n");
     print_2Darray(A, row, col);
-
 }
 
 int** rotate_matrix(int r, int c) {
