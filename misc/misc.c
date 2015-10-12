@@ -73,6 +73,10 @@ int get2compliment(int n){
     return (~n+1);
 }
 
+/*
+ *https://leetcode.com/problems/string-to-integer-atoi/
+ *leetcode problem 8
+ */
 int myatoi(char *str) {
 
     int len, k;
@@ -225,6 +229,7 @@ void get_island_util(int **A, int r, int c, int i, int j, int **V, int color) {
 }
 
 /*
+ * leetcode problem 200
  *http://www.careercup.com/question?id=3743299
  */
 void get_island() {
@@ -623,7 +628,7 @@ void print_wildcard(char *S, char *res, int i, int n) {
  */
 void zigzag(char *S, int nrows) {
 
-    int rows, cols, len, k;
+    int cols = 0, len, k, block, no_of_blocks;
     int i=0, j=0;
     int zigzag;
     char **str;
@@ -639,38 +644,87 @@ void zigzag(char *S, int nrows) {
 	return;
     }
 
-    /*get the rows and cols of the new array which will be used to print the zigzag order*/
-    rows = len/nrows;
-    cols = len%nrows + rows+1; 
+    /*get the cols of the new array which will be used to print the zigzag order*/
+
+   if(len > nrows) {
+
+    block = (nrows + nrows-2);
+    no_of_blocks = len/block;
+    cols = no_of_blocks*(nrows-1);
+
+    if(len%block > nrows)
+	cols = cols+2;
+    else
+	cols = cols+1;
+
+   }else {
+       cols = 1;
+   }
+    
+    printf("colums: %d\n", cols);
 
     str = create_2Dchar_array(nrows, cols);
+    /*print_2Dchar_array(str, nrows, cols);*/
+    /*str = create_2Dchar_array(20, 20);*/
 
     k = 0;
-    zigzag = nrows - 1;
+    /*zigzag = nrows - 1;*/
     while(j<cols) {
 
 	if(i< nrows) {
 	    while(i<nrows){
 		str[i][j] = S[k];
-		printf("%c ", str[i][j]); 
+		/*printf("-->%c ", str[i][j]);*/
 		k++;
-		i++;
 		if(i == nrows-1)
 		    zigzag = i-1;
+		i++;
 	    }
 	} else {
-	    /*--zigzag;*/
-	    str[zigzag][j] = S[k];
-		printf("%c ", str[zigzag][j]); 
-	    if(zigzag == 0){
+
+	    if(zigzag > 0) {
+		str[zigzag][j] = S[k];
+		/*printf("-->%c ", str[i][j]);*/
+		zigzag--;
+		k++;
+	    } 
+	    if(zigzag == 0)
 		i = 0;
-	    }
-	    k++;
 	}
 	j++;
     }
     printf("\n");
     print_2Dchar_array(str, nrows, cols);
+}
+
+/*
+ *leetcode problem 11
+ *https://leetcode.com/problems/container-with-most-water/
+ complexity : O(n)
+Approach : take two pointer(start and end), find min of ( height of start, height of end) 
+now maintain the max area = min(H[start], H[end]) * (end-start)
+Now 
+ */
+
+int maxArea(int* H, int heightSize) {
+
+    int start = 0, end = heightSize-1;
+    int maxArea = 0;
+
+    while(start < end) {
+
+	if((MIN(H[start], H[end])*(end-start)) > maxArea)
+	    maxArea = MIN(H[start], H[end])*(end-start);
+
+	if(H[start] < H[end]){
+	    start++;
+	} else if(H[start] > H[end]){
+	    end--;
+	} else {
+	    start++; end--;
+	}
+    }
+    return maxArea;
 }
 
 int main() {
@@ -702,6 +756,7 @@ int main() {
 	printf("14 -- wildcard\n");
 	printf("15 -- permutations of a string\n");
 	printf("16 -- zigzag printing of string\n");
+	printf("17 -- container with most water\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -808,6 +863,16 @@ int main() {
 		printf("Enter row length\n");
 		scanf("%d", &n);
 		zigzag(str, n);
+		break;
+	    case 17:
+		printf("Enter n non-negative integers\n");
+		scanf("%d", &n1);
+		A = create_1Darray(n1);
+		printf("Enter integers\n");
+		input_array(A, n1);
+		printf("Max Area : %d\n",maxArea(A, n1));
+		break;
+
 
 
 	    default:

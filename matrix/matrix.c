@@ -11,8 +11,12 @@ void row_col_zero(int **A, int row, int col) {
     int setFirstRow = 0;//to check if we find 0 in first row
     int setFirstCol = 0;//to check if we find 0 in first col
 
+    if(!(*A)|| row<=0 || col<=0)
+	return;
+
     printf("Input array\n");
     print_2Darray(A, row, col);
+
 
     /*first pass: traverse through first row and column and check if we find a 0*/
 
