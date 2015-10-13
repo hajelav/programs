@@ -299,6 +299,11 @@ void keypad_util(char **A, int i, int r, int c, char *str) {
     }
 }
 
+/*
+ *leetcode problem 17
+ *https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+ */
+
 void keypad() {
 
     char **A;
@@ -310,7 +315,9 @@ void keypad() {
     scanf("%d", &r);
 
 
+    /*create a 2D char array to store the letter combinations*/
     A = create_2Dchar_array(r, c);
+
     input_2Dchar_array(A, r, c);
     print_2Dchar_array(A, r, c);
 
