@@ -56,6 +56,10 @@ int MAX(int a, int b) {
 
 }
 
+int MOD(int x, int y) {
+    return (x-y)>0?(x-y):(0-(x-y));
+}
+
 void merge(int *A, int l, int i, int j, int h){
     int *T, k;
     int low, high;
@@ -340,8 +344,39 @@ int _2sum(int *A, int i, int j, int sum) {
     return 0;
 }
 
-int _3sum(int *A, int l, int h, int sum) {
+void _2sum_closest(int *A, int i, int j, int sum) {
 
+    int closest_i, closest_j;
+    int diff = INT_MAX;
+    mergesort(A, i, j);
+
+    while(i!=j){
+
+	if(MOD(A[i]+A[j] ,sum) < diff){
+	    diff = MOD(A[i]+A[j] ,sum);	
+	    closest_i = i;
+	    closest_j = j;
+	}
+
+	if(A[i]+A[j] < sum){
+	    i++;
+	}
+	else if(A[i]+A[j] > sum)
+	    j--;
+	else
+	   break; //exit from the loop if u find i and j which equals sum 
+    }
+
+    printf("Closest nos %d %d to sum %d\n", A[closest_i], A[closest_j], sum);
+
+}
+
+/*
+ *leetcode problem 15
+ *https://leetcode.com/problems/3sum/
+ */
+
+int _3sum(int *A, int l, int h, int sum) {
 
     int i;
 
@@ -354,6 +389,17 @@ int _3sum(int *A, int l, int h, int sum) {
 		return 1;
     }	
     return 0;
+}
+
+/*
+ *leetcode problem 16
+ *https://leetcode.com/problems/3sum-closest/
+ */
+
+int _3sumclosest(int *A, int l, int h, int target) {
+
+return 0;
+
 }
 
 
@@ -492,6 +538,7 @@ int main() {
 	printf("8 -- Divide it into two Equal(it is important) partitions\n");
 	printf("9 -- Given two sorted arrays find the element which would be N-th in their merged and sorted combination.\n");
 	printf("10 -- Maximum contigous subarray using divide and conquer(nlogn)\n");
+	printf("11 --  find 2 numbers closest to a given sum\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -582,6 +629,18 @@ int main() {
 		A = create_1Darray(n);
 		input_array(A, n);
 		printf("Min sum : %d\n", divide_array(A, 0, n-1));
+		break;
+
+	    case 11:
+		printf("Enter no of elements in array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n);
+		input_array(A, n);
+		printf("Enter sum\n");
+		scanf("%d", &sum);
+
+		/*printf("2 sum exits: %s\n", _2sum(A, 0, n-1, sum)?"Yes":"No");*/
+		_2sum_closest(A, 0, n-1, sum);
 		break;
 
 		

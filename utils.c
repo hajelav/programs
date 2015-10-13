@@ -18,6 +18,11 @@ int MIN(int a, int b) {
     return (a>b?b:a);
 }
 
+
+int MOD(int x, int y) {
+    return (x-y)>0?(x-y):(0-(x-y));
+}
+
 int MIN_three(int a, int b, int c) {
 
     if(a-b <= 0 && a-c <=0)
