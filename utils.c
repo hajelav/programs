@@ -47,6 +47,18 @@ int* create_1Darray(int n) {
 	return NULL;
     return A;
 }
+
+/*create an array of integer pointer*/
+
+int** create_1D_array_ptr(int n) {
+
+    int **A;
+    A = (int**)calloc(n, sizeof(int*));
+    if(!A)
+	return NULL;
+    return A;
+}
+
 void input_array(int *A, int n) {
 
     int i;
@@ -158,5 +170,12 @@ void print_2Dchar_array(char **T, int xlen, int ylen) {
 	    printf("%c ",T[i][j]);
 	}
 	printf("\n");
+    }
+}
+
+void print_1Darray(int *A, int n) {
+    int i;
+    for(i=0;i<n;i++){
+	printf("%d ", A[i]);
     }
 }

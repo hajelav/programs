@@ -11,25 +11,28 @@
 #include <limits.h>
 #include <math.h>
 #include <string.h>
+#include <time.h>
 
 
 int max_node(int a, int b, int c);
 int MAX(int a, int b);
 int MIN(int a, int b);
+int MIN_three(int a, int b, int c);
 void init_array(int *arr, int n);
-int* create_1Darray(int n);
-void input_array(int *A, int n);
 void init_2Darray(int **A, int r, int c, int val);
+int* create_1Darray(int n);
+int** create_1D_array_ptr(int n);
+int** create_2Darray(int xlen, int ylen);
 int** create_2Dmatrix(int xlen, int ylen);
 char ** create_2Dchar_array(int r, int c);
 char* create_1Dchar_array(int n);
-void print_2Dmatrix(int **T, int xlen, int ylen);
+void input_array(int *A, int n);
 void input_2Darray(int **A, int r, int c);
+void input_1Darray(int *A, int n);
 void input_2Dchar_array(char**A, int r, int c);
 void print_2Dchar_array(char **T, int xlen, int ylen);
-void input_1Darray(int *A, int n);
-int** create_2Darray(int xlen, int ylen);
+void print_2Dmatrix(int **T, int xlen, int ylen);
 void print_2Darray(int **t, int xlen, int ylen);
-int MIN_three(int a, int b, int c);
+void print_1Darray(int *A, int n);
 
-#endif /*  _UTIL_H_ */ 
+#endif /*   _UTIL_H_ */ 

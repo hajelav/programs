@@ -1,37 +1,27 @@
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
+#include "../utils.h"
 
 int *A;
 /*function pointer of min/max heapify functions*/
 typedef void (*HEAPIFY)(int*, int , int); 
 
 
-int* create_1Darray(int n) {
-    int *A;
-    A = (int*)calloc(n, sizeof(int));
+/*int* create_1Darray(int n) {*/
+    /*int *A;*/
+    /*A = (int*)calloc(n, sizeof(int));*/
 
-    if(!A)
-	return NULL;
-    return A;
-}
+    /*if(!A)*/
+	/*return NULL;*/
+    /*return A;*/
+/*}*/
 
-void input_array(int *A, int n) {
-    int i;
-    printf("Enter elements\n");
-    for(i=0;i<n;i++){
-	scanf("%d", &A[i]);
-    } 
-}
+/*void input_array(int *A, int n) {*/
+    /*int i;*/
+    /*printf("Enter elements\n");*/
+    /*for(i=0;i<n;i++){*/
+	/*scanf("%d", &A[i]);*/
+    /*} */
+/*}*/
 
-void print_1Darray(int *A, int n) {
-    int i;
-    for(i=0;i<n;i++){
-	printf("%d ", A[i]);
-    } 
-}
 
 void print_1Darray_index(int *A, int i, int j){
 int k;
@@ -48,25 +38,25 @@ void swap(int *A, int idx1, int idx2) {
    A[idx2] = temp;
 }
 
-int MAX(int *A, int a, int b) {
+int MAX_heap(int *A, int a, int b) {
     return A[a]>A[b]?a:b;
 }
-int MIN(int *A, int a, int b) {
+int MIN_heap(int *A, int a, int b) {
     return A[a]>A[b]?b:a;
 }
 
 /*returns the index of max node between parent,left child and right child*/
-int max_node(int *A, int a, int b, int c) {
+int max_heap_node(int *A, int a, int b, int c) {
 
     //when leaf node , return the idx of parent
     if(b<0 && c<0)
 	return a;
     //when left child is NULL and right child is not NULL
     if(b<0 && c>0)
-	return MAX(A, a, c);
+	return MAX_heap(A, a, c);
     //when right child is NULL and left child is not NULL
     if(c<0 && b>0)
-	return MAX(A, a, b);
+	return MAX_heap(A, a, b);
 
     if((A[a]-A[b] >= 0) && (A[a]-A[c] >=0))
 	return a;
@@ -78,17 +68,17 @@ int max_node(int *A, int a, int b, int c) {
 
 
 /*returns the index of min node between parent,left child and right child*/
-int min_node(int *A, int a, int b, int c) {
+int min_heap_node(int *A, int a, int b, int c) {
 
     //when leaf node , return the idx of parent
     if(b<0 && c<0)
 	return a;
     //when left child is NULL and right child is not NULL
     if(b<0 && c>0)
-	return MIN(A, a, c);
+	return MIN_heap(A, a, c);
     //when right child is NULL and left child is not NULL
     if(c<0 && b>0)
-	return MIN(A, a, b);
+	return MIN_heap(A, a, b);
 
     if(A[a]-A[b] <= 0 &&A[a]-A[c] <=0)
 	return a;
@@ -131,7 +121,7 @@ void max_heapify(int *A, int size, int idx) {
     if(lchild < 0 && rchild < 0)
 	return;
 
-    max_idx = max_node(A, idx, lchild, rchild);
+    max_idx = max_heap_node(A, idx, lchild, rchild);
 
     /*swap the index of max node with current index*/
     swap(A, idx, max_idx);
@@ -157,7 +147,7 @@ void min_heapify(int *A, int size, int idx) {
     if(lchild < 0 && rchild < 0)
 	return;
 
-    min_idx = min_node(A, idx, lchild, rchild);
+    min_idx = min_heap_node(A, idx, lchild, rchild);
 
     /*swap the index of max node with current index*/
     swap(A, idx, min_idx);
@@ -237,9 +227,35 @@ void median(){
 
 /*
  *k-way merge sort 
+ * leetcode problem 23
+ * https://leetcode.com/problems/merge-k-sorted-lists/
  *http://stackoverflow.com/questions/10414255/prove-the-algorithm-that-uses-min-heap-to-merge-k-sorted-lists
- TBD
  */
+
+void k_way_merge_sort() {
+
+    int i, n, n1;
+    int **A;
+    /*int *H; // heap*/
+    printf("enter number of sorted arrays to merge\n");
+    scanf("%d", &n);
+    A = create_1D_array_ptr(n);
+
+
+    /*input all the arrays*/
+    for(i=0;i<n;i++) {
+	printf("enter number of elements for array %d\n", i);
+	scanf("%d", &n1);
+	//create an array
+	A[i] = create_1Darray(n1);
+	input_array(A[i], n1);
+    }
+
+    /*to do k way mergesort , we need a heap of size n(equal to number of arrays)*/
+	/*H = create_1Darray(n);*/
+	//TBD
+
+}
 
 
 /*
@@ -346,6 +362,10 @@ int main() {
 		
 	    case 5:
 		median();
+		break;
+
+	    case 6:
+		k_way_merge_sort();
 		break;
 
 

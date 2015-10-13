@@ -727,6 +727,49 @@ void sort_linklist(LIST *node) {
 
 }
 
+/*
+ *leetcode problem 19
+ *https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+solution: do using single pass only
+ */
+
+void remove_nth_node_from_last_util(LIST *head, int  *cnt, int n) {
+
+    LIST *temp;
+    if(!head || n<=0)
+	return;
+
+    remove_nth_node_from_last_util(head->next, cnt, n);
+
+    (*cnt)++;
+    if(*cnt == n+1){
+	temp = head->next;
+	if(temp){
+	    head->next = temp->next;
+	    free(temp);
+	}
+    }
+}
+
+void remove_nth_node_from_last(LIST *head, int n) {
+
+    int count = 0;
+    LIST *temp;
+    if(!head || n<=0)
+	return;
+
+	remove_nth_node_from_last_util(head, &count, n); 
+
+	//if n happen to be the first node, then delete it here
+	if(count == n){
+
+	    temp = head;
+	    head = head->next;
+	    free(temp); 
+	}
+	print_list(head);
+}
+
 int main() {
     int item,n,n1,n2,list1[50],list2[50];
     LIST *head1=NULL;
@@ -762,6 +805,7 @@ int main() {
         printf("j--Segregate even and odd nodes in a Linked List\t");
         printf("k--pair wise swap links\t");
         printf("l--sort the list(efficient way:Mergesort)\t");
+        printf("m--Remove Nth Node From End of List)\t");
         printf("q--quit\n");
         printf("Enter your choice\n");
         scanf("%c",&c);
@@ -908,6 +952,12 @@ int main() {
 
 	    case 'l':
 		    sort_linklist(head);
+		    break;
+
+	    case 'm':
+		    printf("Enter nth node\n");
+		    scanf("%d", &n);
+		    remove_nth_node_from_last(head, n);
 		    break;
 
             case 'q':
