@@ -130,6 +130,54 @@ void print_words(TNODE *troot, char *path, int cnt) {
     }
 }
 
+/*
+ *leetcode problem 14
+ *https://leetcode.com/problems/longest-common-prefix/
+ */
+
+/*
+ *checks if we reach to a node , where we find more than one branches of a trie node.
+ * otherwise we return the common char
+ */
+TNODE* check_branch(TNODE *tnode, char *c) {
+    int i, count=0;
+    TNODE *node = NULL;
+
+    if(!tnode)
+	return node;
+
+    for(i=0;i<NO_OF_CHARS;i++){
+	if(tnode->next[i]) {
+
+	    if(count == 0){
+		*c = tnode->next[i]->c;
+		node = tnode->next[i];
+	    }
+
+	    count++;
+	}
+	if(count > 1)
+	    return NULL;
+    }
+    return node;
+}
+
+void longest_common_prefix(TNODE* troot) {
+
+    char str[64];
+    TNODE *node = troot; 
+    char c  = '\0';
+    int i = 0;
+    memset(str, '\0', sizeof(str));
+
+    while((node = check_branch(node, &c)) != NULL) {
+	str[i] = c;
+	i++;
+	c = '\0';
+    }
+    printf("Lowest common string: %s\n", str);
+}
+
 int main() {
 
     char c;
@@ -146,6 +194,7 @@ int main() {
 	printf("4 -- Finding the longest repeated substring\n");
 	printf("5 -- Find the longest common substring\n");
 	printf("6 -- Print all the words in trie\n");
+	printf("7 -- Given set of strings, find longest common prefix\n");
 	
 
 	printf("enter your choice\n");
@@ -189,6 +238,10 @@ int main() {
 			print_words(troot, path, 0);
 		    }
 		}
+		break;
+
+	    case 7: 
+		longest_common_prefix(root);
 		break;
 
 	    default:
