@@ -18,7 +18,6 @@ int MIN(int a, int b) {
     return (a>b?b:a);
 }
 
-
 int MOD(int x, int y) {
     return (x-y)>0?(x-y):(0-(x-y));
 }

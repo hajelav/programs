@@ -367,7 +367,7 @@ void _2sum_closest(int *A, int i, int j, int sum) {
 	   break; //exit from the loop if u find i and j which equals sum 
     }
 
-    printf("Closest nos %d %d to sum %d\n", A[closest_i], A[closest_j], sum);
+    printf("Closest nos to sum %d: %d, %d\n", A[closest_i], A[closest_j], sum);
 
 }
 
@@ -396,10 +396,43 @@ int _3sum(int *A, int l, int h, int sum) {
  *https://leetcode.com/problems/3sum-closest/
  */
 
-int _3sumclosest(int *A, int l, int h, int target) {
+void _3sum_closest_util(int *A, int i, int j, int sum, int orig_target_sum) {
 
-return 0;
+    static int closest_i, closest_j;
+    static int diff = INT_MAX;
+    /*mergesort(A, i, j);*/
 
+    while(i!=j){
+
+	if(MOD(A[i]+A[j] ,sum) < diff){
+	    diff = MOD(A[i]+A[j] ,sum);	
+	    closest_i = i;
+	    closest_j = j;
+	    printf("Closest nos to sum %d: %d, %d, %d\n", orig_target_sum, orig_target_sum- sum, A[closest_i], A[closest_j]);
+	}
+
+	if(A[i]+A[j] < sum){
+	    i++;
+	}
+	else if(A[i]+A[j] > sum)
+	    j--;
+	else
+	   break; //exit from the loop if u find i and j which equals sum 
+    }
+
+}
+
+void _3sum_closest(int *A, int l, int h, int target) {
+
+    int i;
+
+    if(!A || ((h-l+1) < 3))
+	return;
+    //sort the array first
+    mergesort(A, l, h);
+    for(i=l; i < h-1; i++){
+	_3sum_closest_util(A, i+1, h, target-A[i], target);
+    }	
 }
 
 
@@ -533,12 +566,13 @@ int main() {
 	printf("3 -- Quicksort\n");
 	printf("4 -- ith order statistics\n");
 	printf("5 -- Median of two sorted arrays(divide and conquer method[logn])\n");
-	printf("6 -- 2 Sum problem\n");
-	printf("7 -- 3 Sum problem\n");
+	printf("6 -- find 2 numbers whose sum is equal to a given target\n");
+	printf("7 -- find 3 numbers whose sum is equal to a given target\n");
 	printf("8 -- Divide it into two Equal(it is important) partitions\n");
 	printf("9 -- Given two sorted arrays find the element which would be N-th in their merged and sorted combination.\n");
 	printf("10 -- Maximum contigous subarray using divide and conquer(nlogn)\n");
 	printf("11 --  find 2 numbers closest to a given sum\n");
+	printf("12 --  find 3 numbers closest to a given sum\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -601,23 +635,23 @@ int main() {
 		break;
 
 	    case 6:
-		printf("Enter no of elements in array1\n");
+		printf("Enter no of elements in array\n");
 		scanf("%d", &n);
 		A = create_1Darray(n);
 		input_array(A, n);
-		printf("Enter sum\n");
+		printf("Enter target sum\n");
 		scanf("%d", &sum);
 
-		printf("2 sum exits: %s\n", _2sum(A, 0, n-1, sum)?"Yes":"No");
+		printf("2 sum exists: %s\n", _2sum(A, 0, n-1, sum)?"Yes":"No");
 		break;
 
 	    case 7:
 
-		printf("Enter no of elements in array1\n");
+		printf("Enter no of elements in array\n");
 		scanf("%d", &n);
 		A = create_1Darray(n);
 		input_array(A, n);
-		printf("Enter sum\n");
+		printf("Enter target sum\n");
 		scanf("%d", &sum);
 
 		printf("3 sum exits: %s\n", _3sum(A, 0, n-1, sum)?"Yes":"No");
@@ -642,10 +676,17 @@ int main() {
 		/*printf("2 sum exits: %s\n", _2sum(A, 0, n-1, sum)?"Yes":"No");*/
 		_2sum_closest(A, 0, n-1, sum);
 		break;
+	    case 12:
+		printf("Enter no of elements in array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n);
+		input_array(A, n);
+		printf("Enter target sum\n");
+		scanf("%d", &sum);
 
-		
-
-
+		/*printf("2 sum exits: %s\n", _2sum(A, 0, n-1, sum)?"Yes":"No");*/
+		_3sum_closest(A, 0, n-1, sum);
+		break;
 
 	    default:
 		printf("Invalid option\n");
