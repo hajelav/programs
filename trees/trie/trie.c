@@ -136,7 +136,7 @@ void print_words(TNODE *troot, char *path, int cnt) {
  */
 
 /*
- *checks if we reach to a node , where we find more than one branches of a trie node.
+ *checks if we reach to a node , where we find more than one branches of a trie node, we return NULL
  * otherwise we return the common char
  */
 TNODE* check_branch(TNODE *tnode, char *c) {
