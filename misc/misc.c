@@ -762,12 +762,38 @@ void remove_duplicate_sorted_array(int *A, int len) {
     print_1Darray(A, i);
 }
 
+
+/*
+ *leetcode problem 27
+ *https://leetcode.com/problems/remove-element/
+ */
+
+void remove_element(int *A, int len, int elem) {
+
+    int i, j;
+    if(!A || len <= 0)
+	return;
+
+    i = 0;
+    j = len-1;
+
+    while(i!=j) {
+	if(A[i] == elem && A[j] != elem){
+	    A[i] = A[j];
+	    i++;
+	}
+	j--;
+    }
+
+    print_1Darray(A, len);
+}
+
 int main() {
 
     char c;
     int choice;
     double num;
-    int n1, n;
+    int n1, n, elem;
     double x;
     int *A;
     char *S, *res;
@@ -793,6 +819,7 @@ int main() {
 	printf("16 -- zigzag printing of string\n");
 	printf("17 -- container with most water\n");
 	printf("18 -- Remove Duplicates from Sorted Array\n");
+	printf("19 -- Remove all instances of an element from an Array\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -921,6 +948,22 @@ int main() {
 		remove_duplicate_sorted_array(A, n1);
 		free(A);
 		break;
+
+	    case 19:
+		printf("Enter no of elements in array\n");
+		scanf("%d", &n1);
+		A = create_1Darray(n1);
+		printf("Enter elements\n");
+
+		input_array(A, n1);
+		printf("Enter element to be removed\n");
+		scanf("%d", &elem);
+		 
+		printf("Output array\n");
+		remove_element(A, n1, elem);
+		free(A);
+		break;
+
 
 
 
