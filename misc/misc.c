@@ -770,7 +770,7 @@ void remove_duplicate_sorted_array(int *A, int len) {
 
 void remove_element(int *A, int len, int elem) {
 
-    int i, j;
+    int i, j, temp;
     if(!A || len <= 0)
 	return;
 
@@ -779,7 +779,9 @@ void remove_element(int *A, int len, int elem) {
 
     while(i!=j) {
 	if(A[i] == elem && A[j] != elem){
-	    A[i] = A[j];
+	    temp = A[j];
+	    A[j] = A[i];
+	    A[i] = temp;
 	    i++;
 	}
 	j--;
