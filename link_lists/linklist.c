@@ -317,7 +317,7 @@ void delete_all_occurences_recursive(LIST** node, int value) {
 }
 
 
-/*Pair waise swap of link list (just the valure)*/
+/*Pair waise swap of link list (just the value)*/
 
 int pair_wise_swap (LIST *node) {
 
@@ -367,7 +367,11 @@ LIST* pair_wise_swap_links(LIST* node){
 
     return head;
 } 
-/*pair wise swap recursive */
+/*
+ *pair wise swap recursive
+ *leetcode problem 24
+https://leetcode.com/problems/swap-nodes-in-pairs/
+ */
 
 void pair_wise_swap_recur (LIST *node) {
 int temp;
@@ -378,10 +382,9 @@ int temp;
 		node->next->value = node->value;
 		node->value = temp;
  		pair_wise_swap_recur(node->next->next);	
-		return;
-
-
+		/*return;*/
 }
+
 /*Sorting of linklist using bubble sort */
 void sort_list ( LIST *head) {
     int count=0,tmp,i;

@@ -734,6 +734,34 @@ int maxArea(int* H, int heightSize) {
     return maxArea;
 }
 
+/*
+ *leetcode problem 26
+ *https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+ */
+
+void remove_duplicate_sorted_array(int *A, int len) {
+
+    int i=1, j=1;
+    if(!A || len <=0)
+	return;
+
+    if(len == 1)
+	printf("%d\n", A[0]);
+
+    while(j<len) {
+	if(A[j] == A[j-1]){
+	    j++;
+	} else {
+	    A[i] = A[j];
+	    i++;
+	    j++;
+	}
+    }
+
+    //print till the i+1 place
+    print_1Darray(A, i);
+}
+
 int main() {
 
     char c;
@@ -764,6 +792,7 @@ int main() {
 	printf("15 -- permutations of a string\n");
 	printf("16 -- zigzag printing of string\n");
 	printf("17 -- container with most water\n");
+	printf("18 -- Remove Duplicates from Sorted Array\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -878,6 +907,19 @@ int main() {
 		printf("Enter integers\n");
 		input_array(A, n1);
 		printf("Max Area : %d\n",maxArea(A, n1));
+		free(A);
+		break;
+
+	    case 18:
+		printf("Enter no of elements in array\n");
+		scanf("%d", &n1);
+		A = create_1Darray(n1);
+		printf("Enter elements\n");
+
+		input_array(A, n1);
+		printf("Output array\n");
+		remove_duplicate_sorted_array(A, n1);
+		free(A);
 		break;
 
 
