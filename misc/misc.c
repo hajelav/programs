@@ -794,6 +794,10 @@ void remove_element(int *A, int len, int elem) {
 /*
  *leetcode problem 121
  *https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+  Idea: we start from the first element and maintain aa local minimum and maximum
+  whenever we find that the price differnce is greater than the previously found difference,
+  we update the local maxima and minima. If we find that price difference is less than previously found 
+  we update the local minimim, if it is less than previously found minimum 
  */
 
 void buy_sell_stock_single(int *A, int len) {
@@ -816,13 +820,37 @@ void buy_sell_stock_single(int *A, int len) {
 	    local_min = A[i];
 	} else {
 	    if(A[j] < local_min){
-		i = j;
+		i = j; 
 	    }
 	}
 
 	j++;
     }
     printf("Buy price:%d, Sell Price:%d, Max Profit:%d\n", local_min, local_max, max_profit);
+}
+
+/*
+ *leetcode problem 122
+ *https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+  Idea: In this problem, since we can buy and sell the stock multiple times, that max profit would be 
+  sum of all +ve price difference
+ */
+
+void buy_sell_stock_multiple(int *A, int len) {
+
+    int i;
+    int profit = 0, diff;
+
+    if(!A || len<=0)
+	return;
+
+    for(i=1;i<len;i++) {
+
+	diff = A[i]-A[i-1];
+	if(diff > 0)
+	    profit += diff;
+    }
+    printf("Max Profit:%d\n", profit);
 }
 
 int main() {
@@ -858,6 +886,7 @@ int main() {
 	printf("18 -- Remove Duplicates from Sorted Array\n");
 	printf("19 -- Remove all instances of an element from an Array\n");
 	printf("20 -- Best time to buy/sell stock(buying and selling is allowed only once)\n");
+	printf("21 -- Best time to buy/sell stock(buying and selling is allowed multiple times)\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1010,6 +1039,16 @@ int main() {
 
 		input_array(A, n1);
 		buy_sell_stock_single(A, n1);
+		free(A);
+		break;
+	    case 21:
+		printf("Enter no of elements in array\n");
+		scanf("%d", &n1);
+		A = create_1Darray(n1);
+		printf("Enter stock prices\n");
+
+		input_array(A, n1);
+		buy_sell_stock_multiple(A, n1);
 		free(A);
 		break;
 
