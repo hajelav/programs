@@ -553,6 +553,34 @@ int NthOfSortedArrays(){
  *tetris game logic (Google interview question)
  */
 
+
+/*
+ *leetcode problem 280
+ *https://leetcode.com/problems/wiggle-sort/
+ */
+
+void wiggle_sort(int *A, int n) {
+
+    int i = 1, flag = 1;
+    int temp;
+    if(!A || n<=0)
+	return;
+
+    while(i<n) {
+	
+	if((flag && A[i] >= A[i-1]) || (!flag && A[i] <= A[i-i])){
+	    //swap i and j
+	    temp = A[i];
+	    A[i] = A[i-1];
+	    A[i-1] = temp;
+	}
+	i++;
+	flag = !flag;
+    }
+
+    print_1Darray(A, n);
+}
+
 int main() {
     char c;
     int choice, n, m, s;
@@ -573,6 +601,7 @@ int main() {
 	printf("10 -- Maximum contigous subarray using divide and conquer(nlogn)\n");
 	printf("11 --  find 2 numbers closest to a given sum\n");
 	printf("12 --  find 3 numbers closest to a given sum\n");
+	printf("13 --  wiggle sort(up,down,up, down pattern)\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -687,6 +716,15 @@ int main() {
 		/*printf("2 sum exits: %s\n", _2sum(A, 0, n-1, sum)?"Yes":"No");*/
 		_3sum_closest(A, 0, n-1, sum);
 		break;
+
+	    case 13:
+		printf("Enter no of elements in array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n);
+		input_array(A, n);
+		wiggle_sort(A, n);
+		break;
+
 
 	    default:
 		printf("Invalid option\n");
