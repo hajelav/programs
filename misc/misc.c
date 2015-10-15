@@ -790,6 +790,41 @@ void remove_element(int *A, int len, int elem) {
     print_1Darray(A, len);
 }
 
+
+/*
+ *leetcode problem 121
+ *https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+ */
+
+void buy_sell_stock_single(int *A, int len) {
+
+    int i = 0, j = 1;
+    int local_min, local_max;
+    int max_profit;
+
+    if(!A || len<=0)
+	return;
+
+    local_min = local_max = A[0];
+    max_profit = local_max - local_min;
+
+    while(j<len) {
+
+	if(A[j]-A[i] > max_profit){
+	    max_profit = A[j]-A[i];
+	    local_max = A[j];
+	    local_min = A[i];
+	} else {
+	    if(A[j] < local_min){
+		i = j;
+	    }
+	}
+
+	j++;
+    }
+    printf("Buy price:%d, Sell Price:%d, Max Profit:%d\n", local_min, local_max, max_profit);
+}
+
 int main() {
 
     char c;
@@ -822,6 +857,7 @@ int main() {
 	printf("17 -- container with most water\n");
 	printf("18 -- Remove Duplicates from Sorted Array\n");
 	printf("19 -- Remove all instances of an element from an Array\n");
+	printf("20 -- Best time to buy/sell stock(buying and selling is allowed only once)\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -966,8 +1002,16 @@ int main() {
 		free(A);
 		break;
 
+	    case 20:
+		printf("Enter no of elements in array\n");
+		scanf("%d", &n1);
+		A = create_1Darray(n1);
+		printf("Enter stock prices\n");
 
-
+		input_array(A, n1);
+		buy_sell_stock_single(A, n1);
+		free(A);
+		break;
 
 	    default:
 		printf("invalid choice\n");
