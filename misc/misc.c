@@ -432,6 +432,7 @@ void number_problem() {
 }
 
 
+/*count the number of 1's*/
 int get_one_count(int n) {
     int cnt=0;
     while(n>0){
@@ -470,6 +471,7 @@ void combination() {
     str = create_1Dchar_array(n);
     scanf("%s", str);
 
+    /*go through all the subsets */
     for(i=1;i<pow(2, n);i++) {
 	//if the count of one in all numbers between 1 to 2^n is r
 	if(get_one_count(i) == r){
