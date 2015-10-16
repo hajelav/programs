@@ -77,7 +77,7 @@ int get2compliment(int n){
  *https://leetcode.com/problems/string-to-integer-atoi/
  *leetcode problem 8
  */
-int myatoi(char *str) {
+int my_atoi(char *str) {
 
     int len, k;
     int num=0;
@@ -151,6 +151,11 @@ int subset_util(int *A, int n , int r) {
     cnt = subset_util(A, n-1, r-1) + subset_util(A, n-1, r);
     return cnt;
 }
+
+/*
+ *leetcode problem 78
+ *https://leetcode.com/problems/subsets/
+ */
 
 int subset(int *A , int n) {
 
@@ -914,7 +919,7 @@ int main() {
 	    case 3:
 		printf("Enter string\n");
 		scanf("%s", str);
-		printf("Number : %d", myatoi(str));
+		printf("Number : %d", my_atoi(str));
 		break;
 
 	    case 4:

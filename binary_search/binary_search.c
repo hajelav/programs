@@ -112,19 +112,23 @@ int citation(int *A, int l, int h) {
 
 }
 
-int rotated_sorted(int *A, int l, int h) {
+int min_element_rotated_sorted(int *A, int l, int h) {
 
     int mid, res;
 
-    mid = (l+h)/2;
+    mid =  l + (h-l)/2;
 
-    mid = (l+h)/2;
-    if(A[mid] > A[l])
-	res = rotated_sorted(A, mid+1, h);
-    else if(A[mid] < A[l])
-	res = rotated_sorted(A, l, mid);
-    else 
-	res = A[h];
+    /*if(A[l] <= A[mid] && A[mid] < A[h])*/
+	/*return A[l];*/
+
+    if(l>=mid)
+	return A[h];
+	
+
+    if(A[l] < A[mid] && A[mid] > A[h])
+	res = min_element_rotated_sorted(A, mid+1, h);
+    else if(A[l] > A[mid] && A[mid] < A[h])
+	res = min_element_rotated_sorted(A, l, mid);
 
     return res;
 }
@@ -135,13 +139,13 @@ int occurence(int *A, int l, int h, int num) {
 
     if(l>=h)
 	return l;
-    
+
     mid = (l+h)/2;
     if(A[mid] < num)
 	res = occurence(A, mid+1, h, num);
     else 
 	res = occurence(A, l, mid, num);
-	return res;
+    return res;
 }
 
 /*
@@ -197,7 +201,7 @@ int main() {
 
 	printf("MENU OPTIONS\n");
 	printf("1 -- citation problem\n");
-	printf("2 -- Find the minimum element in rotated sorted array\n");
+	printf("2 -- Find the minimum element(point of rotation) in rotated sorted array\n");
 	printf("3 -- Find the number of occurances of a given number in a sorted array\n");
 	printf("4 -- Max range in an array\n");
 	
@@ -220,7 +224,8 @@ int main() {
 		scanf("%d", &n);
 		A = create_1Darray(n); 
 		input_array(A, n);
-		printf("Minimum element: %d\n", rotated_sorted(A, 0, n-1));
+		printf("Minimum element: %d\n", min_element_rotated_sorted(A, 0, n-1));
+		break;
 
 	    case 3:
 		printf("Enter the length of array\n");
