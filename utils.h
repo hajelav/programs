@@ -18,6 +18,7 @@ int max_node(int a, int b, int c);
 int MAX(int a, int b);
 int MIN(int a, int b);
 int MIN_three(int a, int b, int c);
+int MOD(int x, int y);
 void init_array(int *arr, int n);
 void init_2Darray(int **A, int r, int c, int val);
 int* create_1Darray(int n);

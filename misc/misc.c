@@ -377,9 +377,53 @@ void permutation() {
     free(V);
 }
 
-void one_edit_dist() {
+/*
+ *leetcode problem 161
+ *https://leetcode.com/problems/one-edit-distance/
+ */
 
+int one_edit_distance(char *S, char *T) {
 
+    int len_S = 0, len_T = 0;
+    int long_len, long_ptr=0, short_ptr=0, count = 0;
+    char *long_str, *short_str;
+    
+    if(!S || !T)
+	return 0;
+
+   len_S = strlen(S);
+   len_T = strlen(T);
+
+   //if difference between the lengths is more than 1, then return false
+   if(MOD(len_S,len_T) > 1)
+       return 0;
+   
+    if(len_S>len_T){
+	long_str = S;
+	short_str = T;
+	long_len = len_S;
+    } else {
+	long_str = T;
+	short_str = S;
+	long_len = len_T;
+    }
+
+    while(long_ptr < long_len) {
+
+	//we need to move the pointer of the longer string only when we find a mis-match and the two strings have unequal length
+	if((short_str[short_ptr] != long_str[long_ptr]) && len_S!=len_T){
+	long_ptr++;
+	    count++;
+	} else {
+	    short_ptr++;
+	    long_ptr++;
+	}
+    }
+
+    if(count > 1)
+	return 0;
+    else 
+       return 1;	
 }
 
 /*
@@ -870,6 +914,7 @@ int main() {
     int *A;
     char *S, *res;
     char str[100];
+    char str1[100];
     do {
 
 	printf("MENU OPTIONS\n");
@@ -953,7 +998,11 @@ int main() {
 		break;
 
 	    case 9:
-		one_edit_dist();
+		printf("Enter string 1\n");
+		scanf("%s", str);
+		printf("Enter string 2\n");
+		scanf("%s", str1);
+		printf("One edit distance:%s\n", one_edit_distance(str, str1)?"Yes":"No");
 		break;
 
 	    case 10:
