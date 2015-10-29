@@ -42,24 +42,36 @@ void* thread(void *data) {
     //get the tid
     tid = td->tid;
 
-    //first thread prints even numbers
-    if(tid == 0){
-	for(i=0;i<N;i+=2) {
+    /*//first thread prints even numbers*/
+    /*if(tid == 0){*/
+    /*for(i=0;i<N;i+=2) {*/
+    /*sem_wait(&mutex1);*/
+    /*printf("%d (printed by thread %d)\n", td->arr[i], tid);*/
+    /*sem_post(&mutex2); //once thread 0 is done, it will increment mutex2 so that thread 1 can execute*/
+
+    /*}*/
+    /*}*/
+    /*//second thread prints odd numbers*/
+    /*if(tid == 1){*/
+    /*for(i=1;i<N;i+=2){*/
+    /*sem_wait(&mutex2); //thread 1 will always execute after thread 0, if thread one tries to print, it will be put to sleep*/
+    /*printf("%d (printed by thread %d)\n", td->arr[i], tid);*/
+    /*sem_post(&mutex1); //once thread 1 is done it will increment mutex1 so that thread 0 can execute*/
+    /*}*/
+    /*}*/
+
+    for(i=0;i<N;i++) {
+
+	if(i%2 == 0 && tid == 0){
 	    sem_wait(&mutex1);
 	    printf("%d (printed by thread %d)\n", td->arr[i], tid);
 	    sem_post(&mutex2); //once thread 0 is done, it will increment mutex2 so that thread 1 can execute
-
-	}
-    }
-    //second thread prints odd numbers
-    if(tid == 1){
-	for(i=1;i<N;i+=2){
+	} else if(i%2 !=0 && tid == 1){
 	    sem_wait(&mutex2); //thread 1 will always execute after thread 0, if thread one tries to print, it will be put to sleep
 	    printf("%d (printed by thread %d)\n", td->arr[i], tid);
 	    sem_post(&mutex1); //once thread 1 is done it will increment mutex1 so that thread 0 can execute
 	}
     }
-
     return NULL;
 }
 
