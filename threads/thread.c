@@ -69,7 +69,7 @@ void* thread0(void *data) {
     int i = 0;
     while(i<10) {
 	sem_wait(&mutex[0]);
-	printf("0");
+	printf("thread 0\n");
 	sem_post(&mutex[1]);
 	i++;
     }
@@ -81,7 +81,7 @@ void* thread1(void *data) {
     int i = 0;
     while(i<10) {
 	sem_wait(&mutex[1]);
-	printf("1");
+	printf("thread 1\n");
 	sem_post(&mutex[2]);
 	i++;
     }
@@ -93,7 +93,7 @@ void* thread2(void *data) {
     int i = 0;
     while(i<10) {
 	sem_wait(&mutex[2]);
-	printf("2");
+	printf("thread 2\n");
 	sem_post(&mutex[0]);
 	i++;
     }

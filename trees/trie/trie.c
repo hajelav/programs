@@ -1,9 +1,7 @@
 /*
  *Trie implementation for strings(lowercase only)
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../../utils.h"
 
 //forward declaration
  #define NO_OF_CHARS 27 //note that 27 char is the string termination char
@@ -73,7 +71,7 @@ void addWordInTrie(char *word, TNODE* troot) {
 /*search for the word in the trie */
 int  searchWordInTrie(TNODE* troot, char *word) {
 
-    if(troot==NULL || word == NULL) {
+    if(troot==NULL || word == NULL || *word == '\0') {
 	return 0;
     }
 
@@ -178,6 +176,51 @@ void longest_common_prefix(TNODE* troot) {
     printf("Lowest common string: %s\n", str);
 }
 
+/*
+ *leetcode problem 212
+ *https://leetcode.com/company/airbnb/
+ */
+
+
+void find_words_util(char **board, int boardRow, int boardCol, TNODE *root, char *str, int i, int j, int k) {
+
+    if(i>=boardRow || i<0 || j>=boardCol || j<0)
+	return;
+    //return if you dont find the word in trie
+    if((*str) && (!searchWordInTrie(root, str)))
+	return;
+
+    str[k] = board[i][j];
+
+    find_words_util(board, boardRow, boardCol, root, str, i+1, j, k+1); // down
+    find_words_util(board, boardRow, boardCol, root, str, i-1, j, k+1); //up
+    find_words_util(board, boardRow, boardCol, root, str, i, j-1, k+1); //left
+    find_words_util(board, boardRow, boardCol, root, str, i, j+1, k+1); //right
+    str[k] = '\0';
+    printf("%s\n", str);
+
+}
+
+void find_words(char **board, int boardRow, int boardCol, TNODE *root, int wordSize) {
+
+    int i, j;
+    char str[256];
+    memset(str, '\0', sizeof(str));
+
+    /*iterate through the board char by char */
+    for(i=0;i<boardRow;i++){
+	for(j=0;j<boardCol;j++){
+	    //search for the char in the board
+	    if(root->next[board[i][j]-'a']) {
+		find_words_util(board, boardRow, boardCol, root, str, i, j, 0);
+		memset(str, '\0', sizeof(str));
+
+	    }
+	}
+    }
+
+}
+
 int main() {
 
     char c;
@@ -185,8 +228,10 @@ int main() {
     char *path;
     TNODE *troot;
     int choice, i;
+    char **board;
+    int boardRow, boardCol, wordSize;
+    
     do {
-
 	printf("MENU OPTIONS\n");
 	printf("1 -- Insert word in Trie\n");
 	printf("2 -- Search word in Trie\n");
@@ -195,8 +240,8 @@ int main() {
 	printf("5 -- Find the longest common substring\n");
 	printf("6 -- Print all the words in trie\n");
 	printf("7 -- Given set of strings, find longest common prefix\n");
+	printf("8 -- word search problem\n");
 	
-
 	printf("enter your choice\n");
 	scanf("%d", &choice);
 
@@ -244,11 +289,28 @@ int main() {
 		longest_common_prefix(root);
 		break;
 
+	    case 8:
+		printf("enter board row size\n");
+		scanf("%d", &boardRow);
+		printf("enter board col size\n");
+		scanf("%d", &boardCol);
+		board = create_2Dchar_array(boardRow, boardCol);
+		input_2Dchar_array(board, boardRow, boardCol);
+
+		printf("enter word size\n");
+		scanf("%d", &wordSize);
+
+		for(i=0;i<wordSize;i++){
+		    printf("Enter the word\n");
+		    scanf("%s", str);
+		    addWordInTrie(str, root);
+		}
+
+		find_words(board, boardRow, boardCol, root, wordSize);
+
 	    default:
 		printf("Invalid option\n");
 		break;
-
-
 	}
 
     }while((c= getchar())!='q');
