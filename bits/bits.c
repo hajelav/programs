@@ -106,34 +106,49 @@ int rightMostSetBit( int n) {
  *}
  */
 
-void printBinary(int n){
+void printBinary(uint32_t n){
 
-    if(n == 0)
-	return;
+    uint32_t i, j=31;
+    uint32_t A[32];
 
-    printBinary(n/2);
-    printf("%d",n%2);
+    for(i=0;i<32;i++){
+	A[j] = n%2;
+	j--;
+	n = n/2;
+    }
+
+    for(i=0;i<32;i++){
+	printf("%u", A[i]);
+    }
 }
 
-
-/*
- *Write an Efficient C Program to Reverse Bits of a Number (Method 2)
+/* leetcode problem 190
+ * Reverse Bits of a Number (Method 2)
  */
-int reverseBits(int n){
-    int rev = 0;
-    while(n>0){
-	rev = rev << 1;
-	rev = rev| (n&1);
+uint32_t reverse_bits(uint32_t n){
+
+    uint32_t i, j = 31;
+    uint32_t res = 0;
+
+    for(i=0;i<32;i++){
+	/*
+	 *logic : extract the leftmost bit of n (n&1) , and then shift that bit to j places(<<j)
+	 *        where j start from 31 to 0. keep on ORing the result from the previous value
+	 */
+
+	res = res | ((n&1) << j);
+	j--;
 	n = n>>1;
     }
-    return rev;
+
+    printBinary(res);
+    return res;
 }
 
 /*
  * Count set bits in an integer
  * http://www.geeksforgeeks.org/count-set-bits-in-an-integer/
  */
-
 int countSetBits(int n){
     int cnt =0;
     while(n>0){
@@ -368,6 +383,12 @@ void print_subsets(int *A, int num, int n) {
     }
 }
 
+/*
+ *leetcode problem 78
+ *https://leetcode.com/problems/subsets/
+ */
+
+
 void subsets(int *A, int n) {
 
     int i, tot_subsets;
@@ -384,6 +405,7 @@ int main() {
     char c;
     int choice, n, shift, posx, posy;
     int *x, *y, *A;
+    uint32_t N;
     int arr[] = {2, 3, 7, 9, 11, 2, 3, 11};
     do {
 
@@ -401,6 +423,7 @@ int main() {
 	printf("11 -- Swap all odd and even bits\t");
 	printf("12 -- Swap even and odd nibbles\t");
 	printf("13 -- Given a set of distinct integers, nums, return all possible subsets\t");
+	printf("14 -- Given an array of integers, every element appears three times except for one. Find that single one\t");
 
 	
 
@@ -425,11 +448,10 @@ int main() {
 		break;
 	    case 4:
 		printf("enter no\n");
-		scanf("%d", &n);
-		printBinary(n);
+		scanf("%d", &N);
+		printBinary(N);
 		printf("\n");
-		/*printf("reverseed bits : %d\n", reverseBits(n));*/
-		printBinary(reverseBits(n));
+		printf("\nreversed number : %u\n", reverse_bits(N));
 		break;
 	    case 5:
 		printf("enter no\n");
@@ -494,7 +516,7 @@ int main() {
 		break;
 
 	    case 13:
-		printf("enter n\n");
+		printf("enter no of elements in the array\n");
 		scanf("%d", &n);
 
 		printf("Enter numbers\n");
@@ -502,6 +524,11 @@ int main() {
 		A = create_1Darray(n);
 		input_array(A, n);
 		subsets(A, n);
+
+	    case 14:
+		printf("enter no of elements in the array\n");
+		scanf("%d", &n);
+
 
 
 		break;
