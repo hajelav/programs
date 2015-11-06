@@ -185,6 +185,30 @@ int occurence(int *A, int l, int h, int num) {
 
  }
 
+/*
+ *leetcode problem 268
+ *https://leetcode.com/problems/missing-number/
+ */
+
+int missing_number(int *A, int low, int high) {
+
+    int mid;
+    int res;
+
+    if(low >= high)
+	return low;
+
+    mid = low + (high-low)/2;
+
+    // if the diff between no and its index at low is equal to mid , then the missing number lies in the right half of array
+    if((A[low]-low) == (A[mid]-mid)){
+	res = missing_number(A, mid+1, high);
+    } else { // else no lies on the left half
+	res = missing_number(A, low, mid);
+    }
+    return res;
+}
+
 
 /*
  *rotate the array n times
@@ -204,6 +228,7 @@ int main() {
 	printf("2 -- Find the minimum element(point of rotation) in rotated sorted array\n");
 	printf("3 -- Find the number of occurances of a given number in a sorted array\n");
 	printf("4 -- Max range in an array\n");
+	printf("5 -- Find the missing number\n");
 	
 
 	printf("Enter your choice\n");
@@ -239,6 +264,15 @@ int main() {
 
 	    case 4:
 		range(Arr, 6);
+		break;
+
+	    case 5: 
+		printf("Enter the length of array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n); 
+		input_array(A, n);
+		printf("Missing Number: %d\n", A[missing_number(A, 0, n-1)]-1);
+		free(A);
 		break;
 
 
