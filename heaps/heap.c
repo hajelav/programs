@@ -4,25 +4,6 @@ int *A;
 /*function pointer of min/max heapify functions*/
 typedef void (*HEAPIFY)(int*, int , int); 
 
-
-/*int* create_1Darray(int n) {*/
-    /*int *A;*/
-    /*A = (int*)calloc(n, sizeof(int));*/
-
-    /*if(!A)*/
-	/*return NULL;*/
-    /*return A;*/
-/*}*/
-
-/*void input_array(int *A, int n) {*/
-    /*int i;*/
-    /*printf("Enter elements\n");*/
-    /*for(i=0;i<n;i++){*/
-	/*scanf("%d", &A[i]);*/
-    /*} */
-/*}*/
-
-
 void print_1Darray_index(int *A, int i, int j){
 int k;
     for(k=i;k<=j;k++){
@@ -193,6 +174,12 @@ void heapsort(int *A, int n ) {
     }
 }
 
+
+/*
+ *leetcode problem 295
+ *https://leetcode.com/tag/heap/
+ */
+
 void median(){
 /*http://algorithmsandme.com/2014/08/heaps-find-median-of-stream-of-integers*/
 /*http://stackoverflow.com/questions/10657503/find-running-median-from-a-stream-of-integers*/
@@ -226,9 +213,9 @@ void median(){
 
 
 /*
- *k-way merge sort 
  * leetcode problem 23
  * https://leetcode.com/problems/merge-k-sorted-lists/
+ * k-way merge sort 
  *http://stackoverflow.com/questions/10414255/prove-the-algorithm-that-uses-min-heap-to-merge-k-sorted-lists
  */
 
@@ -275,7 +262,7 @@ void k_way_merge_sort() {
  *http://www.careercup.com/question?id=5658326589243392
  *Given a max-heap represented as an array, return the kth largest element without modifying the heap. I was asked to do it in linear time, but was told it can be done in log time.
  *
- *algorithm :
+ * algorithm :
  *1. Let A be the the orginal max-heap array
  *2. Initially queue is empty and rank = 0
  *3. Insert root(max element of A) in queue

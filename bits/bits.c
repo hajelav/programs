@@ -1,5 +1,5 @@
 /*
- *Things to remember for bitwise operators
+ * Important things to remember for bitwise operators
 
  * 1. Subtraction of 1 from a number toggles all the bits (from right to left) till the rightmost set bit(including the righmost set bit). So if we subtract a number by 1 and do bitwise & with itself (n & (n-1)), we unset the righmost set bit. 
    2. (n & -n ) gives the position of first set bit in number n 
@@ -7,10 +7,7 @@
  *
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-
+#include "../utils.h"
 /*
  * Write a C program to find the parity of an unsigned integer
  * http://www.geeksforgeeks.org/category/bit-magic/page/4/
@@ -353,17 +350,40 @@ int swapNibbles(int n) {
      return x|y;
 }
 
-int my_pow(int a, int b) {
+void print_subsets(int *A, int num, int n) {
 
 
+    /*printf("number : %d\n", num);*/
+    int pos; 
+    while(num>0){
 
+	//get the position of the first set bit of num
+	pos = log2(num & (-num));
+	/*printf("pos : %d\n", pos);*/
+
+	printf("%d ", A[pos]);
+
+	//set the position of the bit to 0
+	num = num & (num-1);
+    }
+}
+
+void subsets(int *A, int n) {
+
+    int i, tot_subsets;
+    tot_subsets = pow(2, n);
+
+    printf("Subsets\n");
+    for(i=1;i<tot_subsets;i++){
+	print_subsets(A, i, n);
+	printf("\n");
+    }
 }
 
 int main() {
     char c;
     int choice, n, shift, posx, posy;
-    int *x, *y;
-    int a, b;
+    int *x, *y, *A;
     int arr[] = {2, 3, 7, 9, 11, 2, 3, 11};
     do {
 
@@ -380,7 +400,7 @@ int main() {
 	printf("10 -- Swap position x and y\t");
 	printf("11 -- Swap all odd and even bits\t");
 	printf("12 -- Swap even and odd nibbles\t");
-	printf("13 -- Implement pow function\t");
+	printf("13 -- Given a set of distinct integers, nums, return all possible subsets\t");
 
 	
 
@@ -474,15 +494,17 @@ int main() {
 		break;
 
 	    case 13:
-		printf("enter no\n");
-		scanf("%d", &a);
-		printf("enter no\n");
-		scanf("%d", &b);
-		printf("%d\n",my_pow(a, b));
+		printf("enter n\n");
+		scanf("%d", &n);
+
+		printf("Enter numbers\n");
+
+		A = create_1Darray(n);
+		input_array(A, n);
+		subsets(A, n);
+
+
 		break;
-
-
-
 
 	    default:
 		printf("Invalid option\n");

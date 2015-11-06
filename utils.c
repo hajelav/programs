@@ -61,6 +61,8 @@ int** create_1D_array_ptr(int n) {
 
 void input_array(int *A, int n) {
 
+    if(!A)
+	return;
     int i;
     for(i=0;i<n;i++){
 	scanf("%d", &A[i]);
