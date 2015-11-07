@@ -2,7 +2,7 @@
  * Important things to remember for bitwise operators
 
  * 1. Subtraction of 1 from a number toggles all the bits (from right to left) till the rightmost set bit(including the righmost set bit). So if we subtract a number by 1 and do bitwise & with itself (n & (n-1)), we unset the righmost set bit. 
-   2. (n & -n ) gives the position of first set bit in number n 
+   2. (n & -n ) gives the position of first set bit(from right) in number n 
    3. to flip a bit, XOR that bit with 1.
  *
  */
@@ -402,6 +402,50 @@ void subsets(int *A, int n) {
     }
 }
 
+/*
+ *leetcode problem 260
+ *https://leetcode.com/problems/single-number-iii/
+ *Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once.
+ *
+logic : let x and y be the two elements that appear only once. the set bits(1) in xor will give all the bits that set(1) in x and unset(0) in y
+or unset(0) and set(1) in y. Now we need to divide the array(A) elements into two groups - one set of elements with same bit set and other set with same bit not set. By doing so, we will get x in one set and y in another set. Now if we do XOR of all the elements in first set, we will get first non-repeating element, and by doing same in other set we will get the second non-repeating element.
+*/
+
+void two_numbers( int *A, int len) {
+
+    int i, rightmost_set_bit;
+    int x=0, y=0;
+    int xor = A[0]; 
+
+
+    /*get the xor of all the elements*/
+    for(i=1;i<len;i++){
+	xor = xor^A[i];
+    }
+
+    /*
+     *Now in xor(variable), we need to  get only one set bit(making rest other set bits to 0). This can be done by easily by considering only
+     *the first set(1) bit from the right. [ Remember point 2 at the start of the file]
+     */
+
+    rightmost_set_bit = xor & (-xor);
+
+
+    /*Now divide elements in two sets by comparing rightmost set bit of xor with bit at same position in each element*/
+    for(i=0;i<len;i++){
+
+	if(A[i] & rightmost_set_bit)
+	    x = x ^ A[i]; /* XOR of first set */
+	else
+	    y = y ^ A[i]; /* XOR of second set*/
+    }
+
+    printf("two numbers : %d %d\n", x, y);
+
+}
+
+
+
 int main() {
     char c;
     int choice, n, shift, posx, posy;
@@ -424,7 +468,7 @@ int main() {
 	printf("11 -- Swap all odd and even bits\t");
 	printf("12 -- Swap even and odd nibbles\t");
 	printf("13 -- Given a set of distinct integers, nums, return all possible subsets\t");
-	printf("14 -- Given an array of integers, every element appears three times except for one. Find that single one\t");
+	printf("14 -- Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once\t");
 
 	
 
@@ -525,13 +569,17 @@ int main() {
 		A = create_1Darray(n);
 		input_array(A, n);
 		subsets(A, n);
+		free(A);
 
 	    case 14:
 		printf("enter no of elements in the array\n");
 		scanf("%d", &n);
+		printf("Enter numbers\n");
 
-
-
+		A = create_1Darray(n);
+		input_array(A, n);
+		two_numbers(A, n);
+		free(A);
 		break;
 
 	    default:
