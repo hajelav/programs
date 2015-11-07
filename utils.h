@@ -21,6 +21,7 @@ int MIN_three(int a, int b, int c);
 int MOD(int x, int y);
 void init_array(int *arr, int n);
 void init_2Darray(int **A, int r, int c, int val);
+void init_2Dchar_array(char **A, int r, int c, char val);
 int* create_1Darray(int n);
 int** create_1D_array_ptr(int n);
 int** create_2Darray(int xlen, int ylen);

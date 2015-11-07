@@ -251,6 +251,8 @@ void get_island() {
     A = create_2Dmatrix(r, c);
     input_2Darray(A, r, c);
     print_2Dmatrix(A, r, c);
+
+    /*2 D matrix to mark visited*/
     V = create_2Dmatrix(r, c);
     init_2Darray(V, r, c , 0);
 
@@ -904,6 +906,100 @@ void buy_sell_stock_multiple(int *A, int len) {
     printf("Max Profit:%d\n", profit);
 }
 
+/*
+ *leetcode problem 130
+ *https://leetcode.com/problems/surrounded-regions/
+ *
+ * Given a 2D board containing 'X' and 'O', capture all regions surrounded by 'X'.
+ *
+ * A region is captured by flipping all 'O's into 'X's in that surrounded region.
+ *
+ * For example,
+ *
+ * X X X X
+ * X O O X
+ * X X O X
+ * X O X X
+ *
+ * After running your function, the board should be:
+ *
+ * X X X X
+ * X X X X
+ * X X X X
+ * X O X X
+ */
+
+void capture_regions_util(char **A, int r, int c, int i, int j, char **V, int *captureByX) {
+
+    if( i>r || i<0){
+	//if the DFS happens to reach here, ie at the boundry of row of array, we set the flag 
+	*captureByX = 1;
+	return ;
+    }
+
+    if(j<0 || j>r) {
+	//if the DFS happens to reach here, ie at the boundry of col of array, we set the flag 
+	*captureByX = 1;
+	return ;
+    }
+
+    if(A[i][j] == 'x' || V[i][j] == 'v')
+	return;
+
+    //run dfs on all directions only when A[i][j] is not visited and its value is 'o'
+    if(V[i][j] != 'v' && (A[i][j] == 'o')){
+	V[i][j] = 'v'; //mark as visited
+	capture_regions_util(A, r, c, i+1,j, V, captureByX); // go south
+	capture_regions_util(A, r, c, i,j+1, V, captureByX); // go east
+	capture_regions_util(A, r, c, i-1,j, V, captureByX); // go north
+	capture_regions_util(A, r, c, i,j-1, V, captureByX); // go west
+    } 
+
+    //if we find that 'o' is surrounded by 'x', then we capture 'o' by replacing it with 'x'
+    if((*captureByX == 0) && (A[i][j] == 'o')){
+	A[i][j] = 'x';
+    }
+}
+
+void capture_regions() {
+
+    int r, c;
+    int i, j;
+    char **A, **V;
+    int captureByX;
+
+    printf("Enter no of rows\n");
+    scanf("%d", &r);
+    printf("Enter no of cols\n");
+    scanf("%d", &c);
+
+    /*input 2D array*/
+    A = create_2Dchar_array(r, c);
+    input_2Dchar_array(A, r, c);
+
+    printf("Input matrix\n");
+    print_2Dchar_array(A, r, c);
+
+    /*2D matrix to mark visited*/
+    V = create_2Dchar_array(r, c);
+    init_2Dchar_array(V, r, c , '\0');
+
+    for(i=0;i<r;i++){
+	for(j=0;j<c;j++){
+	    if (V[i][j] != 'v' && A[i][j] == 'o') {
+		captureByX = 0;
+		//run DFS on each island(group of 'o') if its not already visited
+		capture_regions_util(A, r-1, c-1, i, j, V, &captureByX);
+	    }
+	}
+    }
+    
+    printf("Output matrix\n");
+    print_2Dchar_array(A, r, c);
+    free(A);
+    free(V);
+}
+
 int main() {
 
     char c;
@@ -939,6 +1035,7 @@ int main() {
 	printf("19 -- Remove all instances of an element from an Array\n");
 	printf("20 -- Best time to buy/sell stock(buying and selling is allowed only once)\n");
 	printf("21 -- Best time to buy/sell stock(buying and selling is allowed multiple times)\n");
+	printf("22 -- capture all regions surrounded by 'X')\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1106,6 +1203,10 @@ int main() {
 		input_array(A, n1);
 		buy_sell_stock_multiple(A, n1);
 		free(A);
+		break;
+
+	    case 22: 
+		capture_regions();
 		break;
 
 	    default:

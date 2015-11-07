@@ -78,6 +78,18 @@ void init_2Darray(int **A, int r, int c, int val) {
     }
 }
 
+void init_2Dchar_array(char **A, int r, int c, char val) {
+
+    int i, j;
+    for(i=0;i<r;i++){
+	for(j=0;j<c;j++){
+	    A[i][j] = val;
+	}
+    }
+
+}
+
+
 int** create_2Dmatrix(int xlen, int ylen) {
     int i;
     int **T = (int**)calloc(xlen, sizeof(int*));
