@@ -4,7 +4,7 @@
 #include "../../utils.h"
 
 //forward declaration
- #define NO_OF_CHARS 27 //note that 27 char is the string termination char
+ #define NO_OF_CHARS 27 //note that 27th char is the string termination char
 
 typedef struct TNODE {
     char c;
@@ -16,6 +16,7 @@ TNODE *root = NULL;
 void initTnode(TNODE* tnode) {
     int i;
     tnode->c = '\0';
+    //make all the pointers to NULL
     for(i=0;i<NO_OF_CHARS;i++){
 	tnode->next[i] = NULL;
     }
@@ -30,7 +31,11 @@ TNODE* createTrieNode() {
 	return node?node:NULL;
 }
 
-/*return 1 if this node is leaf node, else 0*/
+/*
+ *return 1 if this node is leaf node, else 0,
+ *a node is a leaf node only when all next pointer of that trie node are NULL
+ */
+
 int isLeaf(TNODE* node) {
     int i;
     for(i=0;i<NO_OF_CHARS;i++){
@@ -46,7 +51,7 @@ void addWordInTrie(char *word, TNODE* troot) {
     //create root, if not created
     if(troot == NULL) {
 	troot = createTrieNode();
-	root = troot; // assign this pointer to global root
+	root = troot; // assign this pointer to global trie root
     } 
 
     while(*word!='\0') {
@@ -317,3 +322,4 @@ int main() {
 
     return 0;
 }
+

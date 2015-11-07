@@ -89,7 +89,6 @@ void init_2Dchar_array(char **A, int r, int c, char val) {
 
 }
 
-
 int** create_2Dmatrix(int xlen, int ylen) {
     int i;
     int **T = (int**)calloc(xlen, sizeof(int*));
@@ -193,3 +192,4 @@ void print_1Darray(int *A, int n) {
 	printf("%d ", A[i]);
     }
 }
+
