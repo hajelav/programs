@@ -1000,6 +1000,88 @@ void capture_regions() {
     free(V);
 }
 
+
+/*
+ *leetcode problem 286
+ *https://leetcode.com/problems/walls-and-gates/
+ */
+
+void walls_and_gates_util(int **A, int r, int c, int i, int j, char **V, int dist) {
+
+    if( i>r || i<0){
+	//if the DFS happens to reach here, ie at the row boundry
+	return;
+    }
+
+    if(j<0 || j>r) {
+	//if the DFS happens to reach here, ie at the col boundry
+	return;
+    }
+
+
+    if(A[i][j] == 0 || A[i][j] == -1 || V[i][j] == 'v')
+	//either we have hit a wall or a gate, so we need to go back
+	return;
+
+   if(dist < A[i][j]){
+       //when running a DFS, if we find a room with a distance less than the current value, we update it
+       A[i][j] = dist;
+
+   }
+   
+    if(V[i][j] != 'v'){
+	V[i][j] = 'v'; //mark as visited
+	walls_and_gates_util(A, r, c, i+1,j, V, dist+1); // go south
+	walls_and_gates_util(A, r, c, i,j+1, V, dist+1); // go east
+	walls_and_gates_util(A, r, c, i-1,j, V, dist+1); // go north
+	walls_and_gates_util(A, r, c, i,j-1, V, dist+1); // go west
+    }
+
+    //mark as unvisted
+    V[i][j] = '\0';
+
+}
+
+void walls_and_gates() {
+
+    int r, c;
+    int i, j, dist = 0;
+    int **A;
+    char **V;
+
+    printf("Enter no of rows\n");
+    scanf("%d", &r);
+    printf("Enter no of cols\n");
+    scanf("%d", &c);
+
+    /*input 2D array*/
+    A = create_2Darray(r, c);
+    input_2Darray(A, r, c);
+
+    /*2D matrix to mark visited*/
+    V = create_2Dchar_array(r, c);
+    init_2Dchar_array(V, r, c , '\0');
+
+    printf("Input matrix\n");
+    print_2Darray(A, r, c);
+
+    for(i=0;i<r;i++){
+	for(j=0;j<c;j++){
+	    if (A[i][j] == 0) {
+		/*before we run DFS we mark the node as -2, so that our DFS runs and does not stop for the base case where A[i][j] == 0*/
+		A[i][j] = -2; 
+		//run DFS on each island(group of 'o') if its not already visited
+		walls_and_gates_util(A, r-1, c-1, i, j, V, dist);
+		/*once are done with DFS, and updation of distances, we revert back A[i][j] to 0*/
+		A[i][j] = 0;
+	    }
+	}
+    }
+    printf("Output matrix\n");
+    print_2Darray(A, r, c);
+    free(A);
+}
+
 int main() {
 
     char c;
@@ -1036,6 +1118,7 @@ int main() {
 	printf("20 -- Best time to buy/sell stock(buying and selling is allowed only once)\n");
 	printf("21 -- Best time to buy/sell stock(buying and selling is allowed multiple times)\n");
 	printf("22 -- capture all regions surrounded by 'X')\n");
+	printf("23 -- Walls and gates)\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1207,6 +1290,10 @@ int main() {
 
 	    case 22: 
 		capture_regions();
+		break;
+
+	    case 23:
+		walls_and_gates();
 		break;
 
 	    default:

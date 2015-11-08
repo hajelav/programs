@@ -81,7 +81,6 @@ int  searchWordInTrie(TNODE* troot, char *word) {
     }
 
     while(*word!='\0') {
-
 	if(troot->next[*word-'a'] == NULL) {
 	    return 0;
 	}

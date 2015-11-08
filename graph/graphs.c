@@ -289,6 +289,7 @@ void enqueue(GRAPH** q, GRAPH* g, int front, int *end) {
 
     //get the neigbor vertices of q[front]
     trav = q[front]->gnode;
+
     while(trav){
 	/*insert into the q only if the vertex is not visited*/
 	if(!g[trav->idx].processed){
@@ -314,10 +315,10 @@ void dequeue(GRAPH **q, int *front) {
  */
 void BFS( GRAPH *g, int src, int n) {
 
-    //create a queue of pointers to the the graph nodes
-
     int front = 0, end; 
     GRAPH **q;
+
+    //create a queue of n(no of vertices) pointers to the the graph nodes
     q  = (GRAPH**)malloc(sizeof(GRAPH*)*n);
 
     //initialize the queue with source vertex
@@ -333,6 +334,8 @@ void BFS( GRAPH *g, int src, int n) {
 
 	//print from the front and dequeue 
 	printf("%d-->", q[front]->idx);
+
+	//delete from the front
 	dequeue(q, &front);
     }
 }
@@ -479,6 +482,7 @@ int main() {
     int choice, n, i, j,  adj, elen, vtx;
     GRAPH *g;
     do {
+
 	printf("MENU OPTIONS\n");
 	printf("1 -- create a graph\n");
 	printf("2 -- print graph\n");
@@ -525,9 +529,9 @@ int main() {
 		clear_visited_vertex(g, n);
 		BFS(g, vtx, n);
 
-		
+
 		break;
-		
+
 	    case 5:
 		break;
 

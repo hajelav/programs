@@ -1380,6 +1380,11 @@ void deepestLeftLeafNode(TREE* node, TREE** parent, int lvl, int *lln){
 
 } 
 
+/*
+ *leetcode problem 111
+ *https://leetcode.com/problems/minimum-depth-of-binary-tree/
+ */
+
 int min_depth(TREE *node) {
 
     int lefth, righth;
