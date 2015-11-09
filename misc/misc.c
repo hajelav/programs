@@ -1117,8 +1117,8 @@ int main() {
 	printf("19 -- Remove all instances of an element from an Array\n");
 	printf("20 -- Best time to buy/sell stock(buying and selling is allowed only once)\n");
 	printf("21 -- Best time to buy/sell stock(buying and selling is allowed multiple times)\n");
-	printf("22 -- capture all regions surrounded by 'X')\n");
-	printf("23 -- Walls and gates)\n");
+	printf("22 -- capture all regions surrounded by 'X'\n");
+	printf("23 -- Walls and gates\n");
 
 	printf("\n");
 	printf("Enter your choice\n");

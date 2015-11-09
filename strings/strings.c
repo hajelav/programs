@@ -291,11 +291,54 @@ char* normalize(char *S) {
     return N;
 }
 
+
+void replace_spaces(char *str, char *pattern) {
+
+    int non_space_count, result_len, pattern_len, space_count=0;
+    int copy_from, copy_to, i=0;
+
+    if(str[0]=='\0' || pattern[0]=='\0')
+	return;
+
+    pattern_len = strlen(pattern);
+
+    /*first we count the spaces in the string*/
+
+    while(str[i]!='\0') {
+
+	if(str[i] == '-')
+	    space_count++;
+	 i++;
+    }
+
+    non_space_count = strlen(str) - space_count;
+    
+    /*length of the new string after replacing pattern*/
+    result_len = space_count*pattern_len + non_space_count;
+
+    copy_from = strlen(str)-1;
+    copy_to = result_len-1;
+
+    while(copy_from >= 0) {
+
+	if(str[copy_from]!= '-') {
+	    str[copy_to] = str[copy_from];
+	    copy_to--;
+	    copy_from--;
+	} else {
+	    strncpy(str+copy_to-pattern_len+1, pattern, pattern_len);
+	    copy_from--;
+	    copy_to = copy_to - pattern_len;
+	}
+    } 
+}
+
 int main() {
     /*char c;*/
     int choice;
     char str[] = "gee  ks f  or g  ee ks ";
     char path[128];
+    char *pattern = "%20";
     /*do {*/
 
 	printf("MENU OPTIONS\n");
@@ -304,6 +347,7 @@ int main() {
 	printf("3 -- Regex matching problem\n");
 	printf("4 -- Palindrome detection with non-alphanumeric characters\n");
 	printf("5 -- Normalize the path\n");
+	printf("6 -- replace space by percentage20 in a string\n");
 	
 	
 
@@ -331,7 +375,15 @@ int main() {
 		fgets(path, 128, stdin);
 		printf("Normalized path: %s\n", normalize(path));
 		break;
-		
+
+	    case 6:
+		memset(path, '\0', 128);
+		printf("Enter string\n");
+		scanf("%s", path);
+		/*gets(path);*/
+		replace_spaces(path, pattern);
+		printf("%s\n", path);
+		break;
 
 	    default:
 		printf("Invalid option\n");
