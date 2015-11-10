@@ -1345,6 +1345,7 @@ void convertToDLL(TREE* node, TREE** ins){
     if(node == NULL)
 	return;
 
+    /*reverse inorder traversal*/
     convertToDLL(node->right, ins);
     if(*ins == NULL){
 	*ins = node;
@@ -1500,6 +1501,32 @@ TREE* closest(TREE* node, int n, int *close) {
     return temp;
 }
 
+/*
+ *http://www.geeksforgeeks.org/print-nodes-distance-k-leaf-node/
+ *Given a Binary Tree and a positive integer k, print all nodes that are distance k from a leaf node.
+ *
+ *Here k distance from a leaf means k levels higher than a leaf node. For example if k is more than height of Binary Tree, then nothing should be printed.
+ */
+
+void kDistanceFromLeafNode(TREE *node, int *dist, int level, int k) {
+
+    if(!node)
+	return;
+
+    if(!node->left && !node->right){
+
+	*dist = level-k;
+
+    }
+    kDistanceFromLeafNode(node->left, dist, level+1, k);
+    kDistanceFromLeafNode(node->right, dist, level+1, k);
+
+    if(level == *dist){
+	printf("%d ", node->value);
+
+    }
+
+}
 
 /*
  *http://www.careercup.com/question?id=5648398726201344  [Google interview question]
@@ -1866,9 +1893,13 @@ int main() {
 		print_inorder(trav);
 		break;
 
-	    /*case 37:*/
-
-		/*break;*/
+	    case 38:
+		trav = root;
+		int dist = -1;
+		printf("Enter the distance k\n");
+		scanf("%d", &k);
+		kDistanceFromLeafNode(trav, &dist, 0, k);
+		break;
 
 	    case 39:
 		trav = root;
