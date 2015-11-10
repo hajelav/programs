@@ -97,7 +97,7 @@ int main() {
 
 	printf("MENU OPTIONS\n");
 	printf("1 -- All permutations of a string(backtracking)\n");
-	printf("2 -- N Queen problem)\n");
+	printf("2 -- N Queen problem\n");
 
 	printf("Enter your choice\n");
 	scanf("%d",&choice);

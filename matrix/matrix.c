@@ -76,6 +76,10 @@ int** rotate_matrix(int r, int c) {
     return NULL;
 }
 
+void search_matrix(int **A, int row, int col) {
+
+}
+
 int main(){
     char c;
     int choice;
@@ -86,6 +90,7 @@ int main(){
 	printf("MENU OPTIONS\n");
 	printf("1 -- Rotate matrix by 90 degree\n");
 	printf("2 -- Make entire row and col zero , if you find an element as zero\n");
+	printf("2 -- Search in a 2D matrix whose rows and columns are sorted\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -110,6 +115,15 @@ int main(){
 		row_col_zero(A, row, col);
 		break;
 
+	    case 3: 
+		printf("Enter no of rows\n");
+		scanf("%d", &row);
+		printf("Enter no of cols\n");
+		scanf("%d", &col);
+		A = create_2Darray(row, col);
+		input_2Darray(A, row, col);
+		search_matrix(A, row, col);
+		break;
 
 	}
 	printf("\n\n");

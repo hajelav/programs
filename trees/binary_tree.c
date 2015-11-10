@@ -571,8 +571,6 @@ int closestLeafFromKey(TREE* node, int key) {
 	keyNode = findNodeInBinaryTree(node, key);
 	key_found = 1;
     }
-
-
 }
 
 /*Find sum of all left leaves in a given Binary Tree*/
@@ -1424,21 +1422,18 @@ TREE* sorted_array_to_tree(int *A, int l, int h) {
  *given preorder traversal of BST, convert into a TREE( deserialize BST)
  */
 
-int get_node_index(int *A, int l, int h) {
+/*
+ *this function gets the index of of the first element bigger than A[l](root),
+ *if not found it will return index of h+1
+ */
+int get_node_index(int *A, int l, int h)  {
 
-    int i, k;
-    int val;
-    val = A[l];
-    k=l;
-
-    l = l+1;
-    while(l < h){
-	if(A[l] > val)
-	    return l;
-	l++;
-    }
-    return l;
-
+   int k;
+   for(k=l+1;k<=h;k++){
+       if(A[k] > A[l])
+	   return k;
+   }
+   return k;
 }
 
 TREE* buildBSTFromPreOrder(int *A, int l, int h) {
@@ -1450,10 +1445,9 @@ TREE* buildBSTFromPreOrder(int *A, int l, int h) {
 	return NULL;
 
     node = create_node();
+
     node->value = A[l];
 
-    if(l==h)
-	return node;
     j = get_node_index(A, l, h);
 
     node->left = buildBSTFromPreOrder(A, l+1, j-1);
@@ -1484,6 +1478,7 @@ void print_all_root_leaf_paths(TREE *node, int *sum) {
 int MOD(int x, int y) {
     return (x-y)>0?(x-y):(0-(x-y));
 }
+
 TREE* closest(TREE* node, int n, int *close) {
 
     TREE* temp;
@@ -1921,6 +1916,7 @@ int main() {
 		printf("Enter no of elements in array\n");
 		scanf("%d", &n);
 		A = create_1Darray(n);
+		printf("Enter elements in pre-order\n");
 		input_array(A, n);
 		trav = buildBSTFromPreOrder(A, 0, n-1);
 		print_inorder(trav);
@@ -1945,6 +1941,7 @@ int main() {
 		scanf("%d", &n);
 		node = closest(trav, n, &close);
 		printf("Closest node to %d: %d\n", n, node->value);
+		break;
 		
 
 	    default:
