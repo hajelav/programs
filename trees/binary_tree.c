@@ -1001,7 +1001,7 @@ TREE* lowest_common_ancestor(TREE* root, int node1, int  node2){
     return root;
 }
 
-/* lowest common ancestor in BST (recursive) */
+/* lowest common ancestor in BST (recursive-method 1) */
 
 TREE *lcaBST(TREE *node, int k1, int k2){
 
@@ -1018,6 +1018,28 @@ TREE *lcaBST(TREE *node, int k1, int k2){
 	rnode = lcaBST(node->right, k1, k2);
 	return rnode;
     }
+    else 
+	return node;
+}
+
+/* lowest common ancestor in BST (recursive-method 2) */
+TREE * lowest_common_ancestor_BST(TREE* node, int key1, int key2) {
+
+    TREE* left_node = NULL, *right_node = NULL;
+
+    if(!node)
+	return NULL;
+
+    if(key1 < node->value && key2 < node->value) {
+	left_node = lowest_common_ancestor_BST(node->left, key1, key2);
+    } else if (key1 > node->value && key2 > node->value) {
+	right_node = lowest_common_ancestor_BST(node->right, key1, key2);
+    }
+
+    if(left_node)
+	return left_node;
+    else if(right_node)
+	return right_node;
     else 
 	return node;
 }
@@ -1133,7 +1155,7 @@ TREE* convert_to_d_lnk_list (TREE* node) {
     return head;
 }
 /*Populate inroder successor for all nodes in a binary tree */
-inorder_successor(TREE *node) {
+void inorder_successor(TREE *node) {
     static TREE *temp = NULL;
     if(node == NULL)
 	return ;
@@ -1216,7 +1238,7 @@ void mirror1( TREE* node) {
 }
 /*funtion to print all the nodes of a tree at a given level */
 
-print_at_level ( TREE* node, int lvl, int level ) {
+void print_at_level ( TREE* node, int lvl, int level ) {
 
 
     if(node == NULL)
@@ -1279,10 +1301,10 @@ int height_balanced(TREE *node, int ht) {
 }
 
 /* find index of the key in the inorder array */
-int get_index(int *in, int key, int nodes){
+int get_index(int *in, int key, int l, int h){
     int i;
 
-    for(i=0;i<nodes;i++){
+    for(i=l;i<=h;i++){
 	if(in[i] == key)
 	    return i;
     }
@@ -1290,27 +1312,31 @@ int get_index(int *in, int key, int nodes){
 
 /*
  *Construct Tree from given Inorder and Preorder traversals(de-serialize)
+ nodes = total elements in inorder/preorder array
  */
 
-TREE* buildTree(int *in, int *pre, int low, int high, int nodes) {
+TREE* buildTree(int *in, int *pre, int low, int high) {
 
     int  idx;
-    static int j;
+    /*static int j;*/
     TREE* node;
 
     if(pre == NULL || in == NULL)
 	return NULL;
 
+    if(low > high)
+	return NULL;
+
     node = create_node();
-    node->value = pre[j];
+    node->value = pre[low];
 
-    idx = get_index(in, pre[j], nodes);
-    j++;
-    if(low >= high)
-	return node;
+    idx = get_index(in, node->value, low, high);
+    /*j++;*/
+    /*if(low >= high)*/
+	/*return node;*/
 
-    node->left = buildTree(in, pre, low, idx-1, nodes);
-    node->right = buildTree(in, pre, idx+1, high, nodes);
+    node->left = buildTree(in, pre, low, idx-1);
+    node->right = buildTree(in, pre, idx+1, high);
 
     return node;
 }
@@ -1446,7 +1472,6 @@ TREE* buildBSTFromPreOrder(int *A, int l, int h) {
 	return NULL;
 
     node = create_node();
-
     node->value = A[l];
 
     j = get_node_index(A, l, h);
@@ -1513,17 +1538,17 @@ void kDistanceFromLeafNode(TREE *node, int *dist, int level, int k) {
     if(!node)
 	return;
 
+    /*when we encounter the  leaf node , we update the distance, */
     if(!node->left && !node->right){
-
 	*dist = level-k;
-
     }
+
     kDistanceFromLeafNode(node->left, dist, level+1, k);
     kDistanceFromLeafNode(node->right, dist, level+1, k);
 
+    /*print the node which is at k distance from the leaf*/
     if(level == *dist){
 	printf("%d ", node->value);
-
     }
 
 }
@@ -1715,7 +1740,8 @@ int main() {
 		scanf("%d", &node2);
 		trav = root;
 		/*trav = lowest_common_ancestor(trav,node1,node2);*/
-		trav = lcaBST(trav,node1,node2);
+		/*trav = lcaBST(trav,node1,node2);*/
+		trav = lowest_common_ancestor_BST(trav,node1,node2);
 		printf("LCA : %d\n",trav->value);
 		break;
 	    case 15:
@@ -1874,7 +1900,7 @@ int main() {
 		break;
 
 	    case 36:
-		printf("Enter number of nodes\n");
+		printf("Enter len of array(number of nodes)\n");
 		scanf("%d", &nodes);
 
 		in = (int*)malloc(sizeof(int)*nodes);
@@ -1889,7 +1915,7 @@ int main() {
 		    scanf("%d", &pre[i]);
 		}
 		 TREE* trav;
-		trav = buildTree(in, pre, 0, nodes-1, nodes);
+		trav = buildTree(in, pre, 0, nodes-1);
 		print_inorder(trav);
 		break;
 
