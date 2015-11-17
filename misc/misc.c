@@ -210,7 +210,6 @@ int max_area_rect_histogram(int *H, int low, int high) {
 }
 
 void get_island_util(int **A, int r, int c, int i, int j, int **V, int color) {
-    
 
     if( i>r || i<0)
 	return ;
@@ -219,18 +218,18 @@ void get_island_util(int **A, int r, int c, int i, int j, int **V, int color) {
     if(A[i][j] == (!color) || V[i][j] == 1)
 	return ;
 
-	    //recurese only when we find the color
-	    if(!V[i][j] && (A[i][j] == color)){
-		V[i][j] = 1; //mark as visited
-		 get_island_util(A, r, c, i+1,j, V, color);
-		 get_island_util(A, r, c, i,j+1, V, color);
-		 get_island_util(A, r, c, i+1,j+1, V, color);
-		 get_island_util(A, r, c, i-1,j, V, color);
-		 get_island_util(A, r, c, i,j-1, V, color);
-		 get_island_util(A, r, c, i-1,j-1, V, color);
-		 get_island_util(A, r, c, i+1,j-1, V, color);
-		 get_island_util(A, r, c, i-1,j+1, V, color);
-	    } 
+    //recurese only when we find the color
+    if(!V[i][j] && (A[i][j] == color)){
+	V[i][j] = 1; //mark as visited
+	get_island_util(A, r, c, i+1,j, V, color);
+	get_island_util(A, r, c, i,j+1, V, color);
+	get_island_util(A, r, c, i+1,j+1, V, color);
+	get_island_util(A, r, c, i-1,j, V, color);
+	get_island_util(A, r, c, i,j-1, V, color);
+	get_island_util(A, r, c, i-1,j-1, V, color);
+	get_island_util(A, r, c, i+1,j-1, V, color);
+	get_island_util(A, r, c, i-1,j+1, V, color);
+    } 
 }
 
 /*
@@ -329,6 +328,7 @@ void keypad() {
     print_2Dchar_array(A, r, c);
 
 
+    //array to print the strings
     str = (char*)malloc(sizeof(char)*(r+1));
     str[r] = '\0';
     keypad_util(A, 0, r, c, str);
@@ -411,9 +411,9 @@ int one_edit_distance(char *S, char *T) {
     }
 
     while(long_ptr < long_len) {
-
 	//we need to move the pointer of the longer string only when we find a mis-match and the two strings have unequal length
-	if((short_str[short_ptr] != long_str[long_ptr]) && len_S!=len_T){
+	/*if((short_str[short_ptr] != long_str[long_ptr]) && len_S!=len_T){*/
+	if((short_str[short_ptr] != long_str[long_ptr])){
 	long_ptr++;
 	    count++;
 	} else {
