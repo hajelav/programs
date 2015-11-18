@@ -515,7 +515,7 @@ void combination() {
     printf("Enter the no of objects\n");
     scanf("%d", &n);
 
-    printf("Enter the no of objects to be selected\n");
+    printf("Enter the no of objects to be selected out of %d objects\n", n);
     scanf("%d", &r);
 
     printf("Enter string\n");
@@ -821,7 +821,7 @@ void remove_duplicate_sorted_array(int *A, int len) {
  *https://leetcode.com/problems/remove-element/
  */
 
-void remove_element(int *A, int len, int elem) {
+void remove_all_instance_of_element(int *A, int len, int elem) {
 
     int i, j, temp;
     if(!A || len <= 0)
@@ -830,14 +830,21 @@ void remove_element(int *A, int len, int elem) {
     i = 0;
     j = len-1;
 
-    while(i!=j) {
+    while(i<j) {
 	if(A[i] == elem && A[j] != elem){
 	    temp = A[j];
 	    A[j] = A[i];
 	    A[i] = temp;
 	    i++;
+	    j--;
+	} else if(A[i]!=elem && A[j] == elem) {
+	    i++;
+	    j--;
+	} else if(A[i]!=elem && A[j]!=elem){
+	    i++;
+	}else {
+	    j--;
 	}
-	j--;
     }
 
     print_1Darray(A, len);
@@ -1263,7 +1270,7 @@ int main() {
 		scanf("%d", &elem);
 		 
 		printf("Output array\n");
-		remove_element(A, n1, elem);
+		remove_all_instance_of_element(A, n1, elem);
 		free(A);
 		break;
 
