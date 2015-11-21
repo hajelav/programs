@@ -1,7 +1,4 @@
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../utils.h"
 
 /*
  *Remove spaces from a given string
@@ -333,11 +330,92 @@ void replace_spaces(char *str, char *pattern) {
     } 
 }
 
+/*
+ *leetcode problem 76
+ *Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+ *
+ *For example,
+ *    S = "ADOBECODEBANC"
+ *    T = "ABC"
+ *    Minimum window is "BANC""
+ *
+ *    logic : http://www.geeksforgeeks.org/find-the-smallest-window-in-a-string-containing-all-characters-of-another-string/
+ *    http://articles.leetcode.com/2010/11/finding-minimum-window-in-s-which.html
+ */
+    
+char * min_window_substring(char *S, char *T) {
+
+    int *needToFill; //hash of T. It stores the frequency of chars in T
+    int *hasFound; // this store the frequency of chars in S, as we move along S
+    int len_S, len_T;
+    int start = 0, end = 0, i = 0;
+    int count = 0; // maintain this var to count the number length of T in S 
+    int min_window_start_idx = 0, min_window_end_idx = 0;
+    int min_window = INT_MAX;
+    if(!S || !T)
+	return NULL;
+
+    len_S = strlen(S);
+    len_T = strlen(T);
+
+    /*create a hash of 26 chars assuming that input is uppercase letters(this solution can be extended to generic case)*/
+    needToFill = (int*)calloc(sizeof(int), 26); // this remains constant and used to keep the count of chars in T
+    hasFound = (int*)calloc(sizeof(int), 26);  // this keeps changing as we move along S(char by char)
+
+    /*go through T and fill the needToFill hash*/
+    while(T[i]!='\0'){
+	needToFill[T[i]-'a']++;
+	i++;
+    }
+
+    /*now run through S*/
+    while(end<len_S) {
+
+	//if you found the char in T and the count of hasFound[char] is than needToFill[char]
+	if(needToFill[S[end]-'a'])  {
+	    if(hasFound[S[end]-'a'] < needToFill[S[end]-'a']){
+		count++; //increment the count, which counts the total chars found in S matching T
+	    }
+	    hasFound[S[end]-'a']++; //increment the count in hasFound
+	}
+
+	//if we have found all the chars of T in S previously and we find first char of T again,then we move the start
+	//pointer forward till the point the needToFill constrainst in maintained.
+	if((min_window < INT_MAX) && (needToFill[S[start]-'a'] && S[end] == S[start]) && (count > 0)) {
+
+	    while((needToFill[S[start]-'a'] == 0) || (hasFound[S[start]-'a'] > needToFill[S[start]-'a']))   {
+
+		if(hasFound[S[start]-'a'] > needToFill[S[start]-'a'])
+		    hasFound[S[start]-'a']--;
+		start++;
+	    }
+	}
+	/*when we have found the window containing all the chars in T, we calculate the indexes*/
+	if(count == len_T){
+	    if(end-start < min_window){
+		min_window = end-start;
+		min_window_start_idx = start;
+		min_window_end_idx = end;
+	    }
+	} 
+
+	end++;
+    } //while ends
+
+    /*if(min_window_start_idx>0 && min_window_end_idx>0) */
+	printf("min window length : %d, [start index = %d end index = %d]\n", min_window+1, min_window_start_idx, min_window_end_idx);
+    /*else*/
+	/*printf("Min window length  : %d\n", min_window);*/
+
+    return NULL;
+}
+
 int main() {
     /*char c;*/
     int choice;
     char str[] = "gee  ks f  or g  ee ks ";
     char path[128];
+    char S[128], T[128];
     char *pattern = "%20";
     /*do {*/
 
@@ -348,6 +426,7 @@ int main() {
 	printf("4 -- Palindrome detection with non-alphanumeric characters\n");
 	printf("5 -- Normalize the path\n");
 	printf("6 -- replace space by percentage20 in a string\n");
+	printf("7 -- Minimum Window Substring\n");
 	
 	
 
@@ -384,6 +463,17 @@ int main() {
 		replace_spaces(path, pattern);
 		printf("%s\n", path);
 		break;
+
+	    case 7:
+
+		printf("Enter the string\n");
+		scanf("%s", S);
+		printf("Enter the pattern\n");
+		scanf("%s", T);
+
+		min_window_substring(S, T);
+		    break;
+
 
 	    default:
 		printf("Invalid option\n");

@@ -601,7 +601,7 @@ int main() {
 	printf("10 -- Maximum contigous subarray using divide and conquer(nlogn)\n");
 	printf("11 --  find 2 numbers closest to a given sum\n");
 	printf("12 --  find 3 numbers closest to a given sum\n");
-	printf("13 --  wiggle sort(up,down,up, down pattern)\n");
+	printf("13 --  wiggle sort(up down up down pattern)\n");
 
 	printf("\n");
 	printf("Enter your choice\n");

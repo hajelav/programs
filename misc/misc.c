@@ -364,11 +364,9 @@ void permutation() {
     printf("enter string length\n");
     scanf("%d", &r);
 
-
     A = create_2Dchar_array(r, r);
     input_2Dchar_array(A, r, r);
     print_2Dchar_array(A, r, r);
-
 
     str = (char*)malloc(sizeof(char)*(r+1));
     str[r] = '\0';
@@ -543,7 +541,7 @@ void combination() {
  */
 
 
-double  my_pow(double x, int n) {
+double my_pow(double x, int n) {
 
     double temp;
     if(n==0)
@@ -564,7 +562,7 @@ double my_pow_util(double x, int n) {
     if(n > 0){
 	return my_pow(x, n);
     } else {
-	return 1/my_pow(x, n);
+	return 1/my_pow(x, 0-n);
     }
 }
 
@@ -699,6 +697,7 @@ void zigzag(char *S, int nrows) {
     len = strlen(S);
 
     /*if there is only one element in the string, then just print that element*/
+
     if(len < 1){
 	printf("%s\n", S);
 	return;
