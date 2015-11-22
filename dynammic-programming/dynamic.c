@@ -586,12 +586,75 @@ int longest_palindromic_substring(char *S) {
     return 0;
 }
 
+/*
+ *leetcode problem 276
+ *https://leetcode.com/problems/paint-fence/
+ */
+
+int paint_fence(int fences, int colors) {
+
+    int *ways, i;
+
+    if(fences == 0 || colors == 0)
+	return 0;
+    if(fences == 1)
+	return colors;
+
+    ways = create_1Darray(fences+1);
+    if(!ways)
+	return 0;
+
+    ways[1] = colors;
+
+    for(i=2;i<=fences;i++){
+
+	ways[i] = ways[i-1]*(colors-1);
+    }
+
+    return ways[fences];
+}
+
+
+/*
+ *leetcode problem 198
+ *https://leetcode.com/problems/house-robber/
+logic : 
+  let Cash[N] be an array of cash stacked in N house
+  let P[N] , where P[j] is the max profit obtained at house j
+
+  max profit for obtained at robbing house j P[j] =  Max ( max profit obtained at robbing house P[j-2] + cash at house j, max profit obtained robbing house P[j-1])
+ */
+
+int house_robber(int *cash, int houses) {
+    
+    int j;
+   int  *profit;
+
+    //create a array to store the max profits for each house (where 0 house means no house)
+    profit = create_1Darray(houses + 1);
+
+    //for 0th(no house) profit is 0
+    profit[0] = 0;
+    //if there is only one house, the profit will we cash[0] (ie by just robbing the only house)
+    profit[1] = cash[1];
+
+    for(j=2;j<=houses;j++){
+	profit[j] = MAX(profit[j-2] + cash[j], profit[j-1]);
+    }
+
+    return profit[houses];
+
+}
+
+
+
 int main(){
 
 
     char c;
     int choice;
-    int *a, i, j, elem;
+    int *a, i, j, elem, houses;
+    int fences, colors;
     char *X, *Y ;
     int **A, *W, *V;
     int *C, sum; // coins denominations and sum
@@ -614,6 +677,8 @@ int main(){
 	printf("12 -- Cutting the rod\n");
 	printf("13 -- Longest Substring Without Repeating Characters\n");
 	printf("14 -- Longest palindromic substring\n");
+	printf("15 -- Paint fence problem\n");
+	printf("16 -- house robber problem\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -798,6 +863,30 @@ int main(){
 		printf("enter string\n");
 		scanf("%s", s);
 		printf("Length: %d\n", longest_palindromic_substring(s));
+
+	    case 15:
+		printf("Enter no of fences\n");
+		scanf("%d", &fences);
+		printf("Enter no of colors\n");
+		scanf("%d", &colors);
+		printf("No of ways to color %d fences with %d colors : %d\n", fences, colors, paint_fence(fences, colors));
+		break;
+
+	    case 16:
+		    printf("Enter the number of houses\n");
+		    scanf("%d", &houses);
+
+		    int *cash;
+		    //house array starts with house 0(no house) and cash as 0. The first element has to be be input as 0
+		    cash = create_1Darray(houses+1);
+		    printf("Enter the cash for each houses\n");
+		    input_array(cash, houses+1);
+		    printf("max profit by robbing %d houses : %d\n", houses, house_robber(cash, houses));
+		     free(cash);
+		     break;
+
+
+
 
 	    default:
 		printf("Invalid option\n");
