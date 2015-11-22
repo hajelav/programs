@@ -717,6 +717,54 @@ void min_path_sum() {
 }
 
 
+/*
+ *leetcode problem 62
+ *https://leetcode.com/problems/unique-paths/
+ *A robot is located at the top-left corner of a m x n grid.
+ *
+ *The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+ *
+ *How many possible unique paths are there?
+ */
+
+void unique_path_util(int** grid, int gridRowSize, int gridColSize, int i, int j, int* paths) {
+
+    //return if we reach to the boundries of grid
+    if(i >= gridRowSize || j>=gridColSize)
+	return;
+
+    //we reach the finshline. increment the path count every time we reach here
+    if(i == gridRowSize-1 && j == gridColSize-1){
+	(*paths)++;
+	return;
+    }
+
+    //move right
+    unique_path_util(grid, gridRowSize, gridColSize, i, j+1, paths);
+    //move down
+    unique_path_util(grid, gridRowSize, gridColSize, i+1, j, paths);
+
+}
+
+void unique_paths(){
+
+    int **grid;
+    int paths = 0;
+    int gridRowSize, gridColSize;
+
+    printf("Enter grid row size\n");
+    scanf("%d", &gridRowSize);
+    printf("Enter grid col size\n");
+    scanf("%d", &gridColSize);
+
+    grid = create_2Darray(gridRowSize, gridColSize);
+    input_2Darray(grid, gridRowSize, gridColSize);
+
+    unique_path_util(grid, gridRowSize, gridColSize, 0, 0, &paths);
+
+    printf("Total paths : %d\n", paths);
+
+}
 
 int main(){
 
@@ -750,6 +798,7 @@ int main(){
 	printf("15 -- Paint fence problem\n");
 	printf("16 -- house robber problem\n");
 	printf("17 -- min path sum problem\n");
+	printf("18 -- unique paths from start to finish in 2D array\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -958,6 +1007,10 @@ int main(){
 
 	    case 17:
 		     min_path_sum();
+		     break;
+
+	    case 18:
+		     unique_paths();
 		     break;
 
 	    default:
