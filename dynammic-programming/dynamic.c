@@ -646,6 +646,76 @@ int house_robber(int *cash, int houses) {
 
 }
 
+/*
+ *leetcode problem 64
+ *https://leetcode.com/problems/minimum-path-sum/
+ *
+ *Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path.
+ *Note: You can only move either down or right at any point in time.
+ */
+
+
+void min_path_sum() {
+
+    int i, j, result;
+    int **grid, **minPath;
+    int gridRowSize, gridColSize;
+
+    printf("Enter grid row size\n");
+    scanf("%d", &gridRowSize);
+    printf("Enter grid col size\n");
+    scanf("%d", &gridColSize);
+
+    grid = create_2Darray(gridRowSize, gridColSize);
+    input_2Darray(grid, gridRowSize, gridColSize);
+
+    printf("Input grid\n");
+    print_2Darray(grid, gridRowSize, gridColSize);
+
+    //create a minPath grid such that minPath[i][j] = min path to reach i row and jth col from 0,0
+    /*
+     *   Now since we can only move either forward or down, the recurrence relation can be defined as 
+     *   minPath[i][j] =  Min( min path to [i-1][j] + grid[i][j], min path to [i][j-1] + grid[i][j])   
+     */
+
+
+    //create a minPath grid
+    minPath = create_2Darray(gridRowSize, gridColSize);
+
+    minPath[0][0] = grid[0][0];
+
+    /*initialize the first row of minPath grid. since can either move right or down, so for first row the min*/
+    /*path would be the current value + previous value	*/
+
+    for(j=1;j<gridColSize;j++){
+	minPath[0][j] = minPath[0][j-1] + grid[0][j];
+    }
+
+
+    /*initialize the first col of minPath grid. since can either move right or down, so for first col the minPath*/
+    /*would be the current value + previous value	*/
+
+    for(i=1;i<gridRowSize;i++){
+	minPath[i][0] = minPath[i-1][0] + grid[i][0];
+    }
+
+    for(i=1;i<gridRowSize;i++){
+	for(j=1;j<gridColSize;j++){
+	    minPath[i][j] = MIN(minPath[i-1][j] + grid[i][j], minPath[i][j-1] + grid[i][j]);
+	}
+    }
+
+    printf("Min path grid\n");
+    print_2Darray(minPath, gridRowSize, gridColSize);
+
+    result = minPath[gridRowSize-1][gridColSize-1];
+    free(grid);
+    free(minPath);
+
+    printf("Min path : %d\n", result);
+
+}
+
 
 
 int main(){
@@ -679,6 +749,7 @@ int main(){
 	printf("14 -- Longest palindromic substring\n");
 	printf("15 -- Paint fence problem\n");
 	printf("16 -- house robber problem\n");
+	printf("17 -- min path sum problem\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -885,8 +956,9 @@ int main(){
 		     free(cash);
 		     break;
 
-
-
+	    case 17:
+		     min_path_sum();
+		     break;
 
 	    default:
 		printf("Invalid option\n");
