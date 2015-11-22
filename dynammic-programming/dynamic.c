@@ -766,6 +766,51 @@ void unique_paths(){
 
 }
 
+/*
+ *leetcode problem 63
+ *https://leetcode.com/problems/unique-paths-ii/
+ */
+
+void unique_path_obstacles_util(int** grid, int gridRowSize, int gridColSize, int i, int j, int* paths) {
+
+    //return if we reach to the boundries of grid or we meet an obstacle
+    if(i >= gridRowSize || j>=gridColSize || grid[i][j])
+	return;
+
+    //we reach the finshline. increment the path count every time we reach here
+    if(i == gridRowSize-1 && j == gridColSize-1){
+	(*paths)++;
+	return;
+    }
+
+    //move right
+    unique_path_obstacles_util(grid, gridRowSize, gridColSize, i, j+1, paths);
+    //move down
+    unique_path_obstacles_util(grid, gridRowSize, gridColSize, i+1, j, paths);
+
+}
+
+void unique_paths_with_obstacles(){
+
+    int **grid;
+    int paths = 0;
+    int gridRowSize, gridColSize;
+
+    printf("Enter grid row size\n");
+    scanf("%d", &gridRowSize);
+    printf("Enter grid col size\n");
+    scanf("%d", &gridColSize);
+
+    grid = create_2Darray(gridRowSize, gridColSize);
+    input_2Darray(grid, gridRowSize, gridColSize);
+
+    unique_path_obstacles_util(grid, gridRowSize, gridColSize, 0, 0, &paths);
+
+    printf("Total paths : %d\n", paths);
+
+}
+
+
 int main(){
 
 
@@ -799,6 +844,7 @@ int main(){
 	printf("16 -- house robber problem\n");
 	printf("17 -- min path sum problem\n");
 	printf("18 -- unique paths from start to finish in 2D array\n");
+	printf("19 -- unique paths from start to finish in 2D array with obstacles\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -1011,6 +1057,9 @@ int main(){
 
 	    case 18:
 		     unique_paths();
+		     break;
+	    case 19:
+		     unique_paths_with_obstacles();
 		     break;
 
 	    default:
