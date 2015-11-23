@@ -810,6 +810,51 @@ void unique_paths_with_obstacles(){
 
 }
 
+/*
+ *leetcode problem 96
+ *https://leetcode.com/problems/unique-binary-search-trees/
+ *Given n, how many structurally unique BST's (binary search trees) that store values 1...n?
+ *
+ *For example,
+ *    Given n = 3, there are a total of 5 unique BST's.
+ *
+ */
+
+int number_of_unique_bst() {
+
+    int i, j, n;
+    int *uniqueBSTs;
+    printf("Enter the number of nodes in BST\n");
+    scanf("%d", &n);
+
+    if(n==0)
+	return 0;
+    else if(n==1)
+	return 1;
+    else if(n==2)
+	return 2;
+
+    //create an auxillary array to store unique BSTs. The array starts with 0 nodes
+    uniqueBSTs = create_1Darray(n+1);
+    uniqueBSTs[0] = 1; // for 0 nodes, mark the value as 1 
+    uniqueBSTs[1] = 1; // for 1 nodes, there is 1 unique BST
+    uniqueBSTs[2] = 2; // for 1 nodes, there is 1 unique BST
+    
+
+   /*
+    *logic :
+    *no of unique BST for any number of nodes j (where i<=j<=n) =  no of unique BST for j-1 nodes * no of unique BST for n-j nodes for all
+    *nodes from 1 to n
+    */
+
+   for(i=3;i<=n;i++){
+       for(j=1;j<=i;j++){
+	uniqueBSTs[i] = uniqueBSTs[i] + uniqueBSTs[j-1]*uniqueBSTs[i-j];
+       }
+   }
+
+   return uniqueBSTs[n];
+}
 
 int main(){
 
@@ -844,7 +889,8 @@ int main(){
 	printf("16 -- house robber problem\n");
 	printf("17 -- min path sum problem\n");
 	printf("18 -- unique paths from start to finish in 2D array\n");
-	printf("19 -- unique paths from start to finish in 2D array with obstacles\n");
+	printf("19 -- unique paths from start to finish in 2D array with obstacles(Enter 1 for obstacles)\n");
+	printf("20 -- number of unique Binary Search Trees)\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -1061,6 +1107,11 @@ int main(){
 	    case 19:
 		     unique_paths_with_obstacles();
 		     break;
+
+	    case 20:
+		     printf("Number of unique BSTs : %d\n", number_of_unique_bst());
+		     break;
+
 
 	    default:
 		printf("Invalid option\n");
