@@ -858,6 +858,17 @@ int number_of_unique_bst() {
    return uniqueBSTs[n];
 }
 
+/*
+ *leetcode problem 120
+ *https://leetcode.com/problems/triangle/
+ *https://leetcode.com/discuss/5337/dp-solution-for-triangle
+ *
+ *logic : A triangle is represented as a 2D array(T) 
+ *        let the min sum be represented as array M
+ *
+ *  M[i] ( min sum at row i) = M[i] +  MIN(T[i-1][j-1], M[i-1][j+1]) + A[i][j] 
+ */
+
 int main(){
 
 
@@ -1116,7 +1127,7 @@ int main(){
 		     break;
 
 	    case 21:
-		     decode_message();
+		     /*decode_message();*/
 		     break;
 
 
