@@ -1,6 +1,8 @@
 #include "../utils.h"
 
 /*
+ * leetcode problem 300
+ * https://leetcode.com/problems/longest-increasing-subsequence/
  *https://www.youtube.com/watch?v=CE2b_-XfVDk&index=35&list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr
  obtimal substructure :
   let S be the array that stores the LIS 
@@ -891,6 +893,7 @@ int main(){
 	printf("18 -- unique paths from start to finish in 2D array\n");
 	printf("19 -- unique paths from start to finish in 2D array with obstacles(Enter 1 for obstacles)\n");
 	printf("20 -- number of unique Binary Search Trees)\n");
+	printf("21 -- decode message problem)\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -1097,7 +1100,7 @@ int main(){
 		     free(cash);
 		     break;
 
-	    case 17:
+
 		     min_path_sum();
 		     break;
 
@@ -1110,6 +1113,10 @@ int main(){
 
 	    case 20:
 		     printf("Number of unique BSTs : %d\n", number_of_unique_bst());
+		     break;
+
+	    case 21:
+		     decode_message();
 		     break;
 
 
