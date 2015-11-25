@@ -869,6 +869,107 @@ int number_of_unique_bst() {
  *  M[i] ( min sum at row i) = M[i] +  MIN(T[i-1][j-1], M[i-1][j+1]) + A[i][j] 
  */
 
+
+/*
+ *leetcode problem 256
+ *https://leetcode.com/problems/paint-house/
+ */
+
+int min_cost_paint_houses() {
+
+    int i, j, result, min_cost;
+    int **cost, *minCost;
+    char color[3] = {'R', 'B', 'G'};
+    char *painted; // store the last painted house color
+
+    int numOfHouses, numOfColors;
+
+    printf("Enter number of houses\n");
+    scanf("%d", &numOfHouses);
+
+    //0 - R, 1 - B, 2 - G
+    printf("Enter number of colors(enter 3 for red green blue)\n");
+    scanf("%d", &numOfColors);
+
+    cost = create_2Darray(numOfHouses, numOfColors);
+    input_2Darray(cost, numOfHouses, numOfColors);
+
+    printf("Input cost array\n");
+    print_2Darray(cost, numOfHouses, numOfColors);
+
+    //creat a minCost array to store min cost required to paint jth array(such that no two adjacent houses are painted same color).
+    //the final solution of the problem would be minCost[n-1]
+    minCost = create_1Darray(numOfHouses);
+
+    //create an auxillary array color to store the color of last house painted in the minCost array.
+    painted  = create_1Dchar_array(numOfHouses);
+
+    //initialize the minCost and color array
+
+    //the first element of the min cost array would be min of the first row of cost array( ie min cost of painting house 0)
+    minCost[0] = MIN_three( cost[0][0], cost[0][1], cost[0][2]);
+
+    //find out the color of the minCost[0];
+    for(j=0;j<numOfColors;j++){
+	if(cost[0][j] == minCost[0])
+	    painted[0] = color[j];
+    }
+
+    /*
+     * recurrence relation : O(n) solution
+     *
+     * minCost[j]( min cost of painting jth house) = minCost[j-1](min cost to paint j-1 house) + cost[i][j] (min cost to paint jth house such that
+     *                                                                                               its color is diff from j-1th house				
+     */
+
+    for(i=1;i<numOfHouses;i++){
+
+	if(painted[i-1] == 'R') {
+
+	    if(cost[i][1] <= cost[i][2]){
+		min_cost = cost[i][1];
+		j = 1;
+	    } else {
+		min_cost = cost[i][2];
+		j = 2;
+	    }
+	}
+	else if(painted[i-1] == 'B'){
+
+	    if(cost[i][0] <= cost[i][2]){
+		min_cost = cost[i][0];
+		j = 0;
+	    } else {
+		min_cost = cost[i][2];
+		j = 2;
+	    }
+	}
+	else {
+	    if(cost[i][0] <= cost[i][1]){
+		min_cost = cost[i][0];
+		j = 0;
+	    } else {
+		min_cost = cost[i][2];
+		j = 1;
+	    }
+	}
+	minCost[i] = minCost[i-1] + min_cost;
+	//update the color in painted array
+	painted[i] = color[j];
+	
+	printf("min cost at i(%d):%d(%d+%d)--%c\n", i, minCost[i], minCost[i-1], min_cost, painted[i]);
+	
+    }
+
+    result = minCost[numOfHouses-1];
+    free(cost);
+    free(painted);
+    free(minCost);
+
+    return result;    
+
+}
+
 int main(){
 
 
@@ -904,7 +1005,8 @@ int main(){
 	printf("18 -- unique paths from start to finish in 2D array\n");
 	printf("19 -- unique paths from start to finish in 2D array with obstacles(Enter 1 for obstacles)\n");
 	printf("20 -- number of unique Binary Search Trees)\n");
-	printf("21 -- decode message problem)\n");
+	printf("21 -- decode message problem\n");
+	printf("22 -- min cost to paint all the houses\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -1129,6 +1231,12 @@ int main(){
 	    case 21:
 		     /*decode_message();*/
 		     break;
+
+	    case 22:
+		     printf("Min cost to paint all houses : %d\n", min_cost_paint_houses());
+		     break;
+
+			 
 
 
 	    default:
