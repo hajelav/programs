@@ -997,7 +997,7 @@ int min_cost_paint_houses() {
 void maximum_product_subarray() {
 
     int *A, *maxP, len;
-    int j, curr_max_product, curr_min_product;
+    int j, curr_max_product, curr_min_product, max_product;
     printf("Enter the len of array\n");
     scanf("%d", &len);
 
@@ -1018,8 +1018,14 @@ void maximum_product_subarray() {
 
 	maxP[j] = curr_max_product;
     } 
-print_1Darray(maxP, len);
 
+    //now find the max element in maxP array
+    max_product = A[0];
+    for(j=1;j<len;j++){
+	if(maxP[j] > max_product)
+	    max_product = maxP[j];
+    }
+    printf("Maximum product : %d\n", max_product);
 }
 
 int main(){
