@@ -442,6 +442,7 @@ void digits(){
 }
 
 /*
+ * leetcode problem 53
  *maximum sum contiguos array
  *recurrence
  *
@@ -970,6 +971,57 @@ int min_cost_paint_houses() {
 
 }
 
+/*
+ *leetcode problem 152
+ *https://leetcode.com/problems/maximum-product-subarray/
+ When the array has only positive elements then the product of all elements will be answer. 
+ Problem becomes interesting and complex simultaneously when there are negative elements.
+
+ The way I looked at this problem is as follows.
+ You have three choices to make at any position in array.
+ 1. You can get maximum product by multiplying the current element with 
+ maximum product calculated so far.  (might work when current 
+ element is positive).
+
+ 2. You can get maximum product by multiplying the current element with 
+ minimum product calculated so far. (might work when current 
+ element is negative).
+
+ 3.  Current element might be a starting position for maximum product sub
+ array
+
+ so you have to maintain current maximum product and current 
+ minimum product.
+ */
+
+void maximum_product_subarray() {
+
+    int *A, *maxP, len;
+    int j, curr_max_product, curr_min_product;
+    printf("Enter the len of array\n");
+    scanf("%d", &len);
+
+    A = create_1Darray(len);
+    input_1Darray(A, len);
+
+    //create an auxillary array to store the max product
+    maxP = create_1Darray(len);
+
+    curr_max_product = A[0];
+    curr_min_product = A[0];
+    maxP[0] = A[0];
+
+    for(j=1;j<len;j++){
+
+	curr_max_product = MAX_three(maxP[j-1]*A[j], A[j], curr_min_product*A[j]);
+	curr_min_product = MIN_three(maxP[j-1]*A[j], A[j], curr_min_product*A[j]);
+
+	maxP[j] = curr_max_product;
+    } 
+print_1Darray(maxP, len);
+
+}
+
 int main(){
 
 
@@ -1007,6 +1059,7 @@ int main(){
 	printf("20 -- number of unique Binary Search Trees)\n");
 	printf("21 -- decode message problem\n");
 	printf("22 -- min cost to paint all the houses\n");
+	printf("23 -- maximum product subarray\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -1236,8 +1289,9 @@ int main(){
 		     printf("Min cost to paint all houses : %d\n", min_cost_paint_houses());
 		     break;
 
-			 
-
+	    case 23:
+		     maximum_product_subarray();
+		     break;
 
 	    default:
 		printf("Invalid option\n");

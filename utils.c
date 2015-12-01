@@ -32,6 +32,17 @@ int MIN_three(int a, int b, int c) {
 	return c;
 }
 
+
+int MAX_three(int a, int b, int c) {
+
+    if(a-b >= 0 && a-c >=0)
+	return a;
+    else if(b-a >= 0 && b-c >= 0 )
+	return b;
+    else 
+	return c;
+}
+
 void init_array(int *arr, int n){
     int i;
     for(i=0;i<n;i++){
@@ -170,6 +181,7 @@ void input_2Dchar_array(char**A, int r, int c) {
 void input_1Darray(int *A, int n) {
 
     int i;
+    printf("Enter elements\n");
     for(i=0;i<n;i++){
 	scanf("%d", &A[i]);
     }
