@@ -874,6 +874,7 @@ int number_of_unique_bst() {
 /*
  *leetcode problem 256
  *https://leetcode.com/problems/paint-house/
+ paint has only three colors, Red Blue Green
  */
 
 int min_cost_paint_houses() {
@@ -970,6 +971,71 @@ int min_cost_paint_houses() {
     return result;    
 
 }
+
+/*
+ *leetcode problem 265
+ *https://leetcode.com/problems/paint-house-ii/
+ *paint the house with k colors
+ */
+
+void min_cost_paint_houses_k_colors() {
+
+    int i, j, min_cost;
+    int **cost, *minCost;
+    int *color; 
+    /*char *painted; // store the last painted house color*/
+
+    int numOfHouses, numOfColors;
+
+    printf("Enter number of houses\n");
+    scanf("%d", &numOfHouses);
+
+    printf("Enter number of colors\n");
+    scanf("%d", &numOfColors);
+
+    cost = create_2Darray(numOfHouses, numOfColors);
+    printf("Input cost array\n");
+    input_2Darray(cost, numOfHouses, numOfColors);
+
+    print_2Darray(cost, numOfHouses, numOfColors);
+
+    //creat a minCost array to store min cost required to paint jth array(such that no two adjacent houses are painted same color).
+    //the final solution of the problem would be minCost[n-1]
+    minCost = create_1Darray(numOfHouses);
+
+    //create an auxillary array color to store the color of last house painted in the minCost array.
+    color  = create_1Darray(numOfHouses);
+
+    //initialize the minCost and color array
+
+    //the first element of the min cost array would be min of the first row of cost array( ie min cost of painting house 0)
+    /*minCost[0] = MIN_three( cost[0][0], cost[0][1], cost[0][2]);*/
+    minCost[0] = cost[0][0];
+    for(j=1;j<numOfColors;j++){
+	if(cost[0][j] < minCost[0]){
+	    minCost[0] = cost[0][j];
+	    color[0] = j; //store the color of the min cost paint for house 0
+	}
+    }
+
+    //now start from 1st house of the cost array
+    for(i=1;i< numOfHouses;i++){
+	min_cost = INT_MAX;
+	for(j=0;j<numOfColors;j++) {
+	    //if we find min cost paint and the color does not match the previosly painted house
+	    if(cost[i][j] < min_cost && j!=color[i-1]){
+		min_cost = cost[i][j];
+		minCost[i] = min_cost + minCost[i-1]; //upate the minCost array by adding with min cost of painting previous house
+		/*minCost[i] = min_cost;*/
+		color[i] = j;
+	    }
+	}
+    }
+
+    printf("Min cost to paint %d houses with %d colors : %d\n", numOfHouses, numOfColors, minCost[numOfHouses-1]);
+    print_1Darray(minCost, numOfHouses);
+}
+
 
 /*
  *leetcode problem 152
@@ -1086,9 +1152,10 @@ int main(){
 	printf("19 -- unique paths from start to finish in 2D array with obstacles(Enter 1 for obstacles)\n");
 	printf("20 -- number of unique Binary Search Trees)\n");
 	printf("21 -- decode message problem\n");
-	printf("22 -- min cost to paint all the houses\n");
+	printf("22 -- min cost to paint all the houses(with Red,Blue,Green)\n");
 	printf("23 -- maximum product subarray\n");
-	printf("23 -- maximal square  problem\n");
+	printf("24 -- maximal square  problem\n");
+	printf("25 -- min cost to paint all the houses(with k colors)\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -1315,7 +1382,7 @@ int main(){
 		     break;
 
 	    case 22:
-		     printf("Min cost to paint all houses : %d\n", min_cost_paint_houses());
+		     printf("Min cost to paint all houses with Red,Blue,Green: %d\n", min_cost_paint_houses());
 		     break;
 
 	    case 23:
@@ -1324,6 +1391,10 @@ int main(){
 
 	    case 24:
 		     maximal_square();
+		     break;
+	    case 25:
+		     /*printf("Min cost to paint all houses with k colors: %d\n", min_cost_paint_houses_k_colors());*/
+		     min_cost_paint_houses_k_colors();
 		     break;
 
 	    default:
