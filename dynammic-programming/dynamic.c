@@ -1028,6 +1028,16 @@ void maximum_product_subarray() {
     printf("Maximum product : %d\n", max_product);
 }
 
+
+/*
+ *leetcode problem 221
+ *https://leetcode.com/problems/maximal-square/
+ */
+
+void maximal_square() {
+
+}
+
 int main(){
 
 
@@ -1066,6 +1076,7 @@ int main(){
 	printf("21 -- decode message problem\n");
 	printf("22 -- min cost to paint all the houses\n");
 	printf("23 -- maximum product subarray\n");
+	printf("23 -- maximal square  problem\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -1297,6 +1308,10 @@ int main(){
 
 	    case 23:
 		     maximum_product_subarray();
+		     break;
+
+	    case 24:
+		     maximal_square();
 		     break;
 
 	    default:

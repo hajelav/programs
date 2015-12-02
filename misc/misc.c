@@ -89,7 +89,8 @@ int my_atoi(char *str) {
     len = strlen(str);
 
     while(k<len) {
-	num += pow(10, (len-k-1))*(str[k]-'0');
+	/*num += pow(10, (len-k-1))*(str[k]-'0');*/
+	num = num*10 + str[k]-'0';
 	k++;
     }
 
