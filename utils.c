@@ -172,7 +172,7 @@ void input_2Darray(int **A, int r, int c) {
 void input_2Dchar_array(char**A, int r, int c) {
 
     int i;
-    printf("Enter elements\n");
+    printf("Enter words\n");
     for(i=0;i<r;i++){
 	    scanf("%s", A[i]);
     }

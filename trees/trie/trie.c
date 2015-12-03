@@ -225,6 +225,74 @@ void find_words(char **board, int boardRow, int boardCol, TNODE *root, int wordS
 
 }
 
+/*
+ *leetcode problem 30
+ *https://leetcode.com/problems/substring-with-concatenation-of-all-words/
+ *You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once and without any intervening characters.
+ *
+ *For example, given:
+ *s: "barfoothefoobarman"
+ *words: ["foo", "bar"]
+ *
+ *You should return the indices: [0,9].
+ *(order does not matter).
+ */
+
+void find_substring() {
+
+    int i;
+    int start = 0, count=0;
+    int noOfWords, wordSize, strLen;
+    char * word;
+    char str[128];
+
+    printf("enter no of words\n");
+    scanf("%d", &noOfWords);
+
+    printf("Enter word size\n");
+    scanf("%d", &wordSize);
+
+
+    printf("Enter words of size %d\n", wordSize);
+    for(i=0;i<noOfWords;i++){
+	scanf("%s", str);
+	addWordInTrie(str, root);
+    }
+
+    printf("Enter string\n");
+    scanf("%s", str);
+
+    strLen = strlen(str);
+
+    //allocate space for a word
+    word = create_1Dchar_array(strLen);
+
+    while(strLen - start >= noOfWords*wordSize) {
+	//copy the wordSize bytes from str into the word buffer(temp buffer)
+	for(i=0;i<noOfWords;i++) {
+	    memcpy(word, str+start, wordSize);
+	    //search the word in trie
+	    if(searchWordInTrie(root, word)){
+		start = start + wordSize;
+		count++;
+	    } else {
+		start++;
+		break;
+	    }
+	}
+	//if we have found a substring which matches all the words of the trie
+	if(count == noOfWords){
+	    //start is pointing to the end index of the words, we need to substract no of words X word size to get to the front index
+	    printf("%d\n", start-noOfWords*wordSize);
+	    count = 0;
+	}
+
+    }
+
+    free(word);
+
+}
+
 int main() {
 
     char c;
@@ -245,6 +313,7 @@ int main() {
 	printf("6 -- Print all the words in trie\n");
 	printf("7 -- Given set of strings, find longest common prefix\n");
 	printf("8 -- word search problem\n");
+	printf("9 -- substring with Concatenation of All Words\n");
 	
 	printf("enter your choice\n");
 	scanf("%d", &choice);
@@ -311,6 +380,11 @@ int main() {
 		}
 
 		find_words(board, boardRow, boardCol, root, wordSize);
+		break;
+
+	    case 9:
+		find_substring();
+		break;
 
 	    default:
 		printf("Invalid option\n");
@@ -321,4 +395,3 @@ int main() {
 
     return 0;
 }
-
