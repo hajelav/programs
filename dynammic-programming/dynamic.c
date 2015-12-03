@@ -1116,6 +1116,25 @@ void maximal_square() {
 
 }
 
+/*
+ *leetcode problem 97
+ *https://leetcode.com/problems/interleaving-string/
+ Given s1, s2, s3, find whether s3 is formed by the interleaving of s1 and s2.
+
+For example,
+Given:
+s1 = "yahoo",
+s2 = "sunnyvale",
+
+When s = "yahoosunnyvale", return true.
+When s3 = "yahosunnyvale", return false.
+ */
+
+int interleaving_strings() {
+
+
+}
+
 int main(){
 
 
@@ -1395,6 +1414,9 @@ int main(){
 	    case 25:
 		     /*printf("Min cost to paint all houses with k colors: %d\n", min_cost_paint_houses_k_colors());*/
 		     min_cost_paint_houses_k_colors();
+		     break;
+	    case 26:
+		     interleaving_strings();
 		     break;
 
 	    default:
