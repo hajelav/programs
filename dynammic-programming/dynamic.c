@@ -1130,8 +1130,100 @@ When s = "yahoosunnyvale", return true.
 When s3 = "yahosunnyvale", return false.
  */
 
-int interleaving_strings() {
+void interleaving_strings() {
 
+
+}
+
+void text_justification() {
+
+}
+
+/*
+ *leetcode problem 44
+ *https://leetcode.com/problems/wildcard-matching/
+ *wildcard matching
+
+ O(n) solution with O(1) space : http://yucoding.blogspot.com/2013/02/leetcode-question-123-wildcard-matching.html
+ DP solution[O(m*n) time and O(m*n) space) : below
+
+ let S be string, P be pattern , match be the array storing the result for any length i of string and j of pattern
+ ie match[i][j] = 0 or 1 (if 0 to ith char in string matches with 0-jth char in pattern)
+ 
+ if(char at S[i] and P[j] match OR P[j] == '?')
+   match[i][j] = match[i-1][j-1]
+  if( pattern has '*')
+   match[i][j] = match[i-1][j-1] || match[i][j-1] || match[i-1][j] (if any of the result is true, then match[i][j] becomes true)  
+ */
+
+int wildcard_matching() {
+
+    char str[128], pat[128];
+    char *S, *P;
+    int **match; // auxillary array to store intermediate results 
+    int str_len, pat_len;
+    int i=0, j=0;
+
+    printf("Enter the string to be matched\n");
+    scanf("%s", str);
+
+    printf("Enter the pattern containing wildcards\n");
+    scanf("%s", pat);
+
+    str_len = strlen(str);
+    pat_len = strlen(pat);
+
+    /*create a string and pattern array which starts with the empty string, this is used in the DP solution*/
+
+    S = create_1Dchar_array(str_len+1); //increase len by 1 to accomodate the "" string
+    P = create_1Dchar_array(pat_len+1);
+
+    //copy the str and pat into S and P
+    for(i=1;i<=str_len;i++){
+	S[i] = str[i-1];
+    }
+    for(i=1;i<=pat_len;i++){
+	P[i] = pat[i-1];
+    }
+
+
+    //create an auxillary array match , which will store the the results for any i(in str) and j(in pat)
+    match = create_2Darray(str_len+1, pat_len+1);
+
+    match[0][0] = 1; // all other elements of 2D array is initialized to false(0) at the start
+
+    /*
+     *initialize the match 2D array,
+     *       1. when the pattern is empty, the result would be 0(false) for all chars in the string
+     *       2. when the string is empty(""), the result will only be true when pattern has only stars ("*")
+     */
+
+    for(j=1;j<=pat_len;j++){
+
+	/*if we find a star in pattern and previous solution returns true */
+	if(P[i] == '*' && match[0][j-1] == 1){
+	    match[0][j] = 1;
+	}
+    }
+
+
+    /*start the loop in match 2D array( i -> string, j-> pattern)*/
+    for(i=1;i<=str_len;i++){
+	for(j=1;j<=pat_len;j++){
+
+	    if(P[j] == '?' || (S[i] == P[j])){
+		match[i][j] = match[i-1][j-1];
+	    }
+
+	    if(P[j] == '*') {
+		match[i][j] = match[i-1][j-1] || match[i][j-1] || match[i-1][j];
+	    } 
+	}
+    }
+
+    //check the bottom rightmost element, 0-> if widcard does not match, 1-> widcard match
+    printf("Widcard match : %d\n", match[str_len][pat_len]);
+    return match[str_len][pat_len];
 
 }
 
@@ -1175,6 +1267,7 @@ int main(){
 	printf("23 -- maximum product subarray\n");
 	printf("24 -- maximal square  problem\n");
 	printf("25 -- min cost to paint all the houses(with k colors)\n");
+	printf("27 -- wildcard matching\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -1417,6 +1510,9 @@ int main(){
 		     break;
 	    case 26:
 		     interleaving_strings();
+		     break;
+	    case 27:
+		     printf("pattern %s\n", wildcard_matching()? "match":"do not match");
 		     break;
 
 	    default:
