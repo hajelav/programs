@@ -1227,6 +1227,53 @@ int wildcard_matching() {
 
 }
 
+/*
+ *leetcode problem 91
+ *https://leetcode.com/problems/decode-ways/
+ */
+
+
+void decode_message() {
+
+    /*assume that there is no consequitive 0s in the message*/
+    int msg_len, i;
+    char msg[128];
+    int *ways;
+    char *M;
+
+
+    printf("Enter message\n");
+    scanf("%s", msg);
+
+    msg_len = strlen(msg);
+
+    if(msg_len == 0 && msg[0] == '0')
+	return;
+
+    //malloc space for auxillary array(ways) which stores the num of ways msg can be decoded for any len j
+    //note the first element of array will be 0 ( ie 0 ways to decode msg of len 0)
+
+    ways = create_1Darray(msg_len + 1);
+    M = create_1Dchar_array(msg_len + 1);
+    //copy msg into M , such that msg starts from index 1
+
+    memcpy(M+1, msg, msg_len); 
+
+    ways[0] = 1; 
+    ways[1] = 1;
+
+    for(i=2;i<=msg_len;i++) {
+	//if the number formed by prev and curr char is less than 26
+	if((M[i-1]-'0')*10 + (M[i]-'0') <= 26) {
+	    ways[i] = ways[i-1] + ways[i-2];
+	} else {
+	    ways[i] = ways[i-1];
+	}
+    }
+
+    printf("Number of ways to decode %s : %d\n", msg, ways[msg_len]);
+}
+
 int main(){
 
 
@@ -1490,7 +1537,7 @@ int main(){
 		     break;
 
 	    case 21:
-		     /*decode_message();*/
+		     decode_message();
 		     break;
 
 	    case 22:

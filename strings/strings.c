@@ -410,6 +410,26 @@ char * min_window_substring(char *S, char *T) {
     return NULL;
 }
 
+
+/*
+ *leetcode problem 93
+ *https://leetcode.com/problems/restore-ip-addresses/
+ */
+void restore_ip_address() {
+
+    char str[128];
+    int str_len;
+
+    printf("Enter the string\n");
+    scanf("%s", str);
+
+    str_len = strlen(str);
+     
+    if(str_len < 4)
+	return;
+
+}
+
 int main() {
     /*char c;*/
     int choice;
@@ -426,7 +446,9 @@ int main() {
 	printf("4 -- Palindrome detection with non-alphanumeric characters\n");
 	printf("5 -- Normalize the path\n");
 	printf("6 -- replace space by percentage20 in a string\n");
-	printf("7 -- Minimum Window Substring\n");
+	printf("7 -- minimum window substring\n");
+	printf("8 -- integer to english words\n");
+	printf("9 -- restore IP addresses\n");
 	
 	
 
@@ -472,6 +494,14 @@ int main() {
 		scanf("%s", T);
 
 		min_window_substring(S, T);
+		    break;
+
+	    case 8:
+		    /*interger_to_english_words();*/
+		    break;
+
+	    case 9:
+		    restore_ip_address();
 		    break;
 
 
