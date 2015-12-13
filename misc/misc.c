@@ -206,7 +206,7 @@ int max_area_rectangle_histogram(int *hist, int noOfBars) {
 
     }
 
-    print_1Darray(left_idx, noOfBars);
+    /*print_1Darray(left_idx, noOfBars);*/
 
     /*reset the stack*/
     memset(stack, -1, noOfBars);
@@ -233,7 +233,7 @@ int max_area_rectangle_histogram(int *hist, int noOfBars) {
 
     }
     printf("\n");
-    print_1Darray(right_idx, noOfBars);
+    /*print_1Darray(right_idx, noOfBars);*/
 
     /*
      *till this point we have filled the left and right indexes of each bar of histogram, we now calculate the
@@ -1135,6 +1135,61 @@ void walls_and_gates() {
     free(A);
 }
 
+/*
+ *leetcode problem 85
+ *https://leetcode.com/problems/maximal-rectangle/
+ *logic :
+ *
+ *1.take an auxillary array equal to the size of the cols in the matrix
+ *2. copy the first row in the aux array created in 1
+ *3. find the max area of the histogram formed by the values of the aux array
+ *4. go the the next row , and whenver you find non zero value in the new row, add that value to the aux array
+ *5. repeat step 3 and 4 untill you cover all the rows, and keep an account of max area obtained 
+ *6. return the max area 
+ */
+
+void maximum_rectangle() {
+
+    int i,j, r, c;
+    int **M, *A;
+    int max_area;
+    printf("Enter no of rows\n");
+    scanf("%d", &r);
+    printf("Enter no of cols\n");
+    scanf("%d", &c);
+
+    M = create_2Dmatrix(r, c);
+    input_2Darray(M, r, c);
+    print_2Dmatrix(M, r, c);
+
+    //create an aux array of size cols
+    A = create_1Darray(c);
+
+    //copy the first row into aux array
+    for(j=0;j<c;j++){
+	A[j] = M[0][j];
+    }
+
+    //calucate the max area of the histogram formed by first row
+    max_area = max_area_rectangle_histogram(A, c);
+
+    for(i=1;i<r;i++){
+	//copy the row into the aux array
+	for(j=0;j<c;j++){
+	    if(M[i][j] > 0)
+		A[j] += M[i][j];
+	    else
+		A[j] = M[i][j]; 
+	}
+
+	if(max_area_rectangle_histogram(A, c) > max_area)
+	    max_area = max_area_rectangle_histogram(A, c);
+	print_1Darray(A, c);
+    }
+
+    printf("\nMaximum area of rectangle containing all 1's : %d\n", max_area);
+}
+
 int main() {
 
     char c;
@@ -1172,6 +1227,7 @@ int main() {
 	printf("21 -- Best time to buy/sell stock(buying and selling is allowed multiple times)\n");
 	printf("22 -- capture all regions surrounded by 'X'\n");
 	printf("23 -- Walls and gates\n");
+	printf("24 -- maximum size rectangle of all 1's in a matrix\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1348,6 +1404,11 @@ int main() {
 	    case 23:
 		walls_and_gates();
 		break;
+
+	    case 24:
+		maximum_rectangle();
+		break;
+
 
 	    default:
 		printf("invalid choice\n");
