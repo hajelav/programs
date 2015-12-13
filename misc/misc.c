@@ -171,43 +171,89 @@ int subset(int *A , int n) {
 }
 
 /*
- *max area rectangle in a histogram
+ *max area rectangle in a histogram(width of each bar = 1 unit)
  *http://tech-queries.blogspot.com/2011/03/maximum-area-rectangle-in-histogram.html
- *
- *H - array of heights of each bar
- *n - number of elements in histogram
- *1- assume width of each bar
+ * stack based o(n) solution
  */
 
-/*using divide and conquer method*/
+int max_area_rectangle_histogram(int *hist, int noOfBars) {
 
-int get_min_height(int *H, int l, int h) {
-    int i;
-    int min = INT_MAX;
-    for(i=l;i<=h;i++) {
-	if(H[i] < min)
-	    min = H[i];
+    int stack[noOfBars];
+    int stack_top = -1;
+    int i, left_idx[noOfBars], right_idx[noOfBars];
+    int max_area = INT_MIN;
+
+    if(!hist || noOfBars <=0)
+	return (max_area = 0);;
+
+    for(i=0;i<noOfBars;i++){
+
+	//here for each bar, we try to reach to the leftmost bar whose index is less than the index of current bar(i)
+	while(stack_top!= -1 && hist[i]<= hist[stack[stack_top]]) {
+	    //pop the stack
+	    stack[stack_top] = -1;
+	    stack_top--;
+	}
+
+ 	//store the distance of leftmost bar index for current bar(i);
+	if(stack_top == -1) //if stack is empty
+	left_idx[i] = i-stack_top -1;
+	else
+	left_idx[i] = i-stack[stack_top] -1;
+
+	//push the current bar into the stack
+	stack[++stack_top] = i;
+
     }
-return min;
-}
 
-int max_area_rect_histogram(int *H, int low, int high) {
+    print_1Darray(left_idx, noOfBars);
 
-	int h1, h2, mid;
-	int max;
-    if(low>=high){
-	return H[low];
+    /*reset the stack*/
+    memset(stack, -1, noOfBars);
+    stack_top = -1;
+
+    /*Now calculate the right index for each bar in the histogram*/
+    for(i=noOfBars-1;i>=0;i--){
+
+	//here for each bar, we try to reach to the leftmost bar whose index is less than the index of current bar(i)
+	while(stack_top!= -1 && hist[i]<= hist[stack[stack_top]]) {
+	    //pop the stack
+	    stack[stack_top] = -1;
+	    stack_top--;
+	}
+
+ 	//store the distance of leftmost bar index for current bar(i);
+	if(stack_top == -1) //if stack is empty
+	right_idx[i] = noOfBars-i -1;
+	else
+	right_idx[i] = stack[stack_top]-i -1;
+
+	//push the current bar into the stack
+	stack[++stack_top] = i;
+
     }
+    printf("\n");
+    print_1Darray(right_idx, noOfBars);
 
-	mid = (low+high)/2;
+    /*
+     *till this point we have filled the left and right indexes of each bar of histogram, we now calculate the
+     *the max area for each bar (hist[i] *(left_idx[i] + right_idx[i] + 1) 
+     */
 
-	h1 = max_area_rect_histogram(H, low, mid);
-	h2 = max_area_rect_histogram(H, mid+1, high);
+    for(i=0;i<noOfBars;i++) {
+	if((hist[i] *(left_idx[i] + right_idx[i] + 1)) > max_area)
+		max_area = hist[i] *(left_idx[i] + right_idx[i] + 1);
+    }
+    
+    return max_area;
 
-	/*max = max_node(h1*(mid-low+1), h2*(high-mid), MIN(h1,h2)*(high-low+1));*/
-	max = max_node(h1, h2, get_min_height(H, low, high)*(high-low+1));
 
-	return max;
+
+
+
+
+
+
 }
 
 void get_island_util(int **A, int r, int c, int i, int j, int **V, int color) {
@@ -1107,7 +1153,7 @@ int main() {
 	printf("2 -- LCM of an array of intergers(using GCD method)\n");
 	printf("3 -- Convert string to int(atoi)\n");
 	printf("4 -- Subsets of an array\n");
-	printf("5 -- Max area histogram\n");
+	printf("5 -- maximum area of histogram\n");
 	printf("6 -- Counting no of islands\n");
 	printf("7 -- All possible sequences from a number keypad in phone\n");
 	printf("8 -- check if a string is palindrome((lowercase and uppercase characters are considered equal -special characters are ignored)\n");
@@ -1172,7 +1218,7 @@ int main() {
 		A = create_1Darray(n1);
 		printf("Enter heights of histogram bars\n");
 		input_array(A, n1);
-		printf("Max of of rectangle : %d\n", max_area_rect_histogram(A, 0, n1-1));
+		printf("Max of of rectangle : %d\n", max_area_rectangle_histogram(A, n1));
 		free(A);
 		break;
 

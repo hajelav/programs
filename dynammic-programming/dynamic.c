@@ -1274,6 +1274,10 @@ void decode_message() {
     printf("Number of ways to decode %s : %d\n", msg, ways[msg_len]);
 }
 
+void maximum_rectangle() {
+
+}
+
 int main(){
 
 
@@ -1315,6 +1319,7 @@ int main(){
 	printf("24 -- maximal square  problem\n");
 	printf("25 -- min cost to paint all the houses(with k colors)\n");
 	printf("27 -- wildcard matching\n");
+	printf("28 -- maximum size rectangle of all 1's in a matrix\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -1562,11 +1567,15 @@ int main(){
 		     printf("pattern %s\n", wildcard_matching()? "match":"do not match");
 		     break;
 
+	    case 28:
+		     maximum_rectangle();
+		     break;
+
 	    default:
 		printf("Invalid option\n");
 		break;
 	}
 	printf("\n\n");
-    }while((c=getchar())!='q'); 
+    } while((c=getchar())!='q'); 
     return 0;
 }
