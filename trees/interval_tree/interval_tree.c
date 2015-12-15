@@ -51,7 +51,7 @@ void print_interval_tree(INTVL *intvl) {
     print_interval_tree(intvl->right);
 }
 
-void create_interval_tree(INTVL * intvl, int low, int high) {
+void create_interval_tree(INTVL *intvl, int low, int high) {
 
     INTVL *temp;
 
@@ -76,9 +76,30 @@ void create_interval_tree(INTVL * intvl, int low, int high) {
     intvl->max = MAX_three(intvl->high, intvl->left?intvl->left->max:INT_MIN, intvl->right?intvl->right->max:INT_MIN);
 }
 
+
+/*search for a given interval in an interval tree. If an interval is found we return the pointer to that node, otherwise return NULL*/
+INTVL* interval_search(INTVL *intvl, int low, int high) {
+
+    INTVL *result;
+
+    if(!intvl)
+	return NULL;
+
+    if(is_interval_overlap(intvl, low, high))
+	return intvl;
+
+    if(intvl->left && intvl->left->max >= low)
+	result = interval_search(intvl->left, low, high);
+    else 
+	result = interval_search(intvl->right, low, high);
+
+    return result;
+}
+
 int main() {
 
     char c;
+    INTVL *result;
     int choice;
     int low, high;
 
@@ -86,6 +107,7 @@ int main() {
 	printf("MENU OPTIONS\n");
 	printf("1 -- Insert interval into Interval tree\n");
 	printf("2 -- Print\n");
+	printf("3 -- search for interval in an interval tree\n");
 	
 	printf("enter your choice\n");
 	scanf("%d", &choice);
@@ -107,6 +129,20 @@ int main() {
 	    case 2: 
 		print_interval_tree(root);
 		break;
+
+	    case 3:
+		printf("Enter interval low\n");
+		scanf("%d", &low);
+		printf("Enter interval high\n");
+		scanf("%d", &high);
+		result = interval_search(root, low, high);
+		if(result)
+		printf("Overlapping interval to [%d  %d] : [%d  %d]\n", low, high, result->low, result->high);
+		else 
+		printf("Overlapping interval to [%d  %d] : NULL\n", low, high);
+		break;
+
+		
 
 
 	    default:
