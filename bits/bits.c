@@ -273,7 +273,8 @@ int add1(unsigned int n) {
  */
  /*
   *logic : we get the position of x and y, if both are 0s or 1s we dont have to swap.
-  *if difference , then we just need to flip the bit at the corresponding positions X and Y
+  *if different , then we just need to flip the bit at the corresponding positions X and Y
+  flipping of bits can be done by XORing the bit with 1
   */
 
 int swapBits(int n, int x, int y) {
@@ -283,7 +284,7 @@ int swapBits(int n, int x, int y) {
     pos_x = (n>>x)&1;
     pos_y = (n>>y)&1;
 
-    //if bits are diff (ie 0 and 1 or 1 and 0) then swap
+    //if bits are diff (ie XOR of bits is 1) then swap
     if(pos_x ^ pos_y) {
 	//xor the oringinal number with 1s at x and y position;
 	//if u XOR a bit with 1 , it gets flipped, if you XOR with 0 , it remains same
