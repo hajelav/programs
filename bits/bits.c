@@ -335,7 +335,7 @@ int swapBits(int n, int x, int y) {
 int swapEvenOddBits(int n) {
 
     int x,y;
-     x = (n & 0x5555555) << 1;
+     x = (n & 0x55555555) << 1;
      y = (n >> 1) & 0x55555555;
 
      return x|y;
