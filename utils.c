@@ -35,9 +35,9 @@ int MIN_three(int a, int b, int c) {
 
 int MAX_three(int a, int b, int c) {
 
-    if(a-b >= 0 && a-c >=0)
+    if((a>=b) && (a>=c))
 	return a;
-    else if(b-a >= 0 && b-c >= 0 )
+    else if((b>=a) && (b>=c))
 	return b;
     else 
 	return c;
