@@ -1190,6 +1190,27 @@ void maximum_rectangle() {
     printf("\nMaximum area of rectangle containing all 1's : %d\n", max_area);
 }
 
+/*
+ *leetcode problem 56
+ *https://leetcode.com/problems/merge-intervals/
+ */
+
+void merge_overlapping_intervals() {
+
+	/*
+         *1.Sort the intervals based on increasing order of 
+	 *starting time.
+	 *2. Push the first interval on to a stack.
+	 *3. For each interval do the following
+	 *a. If the current interval does not overlap with the stack 
+	 *top, push it.
+	 *b. If the current interval overlaps with stack top and ending
+	 *time of current interval is more than that of stack top, 
+         *update stack top with the ending  time of current interval.
+         *4. At the end stack contains the merged intervals. 
+	 */
+}
+
 int main() {
 
     char c;
@@ -1228,6 +1249,7 @@ int main() {
 	printf("22 -- capture all regions surrounded by 'X'\n");
 	printf("23 -- Walls and gates\n");
 	printf("24 -- maximum size rectangle of all 1's in a matrix\n");
+	printf("25 -- merge all overlapping intervals\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1407,6 +1429,10 @@ int main() {
 
 	    case 24:
 		maximum_rectangle();
+		break;
+
+	    case 25:
+		merge_overlapping_intervals();
 		break;
 
 

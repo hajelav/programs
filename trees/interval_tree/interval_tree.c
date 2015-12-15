@@ -96,6 +96,37 @@ INTVL* interval_search(INTVL *intvl, int low, int high) {
     return result;
 }
 
+
+void merge_interval(INTVL *intvl, int low, int high) {
+
+    /*case 1: interval->high lies between low and high*/
+
+    if((low <= intvl->high) && (intvl->high <= high)) {
+	intvl->high = high;
+    }
+
+    /*case 2: interval->low lies between low and high*/
+    if((low <= intvl->low) && (intvl->low <= high)) {
+	intvl->low = low;
+    }
+
+    /*update the max in the interval node*/
+    intvl->max = intvl->high;
+}
+
+
+
+/*
+ * http:www.geeksforgeeks.org/given-n-appointments-find-conflicting-appointments/
+ * Given n appointments, find all conflicting appointments
+ *
+ * this can be solved using interval tree. add the first appt slot to interval tree. From second appt onwards
+ * keep on adding appt slots into the interval tree and detect overlap while adding. This can be done in O(log(n)) time. 
+ */
+
+
+
+
 int main() {
 
     char c;
@@ -141,9 +172,6 @@ int main() {
 		else 
 		printf("Overlapping interval to [%d  %d] : NULL\n", low, high);
 		break;
-
-		
-
 
 	    default:
 		printf("Invalid option\n");
