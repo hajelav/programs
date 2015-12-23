@@ -408,6 +408,7 @@ char * min_window_substring(char *S, char *T) {
 	/*printf("Min window length  : %d\n", min_window);*/
 
     return NULL;
+    /***** HAS A BUG, NEED TO BE CORRECTED ** */
 }
 
 
@@ -436,7 +437,7 @@ int main() {
     char str[] = "gee  ks f  or g  ee ks ";
     char path[128];
     char S[128], T[128];
-    char *pattern = "%20";
+    char *pattern = "-20";
     /*do {*/
 
 	printf("MENU OPTIONS\n");

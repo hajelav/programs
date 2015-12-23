@@ -195,11 +195,11 @@ int max_area_rectangle_histogram(int *hist, int noOfBars) {
 	    stack_top--;
 	}
 
- 	//store the distance of leftmost bar index for current bar(i);
+	//store the distance of leftmost bar index for current bar(i);
 	if(stack_top == -1) //if stack is empty
-	left_idx[i] = i-stack_top -1;
+	    left_idx[i] = i-stack_top -1;
 	else
-	left_idx[i] = i-stack[stack_top] -1;
+	    left_idx[i] = i-stack[stack_top] -1;
 
 	//push the current bar into the stack
 	stack[++stack_top] = i;
@@ -222,11 +222,11 @@ int max_area_rectangle_histogram(int *hist, int noOfBars) {
 	    stack_top--;
 	}
 
- 	//store the distance of leftmost bar index for current bar(i);
+	//store the distance of leftmost bar index for current bar(i);
 	if(stack_top == -1) //if stack is empty
-	right_idx[i] = noOfBars-i -1;
+	    right_idx[i] = noOfBars-i -1;
 	else
-	right_idx[i] = stack[stack_top]-i -1;
+	    right_idx[i] = stack[stack_top]-i -1;
 
 	//push the current bar into the stack
 	stack[++stack_top] = i;
@@ -242,28 +242,19 @@ int max_area_rectangle_histogram(int *hist, int noOfBars) {
 
     for(i=0;i<noOfBars;i++) {
 	if((hist[i] *(left_idx[i] + right_idx[i] + 1)) > max_area)
-		max_area = hist[i] *(left_idx[i] + right_idx[i] + 1);
+	    max_area = hist[i] *(left_idx[i] + right_idx[i] + 1);
     }
-    
     return max_area;
-
-
-
-
-
-
-
-
 }
 
 void get_island_util(int **A, int r, int c, int i, int j, int **V, int color) {
 
     if( i>r || i<0)
-	return ;
+	return;
     if(j<0 || j>r)
-	return ;
+	return;
     if(A[i][j] == (!color) || V[i][j] == 1)
-	return ;
+	return;
 
     //recurese only when we find the color
     if(!V[i][j] && (A[i][j] == color)){
@@ -392,7 +383,7 @@ void permutation_util(char **A, char *V, int r, int c, int i, char *str) {
     }
 
     for(j=0;j<c;j++) {
-	if(!V[j]) {
+	if(!V[j]) { //if char is already visited, skip it
 	    V[j] = 1;
 	    str[i] = A[i][j];
 	    permutation_util(A, V, r, c, i+1, str);
