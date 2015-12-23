@@ -1,8 +1,8 @@
 #include "../utils.h"
 
 /*
- * leetcode problem 300
- * https://leetcode.com/problems/longest-increasing-subsequence/
+ *leetcode problem 300
+ *https://leetcode.com/problems/longest-increasing-subsequence/
  *https://www.youtube.com/watch?v=CE2b_-XfVDk&index=35&list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr
  obtimal substructure :
   let S be the array that stores the LIS 
