@@ -128,26 +128,48 @@ int string_matching_finite_automata(char *text, char *pat) {
     int **table; // table to store the state transitions of finite automation machine
     char *P;
     int i, j;
+    int text_len, next_state;
 
     //first we need to count the number of different chars in the pattern(input). This will be used to create the finite automation state machine
     alphabet = count_alphabet(pat, &input_alphabet);
     printf("Input alphabet : %d, hash : %s\n", input_alphabet, alphabet);
 
-    //no of states is always 1 more than the length of the pattern
+    //no of states is always 1 more than the length of the pattern(the first state(start state) is always 0)
     state = strlen(pat)+1;
 
     //create a table for the finite automation state machine
     table =  create_2Darray(state, input_alphabet);
 
+    printf("FINITE AUTOMATION STATE TRANSITION FUCNTION\n");
+    printf("table[i][j] represents the state which is reached when we move from state i with alphabet[j] as input\n");
     for(i=0;i<state;i++){
 	for(j=0;j<input_alphabet;j++){
 	    P = delta(pat, i, alphabet[j]);
-	    printf("delta(%d, %c) = %s\n", i, alphabet[j], P);
+	    /*printf("delta(%d, %c) = %s\n", i, alphabet[j], P);*/
 	    /*Now we need to find out the longest prefix of pattern(pat) that is also a suffix of P*/
 	    table[i][j] = longest_common_prefix(pat, P);
 	}
     }
     print_2Darray(table, state, input_alphabet);
+
+    /*
+     *once we have the finite state machine ready(from pattern), we give text as input to this state machine. If we happen to reach tha final state of the machine
+     *thein the pattern is found	
+     */
+
+    /*run the loop till you exhaust the input text string */
+    text_len = strlen(text);
+    next_state = 0;
+
+    for(i=0;i<text_len;i++){
+	next_state = table[next_state][text[i]-'a'];
+
+	//if the next state happen to be the last state(ie length[pattern]th state), then the pattern exists 
+	if(next_state == strlen(pat)){
+	    printf("Reached state %d\n", next_state);
+	    return 1;
+	}
+    }
     return 0;
 }
 
@@ -179,7 +201,7 @@ int main() {
 		scanf("%s", T);
 		printf("Enter the pattern string\n");
 		scanf("%s", P);
-		printf("Pattern found at index : %d\n", string_matching_finite_automata(T, P));
+		printf("Pattern exists : %s\n", string_matching_finite_automata(T, P)?"yes":"no");
 		break;
 
 	    default:
