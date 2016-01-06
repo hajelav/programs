@@ -15,6 +15,14 @@ typedef struct td{
     int tid;
 } TDATA;
 
+
+typedef struct data {
+    int *num;
+    int *no_of_threads;
+    int tid;
+    sem_t *mutex_t;
+} DATA;
+
 //create an array of semaphore varaibles
 sem_t mutex[THREADS];
 sem_t mutex1;
@@ -27,53 +35,6 @@ void init_mutex() {
    sem_init(&mutex[2], 0, 0); 
 }
 
-//thread to print even/odd numbers in the array.Note that the semaphores are just used for synchronization
-//of thread. We dont need semaphores for mutual exclusion as it is a lockless design(ie threads access differnt regions
-//of memory parallely)
-void* thread(void *data) {
-
-
-    printf("Thead id : %ld\n", pthread_self());
-    int tid;
-    int i;
-    TDATA *td;
-    //deference the data passed from main thread
-    td = (TDATA*)data;
-    //get the tid
-    tid = td->tid;
-
-    /*//first thread prints even numbers*/
-    /*if(tid == 0){*/
-    /*for(i=0;i<N;i+=2) {*/
-    /*sem_wait(&mutex1);*/
-    /*printf("%d (printed by thread %d)\n", td->arr[i], tid);*/
-    /*sem_post(&mutex2); //once thread 0 is done, it will increment mutex2 so that thread 1 can execute*/
-
-    /*}*/
-    /*}*/
-    /*//second thread prints odd numbers*/
-    /*if(tid == 1){*/
-    /*for(i=1;i<N;i+=2){*/
-    /*sem_wait(&mutex2); //thread 1 will always execute after thread 0, if thread one tries to print, it will be put to sleep*/
-    /*printf("%d (printed by thread %d)\n", td->arr[i], tid);*/
-    /*sem_post(&mutex1); //once thread 1 is done it will increment mutex1 so that thread 0 can execute*/
-    /*}*/
-    /*}*/
-
-    for(i=0;i<N;i++) {
-
-	if(i%2 == 0 && tid == 0){
-	    sem_wait(&mutex1);
-	    printf("%d (printed by thread %d)\n", td->arr[i], tid);
-	    sem_post(&mutex2); //once thread 0 is done, it will increment mutex2 so that thread 1 can execute
-	} else if(i%2 !=0 && tid == 1){
-	    sem_wait(&mutex2); //thread 1 will always execute after thread 0, if thread one tries to print, it will be put to sleep
-	    printf("%d (printed by thread %d)\n", td->arr[i], tid);
-	    sem_post(&mutex1); //once thread 1 is done it will increment mutex1 so that thread 0 can execute
-	}
-    }
-    return NULL;
-}
 
 //thread prototypes
 void* thread0(void *data) {
@@ -142,6 +103,40 @@ void sync_threads() {
 }
 
 
+/*
+ *thread to print even/odd numbers in the array.Note that the semaphores are just used for synchronization
+ *of thread. We dont need semaphores for mutual exclusion as it is a lockless design(ie threads access differnt regions
+ *of memory parallely)
+ */
+void* thread(void *data) {
+
+
+    printf("Thread id : %ld\n", pthread_self());
+    int tid;
+    int i;
+    TDATA *td;
+
+    //deference the data passed from main thread
+    td = (TDATA*)data;
+
+    //get the tid
+    tid = td->tid;
+
+    for(i=0;i<N;i++) {
+
+	if(i%2 == 0 && tid == 0){
+	    sem_wait(&mutex1);
+	    printf("%d (printed by thread %d)\n", td->arr[i], tid);
+	    sem_post(&mutex2); //once thread 0 is done, it will increment mutex2 so that thread 1 can execute
+	} else if(i%2 !=0 && tid == 1){
+	    sem_wait(&mutex2); //thread 1 will always execute after thread 0, if thread one tries to print, it will be put to sleep
+	    printf("%d (printed by thread %d)\n", td->arr[i], tid);
+	    sem_post(&mutex1); //once thread 1 is done it will increment mutex1 so that thread 0 can execute
+	}
+    }
+    return NULL;
+}
+
 void even_odd_print() {
 
     int i;
@@ -160,6 +155,7 @@ void even_odd_print() {
     for(i=0;i<N;i++){
 	arr[i] = i;
     }
+
     //create two threads, which wil print even and odd numbers
     pthread_t tid[2];
 
@@ -178,16 +174,97 @@ void even_odd_print() {
     sem_destroy(&mutex2);
 }
 
-int main(){
+void* thread_print(void *data) {
 
+    int tid, no_of_threads, num;
+    int i;
+    DATA *tdata;
+    printf("Thread id : %ld\n", pthread_self());
+
+    //deference the data passed from main thread
+    tdata = (DATA*)data;
+
+    //get the tid
+    tid = tdata->tid;
+
+    //get no of threads
+    no_of_threads = *(tdata->no_of_threads);
+    printf("No of threads : %d\n", no_of_threads);
+
+    //get the number
+    num = *(tdata->num);
+    printf("No : %d\n", num);
+
+    for(i=0;i<num;i++) {
+
+	if(i%no_of_threads ==  tid) {
+	    sem_wait(&tdata->mutex_t[tid%no_of_threads]);
+	    printf("%d -- printed by Thread %d [thread id:%ld]\n", i, tid, pthread_self());
+	    sem_post(&tdata->mutex_t[(tid+1)%no_of_threads]);
+	}
+    }
+    return NULL;
+}
+
+void print_numbers(int num, int nThreads){
+
+    int i;
+    DATA * data;
+    int *number;
+    int *no_of_threads;
+    sem_t *mutex_t;
+
+    //array to store n thread ids
+    pthread_t tid[nThreads];
+
+    //array of mutexes
+    /*sem_t mutex[nThreads];*/
+
+    /*initiaize the thread data equal to number of threads(n)*/
+    data = (DATA*)malloc(sizeof(DATA)*nThreads);
+    number = (int*)malloc(sizeof(int));
+    no_of_threads = (int*)malloc(sizeof(int));
+    mutex_t = (sem_t*)malloc(sizeof(sem_t)*nThreads);
+
+    if(!data || !number || !no_of_threads || !mutex_t)
+	return;
+
+    *number = num;
+    *no_of_threads = nThreads;
+
+    //initialize the semaphores/mutexes
+    for(i=0;i<nThreads;i++) {
+	//initize the first mutes as 1 for synchronisation of threads
+	if(i==0)
+	    sem_init(&mutex_t[i], 0, 1); 
+	else 
+	    sem_init(&mutex_t[i], 0, 0); 
+    }
+
+    for(i=0;i<nThreads;i++){
+	data[i].num = number;
+	data[i].no_of_threads = no_of_threads;
+	data[i].mutex_t = mutex_t;
+	data[i].tid = i;
+	pthread_create(&tid[i], NULL, thread_print, &data[i]);
+    }
+
+    for(i=0;i<nThreads;i++) {
+	sem_destroy(&mutex_t[i]); 
+    }
+}
+
+int main(){
 
     char c;
     int choice;
-    do {
+    int m, n;
 
+    do {
 	printf("MENU OPTIONS\n");
 	printf("1 -- Using threads for synchronisation\n");
 	printf("2 -- Thread printing even and odd numbers\n");
+	printf("3 -- Printing m numbers(1 to m) alternatively using n threads\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -201,11 +278,18 @@ int main(){
 		even_odd_print();
 		break;
 
-	    default:
+	    case 3:
+		printf("Enter m\n");
+		scanf("%d", &m);
+		printf("Enter no of threads\n");
+		scanf("%d", &n);
+		print_numbers(m, n);
 		break;
 
+	    default:
+		break;
 	}
 	printf("\n\n");
-    }while((c=getchar())!='q'); 
+    } while((c=getchar())!='q'); 
     return 0;
 }
