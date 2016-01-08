@@ -216,6 +216,41 @@ int missing_number(int *A, int low, int high) {
   TBD
 */
 
+
+int num_of_occurences_util(int *A, int low, int high, int num) {
+
+    int mid, res;
+
+    if(low>=high)
+	return low;
+
+    mid = low+(high-low)/2;
+
+
+    if(A[mid] < num)
+	res = num_of_occurences_util(A, mid+1, high, num);
+    else if (A[mid] >= num)
+	res = num_of_occurences_util(A, low, mid, num);
+
+    return res;
+}
+
+void num_of_occurences(int *A, int len) {
+
+    int curr_idx, prev_idx;
+
+    /*pointer to the end of the array*/
+    curr_idx = len-1;
+    prev_idx = curr_idx;
+
+    while(curr_idx>0){
+	curr_idx = num_of_occurences_util(A, 0, curr_idx, A[curr_idx]);
+	printf("Number[%d] Frequency[%d]\n", A[curr_idx], prev_idx-curr_idx+1);
+	prev_idx = curr_idx - 1;
+	curr_idx--;
+    }
+}
+
 int main() {
     char c;
     int choice, n, num;
@@ -229,7 +264,8 @@ int main() {
 	printf("3 -- Find the number of occurances of a given number in a sorted array\n");
 	printf("4 -- Max range in an array\n");
 	printf("5 -- Find the missing number\n");
-	
+	printf("6 -- count the number of occurrences of an element in a sorted array\n");
+
 
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -275,7 +311,13 @@ int main() {
 		free(A);
 		break;
 
-
+	    case 6:
+		printf("Enter the length of array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n); 
+		input_array(A, n);
+		num_of_occurences(A, n);
+		break;
 
 	    default:
 		break;
