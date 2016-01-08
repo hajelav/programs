@@ -243,7 +243,7 @@ void num_of_occurences(int *A, int len) {
     curr_idx = len-1;
     prev_idx = curr_idx;
 
-    while(curr_idx>0){
+    while(curr_idx>=0){
 	curr_idx = num_of_occurences_util(A, 0, curr_idx, A[curr_idx]);
 	printf("Number[%d] Frequency[%d]\n", A[curr_idx], prev_idx-curr_idx+1);
 	prev_idx = curr_idx - 1;
