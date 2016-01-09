@@ -62,6 +62,15 @@ void print_stack(STACK *s) {
     printf("\n");
 }
 
+void free_stack(STACK *s) {
+
+    if(s){
+	free(s->arr);
+	s->arr = NULL;
+	free(s);
+    }
+}
+
 /*
  * LinkedIn question
  *Given a nested list of integers, returns the sum of all integers in the list weighted by their depth 
@@ -92,6 +101,8 @@ int weighted_depth_sum(char *str) {
 	
 	str++;
     }
+
+    free_stack(s);
 
     return sum;
 }
