@@ -431,6 +431,34 @@ void restore_ip_address() {
 
 }
 
+/*
+ *leetcode problem 205
+ *https://leetcode.com/problems/isomorphic-strings/
+http://www.geeksforgeeks.org/check-if-two-given-strings-are-isomorphic-to-each-other/
+*/
+
+int isomorphic_strings(char *S, char *T) {
+
+    /*define hash of 256 chars*/
+    char hash[256];
+    int i = 0;
+
+    if(!S || !T || strlen(S)!=strlen(T))
+	return 0;
+
+    memset(hash, '\0', 256);
+
+    while(S[i]){
+
+	if(hash[S[i]-'a']!='\0' && hash[S[i]-'a']!=T[i])
+	    return 0;
+	else
+	hash[S[i]-'a'] = T[i];
+	i++;
+    }
+     return 1;
+}
+
 int main() {
     /*char c;*/
     int choice;
@@ -450,6 +478,7 @@ int main() {
 	printf("7 -- minimum window substring\n");
 	printf("8 -- integer to english words\n");
 	printf("9 -- restore IP addresses\n");
+	printf("10 -- check if strings are isomorphic\n");
 	
 	
 
@@ -505,7 +534,14 @@ int main() {
 		    restore_ip_address();
 		    break;
 
-
+	    case 10:
+		    printf("Enter strings of equal length\n");
+		    printf("Enter string 1\n");
+		    scanf("%s", S);
+		    printf("Enter string 2\n");
+		    scanf("%s", T);
+		    printf("Strings are isomorphic : %s\n", isomorphic_strings(S, T)?"Yes":"No");
+		    break;
 	    default:
 		printf("Invalid option\n");
 		break;
