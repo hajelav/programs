@@ -29,7 +29,6 @@ void push(STACK *s, char elem) {
 	printf("stack full\n");
 	return;
     }
-
     s->arr[++s->top] = elem;
 }
 
@@ -40,15 +39,27 @@ void pop(STACK *s) {
 
     s->arr[s->top] = '\0';
     s->top--;
-
 }
 
 int isEmpty(STACK *s){
 
     if(s && s->top == -1)
 	return 1;
-
     return 0;
+}
+
+void print_stack(STACK *s) {
+
+    int i;
+
+    if(!s)
+	return;
+
+    for(i=0;i<STACK_SIZE;i++){
+	printf("%c ", s->arr[i]);
+    }
+
+    printf("\n");
 }
 
 /*
@@ -73,19 +84,22 @@ int weighted_depth_sum(char *str) {
 	    pop(s);
 	//if we get a number then calculate the weighted sum
 	else if(*str-'0' >= 0 && *str-'0' <= 9)
-	    sum += s->top*(*str-'0'); 
+	    sum += (s->top+1)*(*str-'0'); 
 
-	if(*str!= ','){
+	else if(*str!= ','){
 	    push(s, *str);
 	}
+	
 	str++;
     }
+
+    return sum;
 }
 
 int main() {
     /*char c;*/
     int choice;
-    char S[128], T[128];
+    char S[128];
     /*do {*/
 
     printf("MENU OPTIONS\n");
@@ -99,6 +113,7 @@ int main() {
 	case 1:
 	    printf("enter nested integer string, Eg {{1,1},2,{1,1}}\n");
 	    scanf("%s", S);
+	    printf("weighted sum : %d\n", weighted_depth_sum(S));
 	    break;
 
 	default:
