@@ -1,4 +1,5 @@
 #include "../utils.h"
+
 #define STACK_SIZE 32
 
 typedef struct _stack {
