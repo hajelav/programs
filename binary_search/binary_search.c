@@ -113,7 +113,7 @@ int citation(int *A, int l, int h) {
 }
 
 /*get the index of point of rotation*/
-int min_element_rotated_sorted(int *A, int l, int h) {
+int get_pivot_rotated_sorted(int *A, int l, int h) {
 
     int mid, res;
 
@@ -127,11 +127,11 @@ int min_element_rotated_sorted(int *A, int l, int h) {
 
 
     if(A[l] <= A[mid] && A[mid] > A[h])
-	res = min_element_rotated_sorted(A, mid+1, h);
+	res = get_pivot_rotated_sorted(A, mid+1, h);
     else if(A[l] > A[mid] && A[mid] < A[h])
-	res = min_element_rotated_sorted(A, l, mid);
+	res = get_pivot_rotated_sorted(A, l, mid);
     else if(A[l] <= A[mid] && A[mid] <= A[h])
-	return 0;
+	return l;
 
     return res;
 }
@@ -290,7 +290,7 @@ int main() {
 		scanf("%d", &n);
 		A = create_1Darray(n); 
 		input_array(A, n);
-		res = min_element_rotated_sorted(A, 0, n-1);
+		res = get_pivot_rotated_sorted(A, 0, n-1);
 		printf("point of rotation(pivot): %d\n", res);
 		break;
 
