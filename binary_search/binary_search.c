@@ -4,9 +4,6 @@
 #include <time.h>
 #include <limits.h>
 
-/*function pointer of min/max heapify functions*/
-
-
 int* create_1Darray(int n) {
     int *A;
     A = (int*)calloc(n, sizeof(int));
@@ -112,6 +109,26 @@ int citation(int *A, int l, int h) {
 
 }
 
+int binary_search(int *A, int low, int high, int key) {
+
+    int mid, res;
+
+    if(low>high)
+	return -1;
+
+    mid = low + ((high-low)>>1);
+
+    if(A[mid] == key)
+	return mid;
+
+    if(key < A[mid])
+	res = binary_search(A, low, mid-1, key);
+    else if(key > A[mid])
+	res = binary_search(A, mid+1, high, key);
+
+    return res;
+}
+
 /*get the index of point of rotation*/
 int get_pivot_rotated_sorted(int *A, int l, int h) {
 
@@ -119,22 +136,45 @@ int get_pivot_rotated_sorted(int *A, int l, int h) {
 
     mid =  l + (h-l)/2;
 
-    /*if(A[l] <= A[mid] && A[mid] < A[h])*/
-    /*return A[l];*/
-
     if(l>=h)
 	return l;
-
 
     if(A[l] <= A[mid] && A[mid] > A[h])
 	res = get_pivot_rotated_sorted(A, mid+1, h);
     else if(A[l] > A[mid] && A[mid] < A[h])
 	res = get_pivot_rotated_sorted(A, l, mid);
-    else if(A[l] <= A[mid] && A[mid] <= A[h])
+    else if(A[l] <= A[mid] && A[mid] <= A[h]) //handle duplicates
 	return l;
 
     return res;
 }
+
+/*search an element in rotated sorted array, with length as len*/
+int search_rotated_sorted(int *A, int len, int key) {
+
+    int pivot_idx; //index of pivot
+    int idx;
+
+    if(!A || len < 1)
+	return -1;
+
+    /*first find out the pivot of roation in the array, the functions returns 0 if there is no pivot found*/
+
+    pivot_idx = get_pivot_rotated_sorted(A, 0, len-1);
+
+    printf("Pivot index : %d\n", pivot_idx);
+
+    if(pivot_idx > 0) {
+	//the array is rotated, now just search the element in two sorted arrays
+	if((idx = binary_search(A, 0, pivot_idx-1, key)) < 0)
+	    return binary_search(A, pivot_idx, len-1, key);
+	else 
+	    return idx;
+    } else {
+	/*the array is not rotated, do a bin search in the entire array*/
+	return binary_search(A, 0, len-1, key);
+    }
+} 
 
 int occurence(int *A, int l, int h, int num) {
 
@@ -326,6 +366,14 @@ int main() {
 		break;
 
 	    case 7:
+		printf("Enter the length of rotated sorted array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n); 
+		input_array(A, n);
+		printf("Enter the element to be searched\n");
+		scanf("%d", &num);
+		printf("key found at index : %d\n", search_rotated_sorted(A, n, num));
+		/*printf("key found : %s\n", binary_search(A, 0, n, num)>=0?"yes":"no");*/
 
 	    default:
 		break;
