@@ -332,7 +332,7 @@ void replace_spaces(char *str, char *pattern) {
 
 /*
  *leetcode problem 76
- *Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
+ *Given a string S and a string T, find the minimum window(minimum substring) in S which will contain all the characters in T in complexity O(n).
  *
  *For example,
  *    S = "ADOBECODEBANC"
