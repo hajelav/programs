@@ -80,7 +80,7 @@ void merge(int *A, int l, int i, int j, int h){
 	} else {
 	    T[k] = A[l];
 	    l++;
-	    j++;
+	    /*j++;*/
 	}
 	k++;
     }
@@ -585,10 +585,60 @@ void wiggle_sort(int *A, int n) {
     print_1Darray(A, n);
 }
 
+/**
+ * [LinkedIn] http://www.careercup.com/question?id=5689376707182592
+ * @brief
+ ** Three segments of lengths A, B, C form a triangle iff
+ **
+ **      A + B > C
+ **      B + C > A
+ **      A + C > B
+ **
+ ** e.g.
+ **  6, 4, 5 can form a triangle
+ ** 10, 2, 7 can't
+ **
+ ** Given a list of segments lengths algorithm should find at least one triplet of segments that form a triangle (if any).
+ **
+ ** Method should return an array of either:
+ ** - 3 elements: segments that form a triangle (i.e. satisfy the condition above)
+ ** - empty array if there are no such segments
+ **/
+
+int *get_triangle_sides(int *A, int len) {
+
+    int *res, i;
+
+    if(len < 3)
+	return NULL;
+
+    res = (int*)calloc(3, sizeof(int));
+
+    if(!res)
+	return NULL;
+
+    //sort the array first
+    mergesort(A, 0, len-1);
+    /*print_1Darray(A, len);*/
+
+    for(i=2;i<len;i++){
+
+	if(A[i-2]+A[i-1] > A[i]){
+	    res[0] = A[i-2];
+	    res[1] = A[i-1];
+	    res[2] = A[i];
+
+	    return res;
+	}
+    }
+    return NULL;
+}
+
 int main() {
     char c;
     int choice, n, m, s;
     int *A, *B;
+    int *triangle;
     int sum;
     do {
 
@@ -606,6 +656,7 @@ int main() {
 	printf("11 --  find 2 numbers closest to a given sum\n");
 	printf("12 --  find 3 numbers closest to a given sum\n");
 	printf("13 --  wiggle sort(up down up down pattern)\n");
+	printf("14 -- given an array of integers, find at least a triplet which forms segments of a triangle\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -729,6 +780,18 @@ int main() {
 		wiggle_sort(A, n);
 		break;
 
+	    case 14:
+		printf("Enter no of elements in array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n);
+		input_array(A, n);
+		triangle = get_triangle_sides(A, n);
+
+		if(triangle)
+		printf("triplet : %d %d %d\n", triangle[0], triangle[1], triangle[2]);
+		else 
+		printf("triplet : NULL\n");
+		break;
 
 	    default:
 		printf("Invalid option\n");
