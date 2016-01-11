@@ -259,7 +259,6 @@ int missing_number(int *A, int low, int high) {
   TBD
 */
 
-
 int num_of_occurences_util(int *A, int low, int high, int num) {
 
     int mid, res;
@@ -294,6 +293,24 @@ void num_of_occurences(int *A, int len) {
     }
 }
 
+int greater_number(int *A, int low, int high, int target){
+
+    int mid, res;
+
+    if(low>=high)
+	return low;
+
+    mid = low+(high-low)/2;
+
+
+    if(A[mid] <= target)
+	res = greater_number(A, mid+1, high, target);
+    else if (A[mid] > target)
+	res = greater_number(A, low, mid, target);
+
+    return res;
+}
+
 int main() {
     char c;
     int choice, n, num;
@@ -310,6 +327,7 @@ int main() {
 	printf("5 -- Find the missing number\n");
 	printf("6 -- count the number of occurrences of an element in a sorted array\n");
 	printf("7 -- search an element in rotated sorted array\n");
+	printf("8 -- find the first element in an array that is greater than the target in a sorted array\n");
 
 
 	printf("Enter your choice\n");
@@ -374,6 +392,21 @@ int main() {
 		scanf("%d", &num);
 		printf("key found at index : %d\n", search_rotated_sorted(A, n, num));
 		/*printf("key found : %s\n", binary_search(A, 0, n, num)>=0?"yes":"no");*/
+
+	    case 8:
+		printf("Enter the length of array\n");
+		scanf("%d", &n);
+		A = create_1Darray(n); 
+		input_array(A, n);
+		printf("Enter the target number\n");
+		scanf("%d", &num);
+		if(num < A[n-1])
+		printf("index of number greater than %d : %d\n", num, greater_number(A, 0, n-1, num));
+		else
+		printf("greater number does not exist\n");
+
+		break;
+		
 
 	    default:
 		break;
