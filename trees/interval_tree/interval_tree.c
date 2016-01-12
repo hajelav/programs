@@ -114,8 +114,6 @@ void merge_interval(INTVL *intvl, int low, int high) {
     intvl->max = intvl->high;
 }
 
-
-
 /*
  * http:www.geeksforgeeks.org/given-n-appointments-find-conflicting-appointments/
  * Given n appointments, find all conflicting appointments
@@ -123,9 +121,6 @@ void merge_interval(INTVL *intvl, int low, int high) {
  * this can be solved using interval tree. add the first appt slot to interval tree. From second appt onwards
  * keep on adding appt slots into the interval tree and detect overlap while adding. This can be done in O(log(n)) time. 
  */
-
-
-
 
 int main() {
 
@@ -139,6 +134,7 @@ int main() {
 	printf("1 -- Insert interval into Interval tree\n");
 	printf("2 -- Print\n");
 	printf("3 -- search for interval in an interval tree\n");
+	printf("4 -- find the coverage of set of intervals\n");
 	
 	printf("enter your choice\n");
 	scanf("%d", &choice);
@@ -179,6 +175,5 @@ int main() {
 	}
 
     }while((c= getchar())!='q');
-
     return 0;
 }
