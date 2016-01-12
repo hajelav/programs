@@ -72,7 +72,7 @@ void input_string(char *str) {
 /*
  *permutations of a string
  */
-void string_permut(char *str, int l, int h) {
+void string_permutation(char *str, int l, int h) {
 
     int i;
     if(l==h)
@@ -82,11 +82,9 @@ void string_permut(char *str, int l, int h) {
     for(i=l;i<h;i++){
 
 	swap(str, l, i);
-	string_permut(str, l+1, h);
+	string_permutation(str, l+1, h);
 	swap(str, l, i);
-
     }
-
 }
 
 int main() {
@@ -109,7 +107,7 @@ int main() {
 		str = create_string(n);
 		input_string(str);
 		printf("Permutations\n");
-		string_permut(str, 0, n);
+		string_permutation(str, 0, n);
 		break;
 
 	    case 2:
