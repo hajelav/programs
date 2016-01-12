@@ -71,6 +71,7 @@ void input_string(char *str) {
 
 /*
  *permutations of a string
+ Time Complexity: O(n*n!)
  */
 void string_permutation(char *str, int l, int h) {
 
