@@ -1,5 +1,4 @@
 #include "../utils.h"
-
 /*
  *Remove spaces from a given string
  */
@@ -16,7 +15,6 @@ void removeSpaces(char* str) {
     }
     str[cnt] = '\0';
 }
-
 
 /*
  *Check if a given sequence of moves for a robot is circular or not
@@ -459,6 +457,38 @@ int isomorphic_strings(char *S, char *T) {
      return 1;
 }
 
+int is_number(char *S) {
+ 
+   int i, len, dot_count = 0;
+
+   if(!S)
+       return 0;
+
+   len = strlen(S);
+   for(i=0;i<len;i++){
+
+       /*count the number of dots*/
+       if(S[i] == '.')
+	   dot_count++;
+
+       /*
+        *the string is not a number only if
+	*    1. ascii value of any of the char which is not '.' or '-' lies outside the range of '0' to '9'
+	*    2. if we find a '-' sign other than the first index(ie '-' sign in between the srting) 
+	*    3. if we find a '.' at the last postion of a string
+	*    4. if we find more than one '.'
+	*/
+
+       if((S[i]!='.' && S[i]!='-' && (S[i]-'0' < 0 || S[i]-'0'> 9)) ||
+	  (S[i] == '-' && i > 0)        ||
+	  (S[i] == '.' && i == len-1) 	||
+	  (dot_count > 1)) {
+	   return 0;
+	  } 
+   }
+   return 1;
+}
+
 int main() {
     /*char c;*/
     int choice;
@@ -479,6 +509,7 @@ int main() {
 	printf("8 -- integer to english words\n");
 	printf("9 -- restore IP addresses\n");
 	printf("10 -- check if strings are isomorphic\n");
+	printf("11 -- function to determine if a string is a number without using any built-in function\n");
 	
 	
 
@@ -541,6 +572,12 @@ int main() {
 		    printf("Enter string 2\n");
 		    scanf("%s", T);
 		    printf("Strings are isomorphic : %s\n", isomorphic_strings(S, T)?"Yes":"No");
+		    break;
+
+	    case 11:
+		    printf("Enter the string\n");
+		    scanf("%s", S);
+		    printf("Is number : %s\n", is_number(S)?"yes":"no");
 		    break;
 	    default:
 		printf("Invalid option\n");
