@@ -21,6 +21,7 @@ INTVL* create_interval_node(int low, int high) {
     temp = (INTVL*)malloc(sizeof(INTVL));
     if(!temp)
 	return NULL;
+
     temp->low = low;
     temp->high = high;
     temp->max = high; //set the max as high when you create a node
@@ -41,6 +42,7 @@ int is_interval_overlap(INTVL *intvl1, int low, int high){
 	return 1;
 }
 
+/*inorder printing of interval tree*/
 void print_interval_tree(INTVL *intvl) {
 
     if(!intvl)
@@ -72,7 +74,10 @@ void create_interval_tree(INTVL *intvl, int low, int high) {
 	    create_interval_tree(intvl->right, low, high);
     }
 
-    /*update the max value at each node*/
+    /*
+     *update the max value at each node
+     *  max at each node = MAX (high value of node, max value of left node, max value of right node)
+     */
     intvl->max = MAX_three(intvl->high, intvl->left?intvl->left->max:INT_MIN, intvl->right?intvl->right->max:INT_MIN);
 }
 
