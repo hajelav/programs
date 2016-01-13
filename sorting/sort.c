@@ -634,6 +634,16 @@ int *get_triangle_sides(int *A, int len) {
     return NULL;
 }
 
+/*
+ *given an array of n points in the plane, and the problem is to find out the closest pair of points in the array
+ *http://www.geeksforgeeks.org/closest-pair-of-points-onlogn-implementation/
+ */
+void closest_pair() {
+
+}
+
+
+
 int main() {
     char c;
     int choice, n, m, s;
@@ -657,6 +667,7 @@ int main() {
 	printf("12 --  find 3 numbers closest to a given sum\n");
 	printf("13 --  wiggle sort(up down up down pattern)\n");
 	printf("14 -- given an array of integers, find at least a triplet which forms segments of a triangle\n");
+	printf("15 -- given n points on a 2D plane find the closest pair\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -791,6 +802,10 @@ int main() {
 		printf("triplet : %d %d %d\n", triangle[0], triangle[1], triangle[2]);
 		else 
 		printf("triplet : NULL\n");
+		break;
+
+	    case 15:
+		closest_pair();
 		break;
 
 	    default:

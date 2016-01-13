@@ -8,6 +8,7 @@
 
 typedef struct TNODE {
     char c;
+    int word_count;
     struct TNODE *next[NO_OF_CHARS];
 }TNODE;
 
@@ -16,6 +17,7 @@ TNODE *root = NULL;
 void initTnode(TNODE* tnode) {
     int i;
     tnode->c = '\0';
+    tnode->word_count = 0;
     //make all the pointers to NULL
     for(i=0;i<NO_OF_CHARS;i++){
 	tnode->next[i] = NULL;
@@ -45,9 +47,32 @@ int isLeaf(TNODE* node) {
  return 1;
 }
 
+/*search for the word in the trie */
+int  searchWordInTrie(TNODE* troot, char *word) {
+
+    if(troot==NULL || word == NULL || *word == '\0') {
+	return 0;
+    }
+
+    while(*word!='\0') {
+	if(troot->next[*word-'a'] == NULL) {
+	    return 0;
+	}
+	troot = troot->next[*word-'a'];
+	word++;
+    }
+    /*update the word count if search is successful*/
+    troot->word_count++;
+    return 1;
+}
 void addWordInTrie(char *word, TNODE* troot) {
 
     TNODE *temp1;
+
+    /*search word in the trie first, if not found add it*/
+    if(searchWordInTrie(troot, word))
+	return;
+
     //create root, if not created
     if(troot == NULL) {
 	troot = createTrieNode();
@@ -65,29 +90,14 @@ void addWordInTrie(char *word, TNODE* troot) {
 	word++;
     }
 
+    /*update the word count*/
+    troot->word_count++;
     /*
      *once we have added the word, create a node for NULL char
      *this is required if we want to print all the nodes in a trie
      *for ex: to differenciate between words [ foo, food]
      */
     troot->next[NO_OF_CHARS-1] = createTrieNode();
-}
-
-/*search for the word in the trie */
-int  searchWordInTrie(TNODE* troot, char *word) {
-
-    if(troot==NULL || word == NULL || *word == '\0') {
-	return 0;
-    }
-
-    while(*word!='\0') {
-	if(troot->next[*word-'a'] == NULL) {
-	    return 0;
-	}
-	troot = troot->next[*word-'a'];
-	word++;
-    }
-    return 1;
 }
 
 void create_suffix_tree(char *str) {
@@ -125,6 +135,11 @@ void print_words(TNODE *troot, char *path, int cnt) {
     for(i=0;i<NO_OF_CHARS;i++) {
 	if(troot->next[i]!=NULL){
 	    print_words(troot->next[i], path, ++cnt);
+
+	    /*print the word count, only when the recursion returns from the leaf node*/
+	    if(!troot->next[i]->c)
+	    printf("count:%d\n", troot->word_count);
+
 	    //when the recursion returns, we remove the char from path array
 	    path[cnt] = '\0';
 	    cnt--;
@@ -288,9 +303,32 @@ void find_substring() {
 	}
 
     }
-
     free(word);
+}
 
+
+
+void count_substrings(char *str, int len_sub) {
+
+    int i, len_str;
+    char *temp; // declare a temp array to store the substrings
+
+    if(!str || len_sub < 1)
+	return;
+
+    len_str = strlen(str);
+
+    temp = create_1Dchar_array(len_sub);
+
+    /*loop thru all the substrings of length len_sub*/
+    for(i=0;i<len_str-len_sub+1;i++){
+
+	//copy the substring into temp array
+	strncpy(temp, str+i, len_sub);
+
+	    addWordInTrie(temp, root);
+    }
+    printf("press option 6 to print trie\n");
 }
 
 int main() {
@@ -299,7 +337,7 @@ int main() {
     char str[256];
     char *path;
     TNODE *troot;
-    int choice, i;
+    int choice, i, len;
     char **board;
     int boardRow, boardCol, wordSize;
     
@@ -314,6 +352,8 @@ int main() {
 	printf("7 -- Given set of strings, find longest common prefix\n");
 	printf("8 -- word search problem\n");
 	printf("9 -- substring with Concatenation of All Words\n");
+	printf("10 -- count substrings of len k in a string\n");
+
 	
 	printf("enter your choice\n");
 	scanf("%d", &choice);
@@ -385,6 +425,15 @@ int main() {
 	    case 9:
 		find_substring();
 		break;
+
+	    case 10:
+		printf("Enter the string\n");
+		scanf("%s", str);
+		printf("Enter substring length\n");
+		scanf("%d", &len);
+		count_substrings(str, len);
+		break;
+		
 
 	    default:
 		printf("Invalid option\n");
