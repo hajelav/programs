@@ -237,7 +237,6 @@ void find_words(char **board, int boardRow, int boardCol, TNODE *root, int wordS
 	    }
 	}
     }
-
 }
 
 /*
@@ -301,12 +300,18 @@ void find_substring() {
 	    printf("%d\n", start-noOfWords*wordSize);
 	    count = 0;
 	}
+	
 
     }
     free(word);
 }
 
-
+/*
+ *linkedin
+ *Given string say ABCGRETCABCG and substring length let us take length as 3, find the count of possible substrings, for example in above string ABC => 2 and BCG => 2 , where CGR and other 3 word length substrings has a count of 1.
+ *
+ *http://www.careercup.com/question?id=5682825644736512
+ */
 
 void count_substrings(char *str, int len_sub) {
 
@@ -326,7 +331,7 @@ void count_substrings(char *str, int len_sub) {
 	//copy the substring into temp array
 	strncpy(temp, str+i, len_sub);
 
-	    addWordInTrie(temp, root);
+	addWordInTrie(temp, root);
     }
     printf("press option 6 to print trie\n");
 }
@@ -444,3 +449,4 @@ int main() {
 
     return 0;
 }
+
