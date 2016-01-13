@@ -489,6 +489,57 @@ int is_number(char *S) {
    return 1;
 }
 
+void reverse_string(char *S, int len) {
+    int mid;
+    char *begin, *end;
+    char temp;
+
+    //len = strlen(p);
+    begin = S;
+    end = S+len-1;
+    mid = len/2;
+
+    while(mid > 0) {
+	//swap the chars
+	temp = *begin;
+	*begin = *end;
+	*end = temp;
+
+	begin++;
+	end--;
+	mid --;
+    }
+    printf("Reversed string : %s\n", S);
+
+}
+
+void reverse_words(char *p) {
+
+    char *start,*rev;
+    int count = 0;
+    start = p;
+    rev = p;
+
+    while(*p!='\0'){
+	if(*p!= ' ')
+	    count ++;
+
+	if(*(p+1) == ' ') {
+	    reverse_string(start,count);
+	    //printf("%s\n",start);
+	    count =0;
+	    start = p+2;
+	}
+	p++;
+    }
+    /*reverse the last word */
+    reverse_string(start,count);
+
+    /*once the individual words are reversed, reverse the sting again */
+    reverse_string(rev,strlen(rev));
+    printf("Reversed words : %s\n",rev);
+}
+
 int main() {
     /*char c;*/
     int choice;
@@ -510,6 +561,8 @@ int main() {
 	printf("9 -- restore IP addresses\n");
 	printf("10 -- check if strings are isomorphic\n");
 	printf("11 -- function to determine if a string is a number without using any built-in function\n");
+	printf("12 -- reverse string\n");
+	printf("13 -- reverse words in a sentence\n");
 	
 	
 
@@ -579,6 +632,19 @@ int main() {
 		    scanf("%s", S);
 		    printf("Is number : %s\n", is_number(S)?"yes":"no");
 		    break;
+
+	    case 12:
+		    printf("Enter the string\n");
+		    scanf("%s", S);
+		    reverse_string(S, strlen(S));
+		    break;
+	    case 13:
+		    printf("Enter the sentence\n");
+		    scanf("%s", S);
+		    /*fgets(S, 128, stdin);*/
+		    reverse_words(S);
+		    break;
+
 	    default:
 		printf("Invalid option\n");
 		break;
