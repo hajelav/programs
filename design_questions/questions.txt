@@ -1,8 +1,16 @@
-design a message app system
-Design the services behind an Amazon product page  
+1.design a message app system
 
-You have a potentially very-large set of documents, which are potentially very-large, and contain text. For searching these documents, they've been pre-processed into a (very-large) table mapping words to the set of documents that contain each word. E.g. (word) : (documents (referenced by ID) containing that word) Apple: 1, 4, 5, 6, 32 Banana: 5, 6, 7, 9, 32 Cantaloupe: 1, 2, 6 ... Clients will pass in a set of words (e.g. {apple, cantaloupe}), and want the set of document IDs that contain all the words. (e.g. {apple, cantaloupe} -> {1, 6}) Design a distributed system to implement this, bearing in mind that the number of documents, the number of words, and the number of document-IDs-per-word are potentially really, really big.
+2.Design the services behind an Amazon product page  
 
-There's requirements from the engineers that they want to limit the right of code files in git server by marking the owner of each file. How would you design the system to solve this problem? What if the user want to use regex when configuring the owner of files?
+3.You have a potentially very-large set of documents, which are potentially very-large, and contain text. For searching these documents, they've been pre-processed into a (very-large) table mapping words to the set of documents that contain each word. E.g. (word) : (documents (referenced by ID) containing that word) Apple: 1, 4, 5, 6, 32 Banana: 5, 6, 7, 9, 32 Cantaloupe: 1, 2, 6 ... Clients will pass in a set of words (e.g. {apple, cantaloupe}), and want the set of document IDs that contain all the words. (e.g. {apple, cantaloupe} -> {1, 6}) Design a distributed system to implement this, bearing in mind that the number of documents, the number of words, and the number of document-IDs-per-word are potentially really, really big.
 
-design web calender
+4.There's requirements from the engineers that they want to limit the right of code files in git server by marking the owner of each file. How would you design the system to solve this problem? What if the user want to use regex when configuring the owner of files?
+
+5.design web calender
+
+6.How would you design a system to provide the top trending topcis in the last 5m/1hour/24hours 
+The most trending topic should appear first 
+
+A topic is said to be trending if it is shared the most. We are talking about a typical multi user environment (something like twitter, facebook).
+
+- varun.venu 4 months ago in United States | Report Duplicate | Flag 

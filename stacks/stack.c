@@ -59,7 +59,6 @@ void print_stack(STACK *s) {
     for(i=0;i<STACK_SIZE;i++){
 	printf("%c ", s->arr[i]);
     }
-
     printf("\n");
 }
 
@@ -108,6 +107,66 @@ int weighted_depth_sum(char *str) {
     return sum;
 }
 
+int reverse_polish_notation_value(char *str){
+
+    /*this function assumes that the input is valid postfix string without brackets*/
+
+    STACK *s = NULL;
+    int sum = 0;
+    int op1, op2;
+
+    /*initialze the stack*/
+    s = init_stack();
+
+    while(*str) {
+
+	/*if we encounter a number, we push into the stack*/
+	if(*str-'0' >= 0 && *str-'0' <= 9)
+	    push(s, *str);
+	else {
+
+	    /*check if there is atleast two operators present in stack*/
+	    if(s->top < 1){
+		printf("Not a valid postfix expression\n");
+		return INT_MIN;
+	    }
+
+	    switch(*str){
+
+		//get operand 1 from stack
+		op1 = s->arr[s->top];
+		s->arr[s->top] = 0;
+		pop(s);
+		//get operand 2 from stack
+		op2 = s->arr[s->top];
+		s->arr[s->top] = 0;
+		pop(s);
+
+		case '-':
+		push(s, op1-op2);
+		break;
+		case '+':
+		push(s, op1+op2);
+		break;
+		case '/':
+		push(s, op1/op2);
+		break;
+		case '*':
+		push(s, op1*op2);
+		break;
+
+	    }//switch ends
+	}
+	str++;
+    }
+
+    /*the final expression value will be stored in stack*/
+    sum = s->arr[s->top];
+    free_stack(s);
+    
+    return sum;
+}
+
 int main() {
     /*char c;*/
     int choice;
@@ -116,6 +175,8 @@ int main() {
 
     printf("MENU OPTIONS\n");
     printf("1 -- weighted sum of nested integers\n");
+    printf("2 -- evaluate the value of an expression given in reverse polish notation(postfix)\n");
+
 
     printf("\n");
     printf("Enter your choice\n");
@@ -127,6 +188,12 @@ int main() {
 	    scanf("%s", S);
 	    printf("weighted sum : %d\n", weighted_depth_sum(S));
 	    break;
+
+	case 2:
+	    printf("enter the expression in reverse polish notation Eg {{1,1},2,{1,1}}\n");
+	    scanf("%s", S);
+	    printf("value : %d\n", reverse_polish_notation_value(S));
+
 
 	default:
 	    printf("Invalid option\n");

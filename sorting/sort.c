@@ -607,7 +607,7 @@ void wiggle_sort(int *A, int n) {
 
 int *get_triangle_sides(int *A, int len) {
 
-    int *res, i;
+    int *res, i, j;
 
     if(len < 3)
 	return NULL;
@@ -631,6 +631,15 @@ int *get_triangle_sides(int *A, int len) {
 	    return res;
 	}
     }
+
+    
+    for(i=2;i<len;i++){
+	for(j=0;j<i-1;j++){
+	    if(A[j]+A[j+1] > A[i])
+		printf(" %d %d %d\n", A[j], A[j+1], A[i]);
+	}
+    }
+
     return NULL;
 }
 
