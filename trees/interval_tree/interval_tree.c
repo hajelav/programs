@@ -160,12 +160,12 @@ void find_coverage(INTVL *intvl, int *low, int *high) {
  *3. when ever you reach an interval, and find that previous interval is not overlapping, then print the previous interval
  *4. at the end of recursion, print prev_low and prev_high as the last interval
  */
-void merge_intervals(INTVL *intvl, int *prev_low, int *prev_high) {
+void merge_interval(INTVL *intvl, int *prev_low, int *prev_high) {
 
     if(!intvl)
 	return;
 
-    merge_intervals(intvl->left, prev_low, prev_high);
+    merge_interval(intvl->left, prev_low, prev_high);
 
     if(!(*prev_low) && !(*prev_high)){
 	*prev_low = intvl->low;
@@ -182,7 +182,7 @@ void merge_intervals(INTVL *intvl, int *prev_low, int *prev_high) {
 	    *prev_high = intvl->high;
 	}
     }
-    merge_intervals(intvl->right, prev_low, prev_high);
+    merge_interval(intvl->right, prev_low, prev_high);
 }
 
 
@@ -238,7 +238,7 @@ int main() {
 		break;
 
 	    case 5:
-		merge_intervals(root, &prev_low, &prev_high);
+		merge_interval(root, &prev_low, &prev_high);
 		printf("[%d %d]\n", prev_low, prev_high);;
 		
 		prev_low = 0;

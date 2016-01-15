@@ -134,25 +134,6 @@ INTVL* interval_search(INTVL *intvl, uint32_t low, uint32_t high) {
     return result;
 }
 
-
-void merge_interval(INTVL *intvl, uint32_t low, uint32_t high) {
-
-    /*case 1: interval->high lies between low and high*/
-
-    if((low <= intvl->high) && (intvl->high <= high)) {
-	intvl->high = high;
-    }
-
-    /*case 2: interval->low lies between low and high*/
-    if((low <= intvl->low) && (intvl->low <= high)) {
-	intvl->low = low;
-    }
-
-    /*update the max in the interval node*/
-    intvl->max = intvl->high;
-}
-
-
 int main() {
 
     char c;
