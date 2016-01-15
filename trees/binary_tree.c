@@ -429,7 +429,7 @@ void dequeue_newline(Q *q, int *front) {
 	(*front)++;
     }
 }
- /*level order traversal of TREE(BFS) using Queue, where each level is printed in a new line*/
+ /*level order traversal of TREE(BFS) using Queue, where each level is printed in a new line[linkedin]*/
 void level_order_traversal_newline(TREE* node) {
     /*
      *create a array of pointers to the tree nodes(QUEUE) of arbitary length (say 20)
