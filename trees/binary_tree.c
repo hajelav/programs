@@ -19,18 +19,11 @@ typedef struct ATREE {
     struct ATREE* successor;
 }ATREE;
 
-/* data structure to implement level-order(BFS) in tree */
-typedef struct L_ORDER {
-    struct L_ORDER* next;
-    int val;
-}L_ORDER;
-
-/* data structure to implement level-order(BFS) in tree */
-typedef struct LIST {
-    L_ORDER *head;
-    L_ORDER *tail;
-}LIST;
-
+/*queue to print level order in a new line*/
+typedef struct Q{
+    TREE *node; //pointer to the nodes of a tree
+    int level; //in the queue we also store the 
+}Q;
 int MIN(int a , int b) {
     return(a<b?a:b);
 }
@@ -54,14 +47,6 @@ void input_array(int *A, int n) {
     for(i=0;i<n;i++){
 	scanf("%d", &A[i]);
     } 
-}
-
-L_ORDER* create_list(int val) {
-    L_ORDER *lorder;
-    lorder = (L_ORDER*)malloc(sizeof(L_ORDER));
-    lorder->next = NULL;
-    lorder->val = val;
-    return lorder;
 }
 
 int checkNodeLevel(TREE* node, int n1, int n2, int lvl) {
@@ -369,58 +354,12 @@ void printThreadedBintree(TREE* node) {
     }
 }
 
-/* add nodes to the array of list, for printing BFS */
-void add_list(LIST *list, int val) {
-
-    L_ORDER *temp;
-
-    if(list->head == NULL) {
-	list->head = create_list(val);
-	list->tail = list->head;
-    } else {
-	temp = create_list(val);
-	list->tail->next = temp;
-	list->tail = list->tail->next;	
-    }
-}
-
 int count_nodes(TREE* node) {
     if(node==NULL){
 	return 0;
     }
     return(count_nodes(node->left) + count_nodes(node->right) + 1);
 }
-
-
-
- void print_level_order(LIST* list, int height) {
-
-    int i;
-    for(i=0;i<height;i++) {
-	while(list[i].head != NULL){
-	    printf("%d ", list[i].head->val);
-	    list[i].head = list[i].head->next;
-	}
-	printf("\n");
-    }
-
-}
-/* level order traversal of a tree (BFS) */
-/* logic : we do an inorder travsersal and maintain the level info
- * in a variable(lvl). Whenever we find an element at a given level we
- * add it to the link list. At the end when the recursion is over all the elements are
- * stored in the linklist. So at the end all the nodes are printed in levels */
-void level_order_tree(TREE* node, int lvl, LIST* list) {
-
-    if(node==NULL){
-	return;
-    }
-    level_order_tree(node->left, lvl+1, list);
-    add_list(&list[lvl], node->value);
-    level_order_tree(node->right, lvl+1, list);
-
-
-} 
 
 void enqueue(TREE** q, int front, int *end) {
     if(q[front]){
@@ -464,6 +403,62 @@ void level_order_traversal(TREE* node) {
 	//print from the front and dequeue 
 	printf("%d ", q[front]->value);
 	dequeue(q, &front);
+    }
+}
+
+void enqueue_newline(Q *q, int front, int *end) {
+    if(q[front].node){
+	if(q[front].node->left != NULL){
+	    q[*end].node = q[front].node->left;
+	    //increment the level
+	    q[*end].level = q[front].level + 1;
+	    (*end)++;
+	}
+	if(q[front].node->right != NULL){
+	    q[*end].node = q[front].node->right;
+	    //increment the level
+	    q[*end].level = q[front].level + 1;
+	    (*end)++;
+	}
+    }
+}
+
+void dequeue_newline(Q *q, int *front) {
+    if(q[*front].node){
+	q[*front].node = NULL;
+	(*front)++;
+    }
+}
+ /*level order traversal of TREE(BFS) using Queue, where each level is printed in a new line*/
+void level_order_traversal_newline(TREE* node) {
+    /*
+     *create a array of pointers to the tree nodes(QUEUE) of arbitary length (say 20)
+     *Maintain two variables front and end. deletions happens from front and insertion happens from rear
+     *the Queue is initialized with root, front points to the first element end end points to the next
+     */
+
+    Q *q = (Q*)calloc(sizeof(Q), 20);
+    int front = 0;
+    int end = front+1;	
+
+    /*init the queue*/
+    q[0].node = node;
+    while(front!=end) {
+	//insert the neighbors of front to the end of  queue
+	enqueue_newline(q, front, &end);
+
+	//print from the front and dequeue 
+	/*if(q[front*/
+	if(q[front].level == 0)
+	    printf("%d ", q[front].node->value);
+	else {
+
+	    if(q[front-1].level!=q[front].level)
+		printf("\n");
+	    printf("%d ", q[front].node->value);
+
+	}
+	dequeue_newline(q, &front);
     }
 }
 
@@ -1782,17 +1777,6 @@ int main() {
 		    print_inorder(trav);
 		/*printf("%dth order statistics:%d\n",n,Kth_order_stats_usingInoder(trav, n));*/
 		break;
-	    case 22:
-		printf("Level order Traversal(BFS)\n");
-		trav = root;
-		int height;
-		LIST *list;
-		height = max_height(trav);
-		printf("height = %d\n", height);
-		list  = (LIST*)calloc(sizeof(LIST), height);
-		level_order_tree(trav, 0, list);
-		print_level_order(list, height);
-		break;
 
 	    case 23:
 		trav = root;
@@ -1987,7 +1971,7 @@ int main() {
 		
 	    case 47:
 		trav = root;
-		level_order_traversal(trav);
+		level_order_traversal_newline(trav);
 		break;
 
 	    case 48:

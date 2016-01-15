@@ -541,6 +541,7 @@ void reverse_words(char *p) {
 }
 
   /*
+   * linkedin
    *provide a method that takes two  words and returns the shortest distance (in words) between those two
    *words in the provided text. 
    *   Example:
@@ -597,6 +598,7 @@ int main() {
 	printf("12 -- reverse string\n");
 	printf("13 -- reverse words in a sentence\n");
 	printf("14 -- shortest distance between words\n");
+	printf("15 -- shortest distance between words\n");
 	
 	
 
