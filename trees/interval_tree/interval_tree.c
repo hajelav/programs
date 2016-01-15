@@ -5,9 +5,10 @@
  *apart from storing the interval low and high value, we als store max which is the max value of any interval end point rooted at a given node
  */
 typedef struct INTVL {
- int low;
- int high;
- int max;
+ int low; //low endi point of interval
+ int high;// high end point of interval
+ int max; //max value of any interval end point rooted at a particular node
+          // max = MAX(intvl->left->max, intvl->right->max, intvl->high)
  struct INTVL *left;
  struct INTVL *right;
 } INTVL;
@@ -33,10 +34,10 @@ INTVL* create_interval_node(int low, int high) {
 /*return 1 if intervals overlap, else return 0*/
 int is_interval_overlap(INTVL *intvl1, int low, int high){
 
-    if(!intvl1 || (low == high))
+    if(!intvl1)
 	return 0;
 
-    if((intvl1->high < low) || (high < intvl1->low))
+    if((intvl1->high <= low) || (high <= intvl1->low))
 	return 0;
     else 
 	return 1;
@@ -102,22 +103,6 @@ INTVL* interval_search(INTVL *intvl, int low, int high) {
 }
 
 
-void merge_interval(INTVL *intvl, int low, int high) {
-
-    /*case 1: interval->high lies between low and high*/
-
-    if((low <= intvl->high) && (intvl->high <= high)) {
-	intvl->high = high;
-    }
-
-    /*case 2: interval->low lies between low and high*/
-    if((low <= intvl->low) && (intvl->low <= high)) {
-	intvl->low = low;
-    }
-
-    /*update the max in the interval node*/
-    intvl->max = intvl->high;
-}
 
 /*
  * http:www.geeksforgeeks.org/given-n-appointments-find-conflicting-appointments/
@@ -168,12 +153,46 @@ void find_coverage(INTVL *intvl, int *low, int *high) {
     find_coverage(intvl->right, low, high);
 }
 
+/*
+ *To merge intervals
+ *1. traverse the interval in in-order
+ *2. for the first interval(leftmost in interval tree), set the prev_low and prev_high as interval low and high
+ *3. when ever you reach an interval, and find that previous interval is not overlapping, then print the previous interval
+ *4. at the end of recursion, print prev_low and prev_high as the last interval
+ */
+void merge_intervals(INTVL *intvl, int *prev_low, int *prev_high) {
+
+    if(!intvl)
+	return;
+
+    merge_intervals(intvl->left, prev_low, prev_high);
+
+    if(!(*prev_low) && !(*prev_high)){
+	*prev_low = intvl->low;
+	*prev_high = intvl->high;
+    } else {
+	if(is_interval_overlap(intvl, *prev_low, *prev_high)){
+	    /*interval overlap*/
+	    *prev_high = MAX(intvl->high, *prev_high);
+	} else {
+	    printf("[%d %d]\n", *prev_low, *prev_high);
+
+	    /*interval does not overlap*/
+	    *prev_low = intvl->low;
+	    *prev_high = intvl->high;
+	}
+    }
+    merge_intervals(intvl->right, prev_low, prev_high);
+}
+
+
 int main() {
 
     char c;
     INTVL *result;
     int choice;
     int low = 0, high = 0;
+    int prev_low = 0, prev_high = 0;
 
     do {
 	printf("MENU OPTIONS\n");
@@ -181,6 +200,7 @@ int main() {
 	printf("2 -- Print\n");
 	printf("3 -- search for interval in an interval tree\n");
 	printf("4 -- find the coverage of set of intervals\n");
+	printf("5 -- merge intervals\n");
 	
 	printf("enter your choice\n");
 	scanf("%d", &choice);
@@ -188,10 +208,8 @@ int main() {
 	switch(choice) {
 
 	    case 1: 
-		printf("Enter interval low\n");
-		scanf("%d", &low);
-		printf("Enter interval high\n");
-		scanf("%d", &high);
+		printf("Enter low and high interval values\n");
+		scanf("%d%d", &low, &high);
 
 		if(!root){
 		root = create_interval_node(low, high);
@@ -217,6 +235,14 @@ int main() {
 
 	    case 4:
 		find_coverage(root, &low, &high);
+		break;
+
+	    case 5:
+		merge_intervals(root, &prev_low, &prev_high);
+		printf("[%d %d]\n", prev_low, prev_high);;
+		
+		prev_low = 0;
+		prev_high = 0;
 		break;
 
 	    default:
