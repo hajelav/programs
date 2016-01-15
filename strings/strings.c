@@ -540,13 +540,46 @@ void reverse_words(char *p) {
     printf("Reversed words : %s\n",rev);
 }
 
+  /*
+   *provide a method that takes two  words and returns the shortest distance (in words) between those two
+   *words in the provided text. 
+   *   Example:
+   *     WordDistanceFinder finder = new WordDistanceFinder(Arrays.asList("the", "quick", "brown", "fox", "quick"));
+   *     distance("fox","the") == 3;
+   *     distance("quick", "fox") == 1;
+   */
+        
+int shortest_distance(char **S, int len, char *str1, char *str2) {
+
+    int i, dist1 = -1, dist2 = -1, dist = INT_MAX;
+
+    if(!S || len <=0 || !str1 || !str2)
+	return -1;
+
+    for(i=0;i<len;i++){
+
+	if(strcmp(S[i], str1)==0)
+	    dist1 = i;
+	else if(strcmp(S[i], str2)==0)
+	    dist2 = i;
+
+	if(dist1 >=0 && dist2 >=0 && MOD(dist1, dist2) < dist)
+	    dist = MOD(dist1, dist2);
+    }
+    return (dist<INT_MAX?dist:-1);
+}
+
 int main() {
     /*char c;*/
     int choice;
+    int n;
     char str[] = "gee  ks f  or g  ee ks ";
     char path[128];
     char S[128], T[128];
     char *pattern = "-20";
+    char str1[32], str2[32];
+
+    char **s;
     /*do {*/
 
 	printf("MENU OPTIONS\n");
@@ -563,6 +596,7 @@ int main() {
 	printf("11 -- function to determine if a string is a number without using any built-in function\n");
 	printf("12 -- reverse string\n");
 	printf("13 -- reverse words in a sentence\n");
+	printf("14 -- shortest distance between words\n");
 	
 	
 
@@ -644,6 +678,28 @@ int main() {
 		    /*fgets(S, 128, stdin);*/
 		    reverse_words(S);
 		    break;
+
+	    case 14:
+		    printf("Enter number of words\n");
+		    scanf("%d", &n);
+		    s = create_2Dchar_array(n, 128);
+		    input_2Dchar_array(s, n, 128);
+
+		    printf("enter word 1\n");
+		    scanf("%s", str1);
+		    printf("enter word 2\n");
+		    scanf("%s", str2);
+		    printf("Shortest distance between %s and %s : %d\n", str1, str2, shortest_distance(s, n, str1, str2));
+		    break;
+
+
+
+
+
+		    
+
+
+
 
 	    default:
 		printf("Invalid option\n");
