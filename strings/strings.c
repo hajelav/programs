@@ -472,8 +472,8 @@ int is_number(char *S) {
 	   dot_count++;
 
        /*
-        *the string is not a number only if
-	*    1. ascii value of any of the char which is not '.' or '-' lies outside the range of '0' to '9'
+	*the string is not a number only if
+	*    1. ascii value of any of the char (which is not '.' or '-') lies outside the range of '0' to '9'
 	*    2. if we find a '-' sign other than the first index(ie '-' sign in between the srting) 
 	*    3. if we find a '.' at the last postion of a string
 	*    4. if we find more than one '.'

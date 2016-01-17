@@ -470,23 +470,22 @@ void level_order_traversal_newline(TREE* node) {
  *    ie if we find a node with  above property then all non-leaf nodes should have the same condition true  
  * 3. if we find any node with condition node->lett !=NULL && node->right == NULL then we should not find this condition true for any
  *    node after that*/
-   
+
 int is_binary_tree_complete(TREE *node, int lvl, int height) {
 
     static int boolean;
     if(node == NULL)
-	return ;
+	return  0;
 
     is_binary_tree_complete(node->left, lvl+1, height);
     /*for non-leaf nodes*/
     if(lvl < height) {
 	/*case 1*/
 	if(node->left==NULL && node->right!=NULL){
-	boolean = 1;
+	    boolean = 1;
 	}
     }
-
-
+    return boolean;
 }
 
 /*
@@ -547,25 +546,6 @@ void removeNodesOnLeafPaths(TREE* node, int lvl, TREE* parent, int k) {
 	free(node);
     }
 
-}
-
-
-
-/*Find the closest leaf in a Binary Tree*/
-
-int closestLeafFromKey(TREE* node, int key) {
-
-    static int key_found;
-    static TREE* keyNode;
-    int h1,h2;
-
-    if(node == NULL)
-	return 0;
-    /* find the node with the key first */
-    if(key_found == 0) {
-	keyNode = findNodeInBinaryTree(node, key);
-	key_found = 1;
-    }
 }
 
 /*Find sum of all left leaves in a given Binary Tree*/
@@ -670,6 +650,7 @@ TREE *root = NULL;
 // create node
 
 TREE *create_node() {
+
     TREE *node;
     node = (TREE *)malloc(sizeof(TREE));
     node->value = 0;
@@ -677,6 +658,8 @@ TREE *create_node() {
     node->left = NULL;
     node->right = NULL;
     node->successor = NULL;
+
+    return node;
 }
 /*find : recursive*/
 
@@ -1303,6 +1286,8 @@ int get_index(int *in, int key, int l, int h){
 	if(in[i] == key)
 	    return i;
     }
+
+    return -1;
 }
 
 /*
@@ -1572,12 +1557,118 @@ void kDistanceFromLeafNode(TREE *node, int *dist, int level, int k) {
  *Finally total = part1 + part2 + 1
  */
 
+/*
+ *linkedin
+ *http://www.careercup.com/question?id=5668114807128064
+ *Given a list of child->parent relationships, build a binary tree out of it. All the element Ids inside the tree are unique. 
+ *Example: 
+ *Given the following relationships: 
+ *Child Parent IsLeft 
+ *
+ *15 20 L 
+ *19 80 L 
+ *17 20 R 
+ *16 80 R 
+ *80 50 R 
+ *50 -1 R 
+ *20 50 L 
+ *
+ *
+ *You should return the following tree: 
+ *    50 
+ *   /  \ 
+ *  20   80 
+ * / \   / \ 
+ *15 17 19 16 
+ */
+
+typedef struct relation {
+
+    TREE *child; //child node
+    TREE *parent; //parent node
+    char c; //if the child is left or right node of parent
+
+}RELATION;
+
+TREE* search_tree_node(RELATION *rlist, int value, int noOfNodes) {
+
+    int i;
+    for(i=0;i<noOfNodes;i++){
+	if(rlist[i].child && rlist[i].child->value == value)
+	    return rlist[i].child;
+	else if(rlist[i].parent && rlist[i].parent->value == value)
+	    return rlist[i].parent;
+    }
+    return NULL;
+}
+
+void build_tree_from_child_parent() {
+
+    int i, noOfNodes, c_value, p_value;
+    char c;
+    TREE *root, *c_node, *p_node;
+
+    RELATION *rlist; //relationship list
+
+    printf("enter no of nodes(or child-parent relationships\n");
+    scanf("%d", &noOfNodes);
+
+    rlist = (RELATION*)calloc(noOfNodes, sizeof(RELATION));
+    if(!rlist)
+	return;
+
+    printf("enter child parent l/r(seperated by spaces)\n");
+    for(i=0;i<noOfNodes;i++) {
+
+	scanf("%d", &c_value);
+	scanf("%d", &p_value);
+	scanf(" %c", &c);
+
+
+	/*return if the input is other than l or r*/
+	if(!(c=='l' ||  c=='r'))
+	    return;
+
+	/*create tree node for child*/
+	if((c_node = search_tree_node(rlist, c_value, noOfNodes)) == NULL){
+	    c_node = create_node();
+	    c_node->value = c_value;
+	} 
+
+
+	/*create tree node for parent*/
+	if((p_node = search_tree_node(rlist, p_value, noOfNodes)) == NULL){
+	    p_node = create_node();
+	    p_node->value = p_value;
+	} 
+
+	    rlist[i].child = c_node;
+	    rlist[i].parent = p_node;
+	    rlist[i].c = c;
+
+	if(c == 'l')
+	    p_node->left = c_node;
+	else 
+	    p_node->right = c_node;
+    }
+
+    /*all the child-parent relationships are added, now we need to find out the root node*/
+    for(i=0;i<noOfNodes;i++) {
+
+	if(rlist[i].parent->value == -1) {//for root node parent will have value = -1
+	    root = rlist[i].child;
+	    break;
+	}
+    }
+
+    if(root)
+	print_inorder(root);
+}
 
 int main() {
     char c;
-    int item,value,num,node1,node2,level,n, close;
+    int item, num, node1, node2, level, n, close;
     TREE  *trav;
-    TREE *prev=NULL;
     int a,choice;
     int key;
     int key1,key2;
@@ -1638,6 +1729,7 @@ int main() {
 	printf("46 -- Sum of all the numbers that are formed from root to leaf paths\n");
 	printf("47 -- level order traversal(BFS) using queue\n");
 	printf("48 -- Given a BST with unique values find in a given tree a value closest to a given value X\n");
+	printf("49 -- given a list of child parent relationships, build a binary tree out of it.\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1984,6 +2076,9 @@ int main() {
 		printf("Closest node to %d: %d\n", n, node->value);
 		break;
 		
+	    case 49:
+		build_tree_from_child_parent();
+		break;
 
 	    default:
 		printf("Invalid option\n");
