@@ -1635,16 +1635,15 @@ void build_tree_from_child_parent() {
 	    c_node->value = c_value;
 	} 
 
-
 	/*create tree node for parent*/
 	if((p_node = search_tree_node(rlist, p_value, noOfNodes)) == NULL){
 	    p_node = create_node();
 	    p_node->value = p_value;
 	} 
 
-	    rlist[i].child = c_node;
-	    rlist[i].parent = p_node;
-	    rlist[i].c = c;
+	rlist[i].child = c_node;
+	rlist[i].parent = p_node;
+	rlist[i].c = c;
 
 	if(c == 'l')
 	    p_node->left = c_node;

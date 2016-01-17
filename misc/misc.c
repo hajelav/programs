@@ -1184,6 +1184,7 @@ void maximum_rectangle() {
 /*
  *leetcode problem 56
  *https://leetcode.com/problems/merge-intervals/
+ also check the solution in interval trees
  */
 
 void merge_overlapping_intervals() {
@@ -1200,6 +1201,73 @@ void merge_overlapping_intervals() {
          *update stack top with the ending  time of current interval.
          *4. At the end stack contains the merged intervals. 
 	 */
+}
+
+/*
+ *linkedin
+ *you have a long flowerbed in which some of the plots are planted and some are not. However, flowers cannot be planted in adjacent plots - they would compete for water and both would die. Given a flowerbed (represented as an array containing booleans), return if a given number of new flowers can be planted in it without violating the no-adjacent-flowers rule 
+ *Sample inputs 
+ *
+ *Input: 1,0,0,0,0,0,1,0,0 
+ *3 => true 
+ *4 => false 
+ *
+ *input: 1,0,0,1,0,0,1,0,0 
+ *1 => true 
+ *2 => false 
+ *
+ *input: 0 
+ *1 => true 
+ *2 => false  
+ */
+
+int can_place_flowers() {
+
+    int i, len, no_to_place;
+    int max_flowers = 0;
+    int *A;
+
+    printf("enter array length\n");
+    scanf("%d", &len); 
+    printf("enter number of flowers to be placed\n");
+    scanf("%d", &no_to_place); 
+
+    if(len < 1 || no_to_place < 1 || len < no_to_place)
+	return 0;
+
+    A = create_1Darray(len);
+    input_1Darray(A, len);
+
+    for(i=0;i<len;i++){
+
+	if(A[i] == 0){
+
+	    /*
+	     *if we are at first element and len of array > 1 and the next element is 0 ||
+             *if we are at last element and, just before element is 0
+	     *    then can place a flower and decrement is no of flowers to be placed		
+	     */
+	    if((i==0 && i+1<len && A[i+1]==0) ||
+		    (i==len-1 && A[i-1]==0)){
+		A[i] = 1; //plot the plant
+		no_to_place--;
+		max_flowers++;
+	    }
+
+	    if(i-1>=0 && i+1<len && A[i-1] == 0 && A[i+1] == 0){
+		A[i] = 1; //plot the plant
+		no_to_place--;
+		max_flowers++; // total flowers that can be placed
+	    }
+	}
+    }
+
+    free(A);
+    /*if we find that all the flowers are used, then return true*/
+    if(no_to_place>0)
+	return 0;
+    else
+	return 1;
 }
 
 int main() {
@@ -1241,6 +1309,7 @@ int main() {
 	printf("23 -- Walls and gates\n");
 	printf("24 -- maximum size rectangle of all 1's in a matrix\n");
 	printf("25 -- merge all overlapping intervals\n");
+	printf("26 -- Place flowers\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1424,6 +1493,10 @@ int main() {
 
 	    case 25:
 		merge_overlapping_intervals();
+		break;
+
+	    case 26:
+		printf("can place flowers : %s\n", can_place_flowers()?"yes":"no");;
 		break;
 
 
