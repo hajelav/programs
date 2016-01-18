@@ -149,7 +149,6 @@ void find_coverage(INTVL *intvl, int *low, int *high) {
 	    *low = intvl->low;
 	}
     }
-
     find_coverage(intvl->right, low, high);
 }
 
@@ -234,6 +233,8 @@ int main() {
 		break;
 
 	    case 4:
+		if(!root)
+		    printf("insert intervals into the interval tree first\n");
 		find_coverage(root, &low, &high);
 		break;
 

@@ -1270,6 +1270,75 @@ int can_place_flowers() {
 	return 1;
 }
 
+/** linkedin
+ ** Implement a method which takes an integer array and returns an integer array (of equal size) in
+ ** which each element is the product of every number in the input array with the exception of the
+ ** number at that index.implement without using division operator
+ **
+ ** Example:
+ **   [3, 1, 4, 2] => [8, 24, 6, 12]
+ **/
+void self_excluding_product() {
+
+    int *A, *B, len, i, prod; 
+    int *before, *after;
+
+    printf("Enter array length\n");
+    scanf("%d", &len);
+    A = create_1Darray(len);
+    input_1Darray(A, len);
+
+    /*create a new array of equal size*/
+    B = create_1Darray(len);
+
+    /*
+     *create before and after arrays
+     *    before array : store the product till index i for each 0<=i<len
+     *    after array : store the product till index i, where i=len-1
+     */
+
+    
+    before = create_1Darray(len);
+    after = create_1Darray(len);
+
+    /*fill in before array*/
+    prod = 1;
+    for(i=0;i<len;i++){
+	prod *= A[i];
+	before[i] = prod;
+    }
+    print_1Darray(before, len);
+
+    /*fill in after array*/
+    prod = 1;
+    for(i=len-1;i>=0;i--){
+	prod *= A[i];
+	after[i] = prod;
+    }
+    print_1Darray(after, len);
+
+    /*
+     *now value at B[i] = product of all the elements before i and all the elements after i
+     *                    before[i-1] X after[i+1]
+     */
+
+    for(i=0;i<len;i++){
+
+	if(i==0)
+	    B[i] = after[i+1];
+	else if(i==len-1)
+	    B[i] = before[i-1];
+	else
+	    B[i] = before[i-1]*after[i+1];
+    }
+
+    print_1Darray(B, len);
+    free(A);
+    free(B);
+    free(before);
+    free(after);
+}
+
 int main() {
 
     char c;
@@ -1309,7 +1378,9 @@ int main() {
 	printf("23 -- Walls and gates\n");
 	printf("24 -- maximum size rectangle of all 1's in a matrix\n");
 	printf("25 -- merge all overlapping intervals\n");
-	printf("26 -- Place flowers\n");
+	printf("26 -- place flowers\n");
+	printf("27 -- self excluding product\n");
+
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1497,6 +1568,10 @@ int main() {
 
 	    case 26:
 		printf("can place flowers : %s\n", can_place_flowers()?"yes":"no");;
+		break;
+
+	    case 27:
+		self_excluding_product();
 		break;
 
 

@@ -176,6 +176,7 @@ int search_rotated_sorted(int *A, int len, int key) {
     }
 } 
 
+/*linkedin*/
 int occurence(int *A, int l, int h, int num) {
 
     int res, mid;
@@ -199,7 +200,6 @@ int occurence(int *A, int l, int h, int num) {
  *  
  */
 
-
  float search(float *A, int l, int h, float num) {
 
      int res, mid;
@@ -216,17 +216,16 @@ int occurence(int *A, int l, int h, int num) {
 
  }
 
- void range(float *A, int n) {
+void range(float *A, int n) {
 
-     int i;
-     float count = LONG_MIN;
+    int i;
+    float count = LONG_MIN;
 
-     for(i=0;i<n-1;i++){
-	 if(search(A, i+1, n, A[i]+1) - i > count)
-	     count = A[i];
-     }
-
- }
+    for(i=0;i<n-1;i++){
+	if(search(A, i+1, n, A[i]+1) - i > count)
+	    count = A[i];
+    }
+}
 
 /*
  *leetcode problem 268
@@ -325,7 +324,7 @@ int main() {
 	printf("3 -- Find the number of occurances of a given number in a sorted array\n");
 	printf("4 -- Max range in an array\n");
 	printf("5 -- Find the missing number\n");
-	printf("6 -- count the number of occurrences of an element in a sorted array\n");
+	printf("6 -- count the number of occurrences of all elements in a sorted array\n");
 	printf("7 -- search an element in rotated sorted array\n");
 	printf("8 -- find the first element in an array that is greater than the target in a sorted array\n");
 
