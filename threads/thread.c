@@ -15,12 +15,6 @@ typedef struct td{
     int tid;
 } TDATA;
 
-typedef struct data {
-    int *num;
-    int *no_of_threads;
-    int tid;
-    sem_t *mutex_t;
-} DATA;
 
 //create an array of semaphore varaibles
 sem_t mutex[THREADS];
@@ -173,6 +167,13 @@ void even_odd_print() {
     sem_destroy(&mutex2);
 }
 
+typedef struct data {
+    int *num; //number to print
+    int *no_of_threads;
+    int tid;
+    sem_t *mutex_t;
+} DATA;
+
 void* thread_print(void *data) {
 
     int tid, no_of_threads, num;
@@ -249,7 +250,7 @@ void print_numbers(int num, int nThreads){
     }
 
     for(i=0;i<nThreads;i++) {
-    pthread_join(tid[i], NULL);
+	pthread_join(tid[i], NULL);
     }
 
     for(i=0;i<nThreads;i++) {
