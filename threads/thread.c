@@ -15,7 +15,6 @@ typedef struct td{
     int tid;
 } TDATA;
 
-
 typedef struct data {
     int *num;
     int *no_of_threads;
@@ -247,6 +246,10 @@ void print_numbers(int num, int nThreads){
 	data[i].mutex_t = mutex_t;
 	data[i].tid = i;
 	pthread_create(&tid[i], NULL, thread_print, &data[i]);
+    }
+
+    for(i=0;i<nThreads;i++) {
+    pthread_join(tid[i], NULL);
     }
 
     for(i=0;i<nThreads;i++) {

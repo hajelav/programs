@@ -437,8 +437,6 @@ void digits(){
     //create a map array
     //TBD
 
-   
-
 }
 
 /*
