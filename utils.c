@@ -206,3 +206,11 @@ void print_1Darray(int *A, int n) {
     printf("\n");
 }
 
+void swap(int *A, int idx1, int idx2) {
+
+    int temp;
+    temp = A[idx1];
+    A[idx1] = A[idx2];
+    A[idx2] = temp;
+}
+

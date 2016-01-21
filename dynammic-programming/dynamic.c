@@ -359,6 +359,7 @@ int eggdrop(int e, int f) {
 }
 
 /*
+ * longest palindromic subsequuence
  * https://www.youtube.com/watch?v=_nCsPn7_OgI&list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr&index=19
  *optimal substructure :
  *Let us consider an i, j to be the index of maximum palindromic seq in S.

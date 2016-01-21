@@ -1,4 +1,4 @@
-CC=gcc -Wall -g
+CC=gcc -Wall -Werror -g
 CFLAGS=-I.
 DEPS = ../utils.h
 OBJ = ../utils.o misc.o 

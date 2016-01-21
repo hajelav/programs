@@ -1339,6 +1339,43 @@ void self_excluding_product() {
     free(after);
 }
 
+/*
+ *given an array of integers, move all zeros towards the from of an array, without disturbing the order of non zero elements.
+ *do it in place(ie without using extra memory)
+ *    for eg 1 0 2 3 0 6 8 0 5 should become
+ *           0 0 0 1 2 3 6 8 5
+ */
+void move_zeros() {
+
+    int n, start, end;
+    int *A;
+
+    printf("enter array len\n");
+    scanf("%d", &n);
+
+    A = create_1Darray(n);
+
+    if(!A || n<=0)
+	return;
+
+    input_array(A, n);
+
+    /*initialize the start and end pointers to the end of the array*/
+    start = n-1;
+    end = n-1;
+
+    while(end >=0) {
+	if(A[end]!=0){
+	    swap(A, start, end);
+	    start--;
+	    end--;
+	} else if(A[end]==0) {
+	    end--;
+	}
+    }
+    print_1Darray(A, n);
+}
+
 int main() {
 
     char c;
@@ -1380,7 +1417,7 @@ int main() {
 	printf("25 -- merge all overlapping intervals\n");
 	printf("26 -- place flowers\n");
 	printf("27 -- self excluding product\n");
-
+	printf("28 -- move all zeros of array towards the front without disturbing the order of non zero elements\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1572,6 +1609,10 @@ int main() {
 
 	    case 27:
 		self_excluding_product();
+		break;
+
+	    case 28:
+		move_zeros();
 		break;
 
 

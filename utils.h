@@ -37,5 +37,6 @@ void print_2Dchar_array(char **T, int xlen, int ylen);
 void print_2Dmatrix(int **T, int xlen, int ylen);
 void print_2Darray(int **t, int xlen, int ylen);
 void print_1Darray(int *A, int n);
+void swap(int *A, int idx1, int idx2);
 
 #endif /*   _UTIL_H_ */ 
