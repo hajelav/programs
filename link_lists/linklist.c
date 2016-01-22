@@ -104,31 +104,39 @@ LIST* reverse_list(LIST *node){
     }
     return temp; 
 }
+
 /*reverse the link list iteratively */
 
 LIST * reverse_iter (LIST *node ) {
 
-	LIST *prev,*curr,*next;
+    LIST *prev,*curr,*next;
 
-	if (node == NULL)
-		return NULL;
-	prev = NULL;
-	curr = node;
+    if (!node)
+	return NULL;
+
+    prev = NULL; //initialize prev node to NULL
+    curr = node;
+
+    while(curr!=NULL){
+
+	/*store the next node in the list*/
 	next = curr->next;
-	if (next == NULL)
-		return node;
 
-	while ( curr!=NULL) {
-		prev = curr;
-		curr = next;
-		next = curr->next;
-		curr->next = prev;
+	/*reverse the pointers of the current node, so that it points to the previous node*/
+	curr->next = prev;
 
-		curr=curr->next;
-		printf("hello");
-	} 
+	/*shift the prev node so that it becomes the current node*/
+	prev = curr;
 
-	return prev;
+	/*shift the current node, so that it becomes the next node*/
+	curr = next;
+    }
+
+    /*
+     *at the end of the loop, the previous pointer will point to the last node of the list
+     *and all the pointers would have been reversed
+     */
+    return prev;
 }
 
 /*reverse the link list recursively */
@@ -884,6 +892,9 @@ int main() {
             case '9':
                     if(!(head = reverse_iter(head)))
                             printf("List is empty");
+		    else
+			print_list(head);
+
                     break;
 
             case 'a':
