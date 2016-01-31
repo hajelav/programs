@@ -21,7 +21,6 @@ CBUFFER* init_circular_buf() {
     /*initialize start and end pointers*/
     cb->start = 0;
     cb->end = 0;
-    cb->full = 0;
 
     /*initialize the size */
     cb->size = CIRCULAR_BUF_SIZE;
@@ -53,8 +52,8 @@ void dequeue(CBUFFER *cb) {
 	printf("queue is empty\n");
 
 	/*reset the pointers when queue is empty*/
-	cb->end = 0;
-	cb->start = 0;
+	cb->end = cb->start;
+	/*cb->start = 0;*/
 	return;
     }
 
