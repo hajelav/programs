@@ -1,0 +1,22 @@
+1.In the process address space, why there is a seperate section for initialized(.data) and uninitialized(.bss) data ?
+http://stackoverflow.com/questions/9535250/why-is-the-bss-segment-required
+
+2. where does char *p = "abc" ?  
+ In .rodata section of process address space
+
+3. what is the difference between fork() and vfork() ?
+http://stackoverflow.com/questions/4259629/what-is-the-difference-between-fork-and-vfork
+http://stackoverflow.com/questions/4856255/the-difference-between-fork-vfork-exec-and-clone?lq=1
+
+4. Malloc impplementation details
+http://www.inf.udec.cl/~leo/Malloc_tutorial.pdf
+
+4. How does valgrind detect the memory corruption?
+
+5. Design a task queue with multiple threads operation on it. ie threads consuming and adding tasks into the task queue.
+http://vichargrave.com/multithreaded-work-queue-in-c/
+
+
+6. Removing deadlocks in code
+https://docs.oracle.com/cd/E19683-01/806-6867/sync-12/index.html
+
