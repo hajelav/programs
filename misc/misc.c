@@ -1376,6 +1376,34 @@ void move_zeros() {
     print_1Darray(A, n);
 }
 
+int happy_number(){
+
+    int n, num = 0, digit, count = 0;
+    int  no_of_tries = 10;
+    
+    printf("enter number\n");
+    scanf("%d", &n);
+
+    while(n!=1){
+
+	while(n){
+
+	    digit = n%10;
+	    num = num + digit*digit;
+	    n = n/10;
+	    printf("+%d*%d+", digit, digit);
+	}
+	printf("\n");
+	n = num;
+	num = 0;
+	count++;
+	if(count == no_of_tries)
+	    return 0;
+    }
+
+    return n;
+}
+
 int main() {
 
     char c;
@@ -1418,6 +1446,7 @@ int main() {
 	printf("26 -- place flowers\n");
 	printf("27 -- self excluding product\n");
 	printf("28 -- move all zeros of array towards the front without disturbing the order of non zero elements\n");
+	printf("29 -- happy number\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -1615,6 +1644,9 @@ int main() {
 		move_zeros();
 		break;
 
+	    case 29:
+		printf("happy number : %s\n", happy_number()?"yes":"no");
+		break;
 
 	    default:
 		printf("invalid choice\n");
