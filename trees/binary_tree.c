@@ -940,41 +940,19 @@ int distBetweenKeys(TREE* node, int k1, int k2){
 return dist_k1 + dist_k2; 
 
 }
+
 /*to find lowest common ancestor of two nodes in a  BST(non-recursive)*/
 
-TREE* lowest_common_ancestor(TREE* root, int node1, int  node2){
-    TREE *temp,*temp1;
-    temp = root;
-    temp1=temp;
+TREE* lowest_common_ancestor(TREE* root, int key1, int key2){
 
-    if(root==NULL)
-	return NULL;
+    while(root!=NULL) {
 
-    while(temp==temp1){
-	if(node1 <= temp->value)
-	    temp=temp->left;
+	if(root->value > key1 && root->value > key2)
+	    root = root->left;
+	else if (root->value < key1 && root->value < key2)
+	    root = root->right;
 	else
-	    temp=temp->right;
-	if(node2 <= temp1->value)
-	    temp1=temp1->left;
-	else
-	    temp1=temp1->right;
-    }
-    /*At this point we have past the LCA, the parent of temp or temp1 is the LCA*/
-
-    while (root->value != temp->value) {
-	if(temp->value <= root->value) {
-	    if(root->left->value == temp->value)
-		break;
-	    else 
-		root=root->left;
-	}
-	else {
-	    if(root->right->value == temp->value)
-		break;
-	    else 
-		root=root->right;
-	}
+	    break;
     }
     return root;
 }
@@ -1825,9 +1803,9 @@ int main() {
 		printf("Enter the second number\n");
 		scanf("%d", &node2);
 		trav = root;
-		/*trav = lowest_common_ancestor(trav,node1,node2);*/
+		trav = lowest_common_ancestor(trav,node1,node2);
 		/*trav = lcaBST(trav,node1,node2);*/
-		trav = lowest_common_ancestor_BST(trav,node1,node2);
+		/*trav = lowest_common_ancestor_BST(trav,node1,node2);*/
 		printf("LCA : %d\n",trav->value);
 		break;
 	    case 15:
