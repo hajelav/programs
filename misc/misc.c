@@ -1378,8 +1378,7 @@ void move_zeros() {
 
 int happy_number(){
 
-    int n, num = 0, digit, count = 0;
-    int  no_of_tries = 10;
+    int n, num = 0, digit;
     
     printf("enter number\n");
     scanf("%d", &n);
@@ -1396,12 +1395,13 @@ int happy_number(){
 	printf("\n");
 	n = num;
 	num = 0;
-	count++;
-	if(count == no_of_tries)
+	if(n==1)
+	    return 1;
+	if(n<10)
 	    return 0;
     }
 
-    return n;
+    return 0;
 }
 
 int main() {
