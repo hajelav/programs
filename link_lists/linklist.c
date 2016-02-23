@@ -284,27 +284,45 @@ LIST* del_all_occurence(LIST* head, int value) {
     return head;
 }//function ends
 
-/*
- *LIST* delete_all_occurences_recursive(LIST* node, int value) {
- *
- *    LIST* temp;
- *
- *
- *    if(node && node->next == NULL)
- *        return node;
- *   if(!node)
- *      return NULL;
- *
- *  temp = delete_all_occurences_recursive(node->next, value);
- *  if(temp->value == value){
- *      node->next = temp->next;
- *      free(temp);
- *  }
- *  return node;
- *
- *}
- */
 
+/*delete all occurrence of a given value in a link list(non-recursive)*/
+LIST* delete_all_occurences_nonrecursive(LIST* node, int value) {
+
+    LIST *curr_node = NULL, *next_node = NULL;
+    LIST *temp;
+    if(!node)
+	return NULL;
+
+    curr_node = NULL;
+    next_node = node;
+
+    while(next_node){
+
+	if(next_node->value == value){
+
+	    if(!curr_node){
+		temp = next_node->next;
+		next_node->next = NULL;
+		free(next_node);
+		next_node = temp;
+		node = next_node;
+
+	    } else {
+		curr_node->next = next_node->next;
+		next_node->next = NULL;
+		free(next_node);
+		next_node = curr_node->next;
+
+	    }
+	} else {
+	    curr_node = next_node;
+	    next_node = next_node->next;
+	}
+    }
+    return node;
+}
+
+/*delete all occurrence of a given value in a link list(recursive)*/
 void delete_all_occurences_recursive(LIST** node, int value) {
 
     LIST *temp;
@@ -885,8 +903,8 @@ int main() {
               printf("Enter the node to  be deleted\n");
               scanf("%d",&n1);
             /*head = del_all_occurence(head,n1);*/
-            /*head = delete_all_occurences_recursive(head, n1);*/
-            delete_all_occurences_recursive(&head, n1);
+	    head = delete_all_occurences_nonrecursive(head, n1);
+            /*delete_all_occurences_recursive(&head, n1);*/
             print_list(head);
               break;
             case '9':
