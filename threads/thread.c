@@ -29,6 +29,7 @@ void init_mutex() {
 }
 
 
+
 //thread prototypes
 void* thread0(void *data) {
 

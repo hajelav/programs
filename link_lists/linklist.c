@@ -293,18 +293,21 @@ LIST* delete_all_occurences_nonrecursive(LIST* node, int value) {
     if(!node)
 	return NULL;
 
-    curr_node = NULL;
-    next_node = node;
+    curr_node = NULL; //set current pointer to null
+    next_node = node; // set next pointer to head node
 
     while(next_node){
 
 	if(next_node->value == value){
 
 	    if(!curr_node){
+		/*the head node matches the value, so we need to delete it*/
 		temp = next_node->next;
 		next_node->next = NULL;
 		free(next_node);
 		next_node = temp;
+
+		/*point the head node to the next node, and current still points to NULL*/
 		node = next_node;
 
 	    } else {
