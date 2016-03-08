@@ -457,7 +457,7 @@ int isomorphic_strings(char *S, char *T) {
      return 1;
 }
 
-int is_number(char *S) {
+int is_valid_number(char *S) {
  
    int i, len, dot_count = 0;
 
@@ -477,12 +477,14 @@ int is_number(char *S) {
 	*    2. if we find a '-' sign other than the first index(ie '-' sign in between the srting) 
 	*    3. if we find a '.' at the last postion of a string
 	*    4. if we find more than one '.'
+	*    5. if we find any space character
 	*/
 
        if((S[i]!='.' && S[i]!='-' && (S[i]-'0' < 0 || S[i]-'0'> 9)) ||
 	  (S[i] == '-' && i > 0)        ||
 	  (S[i] == '.' && i == len-1) 	||
-	  (dot_count > 1)) {
+	  (dot_count > 1) ||
+      	  (S[i] == ' ')){
 	   return 0;
 	  } 
    }
@@ -665,8 +667,9 @@ int main() {
 
 	    case 11:
 		    printf("Enter the string\n");
-		    scanf("%s", S);
-		    printf("Is number : %s\n", is_number(S)?"yes":"no");
+		    scanf(" %[^\n]s", S); //reading a space through scanf
+		    /*fgets(stdin, S, sizeof(S));*/
+		    printf("Is number : %s\n", is_valid_number(S)?"yes":"no");
 		    break;
 
 	    case 12:
