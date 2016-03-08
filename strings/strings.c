@@ -594,7 +594,7 @@ int main() {
 	printf("8 -- integer to english words\n");
 	printf("9 -- restore IP addresses\n");
 	printf("10 -- check if strings are isomorphic\n");
-	printf("11 -- function to determine if a string is a number without using any built-in function\n");
+	printf("11 -- function to determine if a string is a valid number without using any built-in function\n");
 	printf("12 -- reverse string\n");
 	printf("13 -- reverse words in a sentence\n");
 	printf("14 -- shortest distance between words\n");
