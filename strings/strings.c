@@ -457,6 +457,11 @@ int isomorphic_strings(char *S, char *T) {
      return 1;
 }
 
+/*
+ *leetcode problem 65
+ *https://leetcode.com/problems/valid-number/
+ */
+
 int is_valid_number(char *S) {
  
    int i, len, dot_count = 0;

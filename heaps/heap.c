@@ -3,9 +3,9 @@
 int *A;
 /*function pointer of min/max heapify functions*/
 typedef void (*HEAPIFY)(int*, int , int); 
-
 void print_1Darray_index(int *A, int i, int j){
 int k;
+
     for(k=i;k<=j;k++){
 	printf("%d ", A[k]);
     } 
