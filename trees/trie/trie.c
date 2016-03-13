@@ -128,7 +128,7 @@ void print_words(TNODE *troot, char *path, int cnt) {
 
     int i;
     if(!troot->c) {
-	printf("%s\n", path);
+	printf("%s", path);
 	return;
     }
     path[cnt] = troot->c;
@@ -138,7 +138,7 @@ void print_words(TNODE *troot, char *path, int cnt) {
 
 	    /*print the word count, only when the recursion returns from the leaf node*/
 	    if(!troot->next[i]->c)
-	    printf("count:%d\n", troot->word_count);
+	    printf("[count:%d]\n", troot->word_count);
 
 	    //when the recursion returns, we remove the char from path array
 	    path[cnt] = '\0';
