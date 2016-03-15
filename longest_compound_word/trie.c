@@ -1,3 +1,10 @@
+/**
+ * @file trie.c
+ * @brief API for trie data structure
+ * @author Vivek Hajela
+ * @version 1.0
+ * @date 2016-03-14
+ */
 /*
  *Trie implementation for strings(lowercase only)
  */
@@ -7,9 +14,11 @@
 #include "trie.h"
 
 void initTnode(TNODE* tnode) {
+
     int i;
     tnode->c = '\0';
-    //make all the pointers to NULL
+
+    /*make all the pointers to NULL*/
     for(i=0;i<NO_OF_CHARS;i++){
 	tnode->next[i] = NULL;
     }
@@ -17,25 +26,14 @@ void initTnode(TNODE* tnode) {
 }
 
 TNODE* createTrieNode() {
+
     TNODE *node;
+
     node = (TNODE*)malloc(sizeof(TNODE));
     if(node) {
 	initTnode(node);
     }
     return node?node:NULL;
-}
-
-/*
- *return 1 if this node is leaf node, else 0,
- *a node is a leaf node only when all next pointer of that trie node are NULL
- */
-int isLeaf(TNODE* node) {
-    int i;
-    for(i=0;i<NO_OF_CHARS;i++){
-	if(node->next[i])
-	    return 0;
-    }
-    return 1;
 }
 
 /*search for the word in the trie */
@@ -55,20 +53,22 @@ int  searchWordInTrie(TNODE* troot, char *word) {
     return 1;
 }
 
+/*after pasring words from file, add them to the trie*/
 TNODE* addWordInTrie(char *word, TNODE* troot) {
 
     TNODE *temp1, *root;
-
 
     /*search word in the trie first, if not found add it*/
     if(searchWordInTrie(troot, word))
 	return NULL;
 
-    //create root, if not created
+    /*create root, if not created*/
     if(troot == NULL) {
 	troot = createTrieNode();
     } 
-    root = troot; // assign this pointer to global trie root
+
+    /*save the root pointer to be returned to the caller*/
+    root = troot;  
 
     while(*word!='\0') {
 
@@ -81,10 +81,8 @@ TNODE* addWordInTrie(char *word, TNODE* troot) {
 	word++;
     }
 
+    /*set the flag at the leaf nodes to mark a valid node in trie*/
     troot->is_valid_word = 1;
-     /*printf("%c\n", troot->c);*/
-
-    /*printf("last char: %c\n", troot->c);*/
 
     /*
      *once we have added the word, create a node for NULL char
@@ -95,15 +93,10 @@ TNODE* addWordInTrie(char *word, TNODE* troot) {
     return root;
 }
 
-void searchInTrie(TNODE *troot, char *word) {
-
-}
-
 /*
  *this routine prints all the words in the trie, we use an auxillary array(path) to store the chars 
  *of the trie as we traverse recursively in the trie.
  */
-
 void print_words(TNODE *troot, char *path, int cnt) {
 
     int i;
@@ -116,12 +109,7 @@ void print_words(TNODE *troot, char *path, int cnt) {
 	if(troot->next[i]!=NULL){
 	    print_words(troot->next[i], path, ++cnt);
 
-	    /*
-	     *if(!troot->next[i]->c)
-	     *    printf("\t[valid word:%d]\n", troot->is_valid_word?1:0);
-	     */
-
-	    //when the recursion returns, we remove the char from path array
+	    /*/when the recursion returns, we remove the char from path array*/
 	    path[cnt] = '\0';
 	    cnt--;
 	}
@@ -147,4 +135,24 @@ void print_trie(TNODE *root) {
 	    print_words(tnode, path, 0);
 	}
     }
+    free(path);
+}
+
+
+void trie_free(TNODE *tnode) {
+
+    int i;
+    for(i = 0; i < NO_OF_CHARS; i++)
+	if(tnode->next[i])
+	    trie_free(tnode->next[i]);
+    free(tnode);
+    
+}
+
+void trie_destroy(TNODE **troot) {
+
+    TNODE *root;
+    root = *troot;
+    trie_free(root);
+    *troot = NULL;
 }
