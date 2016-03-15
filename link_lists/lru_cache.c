@@ -144,7 +144,6 @@ void dequeue(HASH *hash, QUEUE *q, int pno){
     hash->arr[pno] = NULL;
     if(q->curcsize>0)
 	q->curcsize -= 1;
-
 }
 
 void refer_page( HASH *hash, QUEUE *q, int page_no) {

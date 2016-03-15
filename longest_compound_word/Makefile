@@ -1,7 +1,7 @@
 CC=gcc  -Werror -Wall -g
 CFLAGS=-I.
-DEPS = trie.h
-OBJ = longest_compound_word.o trie.o
+DEPS = trie.h utils.h
+OBJ = longest_compound_word.o utils.o trie.o
 
 %.o: %.c $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)

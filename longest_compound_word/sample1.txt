@@ -8,3 +8,5 @@ aalii
 aaliis
 aals
 aardvark
+ls
+s

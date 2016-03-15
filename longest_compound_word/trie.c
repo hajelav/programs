@@ -18,11 +18,11 @@ void initTnode(TNODE* tnode) {
 
 TNODE* createTrieNode() {
     TNODE *node;
-	node = (TNODE*)malloc(sizeof(TNODE));
-	if(node) {
-	    initTnode(node);
-	}
-	return node?node:NULL;
+    node = (TNODE*)malloc(sizeof(TNODE));
+    if(node) {
+	initTnode(node);
+    }
+    return node?node:NULL;
 }
 
 /*
@@ -35,7 +35,7 @@ int isLeaf(TNODE* node) {
 	if(node->next[i])
 	    return 0;
     }
- return 1;
+    return 1;
 }
 
 /*search for the word in the trie */
@@ -61,16 +61,14 @@ TNODE* addWordInTrie(char *word, TNODE* troot) {
 
 
     /*search word in the trie first, if not found add it*/
-    /*
-     *if(searchWordInTrie(troot, word))
-     *    return;
-     */
+    if(searchWordInTrie(troot, word))
+	return NULL;
 
     //create root, if not created
     if(troot == NULL) {
 	troot = createTrieNode();
     } 
-	root = troot; // assign this pointer to global trie root
+    root = troot; // assign this pointer to global trie root
 
     while(*word!='\0') {
 
@@ -84,6 +82,9 @@ TNODE* addWordInTrie(char *word, TNODE* troot) {
     }
 
     troot->is_valid_word = 1;
+     /*printf("%c\n", troot->c);*/
+
+    /*printf("last char: %c\n", troot->c);*/
 
     /*
      *once we have added the word, create a node for NULL char
@@ -92,6 +93,10 @@ TNODE* addWordInTrie(char *word, TNODE* troot) {
      */
     troot->next[NO_OF_CHARS-1] = createTrieNode();
     return root;
+}
+
+void searchInTrie(TNODE *troot, char *word) {
+
 }
 
 /*
@@ -110,6 +115,11 @@ void print_words(TNODE *troot, char *path, int cnt) {
     for(i=0;i<NO_OF_CHARS;i++) {
 	if(troot->next[i]!=NULL){
 	    print_words(troot->next[i], path, ++cnt);
+
+	    /*
+	     *if(!troot->next[i]->c)
+	     *    printf("\t[valid word:%d]\n", troot->is_valid_word?1:0);
+	     */
 
 	    //when the recursion returns, we remove the char from path array
 	    path[cnt] = '\0';
@@ -137,6 +147,4 @@ void print_trie(TNODE *root) {
 	    print_words(tnode, path, 0);
 	}
     }
-
 }
-

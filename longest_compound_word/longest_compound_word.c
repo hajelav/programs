@@ -3,35 +3,42 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "trie.h"
-
-#define LINE_SIZE 256
+#include "utils.h"
 
 int main(int argc, char*argv[]) {
 
     FILE *fp;
-    char line[LINE_SIZE];
-    char *token;
+    char oword[WORD_SIZE];
     TNODE *root = NULL;
+    QUEUE *q = NULL;
 
     if(argc != 2 || !argv[1])
 	printf("Enter valid file name\n");
 
     fp = fopen(argv[1], "r");
-
-    if(!fp)
+    if(!fp){
+	printf("Error opening file %s\n", argv[1]);
 	exit(0);
-
-    while(fgets(line, sizeof line, fp) != NULL) {
-	token = strtok(line, "\r");
-	while(token != NULL) {
-	    /*printf("%s\n", token);*/
-	    root = addWordInTrie(token, root);
-	    token = strtok(NULL, "\n");
-	}
-    
     }
 
-    print_trie(root);
+    /*initialize queue*/
+    if(!(q = init_queue()))
+	return 0;
 
+    while(fscanf(fp,"%s",oword)!= EOF){
+
+             /*printf("%s\n", oword);*/
+	     /*add the words into the trie*/
+             root = addWordInTrie(oword, root);
+ 
+             build_queue(q, root, oword);
+
+    }
+
+    /*print_trie(root);*/
+    /*print_queue(q);*/
+    process_queue(q, root);
+
+    fclose(fp); 
     return 0;
 }
