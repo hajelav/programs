@@ -72,12 +72,11 @@ void dequeue(QUEUE *q){
 	prev_node = q->tail->prev;
 	prev_node->next = q->tail->next;
 	q->tail->prev = NULL;
-	free(q->tail);
+	free(q->tail); //free the tail node
 	q->tail = prev_node;
     } else {
 	/*if there is only one node in the queue, free that node and set head/tail to NULL*/
 	free(q->head);
-	/*node = q->head;*/
 	q->head = NULL;
 	q->tail = NULL;
     }
@@ -130,7 +129,7 @@ void process_queue(QUEUE *q, TNODE* troot, HASH *h) {
 	return;
     root = troot;
 
-    /* run the loop till the queue is empty*/
+    /* run the loop till the queue till queue is not empty*/
     while(!is_queue_empty(q)){
 
 	qnode = q->tail;
@@ -167,6 +166,20 @@ void process_queue(QUEUE *q, TNODE* troot, HASH *h) {
 	troot = root;
 	dequeue(q);
 	}
+    }
+
+    void queue_destroy(QUEUE **q) {
+
+	QUEUE *node;
+	if(!q || !(*q))
+	    return;
+
+	node = *q;
+	node->head = NULL;
+	node->tail = NULL;
+
+	free(node);
+	*q = NULL;
     }
 
 char *get_max_word(HASH *h) {
@@ -233,14 +246,14 @@ HNODE* create_hash_node(char *string) {
     return hnode;
 }
 
-int hash_destroy(HASH **hash) {
+void hash_destroy(HASH **hash) {
 
     HNODE *node=NULL, *tmpNode=NULL;
     HASH *hashLocal = NULL;
     int count=0;
 
     if (!hash || !*hash)
-	return -1;
+	return;
 
     hashLocal = *hash;
     for(count=0;count<HASH_SIZE;count++) {
@@ -251,39 +264,37 @@ int hash_destroy(HASH **hash) {
 	    node = tmpNode;
 	}
 
-	free(hashLocal);
-	*hash = NULL;
-
     }
-    return 1;
+    free(hashLocal);
+    *hash = NULL;
 }
 
-    void hash_print(HASH *h) {
+void hash_print(HASH *h) {
 
-	HNODE *node = NULL;
-	int count=0;
+    HNODE *node = NULL;
+    int count=0;
 
-	if (!h) 
-	    return;
+    if (!h) 
+	return;
 
-	if (!h->total_word_count ) {
-	    printf("HASH is empty\n");
-	    return;
-	}
-
-	for(count=0; count < HASH_SIZE; count++) {
-	    node = h->bucket[count];
-	    if (node) {
-		printf("[Bucket %d] :", count);
-		while(node) {
-		    printf("\t%s", node->oword);
-		    node = node->next;
-		}
-		/*node = NULL;*/
-		printf("\n");
-	    }
-	}	
+    if (!h->total_word_count ) {
+	printf("HASH is empty\n");
+	return;
     }
+
+    for(count=0; count < HASH_SIZE; count++) {
+	node = h->bucket[count];
+	if (node) {
+	    printf("[Bucket %d] :", count);
+	    while(node) {
+		printf("\t%s", node->oword);
+		node = node->next;
+	    }
+	    node = NULL;
+	    printf("\n");
+	}
+    }	
+}
 
     int hash_search(HASH *h, char* string){
 

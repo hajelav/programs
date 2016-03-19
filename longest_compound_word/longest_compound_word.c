@@ -21,8 +21,10 @@ int main(int argc, char*argv[]) {
     QUEUE *q = NULL;
     HASH *h = NULL;
 
-    if(argc != 2 || !argv[1])
+    if(argc != 2 || !argv[1]){
 	printf("Enter valid file name\n");
+	return 0;
+    }
 
     fp = fopen(argv[1], "r");
 
@@ -61,14 +63,14 @@ int main(int argc, char*argv[]) {
     max_word = get_max_word(h);
     sec_max_word = get_sec_max_word(h);
 
-    printf("Longest concatinated word : %s[len:%zu]\n", max_word, strlen(max_word));
-    printf("Second longest concatinated word : %s[len:%zu]\n", sec_max_word, strlen(sec_max_word));
-    printf("Total word count: %d\n", h->total_word_count);
+    printf("Longest concatinated word : %s[len:%zu]\n", max_word?max_word:"NULL", strlen(max_word));
+    printf("Second longest concatinated word : %s[len:%zu]\n", sec_max_word?sec_max_word:"NULL", strlen(sec_max_word));
+    printf("Total concatinated word count: %d\n", h->total_word_count);
 
     /*free the memory*/
-    /*hash_destroy(&h);*/
-    /*trie_destroy(&root);*/
-    /*queue_destroy(&q);*/
+    hash_destroy(&h);
+    trie_destroy(&root);
+    queue_destroy(&q);
 
     fclose(fp); 
     return 0;

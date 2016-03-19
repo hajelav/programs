@@ -13,7 +13,6 @@ typedef struct QNODE {
 } QNODE;
 
 typedef struct QUEUE {
-    int qsize;     // size
     QNODE *head;   // head of the queue (to insert)
     QNODE *tail;   // tail to queue(to delete)
 } QUEUE;
@@ -39,13 +38,13 @@ void build_queue(QUEUE *q, TNODE* troot, char *oword);
 void process_queue(QUEUE *q, TNODE* troot, HASH* hash);
 int is_queue_empty(QUEUE *q);
 void print_queue(QUEUE *q);
-void queue_destroy(HASH **q);
+void queue_destroy(QUEUE **q);
 
 //hash API
 int hash_func(char * string);
 HASH* hash_init(void);
 HNODE* create_hash_node(char *string);
-int hash_destroy(HASH **h);
+void hash_destroy(HASH **h);
 void hash_print(HASH *h);
 int hash_search(HASH *h, char* string);
 void hash_insert(HASH *h, char* string);

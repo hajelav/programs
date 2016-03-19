@@ -150,6 +150,9 @@ void trie_free(TNODE *tnode) {
 
 void trie_destroy(TNODE **troot) {
 
+    if(!troot || *troot)
+	return;
+
     TNODE *root;
     root = *troot;
     trie_free(root);
