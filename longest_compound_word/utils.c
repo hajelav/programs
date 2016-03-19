@@ -123,6 +123,7 @@ void process_queue(QUEUE *q, TNODE* troot, HASH *hash) {
 
     int sidx = 0;
     char* oword = NULL;
+    QNODE *qnode;
 
     if(!q || !troot )
 	return;
@@ -130,51 +131,29 @@ void process_queue(QUEUE *q, TNODE* troot, HASH *hash) {
     /* run the loop till the queue is empty*/
     while(!is_queue_empty(q)){
 
+	qnode = q->tail;
+	oword = qnode->oword;
+	sidx = qnode->suffix_idx;
 
 
 
-    while(*(oword+sidx)!='\0') {
+	while(*(oword+sidx)!='\0') {
 
-	if(*(oword+sidx) && troot->next[*(oword+sidx)-'a'] && troot->is_valid_word) {
-	    /*we find a valid word as a prefix while going down the path of original word(oword) in a trie, 
-	     * add the word and suffix into the queue */
-	    enqueue(q, oword, sidx);
-	}  
-	troot = troot->next[*(oword+sidx)-'a'];	
-	sidx++;
-    }   
-
+	    if(troot->next[*(oword+sidx)-'a']) {
+		if(troot->is_valid_word) {
+		    /*we find a valid word as a prefix while going down the path of original word(oword) in a trie, 
+		     * add the word and suffix into the queue */
+		    enqueue(q, oword, sidx);
+		}
+	    } else {
+		/*if we do not find suffix we stop processing the suffix and dequeue*/
+		break;
+	    }  
+	    troot = troot->next[*(oword+sidx)-'a'];	
+	    sidx++;
+	}   
+	dequeue(q);
     }
-
-
-
-
-
-
-    /*
-     *        [>node = dequeue(q);<]
-     *        [>run the loop till the queue is empty<]
-     *        while(node){
-     *            root = troot;
-     *            oword = node->oword;
-     *            sidx = node->suffix_idx;
-     *
-     *            while( (root) && (*(oword+sidx)!='\0')) {
-     *                root = root->next[*(oword+sidx)-'a'];
-     *                sidx++;
-     *                if (root && (root->is_valid_word) ) {
-     *                    if( sidx == len ){
-     *                        hash_insert( hash, oword);
-     *                    } else {
-     *                        enqueue(q, oword, sidx);
-     *                    }
-     *                }	
-     *            }
-     *            free(node);
-     *            [>node = dequeue(q);		<]
-     *        }
-     */
-}
 
 char *get_max_word(HASH *h) {
 
