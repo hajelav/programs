@@ -27,9 +27,7 @@ QNODE* create_qnode(char *oword, int suffix_idx) {
     qnode->next = NULL;
     qnode->prev = NULL;
     qnode->suffix_idx = 0;
-	qnode->string_len = strlen(oword);
     /*create a new memory space for original word*/
-
     if(!(orig_word = (char*)calloc(WORD_SIZE, sizeof(char))))
 	return NULL;
     /*copy the orginal word into a new memory */
@@ -60,29 +58,29 @@ void enqueue(QUEUE *q, char *oword, int suffix_idx) {
 	temp->prev = qnode;
     }
 }
-			  
+
 void dequeue(QUEUE *q){
 
     QNODE *prev_node=NULL;
-	QNODE *node = NULL;
+    QNODE *node = NULL;
     if(!q || is_queue_empty(q))
 	return;
 
     /*get to the previous node*/
     if(q->head != q->tail){
 
-		prev_node = q->tail->prev;
-		prev_node->next = q->tail->next;
-		q->tail->prev = NULL;
-		node = q->tail;
-		free(q->tail);
-		q->tail = prev_node;
+	prev_node = q->tail->prev;
+	prev_node->next = q->tail->next;
+	q->tail->prev = NULL;
+	node = q->tail;
+	free(q->tail);
+	q->tail = prev_node;
     } else {
 	/*if there is only one node in the queue, free that node and set head/tail to NULL*/
-		free(q->head);
-		node = q->head;
-		q->head = NULL;
-		q->tail = NULL;
+	free(q->head);
+	node = q->head;
+	q->head = NULL;
+	q->tail = NULL;
     }
 }
 
@@ -104,12 +102,12 @@ void print_queue(QUEUE *q) {
 
 void build_queue(QUEUE *q, TNODE *troot, char *oword) {
 
-    int sidx = 0, len=0;
+    int sidx = 0;
     if(!troot || !oword) {
 	return;
     }
 
-    len = strlen(oword);
+    /*len = strlen(oword);*/
     while((troot) && (*(oword+sidx)!='\0')) {
 	troot = troot->next[*(oword+sidx)-'a'];	
 	sidx++;
@@ -125,37 +123,37 @@ void build_queue(QUEUE *q, TNODE *troot, char *oword) {
     }   
  }
 
-void process_queue(QUEUE *q, TNODE* troot, HASH *hash) {
+    void process_queue(QUEUE *q, TNODE* troot, HASH *hash) {
 	int sidx = 0, len=0;
 	TNODE *root = NULL;
 	QNODE *node= NULL;
 	char* oword = NULL;
 
-    if(!q || !troot )
-	return;
+	if(!q || !troot )
+	    return;
 
 	/*node = dequeue(q);*/
-    /*run the loop till the queue is empty*/
-    while(node){
-		root = troot;
-		oword = node->oword;
-		sidx = node->suffix_idx;
-		
-		while( (root) && (*(oword+sidx)!='\0')) {
-			root = root->next[*(oword+sidx)-'a'];
-			sidx++;
-			if (root && (root->is_valid_word) ) {
-				if( sidx == len ){
-					hash_insert( hash, oword);
-				} else {
-					enqueue(q, oword, sidx);
-    			}
-			}	
-		}
-		free(node);
-		/*node = dequeue(q);		*/
+	/*run the loop till the queue is empty*/
+	while(node){
+	    root = troot;
+	    oword = node->oword;
+	    sidx = node->suffix_idx;
+
+	    while( (root) && (*(oword+sidx)!='\0')) {
+		root = root->next[*(oword+sidx)-'a'];
+		sidx++;
+		if (root && (root->is_valid_word) ) {
+		    if( sidx == len ){
+			hash_insert( hash, oword);
+		    } else {
+			enqueue(q, oword, sidx);
+		    }
+		}	
+	    }
+	    free(node);
+	    /*node = dequeue(q);		*/
 	}
-}
+    }
 
 char *get_max_word(HASH *h) {
 
@@ -174,7 +172,7 @@ int hash_func(char * string) {
     int total_val=0;
 
     if(!string)
-       	return 0;
+       	return -1;
 
     string_len = strlen(string);
     while( *string != '\0') {
@@ -185,25 +183,40 @@ int hash_func(char * string) {
     return (total_val % HASH_SIZE);
 }
 
-int hash_init(HASH *hash){
+HASH* hash_init(){
 
     int i;
     HASH *h = NULL;
 
     h = malloc(sizeof(HASH));
-
-    if(!hash ){
+    if(!h){
 	return 0;
     }
 
-    h->total_word_count;
+    h->total_word_count = 0;
     h->max_word = NULL;
     h->sec_max_word = NULL;
 
     for(i=0; i < HASH_SIZE; i++) {
 	h->bucket[i] = NULL;
     }
-    return 1;
+    return h;
+}
+
+HNODE* create_hash_node(char *string) {
+
+    HNODE *hnode = NULL;
+    if(!string)
+	return NULL;
+
+    hnode = (HNODE*)malloc(sizeof(HNODE));
+    if(!hnode)
+	return NULL;
+
+    strncpy(hnode->oword, string, strlen(string));
+    hnode->next = NULL;
+
+    return hnode;
 }
 
 int hash_destroy(HASH **hash) {
@@ -226,8 +239,10 @@ int hash_destroy(HASH **hash) {
 
 	free(hashLocal);
 	*hash = NULL;
-	return 1;
+
     }
+    return 1;
+}
 
     void hash_print(HASH *h) {
 
@@ -256,53 +271,52 @@ int hash_destroy(HASH **hash) {
 	}	
     }
 
-
     int hash_search(HASH *h, char* string){
 
-	int bucket_idx = 0;
+	int bucket_idx = 0; 
 	HNODE *node = NULL;
 
 	if (!string || !h)
 	    return 0;
 
 	bucket_idx = hash_func(string);
-	if (!bucket_idx || !h->bucket[bucket_idx])
+	if ((bucket_idx == -1) || !h->bucket[bucket_idx])
 	    return 0;
 
 	node = h->bucket[bucket_idx];
 	while(node) {
 	    if(!strcmp(node->oword, string)){
-		//string found
-		return bucket_idx;
+		/*string found*/
+		return 1;
 	    }
 	    node = node->next;
 	}
 	return 0;
     }
 
-int hash_insert(HASH *hash, char* string) {
-    int bucket_idx = -1;
-    HNODE *node=NULL,*tmpNode=NULL;
+    void hash_insert(HASH *h, char* string) {
 
-    if (!string || !hash || !hash->is_init)
-	return -1;
+	int bucket_idx = -1;
+	HNODE *node=NULL, *hnode=NULL;
 
-    bucket_idx = hash_search(hash, string);
-    if (bucket_idx != -1) {
-	//string found
-	return 1;
+	if (!string || !h)
+	    return;
+
+	/*if word is present in hash then, bail out*/
+	if(hash_search(h, string))
+	    return;
+
+	bucket_idx = hash_func(string);
+
+	node = h->bucket[bucket_idx];
+	hnode = create_hash_node(string);
+
+	if(!hnode)
+	    return;
+
+	hnode->next = node;
+	node = hnode;
+
+	/*after inserting the word, update the total word count*/
+	h->total_word_count++;
     }
-    bucket_idx = calculate_hash(string);
-    node = hash->bucket[bucket_idx];
-    tmpNode = malloc(sizeof(HNODE));
-    if(!tmpNode) {
-	return -1;
-    }
-    tmpNode->next = NULL;
-    strncpy(tmpNode->oword, string, strlen(string));
-    tmpNode->length = strlen(string);
-    tmpNode->next = hash->bucket[bucket_idx];
-    hash->bucket[bucket_idx] = tmpNode;
-    hash->string_count++;
-    return 1;
-}

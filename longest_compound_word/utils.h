@@ -43,11 +43,12 @@ void queue_destroy(HASH **q);
 
 //hash API
 int hash_func(char * string);
-int hash_init(HASH *h);
+HASH* hash_init(void);
+HNODE* create_hash_node(char *string);
 int hash_destroy(HASH **h);
 void hash_print(HASH *h);
-int hash_search(HASH *hash, char* string);
-int hash_insert(HASH *hash, char* string);
+int hash_search(HASH *h, char* string);
+void hash_insert(HASH *h, char* string);
 char *get_max_word(HASH *h);
 char *get_sec_max_word(HASH *h);
 #endif /*   _UTILS_H_ */ 

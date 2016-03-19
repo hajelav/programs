@@ -68,7 +68,7 @@ int main(int argc, char*argv[]) {
     /*free the memory*/
     hash_destroy(&h);
     trie_destroy(&root);
-    queue_destroy(&q);
+    /*queue_destroy(&q);*/
 
     fclose(fp); 
     return 0;
