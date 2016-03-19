@@ -62,7 +62,7 @@ void enqueue(QUEUE *q, char *oword, int suffix_idx) {
 void dequeue(QUEUE *q){
 
     QNODE *prev_node=NULL;
-    QNODE *node = NULL;
+
     if(!q || is_queue_empty(q))
 	return;
 
@@ -72,13 +72,12 @@ void dequeue(QUEUE *q){
 	prev_node = q->tail->prev;
 	prev_node->next = q->tail->next;
 	q->tail->prev = NULL;
-	node = q->tail;
 	free(q->tail);
 	q->tail = prev_node;
     } else {
 	/*if there is only one node in the queue, free that node and set head/tail to NULL*/
 	free(q->head);
-	node = q->head;
+	/*node = q->head;*/
 	q->head = NULL;
 	q->tail = NULL;
     }
@@ -108,52 +107,74 @@ void build_queue(QUEUE *q, TNODE *troot, char *oword) {
     }
 
     /*len = strlen(oword);*/
-    while((troot) && (*(oword+sidx)!='\0')) {
-	troot = troot->next[*(oword+sidx)-'a'];	
-	sidx++;
-	/*if(*(oword+sidx) && troot->next[*(oword+sidx)-'a'] && troot->next[*(oword+sidx)-'a']->is_valid_word) {*/
-	//if(*(oword+sidx) && troot->next[*(oword+sidx)-'a'] && troot->is_valid_word) {
-	if (troot->is_valid_word) {
+    while(*(oword+sidx)!='\0') {
+
+	if(*(oword+sidx) && troot->next[*(oword+sidx)-'a'] && troot->is_valid_word) {
 	    /*we find a valid word as a prefix while going down the path of original word(oword) in a trie, 
 	     * add the word and suffix into the queue */
-	    /*if(sidx != len) {*/
 	    enqueue(q, oword, sidx);
-	    /*}*/
 	}  
+	troot = troot->next[*(oword+sidx)-'a'];	
+	sidx++;
     }   
- }
+}
 
-    void process_queue(QUEUE *q, TNODE* troot, HASH *hash) {
-	int sidx = 0, len=0;
-	TNODE *root = NULL;
-	QNODE *node= NULL;
-	char* oword = NULL;
+void process_queue(QUEUE *q, TNODE* troot, HASH *hash) {
 
-	if(!q || !troot )
-	    return;
+    int sidx = 0;
+    char* oword = NULL;
 
-	/*node = dequeue(q);*/
-	/*run the loop till the queue is empty*/
-	while(node){
-	    root = troot;
-	    oword = node->oword;
-	    sidx = node->suffix_idx;
+    if(!q || !troot )
+	return;
 
-	    while( (root) && (*(oword+sidx)!='\0')) {
-		root = root->next[*(oword+sidx)-'a'];
-		sidx++;
-		if (root && (root->is_valid_word) ) {
-		    if( sidx == len ){
-			hash_insert( hash, oword);
-		    } else {
-			enqueue(q, oword, sidx);
-		    }
-		}	
-	    }
-	    free(node);
-	    /*node = dequeue(q);		*/
-	}
+    /* run the loop till the queue is empty*/
+    while(!is_queue_empty(q)){
+
+
+
+
+    while(*(oword+sidx)!='\0') {
+
+	if(*(oword+sidx) && troot->next[*(oword+sidx)-'a'] && troot->is_valid_word) {
+	    /*we find a valid word as a prefix while going down the path of original word(oword) in a trie, 
+	     * add the word and suffix into the queue */
+	    enqueue(q, oword, sidx);
+	}  
+	troot = troot->next[*(oword+sidx)-'a'];	
+	sidx++;
+    }   
+
     }
+
+
+
+
+
+
+    /*
+     *        [>node = dequeue(q);<]
+     *        [>run the loop till the queue is empty<]
+     *        while(node){
+     *            root = troot;
+     *            oword = node->oword;
+     *            sidx = node->suffix_idx;
+     *
+     *            while( (root) && (*(oword+sidx)!='\0')) {
+     *                root = root->next[*(oword+sidx)-'a'];
+     *                sidx++;
+     *                if (root && (root->is_valid_word) ) {
+     *                    if( sidx == len ){
+     *                        hash_insert( hash, oword);
+     *                    } else {
+     *                        enqueue(q, oword, sidx);
+     *                    }
+     *                }	
+     *            }
+     *            free(node);
+     *            [>node = dequeue(q);		<]
+     *        }
+     */
+}
 
 char *get_max_word(HASH *h) {
 
