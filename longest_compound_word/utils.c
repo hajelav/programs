@@ -312,6 +312,7 @@ int hash_destroy(HASH **hash) {
 
 	int bucket_idx = -1;
 	HNODE *hnode=NULL;
+	int max_word_len = 0, sec_max_word_len = 0;
 
 	if (!string || !h)
 	    return;
@@ -331,6 +332,14 @@ int hash_destroy(HASH **hash) {
 	hnode->next = h->bucket[bucket_idx];
 	h->bucket[bucket_idx] = hnode;
 
+
+	/*calculate the max and second max word*/
+	if(!h->max_word && !h->sec_max_word) {
+	    h->max_word = hnode->oword; 
+	    h->sec_max_word = hnode->oword; 
+	} else if(strlen(h->max_word) > strlen(h->max_word) && {
+
+	}
 
 	/*after inserting the word, update the total word count*/
 	h->total_word_count++;
