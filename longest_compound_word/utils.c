@@ -138,7 +138,7 @@ void process_queue(QUEUE *q, TNODE* troot, HASH *h) {
 	sidx = qnode->suffix_idx;
 	oword_len = strlen(oword);
 
-	printf("oword=%s, suffix=%s\n", oword, oword+sidx);
+	/*printf("oword=%s, suffix=%s\n", oword, oword+sidx);*/
 	troot = troot->next[*(oword+sidx)-'a'];
 	while(*(oword+sidx)!='\0') {
 
@@ -158,7 +158,7 @@ void process_queue(QUEUE *q, TNODE* troot, HASH *h) {
 		}
 	    } else {
 		/*if we do not find suffix we stop processing the suffix and dequeue*/
-		printf("inside break\n");
+		/*printf("inside break\n");*/
 		break;
 	    }  
 	    sidx++;
@@ -312,10 +312,11 @@ int hash_destroy(HASH **hash) {
 
 	int bucket_idx = -1;
 	HNODE *hnode=NULL;
-	int max_word_len = 0, sec_max_word_len = 0;
+	int oword_len = 0;
 
 	if (!string || !h)
 	    return;
+	oword_len = strlen(string);
 
 	/*if word is present in hash then, bail out*/
 	if(hash_search(h, string))
@@ -332,13 +333,16 @@ int hash_destroy(HASH **hash) {
 	hnode->next = h->bucket[bucket_idx];
 	h->bucket[bucket_idx] = hnode;
 
-
 	/*calculate the max and second max word*/
 	if(!h->max_word && !h->sec_max_word) {
 	    h->max_word = hnode->oword; 
 	    h->sec_max_word = hnode->oword; 
-	} else if(strlen(h->max_word) > strlen(h->max_word) && {
+	} else if(oword_len > strlen(h->max_word)) {
+	    h->sec_max_word =  h->max_word;
+	    h->max_word = hnode->oword;
 
+	} else if((oword_len < strlen(h->max_word)) && (oword_len > strlen(h->sec_max_word))){
+	    h->sec_max_word =  h->sec_max_word;
 	}
 
 	/*after inserting the word, update the total word count*/

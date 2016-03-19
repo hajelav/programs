@@ -16,7 +16,7 @@ int main(int argc, char*argv[]) {
 
     FILE *fp;
     char oword[WORD_SIZE];
-    /*char *max_word = NULL, *sec_max_word = NULL;*/
+    char *max_word = NULL, *sec_max_word = NULL;
     TNODE *root = NULL;
     QUEUE *q = NULL;
     HASH *h = NULL;
@@ -56,20 +56,18 @@ int main(int argc, char*argv[]) {
     /*print_trie(root);*/
     /*print_queue(q);*/
     process_queue(q, root, h);
-    hash_print(h);
+    /*hash_print(h);*/
 
-/*
- *    max_word = get_max_word(h);
- *    sec_max_word = get_sec_max_word(h);
- *
- *    printf("Longest concatinated word : %s[len:%zu]\n", max_word, strlen(max_word));
- *    printf("Second longest concatinated word : %s[len:%zu]\n", sec_max_word, strlen(sec_max_word));
- *    printf("Total word count: %d\n", h->total_word_count);
- *
- *    [>free the memory<]
- *    hash_destroy(&h);
- *    trie_destroy(&root);
- */
+    max_word = get_max_word(h);
+    sec_max_word = get_sec_max_word(h);
+
+    printf("Longest concatinated word : %s[len:%zu]\n", max_word, strlen(max_word));
+    printf("Second longest concatinated word : %s[len:%zu]\n", sec_max_word, strlen(sec_max_word));
+    printf("Total word count: %d\n", h->total_word_count);
+
+    /*free the memory*/
+    /*hash_destroy(&h);*/
+    /*trie_destroy(&root);*/
     /*queue_destroy(&q);*/
 
     fclose(fp); 
