@@ -8,6 +8,4 @@ aalii
 aaliis
 aals
 aardvark
-ls
-s
-rdvark
+ing

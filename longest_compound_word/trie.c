@@ -13,6 +13,7 @@
 #include <string.h>
 #include "trie.h"
 
+/*initilize trie node*/
 void initTnode(TNODE* tnode) {
 
     int i;
@@ -148,6 +149,7 @@ void trie_free(TNODE *tnode) {
 
 }
 
+/*free trie data structure*/
 void trie_destroy(TNODE **troot) {
 
     if(!troot || *troot)

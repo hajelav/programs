@@ -63,8 +63,8 @@ int main(int argc, char*argv[]) {
     max_word = get_max_word(h);
     sec_max_word = get_sec_max_word(h);
 
-    printf("Longest concatinated word : %s[len:%zu]\n", max_word?max_word:"NULL", strlen(max_word));
-    printf("Second longest concatinated word : %s[len:%zu]\n", sec_max_word?sec_max_word:"NULL", strlen(sec_max_word));
+    printf("Longest concatinated word : %s[len:%zu]\n", max_word?max_word:"NULL", max_word?strlen(max_word):0);
+    printf("Second longest concatinated word : %s[len:%zu]\n", sec_max_word?sec_max_word:"NULL", sec_max_word?strlen(sec_max_word):0);
     printf("Total concatinated word count: %d\n", h && h->total_word_count?h->total_word_count:0);
 
     /*free the memory*/
