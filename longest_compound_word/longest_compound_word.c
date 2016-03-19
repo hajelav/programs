@@ -65,7 +65,7 @@ int main(int argc, char*argv[]) {
 
     printf("Longest concatinated word : %s[len:%zu]\n", max_word?max_word:"NULL", strlen(max_word));
     printf("Second longest concatinated word : %s[len:%zu]\n", sec_max_word?sec_max_word:"NULL", strlen(sec_max_word));
-    printf("Total concatinated word count: %d\n", h->total_word_count);
+    printf("Total concatinated word count: %d\n", h && h->total_word_count?h->total_word_count:0);
 
     /*free the memory*/
     hash_destroy(&h);

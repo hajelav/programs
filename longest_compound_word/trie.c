@@ -145,7 +145,7 @@ void trie_free(TNODE *tnode) {
 	if(tnode->next[i])
 	    trie_free(tnode->next[i]);
     free(tnode);
-    
+
 }
 
 void trie_destroy(TNODE **troot) {

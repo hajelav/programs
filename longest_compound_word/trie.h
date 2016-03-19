@@ -8,7 +8,6 @@ typedef struct TNODE {
     struct TNODE *next[NO_OF_CHARS];
     char c;
     uint32_t is_valid_word:1;
-
 }TNODE;
 
 void initTnode(TNODE* tnode);

@@ -1,8 +1,18 @@
+/**
+ * @file utils.c
+ * @brief API for queue and hash data structures
+ * @author Vivek Hajela
+ * @version 1
+ * @date 2016-03-19
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "utils.h"
 
+/*************************************************************************************************************************************************************
+  							QUEUE API IMPLEMENTION
+ ************************************************************************************************************************************************************/						
 QUEUE* init_queue() {
 
     QUEUE *q;
@@ -16,6 +26,7 @@ QUEUE* init_queue() {
     return q;
 }
 
+/*initilize the queue*/
 QNODE* create_qnode(char *oword, int suffix_idx) {
     QNODE *qnode;
     char *orig_word;
@@ -27,9 +38,11 @@ QNODE* create_qnode(char *oword, int suffix_idx) {
     qnode->next = NULL;
     qnode->prev = NULL;
     qnode->suffix_idx = 0;
+
     /*create a new memory space for original word*/
     if(!(orig_word = (char*)calloc(WORD_SIZE, sizeof(char))))
 	return NULL;
+
     /*copy the orginal word into a new memory */
     strncpy(qnode->oword, oword, WORD_SIZE);
     qnode->suffix_idx = suffix_idx;
@@ -37,12 +50,14 @@ QNODE* create_qnode(char *oword, int suffix_idx) {
     return qnode;
 }
 
+/*add node to the queue*/
 void enqueue(QUEUE *q, char *oword, int suffix_idx) {
 
     QNODE *qnode, *temp;
 
     if(!q || !oword || suffix_idx < 0)
 	return;
+
     qnode = create_qnode(oword, suffix_idx);
 
     if(!qnode)
@@ -59,6 +74,7 @@ void enqueue(QUEUE *q, char *oword, int suffix_idx) {
     }
 }
 
+/*delete node from the queue*/
 void dequeue(QUEUE *q){
 
     QNODE *prev_node=NULL;
@@ -82,6 +98,7 @@ void dequeue(QUEUE *q){
     }
 }
 
+/*check if the queue is empty or not*/
 int is_queue_empty(QUEUE *q) {
     return ((q && !q->head && !q->tail)?1:0); 
 }
@@ -91,6 +108,7 @@ void print_queue(QUEUE *q) {
 
     if(!q || !q->head)
 	return;
+
     trav = q->head;
     while(trav){
 	printf("WORD = %s, SUFFIX = %s\n", trav->oword, trav->oword + trav->suffix_idx);
@@ -105,7 +123,6 @@ void build_queue(QUEUE *q, TNODE *troot, char *oword) {
 	return;
     }
 
-    /*len = strlen(oword);*/
     while(*(oword+sidx)!='\0') {
 
 	if(*(oword+sidx) && troot->next[*(oword+sidx)-'a'] && troot->is_valid_word) {
@@ -129,7 +146,7 @@ void process_queue(QUEUE *q, TNODE* troot, HASH *h) {
 	return;
     root = troot;
 
-    /* run the loop till the queue till queue is not empty*/
+    /* run the loop till the queue is not empty*/
     while(!is_queue_empty(q)){
 
 	qnode = q->tail;
@@ -137,69 +154,61 @@ void process_queue(QUEUE *q, TNODE* troot, HASH *h) {
 	sidx = qnode->suffix_idx;
 	oword_len = strlen(oword);
 
-	/*printf("oword=%s, suffix=%s\n", oword, oword+sidx);*/
 	troot = troot->next[*(oword+sidx)-'a'];
+
+	/*iterate through the suffix*/
 	while(*(oword+sidx)!='\0') {
 
-	    /*if(troot->next[*(oword+sidx)-'a']) {*/
 	    if(troot) {
 		if(troot->is_valid_word) {
-		    /*printf("troot->c %c  suffix %c\n", troot->c, *(oword+sidx)); */
-		    /*we find a valid word as a prefix while going down the path of original word(oword) in a trie, 
-		     * add the word and suffix into the queue */
-		    if(sidx == oword_len-1){
-			/*printf("hash insert\n"); */
+		    /*we found a valid word as a prefix while going down the path of original word(oword) in a trie
+		     * Now we add the suffix to the queue again and when we happen to reach the end of the original word
+		     * we add it to hash 
+		     **/
+		    if(sidx == oword_len-1)
 			hash_insert(h, oword);
-		    } else{
-			/*printf("Insert into queue %s\n", oword+sidx+1);*/
+		    else
 			enqueue(q, oword, sidx+1);
-		    }
 		}
 	    } else {
 		/*if we do not find suffix we stop processing the suffix and dequeue*/
-		/*printf("inside break\n");*/
 		break;
 	    }  
 	    sidx++;
 	    troot = troot->next[*(oword+sidx)-'a'];	
 	}   
+	/*re-assign the root back*/
 	troot = root;
 	dequeue(q);
-	}
     }
-
-    void queue_destroy(QUEUE **q) {
-
-	QUEUE *node;
-	if(!q || !(*q))
-	    return;
-
-	node = *q;
-	node->head = NULL;
-	node->tail = NULL;
-
-	free(node);
-	*q = NULL;
-    }
-
-char *get_max_word(HASH *h) {
-
-    return h?h->max_word:NULL;
 }
 
-char * get_sec_max_word(HASH *h) {
+void queue_destroy(QUEUE **q) {
 
-    return h?h->sec_max_word:NULL;
+    QUEUE *node;
+    if(!q || !(*q))
+	return;
+
+    node = *q;
+    node->head = NULL;
+    node->tail = NULL;
+
+    free(node);
+    *q = NULL;
 }
 
 
+/*************************************************************************************************************************************************************
+  							HASH API IMPLEMENTION
+ ************************************************************************************************************************************************************/						
+/*hash function to get the bucket index */
 int hash_func(char * string) {
 
     int string_len=0;
     int total_val=0;
 
     if(!string)
-       	return -1;
+	return -1;
 
     string_len = strlen(string);
     while( *string != '\0') {
@@ -210,6 +219,7 @@ int hash_func(char * string) {
     return (total_val % HASH_SIZE);
 }
 
+/*initialize hash data atructure*/
 HASH* hash_init(){
 
     int i;
@@ -230,6 +240,7 @@ HASH* hash_init(){
     return h;
 }
 
+/*create hash nodes, these nodes will store the concatinated words*/
 HNODE* create_hash_node(char *string) {
 
     HNODE *hnode = NULL;
@@ -246,6 +257,7 @@ HNODE* create_hash_node(char *string) {
     return hnode;
 }
 
+/*free hash data structure*/
 void hash_destroy(HASH **hash) {
 
     HNODE *node=NULL, *tmpNode=NULL;
@@ -296,66 +308,83 @@ void hash_print(HASH *h) {
     }	
 }
 
-    int hash_search(HASH *h, char* string){
+/*search string in hash*/
+int hash_search(HASH *h, char* string){
 
-	int bucket_idx = 0; 
-	HNODE *node = NULL;
+    int bucket_idx = 0; 
+    HNODE *node = NULL;
 
-	if (!string || !h)
-	    return 0;
-
-	bucket_idx = hash_func(string);
-	if ((bucket_idx == -1) || !h->bucket[bucket_idx])
-	    return 0;
-
-	node = h->bucket[bucket_idx];
-	while(node) {
-	    if(!strcmp(node->oword, string)){
-		/*string found*/
-		return 1;
-	    }
-	    node = node->next;
-	}
+    if (!string || !h)
 	return 0;
-    }
 
-    void hash_insert(HASH *h, char* string) {
+    bucket_idx = hash_func(string);
+    if ((bucket_idx == -1) || !h->bucket[bucket_idx])
+	return 0;
 
-	int bucket_idx = -1;
-	HNODE *hnode=NULL;
-	int oword_len = 0;
-
-	if (!string || !h)
-	    return;
-	oword_len = strlen(string);
-
-	/*if word is present in hash then, bail out*/
-	if(hash_search(h, string))
-	    return;
-
-	bucket_idx = hash_func(string);
-
-	/*node = h->bucket[bucket_idx];*/
-	hnode = create_hash_node(string);
-
-	if(!hnode)
-	    return;
-
-	hnode->next = h->bucket[bucket_idx];
-	h->bucket[bucket_idx] = hnode;
-
-	/*calculate the max and second max word*/
-	if(!h->max_word && !h->sec_max_word) {
-	    h->max_word = hnode->oword; 
-	    h->sec_max_word = hnode->oword; 
-	} else if(oword_len > strlen(h->max_word)) {
-	    h->sec_max_word =  h->max_word;
-	    h->max_word = hnode->oword;
-
-	} else if((oword_len < strlen(h->max_word)) && (oword_len > strlen(h->sec_max_word))){
-	    h->sec_max_word =  h->sec_max_word;
+    node = h->bucket[bucket_idx];
+    while(node) {
+	if(!strcmp(node->oword, string)){
+	    /*string found*/
+	    return 1;
 	}
-
-	/*after inserting the word, update the total word count*/
-	h->total_word_count++;
+	node = node->next;
     }
+    return 0;
+}
+
+/*
+ *insert the string into hash, if we already find string we bail out 
+ *otherwise we insert the string in the correct bucket id. As we add the string
+ *we maintain a count of total word count as well as max/second max word
+ */
+void hash_insert(HASH *h, char* string) {
+
+    int bucket_idx = -1;
+    HNODE *hnode=NULL;
+    int oword_len = 0;
+
+    if (!string || !h)
+	return;
+    oword_len = strlen(string);
+
+    /*if word is present in hash then, bail out*/
+    if(hash_search(h, string))
+	return;
+
+    bucket_idx = hash_func(string);
+
+    /*node = h->bucket[bucket_idx];*/
+    hnode = create_hash_node(string);
+
+    if(!hnode)
+	return;
+
+    hnode->next = h->bucket[bucket_idx];
+    h->bucket[bucket_idx] = hnode;
+
+    /*calculate the max and second max word*/
+    if(!h->max_word && !h->sec_max_word) {
+	h->max_word = hnode->oword; 
+	h->sec_max_word = hnode->oword; 
+    } else if(oword_len > strlen(h->max_word)) {
+	h->sec_max_word =  h->max_word;
+	h->max_word = hnode->oword;
+    } else if((oword_len < strlen(h->max_word)) && (oword_len > strlen(h->sec_max_word))){
+	h->sec_max_word =  h->sec_max_word;
+    }
+
+    /*after inserting the word, update the total word count*/
+    h->total_word_count++;
+}
+
+/*get the maximum concatinated word*/
+char *get_max_word(HASH *h) {
+
+    return h?h->max_word:NULL;
+}
+
+/*get the second maximum concatinated word*/
+char * get_sec_max_word(HASH *h) {
+
+    return h?h->sec_max_word:NULL;
+}
