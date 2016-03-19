@@ -138,7 +138,6 @@ void print_trie(TNODE *root) {
     free(path);
 }
 
-
 void trie_free(TNODE *tnode) {
 
     int i;

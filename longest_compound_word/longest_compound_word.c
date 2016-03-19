@@ -58,12 +58,12 @@ int main(int argc, char*argv[]) {
     process_queue(q, root, h);
     /*hash_print(h);*/
 
-    max_word = get_max_conc_word(h);
-    sec_max_word = get_sec_max_conc_word(h);
+    max_word = get_max_word(h);
+    sec_max_word = get_sec_max_word(h);
 
     printf("Longest concatinated word : %s[len:%zu]\n", max_word, strlen(max_word));
     printf("Second longest concatinated word : %s[len:%zu]\n", sec_max_word, strlen(sec_max_word));
-    printf("Total word count: %d\n", h->total_cword_count);
+    printf("Total word count: %d\n", h->total_word_count);
 
     /*free the memory*/
     hash_destroy(&h);
