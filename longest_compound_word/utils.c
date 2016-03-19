@@ -366,7 +366,7 @@ void hash_insert(HASH *h, char* string) {
     if(!h->max_word && !h->sec_max_word) {
 	h->max_word = hnode->oword; 
 	h->sec_max_word = hnode->oword; 
-    } else if(oword_len > strlen(h->max_word)) {
+    } else if(oword_len >= strlen(h->max_word)) {
 	h->sec_max_word =  h->max_word;
 	h->max_word = hnode->oword;
     } else if((oword_len < strlen(h->max_word)) && (oword_len > strlen(h->sec_max_word))){
