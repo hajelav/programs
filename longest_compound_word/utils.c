@@ -119,14 +119,16 @@ void build_queue(QUEUE *q, TNODE *troot, char *oword) {
     }   
 }
 
-void process_queue(QUEUE *q, TNODE* troot, HASH *hash) {
+void process_queue(QUEUE *q, TNODE* troot, HASH *h) {
 
-    int sidx = 0;
+    int sidx = 0, oword_len = 0;
     char* oword = NULL;
     QNODE *qnode;
+    TNODE *root = NULL;
 
-    if(!q || !troot )
+    if(!q || !troot)
 	return;
+    root = troot;
 
     /* run the loop till the queue is empty*/
     while(!is_queue_empty(q)){
@@ -134,25 +136,37 @@ void process_queue(QUEUE *q, TNODE* troot, HASH *hash) {
 	qnode = q->tail;
 	oword = qnode->oword;
 	sidx = qnode->suffix_idx;
+	oword_len = strlen(oword);
 
-
-
+	printf("oword=%s, suffix=%s\n", oword, oword+sidx);
+	troot = troot->next[*(oword+sidx)-'a'];
 	while(*(oword+sidx)!='\0') {
 
-	    if(troot->next[*(oword+sidx)-'a']) {
+	    /*if(troot->next[*(oword+sidx)-'a']) {*/
+	    if(troot) {
 		if(troot->is_valid_word) {
+		    /*printf("troot->c %c  suffix %c\n", troot->c, *(oword+sidx)); */
 		    /*we find a valid word as a prefix while going down the path of original word(oword) in a trie, 
 		     * add the word and suffix into the queue */
-		    enqueue(q, oword, sidx);
+		    if(sidx == oword_len-1){
+			/*printf("hash insert\n"); */
+			hash_insert(h, oword);
+		    } else{
+			/*printf("Insert into queue %s\n", oword+sidx+1);*/
+			enqueue(q, oword, sidx+1);
+		    }
 		}
 	    } else {
 		/*if we do not find suffix we stop processing the suffix and dequeue*/
+		printf("inside break\n");
 		break;
 	    }  
-	    troot = troot->next[*(oword+sidx)-'a'];	
 	    sidx++;
+	    troot = troot->next[*(oword+sidx)-'a'];	
 	}   
+	troot = root;
 	dequeue(q);
+	}
     }
 
 char *get_max_word(HASH *h) {
@@ -213,7 +227,7 @@ HNODE* create_hash_node(char *string) {
     if(!hnode)
 	return NULL;
 
-    strncpy(hnode->oword, string, strlen(string));
+    strncpy(hnode->oword, string, strlen(string)+1);
     hnode->next = NULL;
 
     return hnode;
@@ -265,7 +279,7 @@ int hash_destroy(HASH **hash) {
 		    printf("\t%s", node->oword);
 		    node = node->next;
 		}
-		node = NULL;
+		/*node = NULL;*/
 		printf("\n");
 	    }
 	}	
@@ -297,7 +311,7 @@ int hash_destroy(HASH **hash) {
     void hash_insert(HASH *h, char* string) {
 
 	int bucket_idx = -1;
-	HNODE *node=NULL, *hnode=NULL;
+	HNODE *hnode=NULL;
 
 	if (!string || !h)
 	    return;
@@ -308,14 +322,15 @@ int hash_destroy(HASH **hash) {
 
 	bucket_idx = hash_func(string);
 
-	node = h->bucket[bucket_idx];
+	/*node = h->bucket[bucket_idx];*/
 	hnode = create_hash_node(string);
 
 	if(!hnode)
 	    return;
 
-	hnode->next = node;
-	node = hnode;
+	hnode->next = h->bucket[bucket_idx];
+	h->bucket[bucket_idx] = hnode;
+
 
 	/*after inserting the word, update the total word count*/
 	h->total_word_count++;

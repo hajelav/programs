@@ -54,9 +54,9 @@ int main(int argc, char*argv[]) {
     }
 
     /*print_trie(root);*/
-    print_queue(q);
-    /*process_queue(q, root, h);*/
-    /*hash_print(h);*/
+    /*print_queue(q);*/
+    process_queue(q, root, h);
+    hash_print(h);
 
 /*
  *    max_word = get_max_word(h);
