@@ -339,9 +339,8 @@ int hash_search(HASH *h, char* string){
  */
 void hash_insert(HASH *h, char* string) {
 
-    int bucket_idx = -1;
+    int bucket_idx = -1, oword_len = 0;
     HNODE *hnode=NULL;
-    int oword_len = 0;
 
     if (!string || !h)
 	return;
@@ -352,8 +351,6 @@ void hash_insert(HASH *h, char* string) {
 	return;
 
     bucket_idx = hash_func(string);
-
-    /*node = h->bucket[bucket_idx];*/
     hnode = create_hash_node(string);
 
     if(!hnode)
@@ -366,11 +363,11 @@ void hash_insert(HASH *h, char* string) {
     if(!h->max_word && !h->sec_max_word) {
 	h->max_word = hnode->oword; 
 	h->sec_max_word = hnode->oword; 
-    } else if(oword_len >= strlen(h->max_word)) {
+    } else if(oword_len > strlen(h->max_word)) {
 	h->sec_max_word =  h->max_word;
 	h->max_word = hnode->oword;
-    } else if((oword_len < strlen(h->max_word)) && (oword_len > strlen(h->sec_max_word))){
-	h->sec_max_word =  h->sec_max_word;
+    } else if(oword_len > strlen(h->sec_max_word)){
+	h->sec_max_word =  hnode->oword;
     }
 
     /*after inserting the word, update the total word count*/
