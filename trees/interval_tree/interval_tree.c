@@ -20,7 +20,8 @@ INTVL* create_interval_node(int low, int high) {
 
     INTVL *temp;
     temp = (INTVL*)malloc(sizeof(INTVL));
-    if(!temp)
+
+    if(!temp || (high<low))
 	return NULL;
 
     temp->low = low;
@@ -101,8 +102,6 @@ INTVL* interval_search(INTVL *intvl, int low, int high) {
 
     return result;
 }
-
-
 
 /*
  * http:www.geeksforgeeks.org/given-n-appointments-find-conflicting-appointments/
