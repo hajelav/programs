@@ -180,13 +180,14 @@ int search_rotated_sorted(int *A, int len, int key) {
     if(!A || len < 1)
 	return -1;
 
-    /*first find out the pivot of roation in the array, the functions returns 0 if there is no pivot found*/
+    /*first find out the pivot of roation in the array, the functions returns 
+     * the index of last element in array if there is no pivot found*/
 
     pivot_idx = get_pivot_rotated_sorted(A, 0, len-1);
 
     printf("Pivot index : %d\n", pivot_idx);
 
-    if(pivot_idx > 0) {
+    if(pivot_idx < len-1) {
 	//the array is rotated, now just search the element in two sorted arrays
 	if((idx = binary_search(A, 0, pivot_idx-1, key)) < 0)
 	    return binary_search(A, pivot_idx, len-1, key);
@@ -265,8 +266,8 @@ int missing_number(int *A, int low, int high) {
     mid = low + (high-low)/2;
 
     // if the diff between no and its index at low is equal to mid , then the missing number lies in the right half of array
-    if((A[low]-low) == (A[mid]-mid)){
-	res = missing_number(A, mid+1, high);
+    if((A[low]-low) == (A[mid]-mid) && (low!=mid)){
+	res = missing_number(A, mid, high);
     } else { // else no lies on the left half
 	res = missing_number(A, low, mid);
     }
@@ -392,7 +393,7 @@ int main() {
 		scanf("%d", &n);
 		A = create_1Darray(n); 
 		input_array(A, n);
-		printf("Missing Number: %d\n", A[missing_number(A, 0, n-1)]-1);
+		printf("Missing Number: %d\n", A[missing_number(A, 0, n-1)]+1);
 		free(A);
 		break;
 
