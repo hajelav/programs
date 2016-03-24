@@ -130,6 +130,27 @@ int binary_search(int *A, int low, int high, int key) {
 }
 
 /*get the index of point of rotation*/
+/*
+ *int get_pivot_rotated_sorted(int *A, int l, int h) {
+ *
+ *    int mid, res;
+ *
+ *    mid =  l + (h-l)/2;
+ *
+ *    if(l>=h)
+ *        return l;
+ *
+ *    if(A[l] <= A[mid] && A[mid] > A[h])
+ *        res = get_pivot_rotated_sorted(A, mid+1, h);
+ *    else if(A[l] > A[mid] && A[mid] < A[h])
+ *        res = get_pivot_rotated_sorted(A, l, mid);
+ *    else if(A[l] <= A[mid] && A[mid] <= A[h]) //handle duplicates
+ *        return l;
+ *
+ *    return res;
+ *}
+ */
+
 int get_pivot_rotated_sorted(int *A, int l, int h) {
 
     int mid, res;
@@ -139,12 +160,13 @@ int get_pivot_rotated_sorted(int *A, int l, int h) {
     if(l>=h)
 	return l;
 
-    if(A[l] <= A[mid] && A[mid] > A[h])
-	res = get_pivot_rotated_sorted(A, mid+1, h);
-    else if(A[l] > A[mid] && A[mid] < A[h])
+    if(A[l] < A[mid])
+	res = get_pivot_rotated_sorted(A, mid, h);
+    else if (A[l] > A[mid]) 
 	res = get_pivot_rotated_sorted(A, l, mid);
-    else if(A[l] <= A[mid] && A[mid] <= A[h]) //handle duplicates
-	return l;
+    else
+	res = get_pivot_rotated_sorted(A, mid+1, h);
+
 
     return res;
 }
@@ -348,7 +370,7 @@ int main() {
 		A = create_1Darray(n); 
 		input_array(A, n);
 		res = get_pivot_rotated_sorted(A, 0, n-1);
-		printf("point of rotation(pivot): %d\n", res);
+		printf("index of rotation(pivot): %d\n", res);
 		break;
 
 	    case 3:
