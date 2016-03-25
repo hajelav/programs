@@ -1,7 +1,6 @@
 #include "../utils.h"
 
 #define EPS 0.000001
-
 /*
  *http://codinggeeks.blogspot.com/2010/04/computing-square-cube-roots.html
 
@@ -97,7 +96,6 @@ int my_atoi(char *str) {
     if(*str == '-'){
 	//number is negative
 	num = get2compliment(num);
-
     }
     return num;
 }
@@ -897,35 +895,57 @@ void remove_all_instance_of_element(int *A, int len, int elem) {
   we update the local minimim, if it is less than previously found minimum 
  */
 
+/*
+ *void buy_sell_stock_single(int *A, int len) {
+ *
+ *    int i = 0, j = 1;
+ *    int local_min, local_max;
+ *    int max_profit;
+ *
+ *    if(!A || len<=0)
+ *        return;
+ *
+ *    local_min = local_max = A[0];
+ *    max_profit = local_max - local_min;
+ *
+ *    while(j<len) {
+ *
+ *        if(A[j]-A[i] > max_profit){
+ *            max_profit = A[j]-A[i];
+ *            local_max = A[j];
+ *            local_min = A[i];
+ *        } else {
+ *            if(A[j] < local_min){
+ *                i = j; 
+ *            }
+ *        }
+ *
+ *        j++;
+ *    }
+ *    printf("Buy price:%d, Sell Price:%d, Max Profit:%d\n", local_min, local_max, max_profit);
+ *}
+ */
+
 void buy_sell_stock_single(int *A, int len) {
 
-    int i = 0, j = 1;
-    int local_min, local_max;
-    int max_profit;
+    int j = 1;
+    int min_so_far, max_profit = 0;
 
-    if(!A || len<=0)
+    if(!A || len < 2)
 	return;
 
-    local_min = local_max = A[0];
-    max_profit = local_max - local_min;
+    min_so_far = A[0];
 
-    while(j<len) {
+    while(j<len){
 
-	if(A[j]-A[i] > max_profit){
-	    max_profit = A[j]-A[i];
-	    local_max = A[j];
-	    local_min = A[i];
-	} else {
-	    if(A[j] < local_min){
-		i = j; 
-	    }
-	}
-
+	if(A[j] < min_so_far)
+	    min_so_far = A[j];
+	else if(A[j]-min_so_far > max_profit)
+	    max_profit = A[j]-min_so_far;
 	j++;
     }
-    printf("Buy price:%d, Sell Price:%d, Max Profit:%d\n", local_min, local_max, max_profit);
+    printf("Max Profit:%d\n",  max_profit);
 }
-
 /*
  *leetcode problem 122
  *https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
@@ -1421,7 +1441,8 @@ int duplicate_number() {
     int n;
     printf("Enter the number\n");
     scanf("%d", &n);
-
+ 
+return 0;
 }
 
 int main() {
@@ -1673,7 +1694,6 @@ int main() {
 	    case 30:
 		printf("duplicate number : %d\n", duplicate_number());
 		break;
-
 
 	    default:
 		printf("invalid choice\n");

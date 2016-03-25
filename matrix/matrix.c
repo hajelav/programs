@@ -17,7 +17,6 @@ void row_col_zero(int **A, int row, int col) {
     printf("Input array\n");
     print_2Darray(A, row, col);
 
-
     /*first pass: traverse through first row and column and check if we find a 0*/
 
     for(c=0;c<col;c++){
@@ -32,7 +31,7 @@ void row_col_zero(int **A, int row, int col) {
 
 /*
  *second pass: go through the matrix row-1 and col-1 and look for any 0, if found update the first row and colum
- *    here the first row and column serve as auxillary array
+ *here the first row and column serve as auxillary array
  */
     for(r=1;r<row;r++){
 	for(c=1;c<col;c++){

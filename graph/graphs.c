@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <limits.h>
 
-
 /* graphs data structures */
 
 //graph node
@@ -37,7 +36,7 @@ void init_edge(EDGE *g) {
 void init_graph(GRAPH *g, int n){
 
     int i;
-    if(!g || !n)
+    if(!g || n<=0)
 	return;
 
     for(i=0;i<n;i++){
@@ -71,7 +70,6 @@ GNODE* create_gnode(int idx, int edge) {
     gn->edge_len = edge;
     gn->next = NULL;
     return gn;
-
 }
 
 void create_graph( GRAPH *g, int idx, int edge) {
