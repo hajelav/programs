@@ -884,7 +884,7 @@ int is_bst(TREE* node){
 
 /* to find the lowest common ancestor in a binary tree */
 
-TREE* lowCommAncesinBinTree(TREE* node, int key1, int key2){
+TREE* lowest_common_ancestor_bin_tree(TREE* node, int key1, int key2){
 
     TREE *ltree, *rtree;
     if(node == NULL)
@@ -895,8 +895,8 @@ TREE* lowCommAncesinBinTree(TREE* node, int key1, int key2){
 	return node;
     }
 
-    ltree = lowCommAncesinBinTree(node->left, key1, key2);
-    rtree = lowCommAncesinBinTree(node->right, key1, key2);
+    ltree = lowest_common_ancestor_bin_tree(node->left, key1, key2);
+    rtree = lowest_common_ancestor_bin_tree(node->right, key1, key2);
 
     if(ltree && rtree){
 	return node;
@@ -934,7 +934,7 @@ int distBetweenKeys(TREE* node, int k1, int k2){
     int dist_k1 =0, dist_k2 =0;
     if(node == NULL)
 	return -1;
- lca = lowCommAncesinBinTree(node, k1, k2);
+ lca = lowest_common_ancestor_bin_tree(node, k1, k2);
   distOfNodeFromAkey(lca, 0, &dist_k1, k1);
   distOfNodeFromAkey(lca, 0, &dist_k2, k2);
 return dist_k1 + dist_k2; 
@@ -1933,7 +1933,7 @@ int main() {
 		scanf("%d", &key1);
 		printf("Enter key2\n");
 		scanf("%d", &key2);
-		printf("LCA in Binary Tree = %d\n",lowCommAncesinBinTree(trav, key1, key2)->value);
+		printf("LCA in Binary Tree = %d\n",lowest_common_ancestor_bin_tree(trav, key1, key2)->value);
 		break;
 		
 	    case 34:

@@ -259,7 +259,7 @@ void get_island_util(int **A, int r, int c, int i, int j, int **V) {
 	V[i][j] = 1; //mark as visited
 	get_island_util(A, r, c, i+1,j, V);
 	get_island_util(A, r, c, i,j+1, V);
-	/*get_island_util(A, r, c, i+1,j+1, V);*/
+	/*get_island_util(A, r, c, i+1,j+1, V);*/ //commented to restrict diagonal movement of DFS
 	get_island_util(A, r, c, i-1,j, V);
 	get_island_util(A, r, c, i,j-1, V);
 	/*get_island_util(A, r, c, i-1,j-1, V);*/
