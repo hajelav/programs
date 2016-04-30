@@ -1648,6 +1648,7 @@ void build_tree_from_child_parent() {
 Algorithm : 
 1. if the tree has n node , we need an array of 2n+1 size , this is to make sure we store left and right child of each node(including NULL)
 2. create a queue of node pointers (similar to level order printing) and process the queue untill all of nodes are done. while processing keep on updating the nodes into the buffer of 2n+1 size
+3. the final q is the serialized form which can be sent through buffer.
 
  */
 
@@ -1712,15 +1713,18 @@ TREE** serialize(TREE* node, int n) {
     // q is the final serialized array which can be sent through wire
     printf("Serialized tree\n");
     print_q(q, n);
-  return q;
+    return q;
 }
 
 
+/*
+ *to deserialize the tree, we pick the elements of q one by one, 
+ *   for each element e in q
+ *   	insert the next elemnt as left child child of e
+ *   	insert the next to next element as right child child of e
+ */
 void deserialize(TREE** q) {
-
-
-
-
+//TBD
 }
 
 int main() {
