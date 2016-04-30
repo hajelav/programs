@@ -1642,6 +1642,87 @@ void build_tree_from_child_parent() {
 	print_inorder(root);
 }
 
+/*
+ *Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment. here we are serialize the tree into a char buffer so that it can be sent over the wire
+
+Algorithm : 
+1. if the tree has n node , we need an array of 2n+1 size , this is to make sure we store left and right child of each node(including NULL)
+2. create a queue of node pointers (similar to level order printing) and process the queue untill all of nodes are done. while processing keep on updating the nodes into the buffer of 2n+1 size
+
+ */
+
+void en_queue(TREE** q, int front, int *end) {
+    if(q[front]){
+	q[*end] = q[front]->left;
+	(*end)++;
+	q[*end] = q[front]->right;
+	(*end)++;
+    }
+}
+
+void de_queue(TREE **q, int *front) {
+    //increment the front pointer
+    (*front)++;
+}
+
+void print_q(TREE **q, int n) {
+
+    int i;
+    if(!q[0])
+	return; // return if q is empty
+
+    for(i=0;i<(2*n+1);i++) {
+	if(q[i])
+	    printf("%d ", q[i]->value);
+	else 
+	    printf(" NULL ");
+    }
+}
+
+TREE** serialize(TREE* node, int n) {
+
+    char *res = NULL;
+    int front, end;
+
+    if(!node || n < 0)
+	return NULL;
+
+    //create a buffer of 2n+1 size
+    res = (char*)calloc(2*n+1, sizeof(char));
+
+    if(!res)
+	return NULL;
+
+    //create a queue to of pointers to nodes of the tree
+    TREE **q = (TREE**)calloc(sizeof(TREE*), 2*n+1);
+
+    /*initialize the queue with the root of the tree*/
+    q[0] = node;
+
+    front = 0; 
+    end = front + 1 ;//insert into the queue from the end
+
+    /*process the queue till front reaches the end*/
+    while(front!= end) {
+
+	en_queue(q, front, &end);
+	de_queue(q, &front);
+    }
+
+    // q is the final serialized array which can be sent through wire
+    printf("Serialized tree\n");
+    print_q(q, n);
+  return q;
+}
+
+
+void deserialize(TREE** q) {
+
+
+
+
+}
+
 int main() {
     char c;
     int item, num, node1, node2, level, n, close;
@@ -1655,6 +1736,7 @@ int main() {
     int *A;
     TREE *parent;
     TREE *node;
+    TREE **q;
     do {
 
 	printf("MENU OPTIONS\n");
@@ -1679,7 +1761,6 @@ int main() {
 	printf("19 -- Check if the tree is height balanced.\t");
 	printf("20 -- print ith order statistic-using inorder\t");
 	printf("21 -- remove all half nodes\t");
-	printf("22 -- Level order traversal(BFS) of a tree\t");
 	printf("23 -- Check if a binary tree is Complete\t");
 	printf("24 -- Sum of all left leaf trees\t");
 	printf("25 -- Remove nodes on leaf paths\t");
@@ -1707,6 +1788,7 @@ int main() {
 	printf("47 -- level order traversal(BFS) using queue\n");
 	printf("48 -- Given a BST with unique values find in a given tree a value closest to a given value X\n");
 	printf("49 -- given a list of child parent relationships, build a binary tree out of it.\n");
+	printf("50 -- serialize/deserialize a binary tree.\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -2056,6 +2138,13 @@ int main() {
 	    case 49:
 		build_tree_from_child_parent();
 		break;
+		
+	    case 50:
+		trav = root;
+		n = count_nodes(trav);
+		q = serialize(trav, n);
+		deserialize(q);
+
 
 	    default:
 		printf("Invalid option\n");
