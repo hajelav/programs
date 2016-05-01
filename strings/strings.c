@@ -496,55 +496,70 @@ int is_valid_number(char *S) {
    return 1;
 }
 
-void reverse_string(char *S, int len) {
-    int mid;
-    char *begin, *end;
-    char temp;
+void print_string(char *S, int len){
 
-    //len = strlen(p);
-    begin = S;
-    end = S+len-1;
-    mid = len/2;
+    int i=0;
+    if(!S || len<=0)
+	return;
 
-    while(mid > 0) {
-	//swap the chars
-	temp = *begin;
-	*begin = *end;
-	*end = temp;
-
-	begin++;
-	end--;
-	mid --;
+    while(i<len){
+	printf("%c", S[i]);
+	i++;
     }
-    printf("Reversed string : %s\n", S);
-
 }
 
-void reverse_words(char *p) {
+void reverse_string(char *S, int len) {
 
-    char *start,*rev;
-    int count = 0;
-    start = p;
-    rev = p;
+    int i, j;
+    char t;
 
-    while(*p!='\0'){
-	if(*p!= ' ')
-	    count ++;
+    if(!S || len<=0)
+	return;
 
-	if(*(p+1) == ' ') {
-	    reverse_string(start,count);
-	    //printf("%s\n",start);
-	    count =0;
-	    start = p+2;
-	}
-	p++;
+    i = 0;
+    j = len-1;
+
+    while(i<j){
+	t = S[i];
+	S[i] = S[j];
+	S[j] = t;     
+
+	i++;
+	j--;
     }
-    /*reverse the last word */
-    reverse_string(start,count);
+}
 
-    /*once the individual words are reversed, reverse the sting again */
-    reverse_string(rev,strlen(rev));
-    printf("Reversed words : %s\n",rev);
+void reverse_words(char *S) {
+
+    int i, j, len;
+    len = strlen(S);
+
+    if(!S || len == 0)
+	return;
+
+    i = 0;
+    j = 0;
+
+    /*reverse the whole sentence first*/
+    reverse_string(S, strlen(S));
+
+    /*run the loop till the end of the sentence*/
+    while(S[j]) {
+
+	/*
+	 *whenever we find a space, we reverse the word found previously , ie from i to j-1
+	 *after we reverse the word  update i to point to next char after space   
+	 */
+	if(S[j] == ' '){
+	    reverse_string(S+i, j-i);    			    
+	    i = j+1;
+	}
+	j++;
+    }
+
+    /*reverse the last word*/
+    if(j==len)
+	reverse_string(S+i, j-i); 
 }
 
   /*
@@ -679,14 +694,16 @@ int main() {
 
 	    case 12:
 		    printf("Enter the string\n");
-		    scanf("%s", S);
+		    scanf(" %[^\n]s", S);  //make scanf work with spaces  //make scanf work with spaces
 		    reverse_string(S, strlen(S));
+		    print_string(S, strlen(S));
 		    break;
 	    case 13:
 		    printf("Enter the sentence\n");
-		    scanf("%s", S);
+		    scanf(" %[^\n]s", S);  //make scanf work with spaces  //make scanf work with spaces
 		    /*fgets(S, 128, stdin);*/
 		    reverse_words(S);
+		    print_string(S, strlen(S));
 		    break;
 
 	    case 14:
