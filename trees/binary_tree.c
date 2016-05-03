@@ -858,6 +858,7 @@ void  bst_to_s_lnklist(TREE *node , TREE **head){
 
     }*/
 
+/*leetcode problem 98*/
 /* function to check if the tree is a BST
    variation of reverse inorder traversal */
 

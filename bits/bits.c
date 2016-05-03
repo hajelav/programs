@@ -446,6 +446,58 @@ void two_numbers( int *A, int len) {
 }
 
 
+/*
+ *leetcode problem 89
+ *The gray code is a binary numeral system where two successive values differ in only one bit.
+ *
+ *Given a non-negative integer n representing the total number of bits in the code, print the sequence of gray code. A gray code sequence must begin with 0.
+ *
+ *For example, given n = 2, return [0,1,3,2]. Its gray code sequence is:
+ *
+ *00 - 0
+ *01 - 1
+ *11 - 3
+ *10 - 2
+ *Note:
+ *For a given n, a gray code sequence is not uniquely defined.
+ *
+ *For example, [0,2,3,1] is also a valid gray code sequence according to the above definition.
+ */
+
+void gray_code(int n) {
+
+
+    int nbits, count = 1, k = 1, i = 1;
+    int prev, num;
+    int *A;
+    if(n==0)
+	return;
+
+    nbits = 1<<n;
+
+    A = (int*)calloc(nbits, sizeof(int)); //array to store the sequence of gray code
+    memset(A, -1, sizeof(int)*nbits);
+    A[0] = 0;
+    prev = A[0];
+
+
+    /*run the while loop till array of size nbits is not filled completely*/
+    while(count <= nbits){
+
+	num = prev ^ (i%nbits);
+	if((A[i%nbits]== -1) && ((num & (num-1)) == 0)){
+	    count++;
+	    A[k] = i%nbits;
+	    printf("%d ", i%nbits);
+	    prev = A[k];
+	    k++;
+
+	}
+	i++;
+    }
+
+}
+
 
 int main() {
     char c;
@@ -470,6 +522,7 @@ int main() {
 	printf("12 -- Swap even and odd nibbles\t");
 	printf("13 -- Given a set of distinct integers, nums, return all possible subsets\t");
 	printf("14 -- Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once\t");
+	printf("15 -- gray code\t");
 
 	
 
@@ -581,6 +634,12 @@ int main() {
 		input_array(A, n);
 		two_numbers(A, n);
 		free(A);
+		break;
+
+	case 15:		
+		printf("enter no of elements in the array\n");
+		scanf("%d", &n);
+		gray_code(n);
 		break;
 
 	    default:

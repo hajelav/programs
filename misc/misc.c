@@ -1442,6 +1442,41 @@ int duplicate_number() {
 return 0;
 }
 
+
+
+/*
+ *leetcode problem 171
+ *Given a column title as appear in an Excel sheet, return its corresponding column number.
+ *
+ *For example:
+ *
+ *A -> 1
+ *B -> 2
+ *C -> 3
+ *...
+ *Z -> 26
+ *AA -> 27
+ *AB -> 28 
+ */
+
+
+/*
+ *int titleToNumber(char* s) {
+ *
+ *logic : the mapping can be done by the formuls
+ *
+ *            AA : pow(26, 1)*(A-'0') + pow(26,0)*(A-'0)
+ *            AB : pow(26, 1)*(A-'0') + pow(26,0)*(B-'0)
+ *
+ *            .
+ *            .
+ *            ZZ : pow(26, 1)*(Z-'0') + pow(26, 0)*(Z-'0')
+ *
+ *            AAB : pow(26, 2)*(A-'0') + pow(26, 1)*(A-'0') + pow(26, 0)*(B-'0)
+ *
+ *}
+ */
+
 int main() {
 
     char c;

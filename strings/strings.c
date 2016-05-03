@@ -529,6 +529,7 @@ void reverse_string(char *S, int len) {
     }
 }
 
+/*leetcode problem 186*/
 void reverse_words(char *S) {
 
     int i, j, len;
