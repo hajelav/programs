@@ -1277,7 +1277,7 @@ int get_index(int *in, int key, int l, int h){
 TREE* buildTree(int *in, int *pre, int low, int high) {
 
     int  idx;
-    /*static int j;*/
+    static int j;
     TREE* node;
 
     if(pre == NULL || in == NULL)
@@ -1287,7 +1287,7 @@ TREE* buildTree(int *in, int *pre, int low, int high) {
 	return NULL;
 
     node = create_node();
-    node->value = pre[low];
+    node->value = pre[j++];
 
     idx = get_index(in, node->value, low, high);
     /*j++;*/
