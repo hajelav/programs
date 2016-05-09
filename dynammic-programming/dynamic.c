@@ -1229,6 +1229,13 @@ int wildcard_matching() {
 /*
  *leetcode problem 91
  *https://leetcode.com/problems/decode-ways/
+ F(n) = F(n-1) + F(n-2)     if s[n] is a valid encoding digit and s[n-1]s[n] is also a valid encoding number.
+
+ F(n) = F(n-1)                     if s[n] is a valid encoding digit and s[n-1]s[n] is NOT a valid encoding number.
+
+ F(n) = F(n-2)                     if s[n] is NOT a valid encoding digit and s[n-1]s[n] is  a valid encoding number.
+
+ F(n) = 0                             if s[n] is NOT a valid encoding digit and s[n-1]s[n] is NOT  a valid encoding number.
  */
 void decode_message() {
 
