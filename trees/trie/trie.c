@@ -61,6 +61,15 @@ int  searchWordInTrie(TNODE* troot, char *word) {
 	troot = troot->next[*word-'a'];
 	word++;
     }
+
+    /*
+     *if we dont find the terminating char, it means its not a valid word in trie
+     *    though all the chars in the "word" matched the chars in trie
+     */
+    if(!troot->next[NO_OF_CHARS-1])
+	return 0;
+
+
     /*update the word count if search is successful*/
     troot->word_count++;
     return 1;

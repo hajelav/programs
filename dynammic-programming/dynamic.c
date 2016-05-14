@@ -1278,6 +1278,16 @@ void decode_message() {
     printf("Number of ways to decode %s : %d\n", msg, ways[msg_len]);
 }
 
+
+/*
+ *leetcode problem 139
+ *For example, given
+ *s = "leetcode",
+ *  dict = ["leet", "code"].
+ *
+ *  Return true because "leetcode" can be segmented as "leet code"
+ */
+
 int main(){
 
 
