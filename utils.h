@@ -14,6 +14,7 @@
 #include <time.h>
 
 
+
 int max_node(int a, int b, int c);
 int MAX(int a, int b);
 int MIN(int a, int b);
@@ -38,5 +39,6 @@ void print_2Dmatrix(int **T, int xlen, int ylen);
 void print_2Darray(int **t, int xlen, int ylen);
 void print_1Darray(int *A, int n);
 void swap(int *A, int idx1, int idx2);
+void swap_str(char *A, int idx1, int idx2);
 
 #endif /*   _UTIL_H_ */ 

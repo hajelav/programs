@@ -345,15 +345,61 @@ void count_substrings(char *str, int len_sub) {
     printf("press option 6 to print trie\n");
 }
 
+/*
+ *leetcode problem 139
+ *http://www.geeksforgeeks.org/dynamic-programming-set-32-word-break-problem/
+ *Given a string s and a dictionary of words dict, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
+ *
+ *For example, given
+ *s = "leetcode",
+ *  dict = ["leet", "code"].
+ *  
+ *  Return true because "leetcode" can be segmented as "leet code""
+ */
+
+
+int  word_break(TNODE *t, char *word, int l, int h) {
+    int i, res = 0;
+    char str[256];
+
+    memcpy(str, word,  h-l+1);
+    str[h+1] ='\0';
+
+
+
+    if(searchWordInTrie(t, str))
+       return 1;
+    else {
+
+
+
+    }
+
+    if(l == h)
+	return 0;
+
+    for(i=l;i<=h;i++){
+
+	res = word_break(t, word, l, i) && word_break(t, word, i+1, h);
+
+	if(res)
+	    return res;
+    }
+	
+    return res;
+}
+
 int main() {
 
     char c;
     char str[256];
+    char str1[256];
     char *path;
     TNODE *troot;
     int choice, i, len;
     char **board;
     int boardRow, boardCol, wordSize;
+    int noOfWords, strLen;
     
     do {
 	printf("MENU OPTIONS\n");
@@ -367,6 +413,7 @@ int main() {
 	printf("8 -- word search problem\n");
 	printf("9 -- substring with Concatenation of All Words\n");
 	printf("10 -- count substrings of len k in a string\n");
+	printf("11 -- word break problem\n");
 
 	
 	printf("enter your choice\n");
@@ -447,6 +494,25 @@ int main() {
 		scanf("%d", &len);
 		count_substrings(str, len);
 		break;
+
+	    case 11:
+		printf("enter no of words in a dictionary\n");
+		scanf("%d", &noOfWords);
+
+		printf("enter words\n");
+
+		for(i=0;i<noOfWords;i++){
+		    scanf("%s", str);
+		    addWordInTrie(str, root);
+		}
+		printf("Enter string\n");
+		scanf("%s", str1);
+
+		strLen = strlen(str1);
+
+		printf("%d", word_break(root, str1, 0, strLen-1));
+		break;
+
 		
 
 	    default:

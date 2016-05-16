@@ -113,7 +113,7 @@ int reverse_polish_notation_value(char *str){
 
     STACK *s = NULL;
     int sum = 0;
-    int op1, op2;
+    int op1 = 0, op2 = 0;
 
     /*initialze the stack*/
     s = init_stack();

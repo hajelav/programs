@@ -214,3 +214,11 @@ void swap(int *A, int idx1, int idx2) {
     A[idx2] = temp;
 }
 
+void swap_str(char *A, int idx1, int idx2) {
+
+    char temp;
+    temp = A[idx1];
+    A[idx1] = A[idx2];
+    A[idx2] = temp;
+}
+
