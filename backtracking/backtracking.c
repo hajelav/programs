@@ -135,7 +135,6 @@ void combination_sum(int *A, int i, int len, STACK *S, int sum){
 
     if(sum == 0){
 	print_stack(S);
-	/*printf("hello");*/
 	return;
     }
 
