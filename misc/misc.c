@@ -1477,6 +1477,27 @@ return 0;
  *}
  */
 
+
+/*
+ *leetcode problem 268
+ *Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array.
+ *
+ *For example,
+ *    Given nums = [0, 1, 3] return 2.
+ *
+ *    Note:
+ *    Your algorithm should run in linear runtime complexity. Could you implement it using only constant extra space complexity?
+ *
+ *
+ *missing_number(){
+ *
+ *    1) XOR all the array elements, let the result of XOR be X1.
+ *        2) XOR all numbers from 1 to n, let XOR be X2.
+ *        3) XOR of X1 and X2 gives the missing number.
+ *}
+ */
+
+
 int main() {
 
     char c;
@@ -1521,6 +1542,7 @@ int main() {
 	printf("28 -- move all zeros of array towards the front without disturbing the order of non zero elements\n");
 	printf("29 -- happy number\n");
 	printf("30 -- find the duplicate number\n");
+	printf("31 -- find the missing number\n");
 	
 
 	printf("\n");

@@ -139,6 +139,43 @@ int get_influencer() {
     return -1;
 }
 
+
+void spiral(int **A, int R, int C) {
+
+    int i = 0, j = 0 , k = 0, l = 0;
+
+    while((i <= R) && (j <= C)){
+
+	for(j=i;j<C;j++){ // right
+	    printf("%d ", A[i][j]);
+	}
+
+	j--;
+	for(i=i+1;i<R;i++){ // down
+	    printf("%d ", A[i][j]);
+
+	}
+	i--;
+	for(j=j-1;j>k;j--){ // left
+	    printf("%d ", A[i][j]);
+		
+	}
+
+	for(i=i;i>l;i--){ // up
+	    printf("%d ", A[i][j]);
+
+	}
+	/*j++;*/
+	/*i++;*/
+	k++;
+	l++;
+
+	C--; R--;
+
+    }
+
+}
+
 int main(){
     char c;
     int choice;
@@ -151,6 +188,8 @@ int main(){
 	printf("2 -- Make entire row and column zero , if you find an element as zero\n");
 	printf("3 -- search in a 2D matrix whose rows and columns are sorted\n");
 	printf("4 -- get influencer\n");
+	printf("5 -- print the matrix in spiral format\n");
+
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -188,6 +227,17 @@ int main(){
 	    case 4:
 		printf("influencer : %d\n", get_influencer());
 		break;
+
+	    case 5:
+		printf("Enter no of rows\n");
+		scanf("%d", &row);
+		printf("Enter no of cols\n");
+		scanf("%d", &col);
+		A = create_2Darray(row, col);
+		input_2Darray(A, row, col);
+		spiral(A, row, col);
+		break;
+
 
 	    default:
 		printf("invalid option\n");
