@@ -191,6 +191,32 @@ int isVisited(GRAPH *g, int idx) {
     return(g[idx].processed);
 }
 
+void DFS_clone(GRAPH* g, int vtx, GRAPH* gclone){
+
+    GNODE *trav;
+
+    if(isVisited(g, vtx)){
+	/*if we reach here that means , we have already came to a vertex which is already visited.*/
+	return;
+    }
+
+    g[vtx].processed = 1;
+    trav = g[vtx].gnode;
+
+    //create a new graph
+    /*if(trav)*/
+
+    /*printf("%d->", vtx);*/
+
+    while(trav){
+	create_graph(&gclone[vtx], trav->idx, 1);
+	DFS_clone(g, trav->idx, gclone);
+	trav = trav->next;
+    }
+
+
+}
+
 /* DFS : O(V+E) */
 void DFS(GRAPH *g, int vtx){
 
@@ -200,7 +226,7 @@ void DFS(GRAPH *g, int vtx){
 	/*if we reach here that means , we have already came to a vertex which is already visited.*/
 	return;
     }
-    
+
     g[vtx].processed = 1;
     trav = g[vtx].gnode;
     printf("%d->", vtx);
@@ -309,7 +335,7 @@ void dequeue(GRAPH **q, int *front) {
 }
 
 /*
- *implementation of BFS in graphs using queue
+ *implementation of BFS in graphs using queue, given a source node and number of nodes in a graph
  */
 void BFS( GRAPH *g, int src, int n) {
 
@@ -478,7 +504,9 @@ void topological_sort(GRAPH *g, int n) {
 int main() {
     char c;
     int choice, n, i, j,  adj, elen, vtx;
-    GRAPH *g;
+    GRAPH *g = NULL;
+    GRAPH* gclone = NULL;
+
     do {
 
 	printf("MENU OPTIONS\n");
@@ -492,6 +520,7 @@ int main() {
 	printf("8 -- Kruskal's MST\n");
 	printf("9 -- Print all paths from source to destination\n");
 	printf("10 -- single source shortest path using BFS(when all edge len = 1)\n");
+	printf("11 -- clone the graph\n");
 
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -548,6 +577,15 @@ int main() {
 		BFS(g, vtx, n);
 		printf("\n");
 		print_shortest_dist(g, n);
+		break;
+
+	    case 11:
+		if(!g)
+		    printf("create the graph first using option 1\n");
+		gclone = (GRAPH*)malloc(sizeof(GRAPH)*n);
+		init_graph(gclone, n);
+		DFS_clone(g, 0, gclone);
+		print_graph(gclone, n);
 		break;
 
 
