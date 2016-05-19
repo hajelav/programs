@@ -142,36 +142,39 @@ int get_influencer() {
 
 void spiral(int **A, int R, int C) {
 
-    int i = 0, j = 0 , k = 0, l = 0;
+    int i, j;
+    int left = 0, right = C-1, down = 0, up = R-1;
+    while(1){
 
-    while((i <= R) && (j <= C)){
-
-	for(j=i;j<C;j++){ // right
-	    printf("%d ", A[i][j]);
+	for(j=left;j<=right;j++){ // right
+	    printf("%d ", A[down][j]);
 	}
 
-	j--;
-	for(i=i+1;i<R;i++){ // down
-	    printf("%d ", A[i][j]);
+	if(left > right)
+	    break;
+
+	for(i=down+1;i<=up;i++){ // down
+	    printf("%d ", A[i][right]);
+	}
+	if(down>up)
+	    break;
+
+	for(j=right-1;j>=left;j--){ // left
+	    printf("%d ", A[up][j]);
+	}
+	if(right<left)
+	    break;
+
+	for(i=up-1;i>=down+1;i--){ // up
+	    printf("%d ", A[i][left]);
 
 	}
-	i--;
-	for(j=j-1;j>k;j--){ // left
-	    printf("%d ", A[i][j]);
-		
-	}
-
-	for(i=i;i>l;i--){ // up
-	    printf("%d ", A[i][j]);
-
-	}
-	/*j++;*/
-	/*i++;*/
-	k++;
-	l++;
-
-	C--; R--;
-
+	if(up<down)
+	    break;
+    left++;
+    down++;
+    right--;
+    up--;
     }
 
 }
