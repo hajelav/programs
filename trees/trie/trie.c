@@ -355,6 +355,7 @@ void count_substrings(char *str, int len_sub) {
  *  dict = ["leet", "code"].
  *  
  *  Return true because "leetcode" can be segmented as "leet code""
+ *  http://thenoisychannel.com/2011/08/08/retiring-a-great-interview-problem
  */
 
 
@@ -362,31 +363,28 @@ int  word_break(TNODE *t, char *word, int l, int h) {
     int i, res = 0;
     char str[256];
 
-    memcpy(str, word,  h-l+1);
+    memset(str, '\0', 256);
+    memcpy(str, word+l,  h-l+1);
     str[h+1] ='\0';
+    printf("%s\n",str);
 
 
 
-    if(searchWordInTrie(t, str))
-       return 1;
-    else {
-
-
-
-    }
-
-    if(l == h)
+    if(!searchWordInTrie(t, str))
 	return 0;
 
-    for(i=l;i<=h;i++){
+    else {
+	for(i=l;i<=h;i++){
 
-	res = word_break(t, word, l, i) && word_break(t, word, i+1, h);
+	    res = word_break(t, word, l, i) && word_break(t, word, i+1, h);
 
+	}
 	if(res)
 	    return res;
+	else
+	    return 0;
     }
-	
-    return res;
+
 }
 
 int main() {
