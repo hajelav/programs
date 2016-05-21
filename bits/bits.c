@@ -205,7 +205,7 @@ void get2NonRepeatingNos(int arr[], int n, int *x, int *y)
 	xor ^= arr[i];
 
     /*  Get the rightmost set bit in set_bit_no */
-    set_bit_no = xor & ~(xor-1);
+    set_bit_no = xor & ~(xor-1); // xor & -xor
 
     /*  Now divide elements in two sets by comparing rightmost set
      *     bit of xor with bit at same position in each element. */
@@ -367,6 +367,20 @@ int swapNibbles(int n) {
      return x|y;
 }
 
+unsigned int swap_bits(unsigned int x)
+{
+    /*Get all even bits of x*/
+	unsigned int even_bits = x & 0xAAAAAAAA; //(1010101010101010)
+
+    // Get all odd bits of x
+    unsigned int odd_bits  = x & 0x55555555; //(0101010101010101)
+
+    even_bits >>= 1;  // Right shift even bits
+    odd_bits <<= 1;   // Left shift odd bits
+
+    return (even_bits | odd_bits); // Combine even and odd bits
+}
+
 void print_subsets(int *A, int num, int n) {
 
 
@@ -380,7 +394,7 @@ void print_subsets(int *A, int num, int n) {
 
 	printf("%d ", A[pos]);
 
-	//set the position of the bit to 0
+	//set the position of the first set bit to 0
 	num = num & (num-1);
     }
 }
@@ -389,7 +403,6 @@ void print_subsets(int *A, int num, int n) {
  *leetcode problem 78
  *https://leetcode.com/problems/subsets/
  */
-
 
 void subsets(int *A, int n) {
 
