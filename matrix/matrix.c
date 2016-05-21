@@ -75,7 +75,7 @@ int** rotate_matrix(int r, int c) {
     return NULL;
 }
 
-void search_matrix(int **A, int row, int col) {
+void search_matrix(int **A, int row, int col, int elem) {
 
 }
 
@@ -183,6 +183,7 @@ int main(){
     char c;
     int choice;
     int row, col;
+    int elem;
     int **A;
     do {
 
@@ -224,7 +225,9 @@ int main(){
 		scanf("%d", &col);
 		A = create_2Darray(row, col);
 		input_2Darray(A, row, col);
-		search_matrix(A, row, col);
+		 printf("enter element to be searched\n");
+		 scanf("%d", &elem);
+		search_matrix(A, row, col, elem);
 		break;
 
 	    case 4:
