@@ -167,6 +167,11 @@ int reverse_polish_notation_value(char *str){
     return sum;
 }
 
+/*http://www.geeksforgeeks.org/expression-evaluation*/
+int  infix_evaluation(char *infix) {
+
+}
+
 int main() {
     /*char c;*/
     int choice;
@@ -176,6 +181,8 @@ int main() {
     printf("MENU OPTIONS\n");
     printf("1 -- weighted sum of nested integers\n");
     printf("2 -- evaluate the value of an expression given in reverse polish notation(postfix)\n");
+    printf("3 -- infix expression evaluation\n");
+
 
 
     printf("\n");

@@ -252,6 +252,8 @@ void DFS_cycle(GRAPH *g, int vtx, int *path, int *cycle) {
 
     trav = g[vtx].gnode;
 	path[vtx] = 1;
+
+	//go through the neighbors
     while(trav){
 	if(!path[trav->idx]) {
 	    DFS_cycle(g, trav->idx, path, cycle);
