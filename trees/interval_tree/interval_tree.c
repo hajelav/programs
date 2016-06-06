@@ -5,7 +5,7 @@
  *apart from storing the interval low and high value, we als store max which is the max value of any interval end point rooted at a given node
  */
 typedef struct INTVL {
- int low; //low endi point of interval
+ int low; //low end point of interval
  int high;// high end point of interval
  int max; //max value of any interval end point rooted at a particular node
           // max = MAX(intvl->left->max, intvl->right->max, intvl->high)

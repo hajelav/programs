@@ -1134,8 +1134,85 @@ void interleaving_strings() {
 
 }
 
+int get_len(int *wordLen, int i, int j, int lineWidth){
+    int k, sum = 0;
+    int word_count = 0;
+    for (k=i;k<=j;k++){
+	sum += wordLen[k];
+
+	if(sum <= lineWidth)
+	    //count words from i to j
+	    word_count++;
+    }
+
+    if(sum >= lineWidth)
+	return INT_MAX;
+    else
+	//get the empty spaces , which is the diff between line width and sum of all chars of words i to words j + number of spaces between words
+	return (lineWidth - (sum + word_count-1));
+}
+
 void text_justification() {
 
+    int no_of_words;
+    int L; //with of the line
+    int i,j, len;
+    int *wordLen;
+    char **A; //input array
+    int **C; //cost array to store the cost of string i to string j in one line  
+
+    printf("enter the number of words\n");
+    scanf("%d", &no_of_words);
+
+
+    A = create_2Dchar_array(no_of_words, 128);
+    input_2Dchar_array(A, no_of_words, 128);
+    /*print_2Dchar_array(A, no_of_words, 128);*/
+
+    printf("Enter the max width of each line\n");
+    scanf("%d", &L);
+
+    /*after entering the words we need to store the lengths of each words */
+    wordLen = create_1Darray(no_of_words);
+
+    /*fill the wordLen array with the lenghts of the words*/
+
+    for(i=0;i<no_of_words;i++){
+	wordLen[i] = strlen(A[i]);
+    }
+
+    /*for(i=0;i<no_of_words;i++){*/
+    /*printf("%s - %d\n", A[i], wordLen[i]);*/
+    /*}*/
+
+    /*
+     *build a cost matrix to store the cost of storing the words in one line.
+     *cofficient of badness of a text alignment is the sum of squares of empty spaces over all the lines. 
+     *the goal is to find an alignment with minimum coff of badness
+
+     *cost of storing a word(i) to word(j) in one line = square(empty spaces) [Note:spaces between words are not considered as empty spaces] 
+     */
+
+    C = create_2Darray(no_of_words, no_of_words);
+
+    /*fill the cost array*/
+    for(i=0;i<no_of_words;i++){
+	for(j=0;j<no_of_words;j++){
+
+	    if(i<=j){
+		//get the length of words from i to j in wordLen array
+		len = get_len(wordLen, i, j, L);
+
+		/*if the len fits in the line width then store the cost , otherwise mark the cost as infinity*/
+		if(len < INT_MAX)
+		    C[i][j] = len*len;
+		else
+		    C[i][j] = len;
+
+	    }
+	}
+    }
+    print_2Darray(C, no_of_words, no_of_words);
 }
 
 /*
@@ -1329,7 +1406,7 @@ int main(){
 	printf("24 -- maximal square  problem\n");
 	printf("25 -- min cost to paint all the houses(with k colors)\n");
 	printf("27 -- wildcard matching\n");
-	printf("28 -- text justification problem\n");
+	printf("28 -- text justification problem(word wrap problem)\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);

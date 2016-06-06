@@ -356,7 +356,6 @@ void count_substrings(char *str, int len_sub) {
  *  
  *  Return true because "leetcode" can be segmented as "leet code""
  *  http://thenoisychannel.com/2011/08/08/retiring-a-great-interview-problem
- *  http://ideone.com/h2kXVt
  */
 
 
@@ -370,9 +369,21 @@ int  word_break(TNODE *t, char *word, int l, int h) {
     printf("%s\n",str);
 
 
-    if(searchWordInTrie(t, str))
-	return 1;
 
+    if(searchWordInTrie(t, str))
+	return ;
+
+    else {
+	for(i=l;i<=h;i++){
+
+	    res = word_break(t, word, l, i) && word_break(t, word, i+1, h);
+
+	}
+	if(res)
+	    return res;
+	else
+	    return 0;
+    }
 
 }
 
