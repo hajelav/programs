@@ -503,6 +503,8 @@ void topological_sort(GRAPH *g, int n) {
  *
  */
 
+
+/*check if the graph is bipartite or not*/
 int main() {
     char c;
     int choice, n, i, j,  adj, elen, vtx;

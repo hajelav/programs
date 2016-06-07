@@ -1160,6 +1160,7 @@ void text_justification() {
     int *wordLen;
     char **A; //input array
     int **C; //cost array to store the cost of string i to string j in one line  
+    int *minCost, *result;
 
     printf("enter the number of words\n");
     scanf("%d", &no_of_words);
@@ -1186,6 +1187,7 @@ void text_justification() {
     /*}*/
 
     /*
+     * The value C[i][j] indicates the cost to put words from i to j in a single line where i and j are indexes of words in the input sequences. If a sequence of words from i to j cannot fit in a single line, then lc[i][j] is considered infinite (to avoid it from being a part of the solution)
      *build a cost matrix to store the cost of storing the words in one line.
      *cofficient of badness of a text alignment is the sum of squares of empty spaces over all the lines. 
      *the goal is to find an alignment with minimum coff of badness
@@ -1213,6 +1215,27 @@ void text_justification() {
 	}
     }
     print_2Darray(C, no_of_words, no_of_words);
+
+    /*
+     *once we have the cost array, we create two arrays
+     *    1. to store the min cost
+     *    2. to store the final result
+     */
+
+    minCost = create_1Darray(no_of_words);
+    
+
+    /*take two pointers i and j(point of split), initially set the pointers to the end of array*/
+    i = no_of_words;
+    j = no_of_words;
+
+    /*
+     *recurrence relation :
+     *    minCost[i] =  min{ minCost[j] + C[i][j-1]}, where j=i+1 ... len
+     */
+    
+
+
 }
 
 /*
