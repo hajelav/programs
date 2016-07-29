@@ -1,0 +1,206 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ARGS_COUNT	Application.h	26;"	d
+Address	Member.cpp	/^Address::Address(const Address &anotherAddress) {$/;"	f	class:Address
+Address	Member.h	/^	Address() {}$/;"	f	class:Address
+Address	Member.h	/^	Address(string address) {$/;"	f	class:Address
+Address	Member.h	/^class Address {$/;"	c
+Application	Application.cpp	/^Application::Application(char *infile) {$/;"	f	class:Application
+Application	Application.h	/^class Application{$/;"	c
+CFLAGS	Makefile	/^CFLAGS =  -Wall -g -std=c++11$/;"	m
+CREATE_TEST	Params.h	/^enum testTYPE { CREATE_TEST, READ_TEST, UPDATE_TEST, DELETE_TEST };$/;"	e	enum:testTYPE
+DBG_LOG	Log.h	20;"	d
+DEBUGLOG	stdincludes.h	43;"	d
+DELETE_TEST	Params.h	/^enum testTYPE { CREATE_TEST, READ_TEST, UPDATE_TEST, DELETE_TEST };$/;"	e	enum:testTYPE
+DROP_MSG	Params.h	/^	int DROP_MSG;$/;"	m	class:Params
+DUMMYLASTMSGTYPE	MP1Node.h	/^    DUMMYLASTMSGTYPE$/;"	e	enum:MsgTypes
+EM	EmulNet.h	/^	EM() {}$/;"	f	class:EM
+EM	EmulNet.h	/^class EM {$/;"	c
+ENBUFFSIZE	EmulNet.h	12;"	d
+EN_GPSZ	Params.h	/^	int EN_GPSZ;			    \/\/ actual number of peers$/;"	m	class:Params
+ENcleanup	EmulNet.cpp	/^int EmulNet::ENcleanup() {$/;"	f	class:EmulNet
+ENinit	EmulNet.cpp	/^void *EmulNet::ENinit(Address *myaddr, short port) {$/;"	f	class:EmulNet
+ENrecv	EmulNet.cpp	/^int EmulNet::ENrecv(Address *myaddr, int (* enq)(void *, char *, int), struct timeval *t, int times, void *queue){$/;"	f	class:EmulNet
+ENsend	EmulNet.cpp	/^int EmulNet::ENsend(Address *myaddr, Address *toaddr, char *data, int size) {$/;"	f	class:EmulNet
+ENsend	EmulNet.cpp	/^int EmulNet::ENsend(Address *myaddr, Address *toaddr, string data) {$/;"	f	class:EmulNet
+EmulNet	EmulNet.cpp	/^EmulNet::EmulNet(EmulNet &anotherEmulNet) {$/;"	f	class:EmulNet
+EmulNet	EmulNet.cpp	/^EmulNet::EmulNet(Params *p)$/;"	f	class:EmulNet
+EmulNet	EmulNet.h	/^class EmulNet$/;"	c
+FAILURE	stdincludes.h	14;"	d
+JOINADDR	Application.h	/^	char JOINADDR[30];$/;"	m	class:Application
+JOINREP	MP1Node.h	/^    JOINREP,$/;"	e	enum:MsgTypes
+JOINREQ	MP1Node.h	/^    JOINREQ,$/;"	e	enum:MsgTypes
+LOG	Log.cpp	/^void Log::LOG(Address *addr, const char * str, ...) {$/;"	f	class:Log
+Log	Log.cpp	/^Log::Log(Params *p) {$/;"	f	class:Log
+Log	Log.cpp	/^Log::Log(const Log &anotherLog) {$/;"	f	class:Log
+Log	Log.h	/^class Log{$/;"	c
+MAGIC_NUMBER	Log.h	19;"	d
+MAXWRITES	Log.h	18;"	d
+MAX_MSG_SIZE	Params.h	/^	int MAX_MSG_SIZE;$/;"	m	class:Params
+MAX_NNB	Params.h	/^	int MAX_NNB;                \/\/ max number of neighbors$/;"	m	class:Params
+MAX_NODES	EmulNet.h	10;"	d
+MAX_TIME	EmulNet.h	11;"	d
+MEMBER_H_	Member.h	8;"	d
+MP1Node	MP1Node.cpp	/^MP1Node::MP1Node(Member *member, Params *params, EmulNet *emul, Log *log, Address *address) {$/;"	f	class:MP1Node
+MP1Node	MP1Node.h	/^class MP1Node {$/;"	c
+MSG_DROP_PROB	Params.h	/^	double MSG_DROP_PROB;		\/\/ message drop probability$/;"	m	class:Params
+Member	Member.cpp	/^Member::Member(const Member &anotherMember) {$/;"	f	class:Member
+Member	Member.h	/^	Member(): inited(false), inGroup(false), bFailed(false), nnb(0), heartbeat(0), pingCounter(0), timeOutCounter(0) {}$/;"	f	class:Member
+Member	Member.h	/^class Member {$/;"	c
+MemberListEntry	Member.cpp	/^MemberListEntry::MemberListEntry(const MemberListEntry &anotherMLE) {$/;"	f	class:MemberListEntry
+MemberListEntry	Member.cpp	/^MemberListEntry::MemberListEntry(int id, short port): id(id), port(port) {}$/;"	f	class:MemberListEntry
+MemberListEntry	Member.cpp	/^MemberListEntry::MemberListEntry(int id, short port, long heartbeat, long timestamp): id(id), port(port), heartbeat(heartbeat), timestamp(timestamp) {}$/;"	f	class:MemberListEntry
+MemberListEntry	Member.h	/^	MemberListEntry(): id(0), port(0), heartbeat(0), timestamp(0) {}$/;"	f	class:MemberListEntry
+MemberListEntry	Member.h	/^class MemberListEntry {$/;"	c
+MessageHdr	MP1Node.h	/^typedef struct MessageHdr {$/;"	s
+MessageHdr	MP1Node.h	/^}MessageHdr;$/;"	t	typeref:struct:MessageHdr
+MsgTypes	MP1Node.h	/^enum MsgTypes{$/;"	g
+NULLADDR	MP1Node.h	/^	char NULLADDR[6];$/;"	m	class:MP1Node
+NullDevice	submit.py	/^class NullDevice:$/;"	c
+PORTNUM	Params.h	/^	short PORTNUM;$/;"	m	class:Params
+Params	Params.cpp	/^Params::Params(): PORTNUM(8001) {}$/;"	f	class:Params
+Params	Params.h	/^class Params{$/;"	c
+QUEUE_H_	Queue.h	8;"	d
+Queue	Queue.h	/^	Queue() {}$/;"	f	class:Queue
+Queue	Queue.h	/^class Queue {$/;"	c
+READ_TEST	Params.h	/^enum testTYPE { CREATE_TEST, READ_TEST, UPDATE_TEST, DELETE_TEST };$/;"	e	enum:testTYPE
+RING_SIZE	stdincludes.h	13;"	d
+SINGLE_FAILURE	Params.h	/^	int SINGLE_FAILURE;			\/\/ single\/multi failure$/;"	m	class:Params
+STATS_LOG	Log.h	21;"	d
+STDCLLBKARGS	stdincludes.h	41;"	d
+STDCLLBKRET	stdincludes.h	42;"	d
+STEP_RATE	Params.h	/^	double STEP_RATE;		    \/\/ dictates the rate of insertion$/;"	m	class:Params
+SUCCESS	stdincludes.h	15;"	d
+TFAIL	MP1Node.h	22;"	d
+TOTAL_RUNNING_TIME	Application.h	27;"	d
+TREMOVE	MP1Node.h	21;"	d
+UPDATE_TEST	Params.h	/^enum testTYPE { CREATE_TEST, READ_TEST, UPDATE_TEST, DELETE_TEST };$/;"	e	enum:testTYPE
+_APPLICATION_H_	Application.h	8;"	d
+_EMULNET_H_	EmulNet.h	8;"	d
+_LOG_H_	Log.h	8;"	d
+_MP1NODE_H_	MP1Node.h	9;"	d
+_PARAMS_H_	Params.h	8;"	d
+_STDINCLUDES_H_	stdincludes.h	8;"	d
+addr	Member.h	/^	Address addr;$/;"	m	class:Member
+addr	Member.h	/^	char addr[6];$/;"	m	class:Address
+akey	submit.py	/^akey = 'Mj8OkgI-EeaTLQonT2FRpw'$/;"	v
+allNodesJoined	Params.h	/^	int allNodesJoined;$/;"	m	class:Params
+bFailed	Member.h	/^	bool bFailed;$/;"	m	class:Member
+basicPrompt	submit.py	/^def basicPrompt():$/;"	f
+buff	EmulNet.h	/^	en_msg* buff[ENBUFFSIZE];$/;"	m	class:EM
+checkMessages	MP1Node.cpp	/^void MP1Node::checkMessages() {$/;"	f	class:MP1Node
+cleanup	submit.py	/^def cleanup():$/;"	f
+contains	Grader.sh	/^function contains () {$/;"	f
+currbuffsize	EmulNet.h	/^	int currbuffsize;$/;"	m	class:EM
+dropmsg	Params.h	/^	int dropmsg;$/;"	m	class:Params
+elt	Member.h	/^	void *elt;$/;"	m	class:q_elt
+emulNet	MP1Node.h	/^	EmulNet *emulNet;$/;"	m	class:MP1Node
+emulnet	EmulNet.h	/^	EM emulnet;$/;"	m	class:EmulNet
+en	Application.h	/^	EmulNet *en;$/;"	m	class:Application
+enInited	EmulNet.h	/^	int enInited;$/;"	m	class:EmulNet
+en_msg	EmulNet.h	/^typedef struct en_msg {$/;"	s
+en_msg	EmulNet.h	/^}en_msg;$/;"	t	typeref:struct:en_msg
+enqueue	Queue.h	/^	static bool enqueue(queue<q_elt> *queue, void *buffer, int size) {$/;"	f	class:Queue
+enqueueWrapper	MP1Node.cpp	/^int MP1Node::enqueueWrapper(void *env, char *buff, int size) {$/;"	f	class:MP1Node
+fail	Application.cpp	/^void Application::fail() {$/;"	f	class:Application
+finishUpThisNode	MP1Node.cpp	/^int MP1Node::finishUpThisNode(){$/;"	f	class:MP1Node
+firstTime	Log.h	/^	bool firstTime;$/;"	m	class:Log
+firsteltindex	EmulNet.h	/^	int firsteltindex;$/;"	m	class:EM
+from	EmulNet.h	/^	Address from;$/;"	m	struct:en_msg
+getAddress	Member.h	/^	string getAddress() {$/;"	f	class:Address
+getCurrBuffSize	EmulNet.h	/^	int getCurrBuffSize() {$/;"	f	class:EM
+getFirstEltIndex	EmulNet.h	/^	int getFirstEltIndex() {$/;"	f	class:EM
+getJoinAddress	MP1Node.cpp	/^Address MP1Node::getJoinAddress() {$/;"	f	class:MP1Node
+getMemberNode	MP1Node.h	/^	Member * getMemberNode() {$/;"	f	class:MP1Node
+getNextId	EmulNet.h	/^	int getNextId() {$/;"	f	class:EM
+getcurrtime	Params.cpp	/^int Params::getcurrtime(){$/;"	f	class:Params
+getheartbeat	Member.cpp	/^long MemberListEntry::getheartbeat() {$/;"	f	class:MemberListEntry
+getid	Member.cpp	/^int MemberListEntry::getid() {$/;"	f	class:MemberListEntry
+getjoinaddr	Application.cpp	/^Address Application::getjoinaddr(void){$/;"	f	class:Application
+getport	Member.cpp	/^short MemberListEntry::getport() {$/;"	f	class:MemberListEntry
+gettimestamp	Member.cpp	/^long MemberListEntry::gettimestamp() {$/;"	f	class:MemberListEntry
+globaltime	Params.h	/^	int globaltime;$/;"	m	class:Params
+handler	Application.cpp	/^void handler(int sig) {$/;"	f
+heartbeat	Member.h	/^	long heartbeat;$/;"	m	class:Member
+heartbeat	Member.h	/^	long heartbeat;$/;"	m	class:MemberListEntry
+id	Member.h	/^	int id;$/;"	m	class:MemberListEntry
+inGroup	Member.h	/^	bool inGroup;$/;"	m	class:Member
+init	Member.h	/^	void init() {$/;"	f	class:Address
+initMemberListTable	MP1Node.cpp	/^void MP1Node::initMemberListTable(Member *memberNode) {$/;"	f	class:MP1Node
+initThisNode	MP1Node.cpp	/^int MP1Node::initThisNode(Address *joinaddr) {$/;"	f	class:MP1Node
+inited	Member.h	/^	bool inited;$/;"	m	class:Member
+introduceSelfToGroup	MP1Node.cpp	/^int MP1Node::introduceSelfToGroup(Address *joinaddr) {$/;"	f	class:MP1Node
+isNullAddress	MP1Node.cpp	/^int MP1Node::isNullAddress(Address *addr) {$/;"	f	class:MP1Node
+log	Application.h	/^    Log *log;$/;"	m	class:Application
+log	MP1Node.h	/^	Log *log;$/;"	m	class:MP1Node
+logNodeAdd	Log.cpp	/^void Log::logNodeAdd(Address *thisNode, Address *addedAddr) {$/;"	f	class:Log
+logNodeRemove	Log.cpp	/^void Log::logNodeRemove(Address *thisNode, Address *removedAddr) {$/;"	f	class:Log
+loginPrompt	submit.py	/^def loginPrompt():$/;"	f
+main	Application.cpp	/^int main(int argc, char *argv[]) {$/;"	f
+memberList	Member.h	/^	vector<MemberListEntry> memberList;$/;"	m	class:Member
+memberNode	MP1Node.h	/^	Member *memberNode;$/;"	m	class:MP1Node
+mp1	Application.h	/^	MP1Node **mp1;$/;"	m	class:Application
+mp1Run	Application.cpp	/^void Application::mp1Run() {$/;"	f	class:Application
+mp1q	Member.h	/^	queue<q_elt> mp1q;$/;"	m	class:Member
+msgType	MP1Node.h	/^	enum MsgTypes msgType;$/;"	m	struct:MessageHdr	typeref:enum:MessageHdr::MsgTypes
+myPos	Member.h	/^	vector<MemberListEntry>::iterator myPos;$/;"	m	class:Member
+nextid	EmulNet.h	/^	int nextid;$/;"	m	class:EM
+nnb	Member.h	/^	int nnb;$/;"	m	class:Member
+nodeCount	Application.h	/^int nodeCount = 0;$/;"	v
+nodeLoop	MP1Node.cpp	/^void MP1Node::nodeLoop() {$/;"	f	class:MP1Node
+nodeLoopOps	MP1Node.cpp	/^void MP1Node::nodeLoopOps() {$/;"	f	class:MP1Node
+nodeStart	MP1Node.cpp	/^void MP1Node::nodeStart(char *servaddrstr, short servport) {$/;"	f	class:MP1Node
+operator =	EmulNet.cpp	/^EmulNet& EmulNet::operator =(EmulNet &anotherEmulNet) {$/;"	f	class:EmulNet
+operator =	EmulNet.h	/^	EM& operator = (EM &anotherEM) {$/;"	f	class:EM
+operator =	Log.cpp	/^Log& Log::operator = (const Log& anotherLog) {$/;"	f	class:Log
+operator =	Member.cpp	/^Address& Address::operator =(const Address& anotherAddress) {$/;"	f	class:Address
+operator =	Member.cpp	/^Member& Member::operator =(const Member& anotherMember) {$/;"	f	class:Member
+operator =	Member.cpp	/^MemberListEntry& MemberListEntry::operator =(const MemberListEntry &anotherMLE) {$/;"	f	class:MemberListEntry
+operator ==	Member.cpp	/^bool Address::operator ==(const Address& anotherAddress) {$/;"	f	class:Address
+par	Application.h	/^	Params *par;$/;"	m	class:Application
+par	EmulNet.h	/^	Params* par;$/;"	m	class:EmulNet
+par	Log.h	/^	Params *par;$/;"	m	class:Log
+par	MP1Node.h	/^	Params *par;$/;"	m	class:MP1Node
+partFriendlyNames	submit.py	/^partFriendlyNames = ['Single Failure', 'Multiple Failure', 'Message Drop Single Failure'] $/;"	v
+partIds	submit.py	/^partIds = ['b9m9h', 'MxUat', '8ATm3']$/;"	v
+partPrompt	submit.py	/^def partPrompt():$/;"	f
+pingCounter	Member.h	/^	int pingCounter;$/;"	m	class:Member
+port	Member.h	/^	short port;$/;"	m	class:MemberListEntry
+printAddress	MP1Node.cpp	/^void MP1Node::printAddress(Address *addr)$/;"	f	class:MP1Node
+q_elt	Member.cpp	/^q_elt::q_elt(void *elt, int size): elt(elt), size(size) {}$/;"	f	class:q_elt
+q_elt	Member.h	/^class q_elt {$/;"	c
+recvCallBack	MP1Node.cpp	/^bool MP1Node::recvCallBack(void *env, char *data, int size ) {$/;"	f	class:MP1Node
+recvLoop	MP1Node.cpp	/^int MP1Node::recvLoop() {$/;"	f	class:MP1Node
+recv_msgs	EmulNet.h	/^	int recv_msgs[MAX_NODES + 1][MAX_TIME];$/;"	m	class:EmulNet
+run	Application.cpp	/^int Application::run()$/;"	f	class:Application
+sent_msgs	EmulNet.h	/^	int sent_msgs[MAX_NODES + 1][MAX_TIME];$/;"	m	class:EmulNet
+setFirstEltIndex	EmulNet.h	/^	void setFirstEltIndex(int firsteltindex) {$/;"	f	class:EM
+setNextId	EmulNet.h	/^	void setNextId(int nextid) {$/;"	f	class:EM
+setheartbeat	Member.cpp	/^void MemberListEntry::setheartbeat(long hearbeat) {$/;"	f	class:MemberListEntry
+setid	Member.cpp	/^void MemberListEntry::setid(int id) {$/;"	f	class:MemberListEntry
+setparams	Params.cpp	/^void Params::setparams(char *config_file) {$/;"	f	class:Params
+setport	Member.cpp	/^void MemberListEntry::setport(short port) {$/;"	f	class:MemberListEntry
+settCurrBuffSize	EmulNet.h	/^	void settCurrBuffSize(int currbuffsize) {$/;"	f	class:EM
+settimestamp	Member.cpp	/^void MemberListEntry::settimestamp(long timestamp) {$/;"	f	class:MemberListEntry
+size	EmulNet.h	/^	int size;$/;"	m	struct:en_msg
+size	Member.h	/^	int size;$/;"	m	class:q_elt
+source	submit.py	/^def source(partIdx):$/;"	f
+submit	submit.py	/^def submit():   $/;"	f
+submitSolution	submit.py	/^def submitSolution(email_address,password, submissions):$/;"	f
+submit_url	submit.py	/^def submit_url():$/;"	f
+testTYPE	Params.h	/^enum testTYPE { CREATE_TEST, READ_TEST, UPDATE_TEST, DELETE_TEST };$/;"	g
+timeOutCounter	Member.h	/^	int timeOutCounter;$/;"	m	class:Member
+timestamp	Member.h	/^	long timestamp;$/;"	m	class:MemberListEntry
+to	EmulNet.h	/^	Address to;$/;"	m	struct:en_msg
+write	submit.py	/^  def write(self, s):$/;"	m	class:NullDevice
+~Application	Application.cpp	/^Application::~Application() {$/;"	f	class:Application
+~EM	EmulNet.h	/^	virtual ~EM() {}$/;"	f	class:EM
+~EmulNet	EmulNet.cpp	/^EmulNet::~EmulNet() {}$/;"	f	class:EmulNet
+~Log	Log.cpp	/^Log::~Log() {}$/;"	f	class:Log
+~MP1Node	MP1Node.cpp	/^MP1Node::~MP1Node() {}$/;"	f	class:MP1Node
+~Member	Member.h	/^	virtual ~Member() {}$/;"	f	class:Member
+~Queue	Queue.h	/^	virtual ~Queue() {}$/;"	f	class:Queue

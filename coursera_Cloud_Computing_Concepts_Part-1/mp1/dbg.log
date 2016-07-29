@@ -1,0 +1,14 @@
+131
+
+ [0] APP
+ 2.0.0.0:0 [0] APP
+ 3.0.0.0:0 [0] APP
+ 4.0.0.0:0 [0] APP
+ 4.0.0.0:0 [0] Trying to join ...
+ 3.0.0.0:0 [0] Trying to join ...
+ 2.0.0.0:0 [0] Trying to join ...
+ 1.0.0.0:0 [0] Starting up group...
+ 1.0.0.0:0 [1] Node 2.0.0.0:0 joined at time 1
+ 1.0.0.0:0 [1] Node 3.0.0.0:0 joined at time 1
+ 1.0.0.0:0 [1] Node 4.0.0.0:0 joined at time 1
+ 1.0.0.0:0 [100] Node failed at time=100
