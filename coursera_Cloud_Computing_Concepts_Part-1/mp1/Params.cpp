@@ -32,7 +32,8 @@ void Params::setparams(char *config_file) {
 	globaltime = 0;
 	dropmsg = 0;
 	allNodesJoined = 0;
-	for ( unsigned int i = 0; i < EN_GPSZ; i++ ) {
+	//for ( unsigned int i = 0; i < EN_GPSZ; i++ ) {
+	for (int i = 0; i < EN_GPSZ; i++ ) {
 		allNodesJoined += i;
 	}
 	fclose(fp);

@@ -14,6 +14,7 @@
 #include "Member.h"
 #include "EmulNet.h"
 #include "Queue.h"
+#include <algorithm>
 
 /**
  * Macros
@@ -40,7 +41,9 @@ enum MsgTypes{
  * DESCRIPTION: Header and content of a message
  */
 typedef struct MessageHdr {
-	enum MsgTypes msgType;
+    enum MsgTypes msgType;
+    Address fromAddr;
+    Address toAddr;
 }MessageHdr;
 
 /**
@@ -74,9 +77,22 @@ public:
 	int isNullAddress(Address *addr);
 	Address getJoinAddress();
 	void initMemberListTable(Member *memberNode);
-	void MP1Node::printMemberListTable(Member *memberNode);
-	void MP1Node::AddEntryMemberListTable(MemberListEntry *memberList,  long hb, int tcounter, int id, int port);
+	//void printMemberListTable(Member *memberNode);
+	void printMemberListTable(vector<MemberListEntry> memberList);
+	void updateMemberListTable(Member *memberNode, vector<MemberListEntry> memberList);
 	void printAddress(Address *addr);
+        int getIdFromAddress(Address *addr);
+        int getPortFromAddress(Address *addr);
+        int searchMemberListTable(Member *memberNode, int id, int port); 
+        void sendMemberListTableToNeighbors(Member *memberNode);
+        void sendIpAndPort(Member *memberNode, int id, int port);
+        void initMemberListTableWithSelf(Member *memberNode, Address *addr);
+        Address getAddressFromPortAndId(int id, int port);
+        void sendMemberListTableToAddress(Member *memberNode, Address *toAddr, enum MsgTypes msgtype);
+        void updateHearbeatCounter();
+        void mergeMemberListTable(Member *memberNode, vector<MemberListEntry> memberList);
+        void checkMemberFailure(Member *memberNode);
+
 	virtual ~MP1Node();
 };
 

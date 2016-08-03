@@ -90,9 +90,9 @@ Application::~Application() {
 int Application::run()
 {
 	int i;
-	int timeWhenAllNodesHaveJoined = 0;
+	//int timeWhenAllNodesHaveJoined = 0;
 	// boolean indicating if all nodes have joined
-	bool allNodesJoined = false;
+	//bool allNodesJoined = false;
 	srand(time(NULL));
 
 	// As time runs along
