@@ -101,14 +101,30 @@
  3.0.0.0:0 [4] Node 10.0.0.0:0 joined at time 4
  2.0.0.0:0 [4] Node 9.0.0.0:0 joined at time 4
  2.0.0.0:0 [4] Node 10.0.0.0:0 joined at time 4
- 5.0.0.0:0 [100] Node failed at time=100
- 10.0.0.0:0 [112] Node 5.0.0.0:0 removed at time 112
- 9.0.0.0:0 [112] Node 5.0.0.0:0 removed at time 112
- 8.0.0.0:0 [112] Node 5.0.0.0:0 removed at time 112
- 7.0.0.0:0 [112] Node 5.0.0.0:0 removed at time 112
- 6.0.0.0:0 [112] Node 5.0.0.0:0 removed at time 112
- 4.0.0.0:0 [112] Node 5.0.0.0:0 removed at time 112
- 3.0.0.0:0 [112] Node 5.0.0.0:0 removed at time 112
- 2.0.0.0:0 [112] Node 5.0.0.0:0 removed at time 112
- 1.0.0.0:0 [112] Node 5.0.0.0:0 removed at time 112
+ 2.0.0.0:0 [100] Node failed at time=100
+ 10.0.0.0:0 [112] Node 2.0.0.0:0 removed at time 112
+ 9.0.0.0:0 [112] Node 2.0.0.0:0 removed at time 112
+ 8.0.0.0:0 [112] Node 2.0.0.0:0 removed at time 112
+ 6.0.0.0:0 [112] Node 2.0.0.0:0 removed at time 112
+ 5.0.0.0:0 [112] Node 2.0.0.0:0 removed at time 112
+ 4.0.0.0:0 [112] Node 2.0.0.0:0 removed at time 112
+ 3.0.0.0:0 [112] Node 2.0.0.0:0 removed at time 112
+ 1.0.0.0:0 [112] Node 2.0.0.0:0 removed at time 112
+ 10.0.0.0:0 [113] Node 2.0.0.0:0 joined at time 113
+ 10.0.0.0:0 [113] Node 2.0.0.0:0 removed at time 113
+ 9.0.0.0:0 [113] Node 2.0.0.0:0 joined at time 113
+ 9.0.0.0:0 [113] Node 2.0.0.0:0 removed at time 113
+ 8.0.0.0:0 [113] Node 2.0.0.0:0 joined at time 113
+ 8.0.0.0:0 [113] Node 2.0.0.0:0 removed at time 113
+ 7.0.0.0:0 [113] Node 2.0.0.0:0 removed at time 113
+ 6.0.0.0:0 [113] Node 2.0.0.0:0 joined at time 113
+ 6.0.0.0:0 [113] Node 2.0.0.0:0 removed at time 113
+ 5.0.0.0:0 [113] Node 2.0.0.0:0 joined at time 113
+ 5.0.0.0:0 [113] Node 2.0.0.0:0 removed at time 113
+ 4.0.0.0:0 [113] Node 2.0.0.0:0 joined at time 113
+ 4.0.0.0:0 [113] Node 2.0.0.0:0 removed at time 113
+ 3.0.0.0:0 [113] Node 2.0.0.0:0 joined at time 113
+ 3.0.0.0:0 [113] Node 2.0.0.0:0 removed at time 113
+ 1.0.0.0:0 [113] Node 2.0.0.0:0 joined at time 113
+ 1.0.0.0:0 [113] Node 2.0.0.0:0 removed at time 113
  1.0.0.0:0 [500] @@time=500
