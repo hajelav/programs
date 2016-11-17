@@ -327,6 +327,6 @@ int MP2Node::enqueueWrapper(void *env, char *buff, int size) {
 void MP2Node::stabilizationProtocol() {
 	/*
 	 * Implement this
-	 * vivek
+	 * vivek hajela
 	 */
 }
