@@ -141,7 +141,7 @@ void min_heapify(int *A, int size, int idx) {
 
 /*
  *the build heap procedure make sure that the whole array satisfies the heap(min/max) property.
- *In order to do that , we run our heapify procedure for all non-leaf nodes
+ *In order to do that , we run our heapify procedure for all non-leaf nodes(ie n/2 down to 1)
  */
 void build_heap(int *A, int n, HEAPIFY fptr) {
 
