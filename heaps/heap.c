@@ -165,7 +165,7 @@ void build_heap(int *A, int n, HEAPIFY fptr) {
 void heapsort(int *A, int n ) {
 
     HEAPIFY fptr = max_heapify;
-    build_heap(A, n, fptr);
+    build_heap(A, n, fptr); // O(n) time 
 
     while(n>0){
 	swap(A, 0, n);

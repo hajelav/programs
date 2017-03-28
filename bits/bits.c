@@ -335,8 +335,8 @@ int swapBits(int n, int x, int y) {
 int swapEvenOddBits(int n) {
 
     int x,y;
-     x = (n & 0x55555555) << 1;
-     y = (n >> 1) & 0x55555555;
+     x = (n & 0x55555555) << 1; // move even bits to odd places 
+     y = (n >> 1) & 0x55555555; // shift odd bits to even places and mask all even places
 
      return x|y;
 }
