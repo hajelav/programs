@@ -493,7 +493,6 @@ void gray_code(int n) {
     A[0] = 0;
     prev = A[0];
 
-
     /*run the while loop till array of size nbits is not filled completely*/
     while(count <= nbits){
 

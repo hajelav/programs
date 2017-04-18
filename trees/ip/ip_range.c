@@ -1,7 +1,7 @@
 #include "../../utils.h"
 
 /*
- * to store the ip rangle, we convert ip address into intergers and store them as interval tree.
+ * to store the ip range, we convert ip address into integers and store them as interval tree.
  * ip rangle overlap can easily be detected using search function in an interval tree
  */
 typedef struct INTVL {
