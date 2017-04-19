@@ -593,13 +593,71 @@ int shortest_distance(char **S, int len, char *str1, char *str2) {
     return (dist<INT_MAX?dist:-1);
 }
 
+/*
+ *leetcode problem : 557
+ *https://leetcode.com/problems/reverse-words-in-a-string-iii/#/description
+ Given a string, you need to reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.
+
+ Example 1:
+
+Input: "Let's take LeetCode contest"
+Output: "s'teL ekat edoCteeL tsetnoc"
+
+Note: In the string, each word is separated by single space and there will not be any extra space in the string. 
+ */
+
+void reverse_str(char *S , int low , int high) {
+
+    char temp;
+
+    if (!S || (low >= high))
+	return;
+
+    while(low < high) {
+	temp = S[low];
+	S[low] = S[high];
+	S[high] = temp;
+
+	low++;
+	high--;
+    }
+}
+
+void reverse_words_preserving_order(char *S) {
+
+    int i, j, len;
+    if (!S){
+	printf("string is null");
+	return;
+    }
+
+    i = 0;
+    len = strlen(S);
+    j = len - 1;
+    i = j;
+
+    while(j>0){
+
+	if(i >= 0 && S[i] != ' '){
+	    i--;
+	} else {
+
+	    reverse_str(S, i+1, j);
+	    j = i-1;
+	    i--;
+
+	}
+    }
+}
+
+
 int main() {
     /*char c;*/
     int choice;
     int n;
     char str[] = "gee  ks f  or g  ee ks ";
     char path[128];
-    char S[128], T[128];
+    char S[250], T[128];
     char *pattern = "-20";
     char str1[32], str2[32];
 
@@ -622,6 +680,7 @@ int main() {
 	printf("13 -- reverse words in a sentence\n");
 	printf("14 -- shortest distance between words\n");
 	printf("15 -- shortest distance between words\n");
+	printf("16 --  reverse the order of characters in each word within a sentence while still preserving whitespace and initial word\n");
 	
 	
 
@@ -695,13 +754,13 @@ int main() {
 
 	    case 12:
 		    printf("Enter the string\n");
-		    scanf(" %[^\n]s", S);  //make scanf work with spaces  //make scanf work with spaces
+		    scanf(" %[^\n]s", S);  //make scanf work with spaces 
 		    reverse_string(S, strlen(S));
 		    print_string(S, strlen(S));
 		    break;
 	    case 13:
 		    printf("Enter the sentence\n");
-		    scanf(" %[^\n]s", S);  //make scanf work with spaces  //make scanf work with spaces
+		    scanf(" %[^\n]s", S);  //make scanf work with spaces
 		    /*fgets(S, 128, stdin);*/
 		    reverse_words(S);
 		    print_string(S, strlen(S));
@@ -720,12 +779,13 @@ int main() {
 		    printf("Shortest distance between %s and %s : %d\n", str1, str2, shortest_distance(s, n, str1, str2));
 		    break;
 
+		case 16:
 
-
-
-
-		    
-
+		    printf("Enter the string\n");
+		    scanf(" %[^\n]s", S);
+		    reverse_words_preserving_order(S);
+		    printf("%s", S);
+		    break;
 
 
 
