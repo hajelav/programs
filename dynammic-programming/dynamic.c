@@ -1336,6 +1336,10 @@ int wildcard_matching() {
  F(n) = F(n-2)                     if s[n] is NOT a valid encoding digit and s[n-1]s[n] is  a valid encoding number.
 
  F(n) = 0                             if s[n] is NOT a valid encoding digit and s[n-1]s[n] is NOT  a valid encoding number.
+ Given an encoded message containing digits, determine the total number of ways to decode it.
+ For example,
+ Given encoded message "12", it could be decoded as "AB" (1 2) or "L" (12).
+ The number of ways decoding "12" is 2.
  */
 void decode_message() {
 

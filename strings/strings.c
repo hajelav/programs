@@ -623,6 +623,7 @@ void reverse_str(char *S , int low , int high) {
     }
 }
 
+
 void reverse_words_preserving_order(char *S) {
 
     int i, j, len;
@@ -651,6 +652,65 @@ void reverse_words_preserving_order(char *S) {
 }
 
 
+/*
+ *leetcode problem 468
+ *validate ip4 address
+ *Write a function to check whether an input string is a valid IPv4 address or IPv6 address or neither.
+ *
+ *IPv4 addresses are canonically represented in dot-decimal notation, which consists of four decimal numbers, each ranging from 0 to 255, separated by dots ("."), e.g.,172.16.254.1;
+ *
+ *Besides, leading zeros in the IPv4 is invalid. For example, the address 172.16.254.01 is invalid.
+ */
+
+int validate_ip_address(char *S) {
+
+    int j, len, num;
+    char *token;
+    int dot_count = 0;
+
+    /*
+     *an ip address is valid only 
+     *    1. No consequtive dots
+     *    2. Should have exact 3 dots
+     *    3. No dots in the front or end of string
+     *    4. no leading zeros in any of the tokens( chars seperated by dots)
+     *    5. Each token has to be between 0-255 ( including both 0 and 255)
+     *    6. string should not be NULL
+     */
+
+    if (!S){
+	printf("ip add is null");
+	return 0;
+    }
+
+    len = strlen(S);
+
+    if (S[0] == '.' || S[len-1] == '.'){
+	printf("ip add has leading or trialing dots");
+	return 0;
+    }
+
+    for(j=0;j<=len-1;j++){
+	if(S[j] == '.')
+	    dot_count++;
+    }
+
+    if (dot_count!=3)
+	return 0;
+
+    /*tokenize the ip address validate each token*/
+    token = strtok(S, ".");
+    while( token != NULL ) 
+    {
+	num = atoi(token);
+	if ( num < 0 || num > 255)
+	    return 0;
+
+	token = strtok(NULL, ".");
+    }
+
+    return 1;
+}
 int main() {
     /*char c;*/
     int choice;
@@ -681,6 +741,7 @@ int main() {
 	printf("14 -- shortest distance between words\n");
 	printf("15 -- shortest distance between words\n");
 	printf("16 --  reverse the order of characters in each word within a sentence while still preserving whitespace and initial word\n");
+	printf("17 -- validate ip address\n");
 	
 	
 
@@ -786,6 +847,13 @@ int main() {
 		    reverse_words_preserving_order(S);
 		    printf("%s", S);
 		    break;
+
+		case 17:
+		    printf("Enter the ip address\n");
+		    scanf(" %[^\n]s", S);
+		    printf("IP address:%s", validate_ip_address(S)?"valid":"invalid");
+		    break;
+
 
 
 
