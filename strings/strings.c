@@ -664,7 +664,7 @@ void reverse_words_preserving_order(char *S) {
 
 int validate_ip_address(char *S) {
 
-    int j, len, num;
+    int j, len, i;
     char *token;
     int dot_count = 0;
 
@@ -676,6 +676,9 @@ int validate_ip_address(char *S) {
      *    4. no leading zeros in any of the tokens( chars seperated by dots)
      *    5. Each token has to be between 0-255 ( including both 0 and 255)
      *    6. string should not be NULL
+     *    7. token cannot be NULL
+     *    8. if the length of token > 1, then no leading zeros and no consequitive 0s
+     *
      */
 
     if (!S){
@@ -686,13 +689,15 @@ int validate_ip_address(char *S) {
     len = strlen(S);
 
     if (S[0] == '.' || S[len-1] == '.'){
-	printf("ip add has leading or trialing dots");
+	printf("ip add has leading or trialing dots\n");
 	return 0;
     }
 
-    for(j=0;j<=len-1;j++){
+    for(j=1;j<len-1;j++){
 	if(S[j] == '.')
 	    dot_count++;
+	if(S[j] == '.' && S[j-1] == '.')
+	    return 0;
     }
 
     if (dot_count!=3)
@@ -702,9 +707,20 @@ int validate_ip_address(char *S) {
     token = strtok(S, ".");
     while( token != NULL ) 
     {
-	num = atoi(token);
-	if ( num < 0 || num > 255)
+	printf("%s\n", (token));
+
+	i = 0;
+	while(token[i]!='\0'){
+	    if(token[i]-'0' < 0 ||
+		    token[i]-'0' > 255)
+		return 0;
+	i++;
+	}
+	if ( i < 1 || i > 3)
 	    return 0;
+	if(i >= 1 && token[0] == '0')
+	    return 0;
+
 
 	token = strtok(NULL, ".");
     }
