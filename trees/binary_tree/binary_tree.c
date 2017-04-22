@@ -1701,6 +1701,13 @@ void deserialize(TREE** q) {
 //TBD
 }
 
+/*
+ *Two nodes of a BST are swapped, correct the BST
+ *http://www.geeksforgeeks.org/fix-two-swapped-nodes-of-bst/
+logic :
+We will maintain three pointers, first, middle and last. When we find the first point where current node value is smaller than previous node value, we update the first with the previous node & middle with the current node. When we find the second point where current node value is smaller than previous node value, we update the last with the current node. In case #2, we will never find the second point. So, last pointer will not be updated. After processing, if the last node value is null, then two swapped nodes of BST are adjacent.
+ */
+
 int main() {
     char c;
     int item, num, node1, node2, level, n, close;
