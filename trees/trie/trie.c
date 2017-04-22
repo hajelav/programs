@@ -387,6 +387,19 @@ int  word_break(TNODE *t, char *word, int l, int h) {
 
 }
 
+/*
+ *Given a string, return the length of the longest substring which comprises of consecutive characters.
+ *input: xyzdefg
+ *Output:
+ *4
+ *defg
+ *
+ *Read more: http://javarevisited.blogspot.com/2015/12/30-microsoft-interview-questions-for-software-development-engineers.html#ixzz4exC0Ikad
+ *
+ *
+ *This can be solved by creating a suffix tree of a input string. After that go through all the paths from root to leafs and figuring out the path which has the largest consecutive characters
+ */
+
 int main() {
 
     char c;
