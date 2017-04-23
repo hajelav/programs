@@ -167,9 +167,6 @@ void print_words(char *S) {
 
     /*print_word_util(&S, str, len, i, j);*/
 
-
-
-
 }
 
 
@@ -286,7 +283,9 @@ char* normalize(char *S) {
     return N;
 }
 
-
+/*
+ *replace spaces by a pattern in a string
+ */
 void replace_spaces(char *str, char *pattern) {
 
     int non_space_count, result_len, pattern_len, space_count=0;
