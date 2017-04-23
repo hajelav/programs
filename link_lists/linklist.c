@@ -511,7 +511,7 @@ void  delLinkList(LIST*node, LIST** temp){
 }
 
 /*
- *function to detect a loop in a link list
+ *function to detect a loop/cycle in a link list
  */
 int detectLoop(LIST* node){
     LIST* ptr1, *ptr2;
@@ -520,14 +520,20 @@ int detectLoop(LIST* node){
 
     while(ptr2 && ptr2->next && ptr1!=ptr2){
 
-	if(ptr1 == ptr2)
-	    return 1;
-	ptr1 = ptr1->next;
-	ptr2 = ptr2->next->next;
+        if(ptr1 == ptr2)
+            return 1;
+        ptr1 = ptr1->next;
+        ptr2 = ptr2->next->next;
     }
 
     return 0;
 }
+
+
+/*
+ *detect and remove loop from linklist
+ *http://www.geeksforgeeks.org/detect-and-remove-loop-in-a-linked-list/
+ */
 
 /*
  *Clone a linked list with next and random pointer
