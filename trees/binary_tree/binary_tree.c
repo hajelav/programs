@@ -9,6 +9,7 @@ typedef struct TREE {
     int isThreaded:1;
 }TREE;
 
+
 /* Augmented tree structure, used to calculate n-order statistics */
 typedef struct ATREE {
     int value;
@@ -1363,23 +1364,6 @@ int min_depth(TREE *node) {
 
 }
 
-TREE* sorted_array_to_tree(int *A, int l, int h) {
-    TREE* node;
-    int mid;
-
-    if(l > h)
-	return NULL;
-
-    mid = (l+h)/2;
-
-    node = create_node();
-    node->value = A[mid];
-
-    node->left = sorted_array_to_tree(A, l, mid-1);
-    node->right = sorted_array_to_tree(A, mid+1, h);
-
-    return node;
-}
 
 /*
  *given preorder traversal of BST, convert into a TREE( deserialize BST)
@@ -1708,6 +1692,55 @@ logic :
 We will maintain three pointers, first, middle and last. When we find the first point where current node value is smaller than previous node value, we update the first with the previous node & middle with the current node. When we find the second point where current node value is smaller than previous node value, we update the last with the current node. In case #2, we will never find the second point. So, last pointer will not be updated. After processing, if the last node value is null, then two swapped nodes of BST are adjacent.
  */
 
+
+/*
+ *balance a BST
+ *http://www.geeksforgeeks.org/convert-normal-bst-balanced-bst/
+logic :  
+1.First traverse the array inorder (sorted) and store it in an array
+2.Use a recursive method to converted array in balanced BST
+
+Total space complexity : O(n)
+Total time complexity : O(n)
+ */
+
+ void balance_BST(TREE *node) {
+
+ }
+
+/*
+ *TREE* sorted_array_to_balanced_BST(int *A, int l, int h){
+ *
+ *    static int j;
+ *     if(!A)
+ *         return NULL;
+ *
+ *     if(l>h)
+ *         return NULL;
+ *
+ *     j = l + (h-l)/2;
+ *}
+ */
+
+TREE* sorted_array_to_balanced_BST(int *A, int l, int h) {
+    TREE* node;
+    int mid;
+
+    if(l > h)
+	return NULL;
+
+    mid =  l + (h-l)/2;
+
+    node = create_node();
+    node->value = A[mid];
+
+    node->left = sorted_array_to_balanced_BST(A, l, mid-1);
+    node->right = sorted_array_to_balanced_BST(A, mid+1, h);
+
+    return node;
+}
+
+
 int main() {
     char c;
     int item, num, node1, node2, level, n, close;
@@ -1774,6 +1807,8 @@ int main() {
 	printf("48 -- Given a BST with unique values find in a given tree a value closest to a given value X\n");
 	printf("49 -- given a list of child parent relationships, build a binary tree out of it.\n");
 	printf("50 -- serialize/deserialize a binary tree.\n");
+	printf("51 -- convert a normal BST to a balanced BST.\n");
+	printf("52 -- given a sorted array, convert it to a balanced BST.\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -2084,8 +2119,8 @@ int main() {
 		printf("Enter no of elements in array\n");
 		scanf("%d", &n);
 		A = create_1Darray(n);
-		input_array(A, n);
-		trav = sorted_array_to_tree(A, 0, n-1);
+		input_1Darray(A, n);
+		trav = sorted_array_to_balanced_BST(A, 0, n-1);
 		print_inorder(trav);
 		break;
 
@@ -2094,7 +2129,7 @@ int main() {
 		scanf("%d", &n);
 		A = create_1Darray(n);
 		printf("Enter elements in pre-order\n");
-		input_array(A, n);
+		input_1Darray(A, n);
 		trav = buildBSTFromPreOrder(A, 0, n-1);
 		print_inorder(trav);
 		break;
@@ -2129,6 +2164,12 @@ int main() {
 		n = count_nodes(trav);
 		q = serialize(trav, n);
 		deserialize(q);
+		break;
+
+	    case 51:
+		trav = root;
+		balance_BST(trav);
+		break;
 
 
 	    default:
