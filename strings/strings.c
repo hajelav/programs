@@ -768,17 +768,17 @@ void run_length_encoding(char *S){
     printf("result len:%d", result_len);
     
     result = create_1Dchar_array(result_len);
-    printf("%s\n", result);
 
     k = 0;
-    j = 1;
+    j = 1; //start iterating the array from index 1
     /*second pass: fill the result array which is run length encoded*/
     while(S[j] != '\0') {
 
+       /*check if prev char is not as current char, then update the result array with char and freq */
         if(S[j] != S[j-1]) {
             result[k] = S[j-1];
 
-            //convert int ( frequency) to char
+            //convert int ( frequency) to char and update in result array
             result[k+1] = H[(int)S[j-1]]+'0';
             k = k+2;
         }
