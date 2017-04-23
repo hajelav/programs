@@ -1740,6 +1740,19 @@ TREE* sorted_array_to_balanced_BST(int *A, int l, int h) {
     return node;
 }
 
+TREE* extract_leaves_to_dll(TREE *node){
+
+    /*
+     *1. run an inoder traversal of the list
+     *2. store the left most leaf node in a temp static pointer, 
+     *3. as you reach subsequent leaves whiles traversing the tree keep linking
+     *    the pointer from step 2, and update the temp pointer to the current leaf node
+     */
+
+    return NULL; 
+
+}
+
 
 int main() {
     char c;
@@ -1809,6 +1822,7 @@ int main() {
 	printf("50 -- serialize/deserialize a binary tree.\n");
 	printf("51 -- convert a normal BST to a balanced BST.\n");
 	printf("52 -- given a sorted array, convert it to a balanced BST.\n");
+	printf("53 -- Extract Leaves of a Binary Tree in a Doubly Linked List.\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
