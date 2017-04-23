@@ -207,6 +207,7 @@ void print_1Darray(int *A, int n) {
     printf("\n");
 }
 
+
 void swap(int *A, int idx1, int idx2) {
 
     int temp;

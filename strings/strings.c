@@ -734,9 +734,62 @@ int validate_ip_address(char *S) {
  *For example, if the input string is “wwwwaaadexxxxxx”, then the function should return “w4a3d1e1x6”.
  */
 
-void run_length_encoding(){
-}
+void run_length_encoding(char *S){
 
+    int H[256]; // define hash to store all 255 chars
+    char *result;
+    int i, j, k, len, result_len=0;
+
+    if (!S)
+        return;
+    len = strlen(S);
+
+    if(len==1){
+        printf("%c1\n", S[0]);
+        return;
+    }
+
+    /*first pass: fill the hash */
+    memset(H, 0, 256*sizeof(int));
+    for(i=0;i<len;i++){
+
+        H[(int)S[i]]++;
+    }
+
+    /*from the hash: find the length of result array*/
+    for(i=0;i<256;i++){
+
+        if(H[i]){
+            result_len = result_len + 2;
+        }
+    }
+
+
+    printf("result len:%d", result_len);
+    
+    result = create_1Dchar_array(result_len);
+    printf("%s\n", result);
+
+    k = 0;
+    j = 1;
+    /*second pass: fill the result array which is run length encoded*/
+    while(S[j] != '\0') {
+
+        if(S[j] != S[j-1]) {
+            result[k] = S[j-1];
+
+            //convert int ( frequency) to char
+            result[k+1] = H[(int)S[j-1]]+'0';
+            k = k+2;
+        }
+        j++;
+    }
+
+    result[k] = S[j-1];
+    result[k+1] = H[(int)S[j-1]]+'0';
+
+    printf("%s", result);
+}
 
 int main() {
     /*char c;*/
@@ -880,6 +933,12 @@ int main() {
 		    printf("Enter the ip address\n");
 		    scanf(" %[^\n]s", S);
 		    printf("IP address:%s", validate_ip_address(S)?"valid":"invalid");
+		    break;
+
+		case 18:
+		    printf("Enter the string to be run length encoded\n");
+		    scanf(" %s", S);
+		    run_length_encoding(S);
 		    break;
 
 
