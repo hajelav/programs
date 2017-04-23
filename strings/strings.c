@@ -727,6 +727,18 @@ int validate_ip_address(char *S) {
 
     return 1;
 }
+
+/*
+ *Run Length Encoding
+ *Given an input string, write a function that returns the Run Length Encoded string for the input string.
+ *
+ *For example, if the input string is “wwwwaaadexxxxxx”, then the function should return “w4a3d1e1x6”.
+ */
+
+void run_length_encoding(){
+}
+
+
 int main() {
     /*char c;*/
     int choice;
@@ -758,6 +770,7 @@ int main() {
 	printf("15 -- shortest distance between words\n");
 	printf("16 --  reverse the order of characters in each word within a sentence while still preserving whitespace and initial word\n");
 	printf("17 -- validate ip address\n");
+	printf("18 -- run length encoding\n");
 	
 	
 
