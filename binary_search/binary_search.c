@@ -1,32 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
-#include <limits.h>
-
-int* create_1Darray(int n) {
-    int *A;
-    A = (int*)calloc(n, sizeof(int));
-
-    if(!A)
-	return NULL;
-    return A;
-}
-
-void input_array(int *A, int n) {
-    int i;
-    printf("Enter elements\n");
-    for(i=0;i<n;i++){
-	scanf("%d", &A[i]);
-    } 
-}
-
-void print_1Darray(int *A, int n) {
-    int i;
-    for(i=0;i<n;i++){
-	printf("%d ", A[i]);
-    } 
-}
+#include "../utils.h"
 
 void print_1Darray_index(int *A, int i, int j){
 int k;
@@ -34,20 +6,6 @@ int k;
 	printf("%d ", A[k]);
     } 
     printf("\n");
-}
-
-void swap(char *A, int idx1, int idx2) {
-    int temp;
-   temp = A[idx1];
-   A[idx1] = A[idx2];
-   A[idx2] = temp;
-}
-
-int MAX(int *A, int a, int b) {
-    return A[a]>A[b]?a:b;
-}
-int MIN(int *A, int a, int b) {
-    return A[a]>A[b]?b:a;
 }
 
 char * create_string(int len){
@@ -253,9 +211,13 @@ void range(float *A, int n) {
 /*
  *leetcode problem 268
  *https://leetcode.com/problems/missing-number/
+ Given a sorted array of size n. Each element in an array is unique and lies from 1 to n+1. How do you find the missing element
+
+ For example,
+ Given nums = [0, 1, 3] return 2.
  */
 
-int missing_number(int *A, int low, int high) {
+int missing_number_old(int *A, int low, int high) {
 
     int mid;
     int res;
@@ -267,9 +229,32 @@ int missing_number(int *A, int low, int high) {
 
     // if the diff between no and its index at low is equal to mid , then the missing number lies in the right half of array
     if((A[low]-low) == (A[mid]-mid) && (low!=mid)){
-	res = missing_number(A, mid, high);
+	res = missing_number_old(A, mid, high);
     } else { // else no lies on the left half
-	res = missing_number(A, low, mid);
+	res = missing_number_old(A, low, mid);
+    }
+    return res;
+}
+
+int missing_number(int *A, int low, int high) {
+
+    int mid;
+    int res;
+
+    if(low >= high)
+	return low;
+
+    mid = low + (high-low)/2;
+
+    if (low == mid)
+        return low;
+
+
+    // if the diff between no and its index at low is equal to mid , then the missing number lies in the right half of array
+    if(mid < A[mid]){
+	res = missing_number(A, low , mid-1);
+    } else { // else no lies on the left half
+	res = missing_number(A, mid, high);
     }
     return res;
 }

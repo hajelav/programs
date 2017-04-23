@@ -75,6 +75,7 @@ void input_array(int *A, int n) {
     if(!A)
 	return;
     int i;
+    printf("enter elements\n");
     for(i=0;i<n;i++){
 	scanf("%d", &A[i]);
     }
