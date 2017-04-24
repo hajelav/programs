@@ -400,6 +400,28 @@ int  word_break(TNODE *t, char *word, int l, int h) {
  *This can be solved by creating a suffix tree of a input string. After that go through all the paths from root to leafs and figuring out the path which has the largest consecutive characters
  */
 
+
+
+/*
+ *Suppose you are getting Stream of words from upstream: mary, army, tea, java, goog, eat. Build a data structure to store these such that, if a query was made to search a word e.g. army, then it should return all the anagrams as well i.e. mary and army, yarm
+ *
+ *solution : we modify a trie data structure a bit , tot that we also store anagrams at the leaf node in the form of link list
+ *
+ *typedef struct TNODE{
+ *    char c;
+ *    struct TNODE *next[NO_OF_CHARS]
+ *    LIST *list; // to store anagrams at the leaf node
+ *} TNODE;
+ *
+ *we parse the input stream  of words one by one , sort the word and insert into the trie, and at the leaf node insert the original node in the list.
+ *as we keep on parsing the words , if there is an anagram, it will eventually be added at the same list of last anagram we store at leaf of a trie.
+ *Once the data has been inserted, when we query a word, we first sort it and search it in trie. and return the list of the anagrams on the leaf node of that searched word.
+ */
+
+
+
+
+
 int main() {
 
     char c;

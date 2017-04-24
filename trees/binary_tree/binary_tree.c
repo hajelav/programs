@@ -1777,8 +1777,7 @@ logic: use BFS traversal using a queue
 a level order traveral of all nodes of the tree including their levels.
 2. Now make all the right pointers of all rightmost nodes as NULL by using a recursive algo similar to inorder traversal
 2. Run a pass on Q (step 1) and link all right pointers of same level 
-
- */
+*/
 
 
 
