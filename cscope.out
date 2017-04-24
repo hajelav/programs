@@ -1,4 +1,4 @@
-cscope 15 $HOME/Dropbox/programs               0000669695
+cscope 15 $HOME/Dropbox/programs               0000670085
 	@backtracking/backtracking.c
 
 6 
@@ -56159,13 +56159,13 @@ NULL
 	}
 }
 
-737 * 
+737 
 	$run_Ëngth_’codšg
 (*
 S
 ){
 
-739 
+739 
 H
 [256];
 
@@ -56181,15 +56181,13 @@ j
 k
 , 
 Ën
-;
+, 
+»suÉ_Ën
+=0;
 
 743 ià(!
 S
 )
-
-744  
-NULL
-;
 
 745 
 Ën
@@ -56199,41 +56197,29 @@ NULL
 S
 );
 
-746 
-»suÉ
- = 
-	`ü—‹_1Dch¬_¬¿y
-(
-Ën
-+1);
-
-747 
-»suÉ
-[
-Ën
-] = '\0';
-
-749 if(
+747 if(
 Ën
 ==1){
 
-750 
-»suÉ
-[0] = 
+748 
+	`´štf
+("%c1\n", 
 S
-[0];
+[0]);
 
-751 
-»suÉ
-[1] = '1';
+753 
+	`mem£t
+(
+H
+, 0, 256*());
 
-755 
+754 
 i
 =0;i<
 Ën
 ;i++){
 
-757 
+756 
 H
 [()
 S
@@ -56241,35 +56227,55 @@ S
 i
 ]]++;
 
-758 
-	`´štf
-("%d\n", ()
-S
+760 
+i
+=0;i<256;i++){
+
+762 if(
+H
 [
 i
-]);
+]){
 
-761 
+763 
+»suÉ_Ën
+ =„esult_len + 2;
+
+768 
+	`´štf
+("»suÉ†’:%d", 
+»suÉ_Ën
+);
+
+770 
+»suÉ
+ = 
+	`ü—‹_1Dch¬_¬¿y
+(
+»suÉ_Ën
+);
+
+772 
 k
  = 0;
 
-762 
+773 
 j
  = 1;
 
-764 
+775 
 S
 [
 j
-]) {
+] != '\0') {
 
-766 if(
+778 if(
 S
 [
 j
 ] != S[j-1]) {
 
-767 
+779 
 »suÉ
 [
 k
@@ -56277,193 +56283,217 @@ k
 S
 [
 j
-];
+-1];
 
-768 
+782 
 »suÉ
 [
 k
 +1] = 
 H
-[
+[()
 S
 [
 j
-]]-'0';
+-1]]+'0';
 
-769 
+783 
 k
  = k+2;
 
-771 
+785 
 j
 ++;
 
-773  
+788 
 »suÉ
-;
+[
+k
+] = 
+S
+[
+j
+-1];
 
-774 
+789 
+»suÉ
+[
+k
++1] = 
+H
+[()
+S
+[
+j
+-1]]+'0';
+
+791 
+	`´štf
+("%s", 
+»suÉ
+);
+
+792 
 	}
 }
 
-776 
+794 
 	$maš
 () {
 
-778 
+796 
 choiû
 ;
 
-779 
+797 
 n
 ;
 
-780 
+798 
 ¡r
 [] = "gee ks f or gƒe ks ";
 
-781 
+799 
 ·th
 [128];
 
-782 
+800 
 S
 [250], 
 T
 [128];
 
-783 *
+801 *
 ·‰”n
  = "-20";
 
-784 
+802 
 ¡r1
 [32], 
 ¡r2
 [32];
 
-786 **
+804 **
 s
 ;
 
-789 
+807 
 	`´štf
 ("MENU OPTIONS\n");
 
-790 
+808 
 	`´štf
 ("1 --„emove spaces from string\n");
 
-791 
+809 
 	`´štf
 ("2-- Check if‡ given sequence of moves for‡„obot is circular or‚ot\n");
 
-792 
+810 
 	`´štf
 ("3 -- Regex matching…roblem\n");
 
-793 
+811 
 	`´štf
 ("4 -- Palindrome detection with‚on-alphanumeric characters\n");
 
-794 
+812 
 	`´štf
 ("5 -- Normalizehe…ath\n");
 
-795 
+813 
 	`´štf
 ("6 --„eplace space by…ercentage20 in‡ string\n");
 
-796 
+814 
 	`´štf
 ("7 -- minimum window substring\n");
 
-797 
+815 
 	`´štf
 ("8 -- integeroƒnglish words\n");
 
-798 
+816 
 	`´štf
 ("9 --„estore IP‡ddresses\n");
 
-799 
+817 
 	`´štf
 ("10 -- check if strings‡re isomorphic\n");
 
-800 
+818 
 	`´štf
 ("11 -- functiono determine if‡ string is‡ valid‚umber without using‡ny built-in function\n");
 
-801 
+819 
 	`´štf
 ("12 --„everse string\n");
 
-802 
+820 
 	`´štf
 ("13 --„everse words in‡ sentence\n");
 
-803 
+821 
 	`´štf
 ("14 -- shortest distance between words\n");
 
-804 
+822 
 	`´štf
 ("15 -- shortest distance between words\n");
 
-805 
+823 
 	`´štf
 ("16 --„eversehe order of characters inƒach word within‡ sentence while still…reserving whitespace‡nd initial word\n");
 
-806 
+824 
 	`´štf
 ("17 -- validate ip‡ddress\n");
 
-807 
+825 
 	`´štf
 ("18 --„un†engthƒncoding\n");
 
-811 
+829 
 	`´štf
 ("\n");
 
-812 
+830 
 	`´štf
 ("Enter your choice\n");
 
-813 
+831 
 	`sÿnf
 ("%d",&
 choiû
 );
 
-814 
+832 
 choiû
 ){
 
-816 
+834 
 	`»moveS·ûs
 (
 ¡r
 );
 
-817 
+835 
 	`´štf
 ("%s", 
 ¡r
 );
 
-821 
+839 
 	`´štf
 ("Enter…ath\n");
 
-822 
+840 
 	`sÿnf
 ("%s", 
 ·th
 );
 
-823 
+841 
 	`´štf
 ("·th i cœcuÏr: %s", 
 	`checkCœcuÏ½©h
@@ -56471,15 +56501,15 @@ choiû
 ·th
 )?"yes":"no");
 
-827 
+845 
 	`·lšdrome
 ();
 
-831 
+849 
 	`´štf
 ("Enter…ath\n");
 
-832 
+850 
 	`fg‘s
 (
 ·th
@@ -56487,7 +56517,7 @@ choiû
 ¡dš
 );
 
-833 
+851 
 	`´štf
 ("NÜm®ized…©h: %s\n", 
 	`nÜm®ize
@@ -56495,23 +56525,23 @@ choiû
 ·th
 ));
 
-837 
+855 
 	`mem£t
 (
 ·th
 , '\0', 128);
 
-838 
+856 
 	`´štf
 ("Enter string\n");
 
-839 
+857 
 	`sÿnf
 ("%s", 
 ·th
 );
 
-841 
+859 
 	`»¶aû_¥aûs
 (
 ·th
@@ -56519,51 +56549,15 @@ choiû
 ·‰”n
 );
 
-842 
+860 
 	`´štf
 ("%s\n", 
 ·th
 );
 
-847 
-	`´štf
-("Enterhe string\n");
-
-848 
-	`sÿnf
-("%s", 
-S
-);
-
-849 
-	`´štf
-("Enterhe…attern\n");
-
-850 
-	`sÿnf
-("%s", 
-T
-);
-
-852 
-	`mš_wšdow_sub¡ršg
-(
-S
-, 
-T
-);
-
-860 
-	`»¡Üe__add»ss
-();
-
-864 
-	`´štf
-("Enter strings ofƒqual†ength\n");
-
 865 
 	`´štf
-("Enter string 1\n");
+("Enterhe string\n");
 
 866 
 	`sÿnf
@@ -56573,7 +56567,7 @@ S
 
 867 
 	`´štf
-("Enter string 2\n");
+("Enterhe…attern\n");
 
 868 
 	`sÿnf
@@ -56581,7 +56575,43 @@ S
 T
 );
 
-869 
+870 
+	`mš_wšdow_sub¡ršg
+(
+S
+, 
+T
+);
+
+878 
+	`»¡Üe__add»ss
+();
+
+882 
+	`´štf
+("Enter strings ofƒqual†ength\n");
+
+883 
+	`´štf
+("Enter string 1\n");
+
+884 
+	`sÿnf
+("%s", 
+S
+);
+
+885 
+	`´štf
+("Enter string 2\n");
+
+886 
+	`sÿnf
+("%s", 
+T
+);
+
+887 
 	`´štf
 ("SŒšg ¬isomÜphiø: %s\n", 
 	`isomÜphic_¡ršgs
@@ -56591,17 +56621,17 @@ S
 T
 )?"Yes":"No");
 
-873 
+891 
 	`´štf
 ("Enterhe string\n");
 
-874 
+892 
 	`sÿnf
 (" %[^\n]s", 
 S
 );
 
-876 
+894 
 	`´štf
 ("I numb” : %s\n", 
 	`is_v®id_numb”
@@ -56609,17 +56639,17 @@ S
 S
 )?"yes":"no");
 
-880 
+898 
 	`´štf
 ("Enterhe string\n");
 
-881 
+899 
 	`sÿnf
 (" %[^\n]s", 
 S
 );
 
-882 
+900 
 	`»v”£_¡ršg
 (
 S
@@ -56627,7 +56657,7 @@ S
 	`¡¾’
 (S));
 
-883 
+901 
 	`´št_¡ršg
 (
 S
@@ -56635,23 +56665,23 @@ S
 	`¡¾’
 (S));
 
-886 
+904 
 	`´štf
 ("Enterhe sentence\n");
 
-887 
+905 
 	`sÿnf
 (" %[^\n]s", 
 S
 );
 
-889 
+907 
 	`»v”£_wÜds
 (
 S
 );
 
-890 
+908 
 	`´št_¡ršg
 (
 S
@@ -56659,17 +56689,17 @@ S
 	`¡¾’
 (S));
 
-894 
+912 
 	`´štf
 ("Enter‚umber of words\n");
 
-895 
+913 
 	`sÿnf
 ("%d", &
 n
 );
 
-896 
+914 
 s
  = 
 	`ü—‹_2Dch¬_¬¿y
@@ -56677,7 +56707,7 @@ s
 n
 , 128);
 
-897 
+915 
 	`šput_2Dch¬_¬¿y
 (
 s
@@ -56685,27 +56715,27 @@ s
 n
 , 128);
 
-899 
+917 
 	`´štf
 ("enter word 1\n");
 
-900 
+918 
 	`sÿnf
 ("%s", 
 ¡r1
 );
 
-901 
+919 
 	`´štf
 ("enter word 2\n");
 
-902 
+920 
 	`sÿnf
 ("%s", 
 ¡r2
 );
 
-903 
+921 
 	`´štf
 ("ShÜ‹¡ di¡ªû b‘w“À% ªd % : %d\n", 
 ¡r1
@@ -56719,39 +56749,39 @@ s
 n
 , str1, str2));
 
-908 
+926 
 	`´štf
 ("Enterhe string\n");
 
-909 
+927 
 	`sÿnf
 (" %[^\n]s", 
 S
 );
 
-910 
+928 
 	`»v”£_wÜds_´e£rvšg_Üd”
 (
 S
 );
 
-911 
+929 
 	`´štf
 ("%s", 
 S
 );
 
-915 
+933 
 	`´štf
 ("Enterhe ip‡ddress\n");
 
-916 
+934 
 	`sÿnf
 (" %[^\n]s", 
 S
 );
 
-917 
+935 
 	`´štf
 ("IP‡dd»ss:%s", 
 	`v®id©e__add»ss
@@ -56759,33 +56789,31 @@ S
 S
 )?"valid":"invalid");
 
-921 
+939 
 	`´štf
 ("Enterhe stringo be„un†engthƒncoded\n");
 
-922 
+940 
 	`sÿnf
 (" %s", 
 S
 );
 
-923 
-	`´štf
-("%s", 
+941 
 	`run_Ëngth_’codšg
 (
 S
-));
+);
 
-930 
+948 
 	`´štf
 ("Invalid option\n");
 
-933 
+951 
 	`´štf
 ("\n\n");
 
-936 
+954 
 	}
 }
 
@@ -64093,15 +64121,33 @@ node
 	}
 }
 
-1744 
+1743 
+TREE
+* 
+	$exŒaù_Ëaves_to_dÎ
+(
+TREE
+ *
+node
+){
+
+1752  
+NULL
+;
+
+1754 
+	}
+}
+
+1777 
 	$maš
 () {
 
-1745 
+1778 
 c
 ;
 
-1746 
+1779 
 ™em
 , 
 num
@@ -64117,319 +64163,327 @@ n
 şo£
 ;
 
-1747 
+1780 
 TREE
  *
 Œav
 ;
 
-1748 
+1781 
 a
 ,
 choiû
 ;
 
-1749 
+1782 
 key
 ;
 
-1750 
+1783 
 key1
 ,
 key2
 ;
 
-1751 
+1784 
 i
 ,
 no
 ;
 
-1752 
+1785 
 nodes
 ;
 
-1753 *
+1786 *
 š
 , *
 ´e
 ;
 
-1754 *
+1787 *
 A
 ;
 
-1755 
+1788 
 TREE
  *
 ·»Á
 ;
 
-1756 
+1789 
 TREE
  *
 node
 ;
 
-1757 
+1790 
 TREE
  **
 q
 ;
 
-1760 
+1793 
 	`´štf
 ("MENU OPTIONS\n");
 
-1761 
+1794 
 	`´štf
 ("1 -- insert\t");
 
-1762 
+1795 
 	`´štf
 ("2 --…rint inorder\t");
 
-1763 
+1796 
 	`´štf
 ("3 -- find\t");
 
-1764 
+1797 
 	`´štf
 ("4 -- delete\t");
 
-1765 
+1798 
 	`´štf
 ("5 -- Minimum\t");
 
-1766 
+1799 
 	`´štf
 ("6 -- Inorder successor in binaryree\t");
 
-1767 
+1800 
 	`´štf
 ("7 -- Converto‡ singly†ink†ist\t");
 
-1768 
+1801 
 	`´štf
 ("8 -- Is BST\t");
 
-1769 
+1802 
 	`´štf
 ("9 -- Converto‡ doubly†ink†ist\t");
 
-1770 
+1803 
 	`´štf
 ("10 -- Maximumƒlement in‡ binaryree\t");
 
-1771 
+1804 
 	`´štf
 ("11 -- Inorder Successor\t");
 
-1772 
+1805 
 	`´štf
 ("12 -- Max height(depth) of‡ree\t");
 
-1773 
+1806 
 	`´štf
 ("13 -- Delete‡ll‚odes\t");
 
-1774 
+1807 
 	`´štf
 ("14 -- Lowest common Ancestor in BST\t");
 
-1775 
+1808 
 	`´štf
 ("15 -- Mirror image of‡ binaryree\t");
 
-1776 
+1809 
 	`´štf
 ("16 -- Printƒlements‡t‡ given†evel\t");
 
-1777 
+1810 
 	`´štf
 ("17 -- Printhe size(no ofƒlements) of‡ree\t");
 
-1778 
+1811 
 	`´štf
 ("18 -- get†evel of‚ode of‡ree\t");
 
-1779 
+1812 
 	`´štf
 ("19 -- Check ifheree is height balanced.\t");
 
-1780 
+1813 
 	`´štf
 ("20 --…rint ith order statistic-using inorder\t");
 
-1781 
+1814 
 	`´štf
 ("21 --„emove‡ll half‚odes\t");
 
-1782 
+1815 
 	`´štf
 ("23 -- Check if‡ binaryree is Complete\t");
 
-1783 
+1816 
 	`´štf
 ("24 -- Sum of‡ll†eft†eafrees\t");
 
-1784 
+1817 
 	`´štf
 ("25 -- Remove‚odes on†eaf…aths\t");
 
-1785 
+1818 
 	`´štf
 ("26 -- Find‚ode in‡ binaryree\t");
 
-1786 
+1819 
 	`´štf
 ("27 -- Converto binaryhreadedree\t");
 
-1787 
+1820 
 	`´štf
 ("28 -- Check for cousins in‡ binaryree\t");
 
-1788 
+1821 
 	`´štf
 ("29 -- Inorder successor in BST\t");
 
-1789 
+1822 
 	`´štf
 ("30 -- Maximum sum†eafo„oot…ath in‡ Binary Tree\t");
 
-1790 
+1823 
 	`´štf
 ("31 -- Maximum…ath sum betweenwo†eaves of‡ binaryree\t");
 
-1791 
+1824 
 	`´štf
 ("32 -- Reverse‡ltenate†evels of‡…erfect binaryree\t");
 
-1792 
+1825 
 	`´štf
 ("33 -- Lowest common‡ncestor in Binaryree\t");
 
-1793 
+1826 
 	`´štf
 ("34 -- Distance betweenwo given keys in‡ binaryree\t");
 
-1794 
+1827 
 	`´štf
 ("35 -- Transform‡ BSTo greater sumree\t");
 
-1795 
+1828 
 	`´štf
 ("36 -- Construct Binary Tree from given Inorder‡nd Preorderraversals\t");
 
-1796 
+1829 
 	`´štf
 ("37 -- Print‡ll‚odes‡t distance k from‡ given‚ode\n");
 
-1797 
+1830 
 	`´štf
 ("38 -- Print‡ll‚odeshat‡re‡t distance k from‡†eaf‚ode\n");
 
-1798 
+1831 
 	`´štf
 ("39 -- Print‡ll‚odeshat donâ€™t have sibling\n");
 
-1799 
+1832 
 	`´štf
 ("40 -- Converto Doubly†ink†ist(method 2)\n");
 
-1800 
+1833 
 	`´štf
 ("41 -- Deepest†eft†eaf‚ode in‡ binaryree\n");
 
-1801 
+1834 
 	`´štf
 ("42 -- Minimum depth ofheree\n");
 
-1802 
+1835 
 	`´štf
 ("43 -- Convert‡ sorted‡rray into‡ree\n");
 
-1803 
+1836 
 	`´štf
 ("44 -- Convert…reordero BST(deserialize BST)\n");
 
-1804 
+1837 
 	`´štf
 ("45 --…rinthe sum of‡ll„ooto†eaf…aths in‡ binaryree\n");
 
-1805 
+1838 
 	`´štf
 ("46 -- Sum of‡llhe‚umbershat‡re formed from„ooto†eaf…aths\n");
 
-1806 
+1839 
 	`´štf
 ("47 --†evel orderraversal(BFS) using queue\n");
 
-1807 
+1840 
 	`´štf
 ("48 -- Given‡ BST with unique values find in‡ givenree‡ value closesto‡ given value X\n");
 
-1808 
+1841 
 	`´štf
 ("49 -- given‡†ist of child…arent„elationships, build‡ binaryree out of it.\n");
 
-1809 
+1842 
 	`´štf
 ("50 -- serialize/deserialize‡ binaryree.\n");
 
-1810 
+1843 
 	`´štf
 ("51 -- convert‡‚ormal BSTo‡ balanced BST.\n");
 
-1811 
+1844 
 	`´štf
 ("52 -- given‡ sorted‡rray, convert ito‡ balanced BST.\n");
 
-1813 
+1845 
+	`´štf
+("53 -- Extract Leaves of‡ Binary Tree in‡ Doubly Linked List.\n");
+
+1846 
+	`´štf
+("54 -- connect‚odes‡t same†evel in‡ binaryree.\n");
+
+1848 
 	`´štf
 ("\n");
 
-1814 
+1849 
 	`´štf
 ("Enter your choice\n");
 
-1815 
+1850 
 	`sÿnf
 ("%d",&
 choiû
 );
 
-1816 
+1851 
 choiû
 ){
 
-1818 
+1853 
 	`´štf
 ("Enter‚o of‚odes\n");
 
-1819 
+1854 
 	`sÿnf
 ("%d", &
 no
 );
 
-1821 
+1856 
 i
 =0;i<
 no
 ;i++) {
 
-1822 
+1857 
 	`´štf
 ("Enterƒlement\n");
 
-1823 
+1858 
 	`sÿnf
 ("%d",&
 ™em
 );
 
-1824 
+1859 
 	`š£¹_node
 (
 roÙ
@@ -64437,45 +64491,45 @@ roÙ
 ™em
 );
 
-1828 
+1863 
 Œav
  = 
 roÙ
 ;
 
-1829 if(
+1864 if(
 Œav
 !=
 NULL
 )
 
-1830 
+1865 
 	`´št_šÜd”
 (
 Œav
 );
 
-1832 
+1867 
 	`´štf
 ("Tree isƒmpty");
 
-1835 
+1870 
 Œav
  = 
 roÙ
 ;
 
-1836 
+1871 
 	`´štf
 ("Enterheƒlemento be searched\n");
 
-1837 
+1872 
 	`sÿnf
 ("%d",&
 a
 );
 
-1838 
+1873 
 node
  = 
 	`fšd_node
@@ -64485,172 +64539,38 @@ node
 a
 );
 
-1839 if(
+1874 if(
 node
 )
 
-1840 
+1875 
 	`´štf
 ("Node found");
 
-1842 
+1877 
 	`´štf
 ("Node‚ot found");
 
-1845 
+1880 
 Œav
  = 
 roÙ
 ;
 
-1846 
+1881 
 	`fšd_mšimum
 (
 Œav
 );
 
-1849 
+1884 
 	`´štf
 ("Enterhe‚umber\n");
 
-1850 
+1885 
 	`sÿnf
 ("%d", &
 num
-);
-
-1851 
-Œav
- = 
-roÙ
-;
-
-1852 if(
-Œav
-!=
-NULL
-)
-
-1853 
-	`´štf
-("SucûssÜ : %d\n",
-	`´štSucûssÜInBšT»e
-(
-Œav
-,
-num
-));
-
-1855 
-	`´štf
-("Tree isƒmpty");
-
-1858 
-Œav
- = 
-roÙ
-;
-
-1859 
-TREE
- **
-p
- = 
-NULL
-;
-
-1860 
-	`b¡_to_s_Êkli¡
-(
-Œav
-,
-p
-);
-
-1862 
-Œav
-!=
-NULL
-){
-
-1863 
-	`´štf
-("%d-->",
-Œav
-->
-v®ue
-);
-
-1864 
-Œav
- =¿v->
-Ëá
-;
-
-1868 
-Œav
- = 
-roÙ
-;
-
-1869 
-	`´štf
-("%d\n",
-	`is_b¡
-(
-Œav
-));
-
-1872 
-Œav
- = 
-roÙ
-;
-
-1873 
-Œav
- = 
-	`cÚv”t_to_d_Êk_li¡
-(trav);
-
-1875 
-Œav
-!=
-NULL
-){
-
-1876 
-	`´štf
-("%d ",
-Œav
-->
-v®ue
-);
-
-1877 
-Œav
-ñ¿v->
-Ëá
-;
-
-1881 
-Œav
- = 
-roÙ
-;
-
-1882 
-Œav
- = 
-	`fšd_maximum
-(trav);
-
-1883 
-	`´štf
-("Maximum : %d\n", 
-Œav
-->
-v®ue
 );
 
 1886 
@@ -64666,66 +64586,74 @@ NULL
 )
 
 1888 
-	`šÜd”_sucûssÜ
+	`´štf
+("SucûssÜ : %d\n",
+	`´štSucûssÜInBšT»e
 (
 Œav
-);
+,
+num
+));
 
 1890 
 	`´štf
 ("Tree isƒmpty");
 
 1893 
-	`´štf
-("Max heighˆ%d\n",
-	`max_height
-(
-roÙ
-));
-
-1897 
 Œav
  = 
 roÙ
 ;
 
-1898 
-Œav
+1894 
+TREE
+ **
+p
  = 
-	`d–_®l_nodes
-(trav);
+NULL
+;
+
+1895 
+	`b¡_to_s_Êkli¡
+(
+Œav
+,
+p
+);
+
+1897 
+Œav
+!=
+NULL
+){
+
+1898 
+	`´štf
+("%d-->",
+Œav
+->
+v®ue
+);
 
 1899 
-	`ä“
-(
 Œav
-);
-
-1900 
-	`´št_šÜd”
-(
-Œav
-);
+ =¿v->
+Ëá
+;
 
 1903 
-	`´štf
-("Enterhe first‚umber\n");
+Œav
+ = 
+roÙ
+;
 
 1904 
-	`sÿnf
-("%d", &
-node1
-);
-
-1905 
 	`´štf
-("Enterhe second‚umber\n");
-
-1906 
-	`sÿnf
-("%d", &
-node2
-);
+("%d\n",
+	`is_b¡
+(
+Œav
+));
 
 1907 
 Œav
@@ -64736,6 +64664,132 @@ roÙ
 1908 
 Œav
  = 
+	`cÚv”t_to_d_Êk_li¡
+(trav);
+
+1910 
+Œav
+!=
+NULL
+){
+
+1911 
+	`´štf
+("%d ",
+Œav
+->
+v®ue
+);
+
+1912 
+Œav
+ñ¿v->
+Ëá
+;
+
+1916 
+Œav
+ = 
+roÙ
+;
+
+1917 
+Œav
+ = 
+	`fšd_maximum
+(trav);
+
+1918 
+	`´štf
+("Maximum : %d\n", 
+Œav
+->
+v®ue
+);
+
+1921 
+Œav
+ = 
+roÙ
+;
+
+1922 if(
+Œav
+!=
+NULL
+)
+
+1923 
+	`šÜd”_sucûssÜ
+(
+Œav
+);
+
+1925 
+	`´štf
+("Tree isƒmpty");
+
+1928 
+	`´štf
+("Max heighˆ%d\n",
+	`max_height
+(
+roÙ
+));
+
+1932 
+Œav
+ = 
+roÙ
+;
+
+1933 
+Œav
+ = 
+	`d–_®l_nodes
+(trav);
+
+1934 
+	`ä“
+(
+Œav
+);
+
+1935 
+	`´št_šÜd”
+(
+Œav
+);
+
+1938 
+	`´štf
+("Enterhe first‚umber\n");
+
+1939 
+	`sÿnf
+("%d", &
+node1
+);
+
+1940 
+	`´štf
+("Enterhe second‚umber\n");
+
+1941 
+	`sÿnf
+("%d", &
+node2
+);
+
+1942 
+Œav
+ = 
+roÙ
+;
+
+1943 
+Œav
+ = 
 	`lowe¡_commÚ_ªû¡Ü
 Ñ¿v,
 node1
@@ -64743,7 +64797,7 @@ node1
 node2
 );
 
-1911 
+1946 
 	`´štf
 ("LCA : %d\n",
 Œav
@@ -64751,177 +64805,45 @@ node2
 v®ue
 );
 
-1914 
+1949 
 Œav
  = 
 roÙ
 ;
 
-1915 
+1950 
 	`mœrÜ1
 (
 Œav
 );
 
-1916 
+1951 
 	`´št_šÜd”
 (
 Œav
 );
 
-1917 
+1952 
 	`´štf
 ("Inorder is‚ot sorted,ie mirrorree is‚o†onger‡ binaryree\n");
 
-1920 
+1955 
 	`´štf
 ("Enter†evel\n");
 
-1921 
+1956 
 	`sÿnf
 ("%d",&
 Ëv–
 );
 
-1922 
+1957 
 	`´št_©_Ëv–
 (
 roÙ
 ,0,
 Ëv–
 );
-
-1925 
-Œav
- = 
-roÙ
-;
-
-1926 
-	`´štf
-("Size:%d\n",
-	`size_of_Œ“
-(
-Œav
-));
-
-1929 
-Œav
- = 
-roÙ
-;
-
-1930 
-	`´štf
-("Enterhe‚ode\n");
-
-1931 
-	`sÿnf
-("%d", &
-num
-);
-
-1932 
-	`´štf
-("Size:%d\n",
-	`g‘_Ëv–
-(
-Œav
-,
-num
-,1));
-
-1935 
-Œav
- = 
-roÙ
-;
-
-1936 
-	`´štf
-("HeighˆB®ªûd:%d\n",
-	`height_b®ªûd
-(
-Œav
-, 1));
-
-1939 
-Œav
- = 
-roÙ
-;
-
-1940 
-	`´štf
-("enter ith order statistics\n");
-
-1941 
-	`sÿnf
-("%d", &
-n
-);
-
-1942 
-	`´štf
-("%dth ord” sti¡ics:%d\n",
-n
-,
-	`Kth_Üd”_¡©s_usšgInod”
-(
-Œav
-,‚));
-
-1945 
-	`´štf
-("Remove half‚odes\n");
-
-1946 
-Œav
- = 
-roÙ
-;
-
-1947 
-Œav
- = 
-	`»moveH®fNodes
-Ñ¿v, 
-NULL
-);
-
-1948 
-	`´št_šÜd”
-(
-Œav
-);
-
-1953 
-Œav
- = 
-roÙ
-;
-
-1954 
-no_of_nodes
-;
-
-1955 
-no_of_nodes
- = 
-	`couÁ_nodes
-(
-Œav
-);
-
-1956 
-	`´štf
-("T»% com¶‘bš¬y»e\n", 
-	`isBš¬yT»eCom¶‘e
-(
-Œav
-, 0, 
-no_of_nodes
-)?"is":"is‚ot");
 
 1960 
 Œav
@@ -64931,6 +64853,138 @@ roÙ
 
 1961 
 	`´štf
+("Size:%d\n",
+	`size_of_Œ“
+(
+Œav
+));
+
+1964 
+Œav
+ = 
+roÙ
+;
+
+1965 
+	`´štf
+("Enterhe‚ode\n");
+
+1966 
+	`sÿnf
+("%d", &
+num
+);
+
+1967 
+	`´štf
+("Size:%d\n",
+	`g‘_Ëv–
+(
+Œav
+,
+num
+,1));
+
+1970 
+Œav
+ = 
+roÙ
+;
+
+1971 
+	`´štf
+("HeighˆB®ªûd:%d\n",
+	`height_b®ªûd
+(
+Œav
+, 1));
+
+1974 
+Œav
+ = 
+roÙ
+;
+
+1975 
+	`´štf
+("enter ith order statistics\n");
+
+1976 
+	`sÿnf
+("%d", &
+n
+);
+
+1977 
+	`´štf
+("%dth ord” sti¡ics:%d\n",
+n
+,
+	`Kth_Üd”_¡©s_usšgInod”
+(
+Œav
+,‚));
+
+1980 
+	`´štf
+("Remove half‚odes\n");
+
+1981 
+Œav
+ = 
+roÙ
+;
+
+1982 
+Œav
+ = 
+	`»moveH®fNodes
+Ñ¿v, 
+NULL
+);
+
+1983 
+	`´št_šÜd”
+(
+Œav
+);
+
+1988 
+Œav
+ = 
+roÙ
+;
+
+1989 
+no_of_nodes
+;
+
+1990 
+no_of_nodes
+ = 
+	`couÁ_nodes
+(
+Œav
+);
+
+1991 
+	`´štf
+("T»% com¶‘bš¬y»e\n", 
+	`isBš¬yT»eCom¶‘e
+(
+Œav
+, 0, 
+no_of_nodes
+)?"is":"is‚ot");
+
+1995 
+Œav
+ = 
+roÙ
+;
+
+1996 
+	`´štf
 ("Sum oà®ÈËá†—àŒ“s: %d\n", 
 	`couÁLeáL—fSum
 (
@@ -64939,27 +64993,27 @@ roÙ
 NULL
 ));
 
-1965 
+2000 
 Œav
  = 
 roÙ
 ;
 
-1966 
+2001 
 k
 ;
 
-1967 
+2002 
 	`´štf
 ("Enterhe‚umber K\n");
 
-1968 
+2003 
 	`sÿnf
 ("%d",&
 k
 );
 
-1969 
+2004 
 	`»moveNodesOnL—fP©hs
 (
 Œav
@@ -64969,35 +65023,35 @@ NULL
 k
 );
 
-1970 
+2005 
 	`´št_šÜd”
 (
 Œav
 );
 
-1974 
+2009 
 Œav
  = 
 roÙ
 ;
 
-1975 
+2010 
 TREE
  *
 ‹mp
 ;
 
-1976 
+2011 
 	`´štf
 ("Enterhe key\n");
 
-1977 
+2012 
 	`sÿnf
 ("%d",&
 key
 );
 
-1979 if((
+2014 if((
 ‹mp
  = 
 	`fšdNodeInBš¬yT»e
@@ -65009,7 +65063,7 @@ key
 NULL
 ){
 
-1980 
+2015 
 	`´štf
 ("Nodfound %d", 
 ‹mp
@@ -65017,17 +65071,17 @@ NULL
 v®ue
 );
 
-1983 
+2018 
 	`´štf
 ("Node‚ot found");
 
-1988 
+2023 
 Œav
  = 
 roÙ
 ;
 
-1989 
+2024 
 TREE
 * 
 š_´ev
@@ -65035,7 +65089,7 @@ TREE
 NULL
 ;
 
-1990 
+2025 
 	`cÚv”tToTh»adedBšT»e
 (
 Œav
@@ -65043,45 +65097,45 @@ NULL
 š_´ev
 );
 
-1991 
+2026 
 	`´štTh»adedBšŒ“
 (
 Œav
 );
 
-1995 
+2030 
 Œav
  = 
 roÙ
 ;
 
-1996 
+2031 
 n1
 , 
 n2
 ;
 
-1997 
+2032 
 	`´štf
 ("Enter‚ode 1\n");
 
-1998 
+2033 
 	`sÿnf
 ("%d", &
 n1
 );
 
-1999 
+2034 
 	`´štf
 ("Enter‚ode 2\n");
 
-2000 
+2035 
 	`sÿnf
 ("%d", &
 n2
 );
 
-2002 
+2037 
 	`´štf
 ("%s\n", 
 	`checkCousšs
@@ -65095,27 +65149,27 @@ n2
 NULL
 )?"cousins":"not cousins");
 
-2005 
+2040 
 Œav
  = 
 roÙ
 ;
 
-2006 
+2041 
 key
 ;
 
-2007 
+2042 
 	`´štf
 ("Enterhe key\n");
 
-2008 
+2043 
 	`sÿnf
 ("%d",&
 key
 );
 
-2011 
+2046 
 	`´štf
 ("InÜd” SucûssÜ = %d\n", 
 	`šOrd”SuccInBST_»cur
@@ -65127,13 +65181,13 @@ key
 v®ue
 );
 
-2015 
+2050 
 Œav
  = 
 roÙ
 ;
 
-2016 
+2051 
 	`´štf
 ("Max sum from„oÙØËaàğ%d\n", 
 	`maxL—fToRoÙSum
@@ -65141,17 +65195,17 @@ roÙ
 Œav
 ));
 
-2020 
+2055 
 Œav
  = 
 roÙ
 ;
 
-2021 
+2056 
 maxSum
  = 0;
 
-2022 
+2057 
 	`maxSumTwoL—ves
 (
 Œav
@@ -65159,19 +65213,19 @@ maxSum
 maxSum
 );
 
-2023 
+2058 
 	`´štf
 ("maximum…©h sum b‘w“ÀtwØËave oà¨bš¬y»eğ%d", 
 maxSum
 );
 
-2027 
+2062 
 Œav
  = 
 roÙ
 ;
 
-2028 
+2063 
 	`»v”£AÉ”Ç‹Lev–s
 (
 Œav
@@ -65181,39 +65235,39 @@ roÙ
 right
 , 0);
 
-2029 
+2064 
 	`´št_šÜd”
 (
 Œav
 );
 
-2033 
+2068 
 Œav
  = 
 roÙ
 ;
 
-2034 
+2069 
 	`´štf
 ("Enter key1\n");
 
-2035 
+2070 
 	`sÿnf
 ("%d", &
 key1
 );
 
-2036 
+2071 
 	`´štf
 ("Enter key2\n");
 
-2037 
+2072 
 	`sÿnf
 ("%d", &
 key2
 );
 
-2038 
+2073 
 	`´štf
 ("LCA iÀBš¬y T»ğ%d\n",
 	`lowe¡_commÚ_ªû¡Ü_bš_Œ“
@@ -65227,33 +65281,33 @@ key2
 v®ue
 );
 
-2042 
+2077 
 Œav
  = 
 roÙ
 ;
 
-2043 
+2078 
 	`´štf
 ("Enter key1\n");
 
-2044 
+2079 
 	`sÿnf
 ("%d", &
 key1
 );
 
-2045 
+2080 
 	`´štf
 ("Enter key2\n");
 
-2046 
+2081 
 	`sÿnf
 ("%d", &
 key2
 );
 
-2047 
+2082 
 	`´štf
 ("Di¡ªû b‘w“Àthkey ğ%d\n", 
 	`di¡B‘w“nKeys
@@ -65265,19 +65319,19 @@ key1
 key2
 ));
 
-2051 
+2086 
 Œav
  = 
 roÙ
 ;
 
-2052 
+2087 
 tmp
  = 0, 
 sum
  = 0;
 
-2053 
+2088 
 	`g»©”SumBšT»e
 (
 Œav
@@ -65287,23 +65341,23 @@ tmp
 sum
 );
 
-2054 
+2089 
 	`´št_šÜd”
 (
 Œav
 );
 
-2058 
+2093 
 	`´štf
 ("Enter†en of‡rray(number of‚odes)\n");
 
-2059 
+2094 
 	`sÿnf
 ("%d", &
 nodes
 );
 
-2061 
+2096 
 š
  = (*)
 	`m®loc
@@ -65311,7 +65365,7 @@ nodes
 nodes
 );
 
-2062 
+2097 
 ´e
  = (*)
 	`m®loc
@@ -65319,17 +65373,17 @@ nodes
 nodes
 );
 
-2064 
+2099 
 	`´štf
 ("Enter inorderraversal\n");
 
-2065 
+2100 
 i
 =0;i<
 nodes
 ;i++){
 
-2066 
+2101 
 	`sÿnf
 ("%d", &
 š
@@ -65337,17 +65391,17 @@ nodes
 i
 ]);
 
-2068 
+2103 
 	`´štf
 ("Enter…reorderraversal\n");
 
-2069 
+2104 
 i
 =0;i<
 nodes
 ;i++){
 
-2070 
+2105 
 	`sÿnf
 ("%d", &
 ´e
@@ -65355,13 +65409,13 @@ nodes
 i
 ]);
 
-2072 
+2107 
 TREE
 * 
 Œav
 ;
 
-2073 
+2108 
 Œav
  = 
 	`budT»e
@@ -65373,33 +65427,33 @@ TREE
 nodes
 -1);
 
-2074 
+2109 
 	`´št_šÜd”
 (
 Œav
 );
 
-2078 
+2113 
 Œav
  = 
 roÙ
 ;
 
-2079 
+2114 
 di¡
  = -1;
 
-2080 
+2115 
 	`´štf
 ("Enterhe distance k\n");
 
-2081 
+2116 
 	`sÿnf
 ("%d", &
 k
 );
 
-2082 
+2117 
 	`kDi¡ªûFromL—fNode
 (
 Œav
@@ -65409,19 +65463,19 @@ di¡
 k
 );
 
-2086 
+2121 
 Œav
  = 
 roÙ
 ;
 
-2087 
+2122 
 ·»Á
  = 
 NULL
 ;
 
-2088 
+2123 
 	`´štNoSiblšg
 (
 Œav
@@ -65429,25 +65483,25 @@ NULL
 ·»Á
 );
 
-2092 
+2127 
 Œav
  = 
 roÙ
 ;
 
-2093 
+2128 
 TREE
  *
 šs
 ;
 
-2094 
+2129 
 šs
  = 
 NULL
 ;
 
-2096 
+2131 
 	`cÚv”tToDLL
 (
 Œav
@@ -65455,13 +65509,13 @@ NULL
 šs
 );
 
-2098 
+2133 
 šs
 !=
 NULL
 ){
 
-2099 
+2134 
 	`´štf
 ("%d-->",
 šs
@@ -65469,29 +65523,29 @@ NULL
 v®ue
 );
 
-2100 
+2135 
 šs
  = ins->
 right
 ;
 
-2105 
+2140 
 Œav
  = 
 roÙ
 ;
 
-2106 
+2141 
 În
  = 0;
 
-2107 
+2142 
 ·»Á
  = 
 NULL
 ;
 
-2108 
+2143 
 	`d“³¡LeáL—fNode
 (
 Œav
@@ -65501,19 +65555,19 @@ NULL
 În
 );
 
-2109 
+2144 
 	`´štf
 ("%d", 
 În
 );
 
-2113 
+2148 
 Œav
  = 
 roÙ
 ;
 
-2114 
+2149 
 	`´štf
 ("Mšimum d•th oàŒ“: %d\n", 
 	`mš_d•th
@@ -65521,17 +65575,17 @@ roÙ
 Œav
 ));
 
-2119 
+2154 
 	`´štf
 ("Enter‚o ofƒlements in‡rray\n");
 
-2120 
+2155 
 	`sÿnf
 ("%d", &
 n
 );
 
-2121 
+2156 
 A
  = 
 	`ü—‹_1D¬¿y
@@ -65539,7 +65593,7 @@ A
 n
 );
 
-2122 
+2157 
 	`šput_1D¬¿y
 (
 A
@@ -65547,7 +65601,7 @@ A
 n
 );
 
-2123 
+2158 
 Œav
  = 
 	`sÜ‹d_¬¿y_to_b®ªûd_BST
@@ -65557,23 +65611,23 @@ A
 n
 -1);
 
-2124 
+2159 
 	`´št_šÜd”
 (
 Œav
 );
 
-2128 
+2163 
 	`´štf
 ("Enter‚o ofƒlements in‡rray\n");
 
-2129 
+2164 
 	`sÿnf
 ("%d", &
 n
 );
 
-2130 
+2165 
 A
  = 
 	`ü—‹_1D¬¿y
@@ -65581,11 +65635,11 @@ A
 n
 );
 
-2131 
+2166 
 	`´štf
 ("Enterƒlements in…re-order\n");
 
-2132 
+2167 
 	`šput_1D¬¿y
 (
 A
@@ -65593,7 +65647,7 @@ A
 n
 );
 
-2133 
+2168 
 Œav
  = 
 	`budBSTFromP»Ord”
@@ -65603,23 +65657,23 @@ A
 n
 -1);
 
-2134 
+2169 
 	`´št_šÜd”
 (
 Œav
 );
 
-2138 
+2173 
 Œav
  = 
 roÙ
 ;
 
-2139 
+2174 
 sum
  = 0;
 
-2140 
+2175 
 	`´št_®l_roÙ_Ëaf_·ths
 (
 Œav
@@ -65627,47 +65681,47 @@ sum
 sum
 );
 
-2144 
+2179 
 Œav
  = 
 roÙ
 ;
 
-2145 
+2180 
 	`Ëv–_Üd”_Œav”§l_Ãwlše
 (
 Œav
 );
 
-2149 
+2184 
 Œav
  = 
 roÙ
 ;
 
-2150 
+2185 
 TREE
  *
 node
 ;
 
-2151 
+2186 
 şo£
  = 
 INT_MAX
 ;
 
-2152 
+2187 
 	`´štf
 ("Enter‚o\n");
 
-2153 
+2188 
 	`sÿnf
 ("%d", &
 n
 );
 
-2154 
+2189 
 node
  = 
 	`şo£¡
@@ -65679,7 +65733,7 @@ n
 şo£
 );
 
-2155 
+2190 
 	`´štf
 ("Clo£¡‚odtØ%d: %d\n", 
 n
@@ -65689,17 +65743,17 @@ node
 v®ue
 );
 
-2159 
+2194 
 	`bud_Œ“_äom_chd_·»Á
 ();
 
-2163 
+2198 
 Œav
  = 
 roÙ
 ;
 
-2164 
+2199 
 n
  = 
 	`couÁ_nodes
@@ -65707,7 +65761,7 @@ n
 Œav
 );
 
-2165 
+2200 
 q
  = 
 	`£rŸlize
@@ -65717,39 +65771,39 @@ q
 n
 );
 
-2166 
+2201 
 	`de£rŸlize
 (
 q
 );
 
-2170 
+2205 
 Œav
  = 
 roÙ
 ;
 
-2171 
+2206 
 	`b®ªû_BST
 (
 Œav
 );
 
-2176 
+2211 
 	`´štf
 ("Invalid option\n");
 
-2179 
+2214 
 	`´štf
 ("\n\n");
 
-2180 }(
+2215 }(
 c
 =
 	`g‘ch¬
 ())!='q');
 
-2182 
+2217 
 	}
 }
 
@@ -72349,7 +72403,7 @@ i
 	}
 }
 
-210 
+211 
 	$sw­
 (*
 A
@@ -72359,11 +72413,11 @@ idx1
 idx2
 ) {
 
-212 
+213 
 ‹mp
 ;
 
-213 
+214 
 ‹mp
  = 
 A
@@ -72371,7 +72425,7 @@ A
 idx1
 ];
 
-214 
+215 
 A
 [
 idx1
@@ -72379,7 +72433,7 @@ idx1
 idx2
 ];
 
-215 
+216 
 A
 [
 idx2
@@ -72387,11 +72441,11 @@ idx2
 ‹mp
 ;
 
-216 
+217 
 	}
 }
 
-218 
+219 
 	$sw­_¡r
 (*
 A
@@ -72401,11 +72455,11 @@ idx1
 idx2
 ) {
 
-220 
+221 
 ‹mp
 ;
 
-221 
+222 
 ‹mp
  = 
 A
@@ -72413,7 +72467,7 @@ A
 idx1
 ];
 
-222 
+223 
 A
 [
 idx1
@@ -72421,7 +72475,7 @@ idx1
 idx2
 ];
 
-223 
+224 
 A
 [
 idx2
@@ -72429,7 +72483,7 @@ idx2
 ‹mp
 ;
 
-224 
+225 
 	}
 }
 

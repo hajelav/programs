@@ -213,8 +213,6 @@ void DFS_clone(GRAPH* g, int vtx, GRAPH* gclone){
 	DFS_clone(g, trav->idx, gclone);
 	trav = trav->next;
     }
-
-
 }
 
 /* DFS : O(V+E) */

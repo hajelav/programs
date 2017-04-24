@@ -1754,6 +1754,36 @@ TREE* extract_leaves_to_dll(TREE *node){
 }
 
 
+/*
+ *Connect nodes at same level
+ *
+ *Input Tree
+ *    A
+ *   / \
+ *  B   C
+ * / \   \
+ *D   E   F
+ *
+ *Output Tree
+ *
+ *    A--->NULL
+ *   / \
+ *  B-->C-->NULL
+ * / \   \
+ *D-->E-->F-->NULL
+
+logic: use BFS traversal using a queue
+1. In queue, maintain an extra parameter ,level , so once the queues is filled we will have 
+a level order traveral of all nodes of the tree including their levels.
+2. Now make all the right pointers of all rightmost nodes as NULL by using a recursive algo similar to inorder traversal
+2. Run a pass on Q (step 1) and link all right pointers of same level 
+
+ */
+
+
+
+
+
 int main() {
     char c;
     int item, num, node1, node2, level, n, close;
@@ -1823,6 +1853,7 @@ int main() {
 	printf("51 -- convert a normal BST to a balanced BST.\n");
 	printf("52 -- given a sorted array, convert it to a balanced BST.\n");
 	printf("53 -- Extract Leaves of a Binary Tree in a Doubly Linked List.\n");
+	printf("54 -- connect nodes at same level in a binary tree.\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
