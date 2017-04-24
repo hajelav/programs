@@ -399,6 +399,7 @@ int main() {
 		scanf("%d", &num);
 		printf("key found at index : %d\n", search_rotated_sorted(A, n, num));
 		/*printf("key found : %s\n", binary_search(A, 0, n, num)>=0?"yes":"no");*/
+		break;
 
 	    case 8:
 		printf("Enter the length of array\n");
