@@ -8,10 +8,10 @@ void removeSpaces(char* str) {
     int i,cnt=0;
 
     for(i=0; str[i]; i++){
-	if(str[i]!=' '){
-	    str[cnt] = str[i];
-	    cnt++;
-	}
+        if(str[i]!=' '){
+            str[cnt] = str[i];
+            cnt++;
+        }
     }
     str[cnt] = '\0';
 }
@@ -43,85 +43,85 @@ struct dir {
  * 2. The valid circular path should always start with G
  * 3. The valid circular path should not have consequtive Ls or Rs.
 
- */
+*/
 
 int checkCircularpath(char *path){
 
     int i,cnt=0;
     int sum=0;
     if(path[0]!='G')
-	return 0;
+        return 0;
 
     //check for consequitives Ls or Rs
 
     for(i=0;path[i];i++){
-	if((path[i] == 'L' && path[i+1] == 'R') ||
-	(path[i] == 'L' && path[i+1] == 'R')) {
-	    return 0;
-	}
+        if((path[i] == 'L' && path[i+1] == 'R') ||
+                (path[i] == 'L' && path[i+1] == 'R')) {
+            return 0;
+        }
     }
 
-   //count the number of Gs as we need to initialize path array 
+    //count the number of Gs as we need to initialize path array 
     for(i=0;path[i];i++){
-	    cnt++;
+        cnt++;
     }
 
     int *P = (int*)malloc(sizeof(int)*cnt);
     P[0] = 'E';
     for(i=1;path[i];i++){
-	
-	switch(path[i]){
-	    case 'L':
-		if(P[i-1] == 'E')
-		    P[i] = 'N';
-		else if(P[i-1] == 'W')
-		    P[i] = 'S';
-		else if(P[i-1] == 'N')
-		    P[i] = 'W';
-		else if(P[i-1] == 'S')
-		    P[i] = 'E';
-		break;
-			
-	    case 'R':
-		if(P[i-1] == 'E')
-		    P[i] = 'S';
-		else if(P[i-1] == 'W')
-		    P[i] = 'N';
-		else if(P[i-1] == 'N')
-		    P[i] = 'E';
-		else if(P[i-1] == 'S')
-		    P[i] = 'W';
-		break;
 
-	    case 'G':
-		P[i] = P[i-1];
-		break;
-	
-	    default:
-		return 0;
-	}
+        switch(path[i]){
+            case 'L':
+                if(P[i-1] == 'E')
+                    P[i] = 'N';
+                else if(P[i-1] == 'W')
+                    P[i] = 'S';
+                else if(P[i-1] == 'N')
+                    P[i] = 'W';
+                else if(P[i-1] == 'S')
+                    P[i] = 'E';
+                break;
+
+            case 'R':
+                if(P[i-1] == 'E')
+                    P[i] = 'S';
+                else if(P[i-1] == 'W')
+                    P[i] = 'N';
+                else if(P[i-1] == 'N')
+                    P[i] = 'E';
+                else if(P[i-1] == 'S')
+                    P[i] = 'W';
+                break;
+
+            case 'G':
+                P[i] = P[i-1];
+                break;
+
+            default:
+                return 0;
+        }
     }
 
     for(i=0;P[i];i++){
-	if(path[i] == 'G'){
-	    printf("%c", P[i]);
-	    if(P[i] == 'E')
-		sum += 1;
-	    else if (P[i] == 'W')
-		sum -= 1;
-	    else if (P[i] == 'N')
-		sum += 1;
-	    else if(P[i] == 'S') 
-		sum -= 1;
-	}
+        if(path[i] == 'G'){
+            printf("%c", P[i]);
+            if(P[i] == 'E')
+                sum += 1;
+            else if (P[i] == 'W')
+                sum -= 1;
+            else if (P[i] == 'N')
+                sum += 1;
+            else if(P[i] == 'S') 
+                sum -= 1;
+        }
     }
 
     printf("\n");
     printf("sum : %d\n", sum);
     if(sum == 0)
-	return 1;
+        return 1;
     else 
-	return 0;
+        return 0;
 }
 
 
@@ -174,7 +174,7 @@ int regex_match(char* str, char *pat) {
 
 
 
-return 0;
+    return 0;
 }
 
 
@@ -189,17 +189,17 @@ sol :
 3. p2 = p1->next;
 4. while (all elements in list become same) {
 
-	while(p2!=NUL){
-		if(p1=>value != p2->value){
-		p2 = p2->next;
-		p2->value = replace with 3rd char
-		del(p2);
+while(p2!=NUL){
+if(p1=>value != p2->value){
+p2 = p2->next;
+p2->value = replace with 3rd char
+del(p2);
 
-		} else {
-		p2 = p2->next;
-		p1 = p1->next;
-		}
-	}
+} else {
+p2 = p2->next;
+p1 = p1->next;
+}
+}
 }
 
 5. after the loop ends all chars will be same. get the lenth of link list
@@ -207,7 +207,7 @@ sol :
 8. run step 4 on reversed link list 
 9. get the length on the list obtained in step 8
 10 return the min len of step 5 and 9
- */
+*/
 
 /*
  *Beautiful string problem
@@ -246,9 +246,9 @@ void push(char *N, char c, int *sp) {
 void pop(char *N, int n, int *sp) {
 
     while(n>0){
-	N[*sp] = '\0';
-	n--;
-	*sp -= 1;
+        N[*sp] = '\0';
+        n--;
+        *sp -= 1;
     }
 }
 
@@ -261,23 +261,23 @@ char* normalize(char *S) {
     char *N;
     len = strlen(S);
     if(len < 3)
-	return NULL;
+        return NULL;
     //create space for normalized string
     N = (char*)calloc(sizeof(char), len+1);
 
     while(*S){
-	//if you get a ".", check if the pattern is "../" or "./"
-	if(S[i] == '.') {
-	    if(strncmp(S, "./", 2) == 0){
-		pop(N, 2, &sp); //pop last two chars 
-		S = S+2;  //move 2 char fwd if the pattern is "./" 
-	    } else if(strncmp(S, "../", 3) == 0){
-		S = S+3; //move 3 chars fwd if pattern is "../"	
-	    }
-	} else {
-	    push(N, S[i], &sp);
-	    S++;
-	}
+        //if you get a ".", check if the pattern is "../" or "./"
+        if(S[i] == '.') {
+            if(strncmp(S, "./", 2) == 0){
+                pop(N, 2, &sp); //pop last two chars 
+                S = S+2;  //move 2 char fwd if the pattern is "./" 
+            } else if(strncmp(S, "../", 3) == 0){
+                S = S+3; //move 3 chars fwd if pattern is "../"	
+            }
+        } else {
+            push(N, S[i], &sp);
+            S++;
+        }
     }
 
     return N;
@@ -292,7 +292,7 @@ void replace_spaces(char *str, char *pattern) {
     int copy_from, copy_to, i=0;
 
     if(str[0]=='\0' || pattern[0]=='\0')
-	return;
+        return;
 
     pattern_len = strlen(pattern);
 
@@ -300,13 +300,13 @@ void replace_spaces(char *str, char *pattern) {
 
     while(str[i]!='\0') {
 
-	if(str[i] == '-')
-	    space_count++;
-	 i++;
+        if(str[i] == '-')
+            space_count++;
+        i++;
     }
 
     non_space_count = strlen(str) - space_count;
-    
+
     /*length of the new string after replacing pattern*/
     result_len = space_count*pattern_len + non_space_count;
 
@@ -315,15 +315,15 @@ void replace_spaces(char *str, char *pattern) {
 
     while(copy_from >= 0) {
 
-	if(str[copy_from]!= '-') {
-	    str[copy_to] = str[copy_from];
-	    copy_to--;
-	    copy_from--;
-	} else {
-	    strncpy(str+copy_to-pattern_len+1, pattern, pattern_len);
-	    copy_from--;
-	    copy_to = copy_to - pattern_len;
-	}
+        if(str[copy_from]!= '-') {
+            str[copy_to] = str[copy_from];
+            copy_to--;
+            copy_from--;
+        } else {
+            strncpy(str+copy_to-pattern_len+1, pattern, pattern_len);
+            copy_from--;
+            copy_to = copy_to - pattern_len;
+        }
     } 
 }
 
@@ -339,7 +339,7 @@ void replace_spaces(char *str, char *pattern) {
  *    logic : http://www.geeksforgeeks.org/find-the-smallest-window-in-a-string-containing-all-characters-of-another-string/
  *    http://articles.leetcode.com/2010/11/finding-minimum-window-in-s-which.html
  */
-    
+
 char * min_window_substring(char *S, char *T) {
 
     int *needToFill; //hash of T. It stores the frequency of chars in T
@@ -350,7 +350,7 @@ char * min_window_substring(char *S, char *T) {
     int min_window_start_idx = 0, min_window_end_idx = 0;
     int min_window = INT_MAX;
     if(!S || !T)
-	return NULL;
+        return NULL;
 
     len_S = strlen(S);
     len_T = strlen(T);
@@ -361,48 +361,48 @@ char * min_window_substring(char *S, char *T) {
 
     /*go through T and fill the needToFill hash*/
     while(T[i]!='\0'){
-	needToFill[T[i]-'a']++;
-	i++;
+        needToFill[T[i]-'a']++;
+        i++;
     }
 
     /*now run through S*/
     while(end<len_S) {
 
-	//if you found the char in T and the count of hasFound[char] is than needToFill[char]
-	if(needToFill[S[end]-'a'])  {
-	    if(hasFound[S[end]-'a'] < needToFill[S[end]-'a']){
-		count++; //increment the count, which counts the total chars found in S matching T
-	    }
-	    hasFound[S[end]-'a']++; //increment the count in hasFound
-	}
+        //if you found the char in T and the count of hasFound[char] is than needToFill[char]
+        if(needToFill[S[end]-'a'])  {
+            if(hasFound[S[end]-'a'] < needToFill[S[end]-'a']){
+                count++; //increment the count, which counts the total chars found in S matching T
+            }
+            hasFound[S[end]-'a']++; //increment the count in hasFound
+        }
 
-	//if we have found all the chars of T in S previously and we find first char of T again,then we move the start
-	//pointer forward till the point the needToFill constrainst in maintained.
-	if((min_window < INT_MAX) && (needToFill[S[start]-'a'] && S[end] == S[start]) && (count > 0)) {
+        //if we have found all the chars of T in S previously and we find first char of T again,then we move the start
+        //pointer forward till the point the needToFill constrainst in maintained.
+        if((min_window < INT_MAX) && (needToFill[S[start]-'a'] && S[end] == S[start]) && (count > 0)) {
 
-	    while((needToFill[S[start]-'a'] == 0) || (hasFound[S[start]-'a'] > needToFill[S[start]-'a']))   {
+            while((needToFill[S[start]-'a'] == 0) || (hasFound[S[start]-'a'] > needToFill[S[start]-'a']))   {
 
-		if(hasFound[S[start]-'a'] > needToFill[S[start]-'a'])
-		    hasFound[S[start]-'a']--;
-		start++;
-	    }
-	}
-	/*when we have found the window containing all the chars in T, we calculate the indexes*/
-	if(count == len_T){
-	    if(end-start < min_window){
-		min_window = end-start;
-		min_window_start_idx = start;
-		min_window_end_idx = end;
-	    }
-	} 
+                if(hasFound[S[start]-'a'] > needToFill[S[start]-'a'])
+                    hasFound[S[start]-'a']--;
+                start++;
+            }
+        }
+        /*when we have found the window containing all the chars in T, we calculate the indexes*/
+        if(count == len_T){
+            if(end-start < min_window){
+                min_window = end-start;
+                min_window_start_idx = start;
+                min_window_end_idx = end;
+            }
+        } 
 
-	end++;
+        end++;
     } //while ends
 
     /*if(min_window_start_idx>0 && min_window_end_idx>0) */
-	printf("min window length : %d, [start index = %d end index = %d]\n", min_window+1, min_window_start_idx, min_window_end_idx);
+    printf("min window length : %d, [start index = %d end index = %d]\n", min_window+1, min_window_start_idx, min_window_end_idx);
     /*else*/
-	/*printf("Min window length  : %d\n", min_window);*/
+    /*printf("Min window length  : %d\n", min_window);*/
 
     return NULL;
     /***** HAS A BUG, NEED TO BE CORRECTED ** */
@@ -422,9 +422,9 @@ void restore_ip_address() {
     scanf("%s", str);
 
     str_len = strlen(str);
-     
+
     if(str_len < 4)
-	return;
+        return;
 
 }
 
@@ -441,19 +441,19 @@ int isomorphic_strings(char *S, char *T) {
     int i = 0;
 
     if(!S || !T || strlen(S)!=strlen(T))
-	return 0;
+        return 0;
 
     memset(hash, '\0', 256);
 
     while(S[i]){
 
-	if(hash[S[i]-'a']!='\0' && hash[S[i]-'a']!=T[i])
-	    return 0;
-	else
-	hash[S[i]-'a'] = T[i];
-	i++;
+        if(hash[S[i]-'a']!='\0' && hash[S[i]-'a']!=T[i])
+            return 0;
+        else
+            hash[S[i]-'a'] = T[i];
+        i++;
     }
-     return 1;
+    return 1;
 }
 
 /*
@@ -462,48 +462,48 @@ int isomorphic_strings(char *S, char *T) {
  */
 
 int is_valid_number(char *S) {
- 
-   int i, len, dot_count = 0;
 
-   if(!S)
-       return 0;
+    int i, len, dot_count = 0;
 
-   len = strlen(S);
-   for(i=0;i<len;i++){
+    if(!S)
+        return 0;
 
-       /*count the number of dots*/
-       if(S[i] == '.')
-	   dot_count++;
+    len = strlen(S);
+    for(i=0;i<len;i++){
 
-       /*
-	*the string is not a number only if
-	*    1. ascii value of any of the char (which is not '.' or '-') lies outside the range of '0' to '9'
-	*    2. if we find a '-' sign other than the first index(ie '-' sign in between the srting) 
-	*    3. if we find a '.' at the last postion of a string
-	*    4. if we find more than one '.'
-	*    5. if we find any space character
-	*/
+        /*count the number of dots*/
+        if(S[i] == '.')
+            dot_count++;
 
-       if((S[i]!='.' && S[i]!='-' && (S[i]-'0' < 0 || S[i]-'0'> 9)) ||
-	  (S[i] == '-' && i > 0)        ||
-	  (S[i] == '.' && i == len-1) 	||
-	  (dot_count > 1) ||
-      	  (S[i] == ' ')){
-	   return 0;
-	  } 
-   }
-   return 1;
+        /*
+         *the string is not a number only if
+         *    1. ascii value of any of the char (which is not '.' or '-') lies outside the range of '0' to '9'
+         *    2. if we find a '-' sign other than the first index(ie '-' sign in between the srting) 
+         *    3. if we find a '.' at the last postion of a string
+         *    4. if we find more than one '.'
+         *    5. if we find any space character
+         */
+
+        if((S[i]!='.' && S[i]!='-' && (S[i]-'0' < 0 || S[i]-'0'> 9)) ||
+                (S[i] == '-' && i > 0)        ||
+                (S[i] == '.' && i == len-1) 	||
+                (dot_count > 1) ||
+                (S[i] == ' ')){
+            return 0;
+        } 
+    }
+    return 1;
 }
 
 void print_string(char *S, int len){
 
     int i=0;
     if(!S || len<=0)
-	return;
+        return;
 
     while(i<len){
-	printf("%c", S[i]);
-	i++;
+        printf("%c", S[i]);
+        i++;
     }
 }
 
@@ -513,18 +513,18 @@ void reverse_string(char *S, int len) {
     char t;
 
     if(!S || len<=0)
-	return;
+        return;
 
     i = 0;
     j = len-1;
 
     while(i<j){
-	t = S[i];
-	S[i] = S[j];
-	S[j] = t;     
+        t = S[i];
+        S[i] = S[j];
+        S[j] = t;     
 
-	i++;
-	j--;
+        i++;
+        j--;
     }
 }
 
@@ -535,7 +535,7 @@ void reverse_words(char *S) {
     len = strlen(S);
 
     if(!S || len == 0)
-	return;
+        return;
 
     i = 0;
     j = 0;
@@ -546,48 +546,48 @@ void reverse_words(char *S) {
     /*run the loop till the end of the sentence*/
     while(S[j]) {
 
-	/*
-	 *whenever we find a space, we reverse the word found previously , ie from i to j-1
-	 *after we reverse the word  update i to point to next char after space   
-	 */
-	if(S[j] == ' '){
-	    reverse_string(S+i, j-i);    			    
-	    i = j+1;
-	}
-	j++;
+        /*
+         *whenever we find a space, we reverse the word found previously , ie from i to j-1
+         *after we reverse the word  update i to point to next char after space   
+         */
+        if(S[j] == ' '){
+            reverse_string(S+i, j-i);    			    
+            i = j+1;
+        }
+        j++;
     }
 
     /*reverse the last word*/
     if(j==len)
-	reverse_string(S+i, j-i); 
+        reverse_string(S+i, j-i); 
 }
 
-  /*
-   * linkedin
-   *provide a method that takes two  words and returns the shortest distance (in words) between those two
-   *words in the provided text. 
-   *   Example:
-   *     WordDistanceFinder finder = new WordDistanceFinder(Arrays.asList("the", "quick", "brown", "fox", "quick"));
-   *     distance("fox","the") == 3;
-   *     distance("quick", "fox") == 1;
-   */
-        
+/*
+ * linkedin
+ *provide a method that takes two  words and returns the shortest distance (in words) between those two
+ *words in the provided text. 
+ *   Example:
+ *     WordDistanceFinder finder = new WordDistanceFinder(Arrays.asList("the", "quick", "brown", "fox", "quick"));
+ *     distance("fox","the") == 3;
+ *     distance("quick", "fox") == 1;
+ */
+
 int shortest_distance(char **S, int len, char *str1, char *str2) {
 
     int i, dist1 = -1, dist2 = -1, dist = INT_MAX;
 
     if(!S || len <=0 || !str1 || !str2)
-	return -1;
+        return -1;
 
     for(i=0;i<len;i++){
 
-	if(strcmp(S[i], str1)==0)
-	    dist1 = i;
-	else if(strcmp(S[i], str2)==0)
-	    dist2 = i;
+        if(strcmp(S[i], str1)==0)
+            dist1 = i;
+        else if(strcmp(S[i], str2)==0)
+            dist2 = i;
 
-	if(dist1 >=0 && dist2 >=0 && MOD(dist1, dist2) < dist)
-	    dist = MOD(dist1, dist2);
+        if(dist1 >=0 && dist2 >=0 && MOD(dist1, dist2) < dist)
+            dist = MOD(dist1, dist2);
     }
     return (dist<INT_MAX?dist:-1);
 }
@@ -603,22 +603,22 @@ Input: "Let's take LeetCode contest"
 Output: "s'teL ekat edoCteeL tsetnoc"
 
 Note: In the string, each word is separated by single space and there will not be any extra space in the string. 
- */
+*/
 
 void reverse_str(char *S , int low , int high) {
 
     char temp;
 
     if (!S || (low >= high))
-	return;
+        return;
 
     while(low < high) {
-	temp = S[low];
-	S[low] = S[high];
-	S[high] = temp;
+        temp = S[low];
+        S[low] = S[high];
+        S[high] = temp;
 
-	low++;
-	high--;
+        low++;
+        high--;
     }
 }
 
@@ -627,8 +627,8 @@ void reverse_words_preserving_order(char *S) {
 
     int i, j, len;
     if (!S){
-	printf("string is null");
-	return;
+        printf("string is null");
+        return;
     }
 
     i = 0;
@@ -638,15 +638,15 @@ void reverse_words_preserving_order(char *S) {
 
     while(j>0){
 
-	if(i >= 0 && S[i] != ' '){
-	    i--;
-	} else {
+        if(i >= 0 && S[i] != ' '){
+            i--;
+        } else {
 
-	    reverse_str(S, i+1, j);
-	    j = i-1;
-	    i--;
+            reverse_str(S, i+1, j);
+            j = i-1;
+            i--;
 
-	}
+        }
     }
 }
 
@@ -681,47 +681,47 @@ int validate_ip_address(char *S) {
      */
 
     if (!S){
-	printf("ip add is null");
-	return 0;
+        printf("ip add is null");
+        return 0;
     }
 
     len = strlen(S);
 
     if (S[0] == '.' || S[len-1] == '.'){
-	printf("ip add has leading or trialing dots\n");
-	return 0;
+        printf("ip add has leading or trialing dots\n");
+        return 0;
     }
 
     for(j=1;j<len-1;j++){
-	if(S[j] == '.')
-	    dot_count++;
-	if(S[j] == '.' && S[j-1] == '.')
-	    return 0;
+        if(S[j] == '.')
+            dot_count++;
+        if(S[j] == '.' && S[j-1] == '.')
+            return 0;
     }
 
     if (dot_count!=3)
-	return 0;
+        return 0;
 
     /*tokenize the ip address validate each token*/
     token = strtok(S, ".");
     while( token != NULL ) 
     {
-	printf("%s\n", (token));
+        printf("%s\n", (token));
 
-	i = 0;
-	while(token[i]!='\0'){
-	    if(token[i]-'0' < 0 ||
-		    token[i]-'0' > 255)
-		return 0;
-	i++;
-	}
-	if ( i < 1 || i > 3)
-	    return 0;
-	if(i >= 1 && token[0] == '0')
-	    return 0;
+        i = 0;
+        while(token[i]!='\0'){
+            if(token[i]-'0' < 0 ||
+                    token[i]-'0' > 255)
+                return 0;
+            i++;
+        }
+        if ( i < 1 || i > 3)
+            return 0;
+        if(i >= 1 && token[0] == '0')
+            return 0;
 
 
-	token = strtok(NULL, ".");
+        token = strtok(NULL, ".");
     }
 
     return 1;
@@ -771,7 +771,7 @@ void run_length_encoding(char *S){
     /*second pass: fill the result array which is run length encoded*/
     while(S[j] != '\0') {
 
-       /*check if prev char is not as current char, then update the result array with char and freq */
+        /*check if prev char is not as current char, then update the result array with char and freq */
         if(S[j] != S[j-1]) {
             result[k] = S[j-1];
 
@@ -812,7 +812,7 @@ int longest_substring_without_repeat_char(char *S) {
 
     for(i=0;i<26;i++){
         H[i].visited = 0;
-        H[i].index = 0;
+        H[i].index = -1;
     };
 
     if (!S)
@@ -843,25 +843,37 @@ int longest_substring_without_repeat_char(char *S) {
 
             /*update index of this char and mark as visited*/
             H[S[j]-'a'].visited = 1;
+            H[S[j]-'a'].index = j;
+            j++;
 
         }else{
 
             /*we have already visted the char before: check if the index lies betweeb i and j ?, if it does 
-             * then update i to the next of index*/
-            if (H[S[j]-'a'].index >= i)
+             * then update i to the next index*/
+            if (H[S[j]-'a'].index >= i){
                 i = H[S[j]-'a'].index + 1;
-            else
-                printf("%d\n", i);
-
+                H[S[j]-'a'].index = j;
+                j++;
+            }
+            else{
+                /*
+                 *if we come here that means if are seeing a character again but it lies to the left of i and j, so we can ignore it
+                 *and remove the entry from the hash table(ie mark the char as unset and set index to -1
+                 */
+                H[S[j]-'a'].visited = 0;
+                H[S[j]-'a'].index = -1;
+                /*
+                 *we intentionally do not increment the j here, because we have already marked j as unvisted so next time in the top level
+                 *    while loop, we want j to be counted as part on the longest string ( since the char lies outside of i and j)
+                 */
+            }
         }
-        H[S[j]-'a'].index = j;
 
-        j++;
+        /*j++;*/
     }
 
     return max;
 }
-
 
 int main() {
     /*char c;*/
@@ -876,157 +888,157 @@ int main() {
     char **s;
     /*do {*/
 
-	printf("MENU OPTIONS\n");
-	printf("1 -- remove spaces from string\n");
-	printf("2-- Check if a given sequence of moves for a robot is circular or not\n");
-	printf("3 -- Regex matching problem\n");
-	printf("4 -- Palindrome detection with non-alphanumeric characters\n");
-	printf("5 -- Normalize the path\n");
-	printf("6 -- replace space by percentage20 in a string\n");
-	printf("7 -- minimum window substring\n");
-	printf("8 -- integer to english words\n");
-	printf("9 -- restore IP addresses\n");
-	printf("10 -- check if strings are isomorphic\n");
-	printf("11 -- function to determine if a string is a valid number without using any built-in function\n");
-	printf("12 -- reverse string\n");
-	printf("13 -- reverse words in a sentence\n");
-	printf("14 -- shortest distance between words\n");
-	printf("15 -- shortest distance between words\n");
-	printf("16 --  reverse the order of characters in each word within a sentence while still preserving whitespace and initial word\n");
-	printf("17 -- validate ip address\n");
-	printf("18 -- run length encoding\n");
-	printf("19 -- longest substring without repeat character\n");
-	
-	
-
-	printf("\n");
-	printf("Enter your choice\n");
-	scanf("%d",&choice);
-	switch(choice){
-	    case 1:
-		removeSpaces(str);
-		printf("%s", str);
-		break;
-
-	    case 2:
-		printf("Enter path\n");
-		scanf("%s", path);
-		printf("path is circular: %s", checkCircularpath(path)?"yes":"no");
-		break;
-
-	    case 4:
-		palindrome();
-		break;
-		
-	    case 5:
-		printf("Enter path\n");
-		fgets(path, 128, stdin);
-		printf("Normalized path: %s\n", normalize(path));
-		break;
-
-	    case 6:
-		memset(path, '\0', 128);
-		printf("Enter string\n");
-		scanf("%s", path);
-		/*gets(path);*/
-		replace_spaces(path, pattern);
-		printf("%s\n", path);
-		break;
-
-	    case 7:
-
-		printf("Enter the string\n");
-		scanf("%s", S);
-		printf("Enter the pattern\n");
-		scanf("%s", T);
-
-		min_window_substring(S, T);
-		    break;
-
-	    case 8:
-		    /*interger_to_english_words();*/
-		    break;
-
-	    case 9:
-		    restore_ip_address();
-		    break;
-
-	    case 10:
-		    printf("Enter strings of equal length\n");
-		    printf("Enter string 1\n");
-		    scanf("%s", S);
-		    printf("Enter string 2\n");
-		    scanf("%s", T);
-		    printf("Strings are isomorphic : %s\n", isomorphic_strings(S, T)?"Yes":"No");
-		    break;
-
-	    case 11:
-		    printf("Enter the string\n");
-		    scanf(" %[^\n]s", S); //reading a space through scanf
-		    /*fgets(stdin, S, sizeof(S));*/
-		    printf("Is number : %s\n", is_valid_number(S)?"yes":"no");
-		    break;
-
-	    case 12:
-		    printf("Enter the string\n");
-		    scanf(" %[^\n]s", S);  //make scanf work with spaces 
-		    reverse_string(S, strlen(S));
-		    print_string(S, strlen(S));
-		    break;
-	    case 13:
-		    printf("Enter the sentence\n");
-		    scanf(" %[^\n]s", S);  //make scanf work with spaces
-		    /*fgets(S, 128, stdin);*/
-		    reverse_words(S);
-		    print_string(S, strlen(S));
-		    break;
-
-	    case 14:
-		    printf("Enter number of words\n");
-		    scanf("%d", &n);
-		    s = create_2Dchar_array(n, 128);
-		    input_2Dchar_array(s, n, 128);
-
-		    printf("enter word 1\n");
-		    scanf("%s", str1);
-		    printf("enter word 2\n");
-		    scanf("%s", str2);
-		    printf("Shortest distance between %s and %s : %d\n", str1, str2, shortest_distance(s, n, str1, str2));
-		    break;
-
-		case 16:
-
-		    printf("Enter the string\n");
-		    scanf(" %[^\n]s", S);
-		    reverse_words_preserving_order(S);
-		    printf("%s", S);
-		    break;
-
-		case 17:
-		    printf("Enter the ip address\n");
-		    scanf(" %[^\n]s", S);
-		    printf("IP address:%s", validate_ip_address(S)?"valid":"invalid");
-		    break;
-
-		case 18:
-		    printf("Enter the string to be run length encoded\n");
-		    scanf(" %s", S);
-		    run_length_encoding(S);
-		    break;
-		case 19:
-		    printf("Enter the string\n");
-		    scanf(" %s", S);
-		    printf("%d",longest_substring_without_repeat_char(S));
-		    break;
+    printf("MENU OPTIONS\n");
+    printf("1 -- remove spaces from string\n");
+    printf("2-- Check if a given sequence of moves for a robot is circular or not\n");
+    printf("3 -- Regex matching problem\n");
+    printf("4 -- Palindrome detection with non-alphanumeric characters\n");
+    printf("5 -- Normalize the path\n");
+    printf("6 -- replace space by percentage20 in a string\n");
+    printf("7 -- minimum window substring\n");
+    printf("8 -- integer to english words\n");
+    printf("9 -- restore IP addresses\n");
+    printf("10 -- check if strings are isomorphic\n");
+    printf("11 -- function to determine if a string is a valid number without using any built-in function\n");
+    printf("12 -- reverse string\n");
+    printf("13 -- reverse words in a sentence\n");
+    printf("14 -- shortest distance between words\n");
+    printf("15 -- shortest distance between words\n");
+    printf("16 --  reverse the order of characters in each word within a sentence while still preserving whitespace and initial word\n");
+    printf("17 -- validate ip address\n");
+    printf("18 -- run length encoding\n");
+    printf("19 -- longest substring without repeat character\n");
 
 
 
+    printf("\n");
+    printf("Enter your choice\n");
+    scanf("%d",&choice);
+    switch(choice){
+        case 1:
+            removeSpaces(str);
+            printf("%s", str);
+            break;
 
-	    default:
-		printf("Invalid option\n");
-		break;
-	}
-	printf("\n\n");
+        case 2:
+            printf("Enter path\n");
+            scanf("%s", path);
+            printf("path is circular: %s", checkCircularpath(path)?"yes":"no");
+            break;
+
+        case 4:
+            palindrome();
+            break;
+
+        case 5:
+            printf("Enter path\n");
+            fgets(path, 128, stdin);
+            printf("Normalized path: %s\n", normalize(path));
+            break;
+
+        case 6:
+            memset(path, '\0', 128);
+            printf("Enter string\n");
+            scanf("%s", path);
+            /*gets(path);*/
+            replace_spaces(path, pattern);
+            printf("%s\n", path);
+            break;
+
+        case 7:
+
+            printf("Enter the string\n");
+            scanf("%s", S);
+            printf("Enter the pattern\n");
+            scanf("%s", T);
+
+            min_window_substring(S, T);
+            break;
+
+        case 8:
+            /*interger_to_english_words();*/
+            break;
+
+        case 9:
+            restore_ip_address();
+            break;
+
+        case 10:
+            printf("Enter strings of equal length\n");
+            printf("Enter string 1\n");
+            scanf("%s", S);
+            printf("Enter string 2\n");
+            scanf("%s", T);
+            printf("Strings are isomorphic : %s\n", isomorphic_strings(S, T)?"Yes":"No");
+            break;
+
+        case 11:
+            printf("Enter the string\n");
+            scanf(" %[^\n]s", S); //reading a space through scanf
+            /*fgets(stdin, S, sizeof(S));*/
+            printf("Is number : %s\n", is_valid_number(S)?"yes":"no");
+            break;
+
+        case 12:
+            printf("Enter the string\n");
+            scanf(" %[^\n]s", S);  //make scanf work with spaces 
+            reverse_string(S, strlen(S));
+            print_string(S, strlen(S));
+            break;
+        case 13:
+            printf("Enter the sentence\n");
+            scanf(" %[^\n]s", S);  //make scanf work with spaces
+            /*fgets(S, 128, stdin);*/
+            reverse_words(S);
+            print_string(S, strlen(S));
+            break;
+
+        case 14:
+            printf("Enter number of words\n");
+            scanf("%d", &n);
+            s = create_2Dchar_array(n, 128);
+            input_2Dchar_array(s, n, 128);
+
+            printf("enter word 1\n");
+            scanf("%s", str1);
+            printf("enter word 2\n");
+            scanf("%s", str2);
+            printf("Shortest distance between %s and %s : %d\n", str1, str2, shortest_distance(s, n, str1, str2));
+            break;
+
+        case 16:
+
+            printf("Enter the string\n");
+            scanf(" %[^\n]s", S);
+            reverse_words_preserving_order(S);
+            printf("%s", S);
+            break;
+
+        case 17:
+            printf("Enter the ip address\n");
+            scanf(" %[^\n]s", S);
+            printf("IP address:%s", validate_ip_address(S)?"valid":"invalid");
+            break;
+
+        case 18:
+            printf("Enter the string to be run length encoded\n");
+            scanf(" %s", S);
+            run_length_encoding(S);
+            break;
+        case 19:
+            printf("Enter the string\n");
+            scanf(" %s", S);
+            printf("Longest substring: %d",longest_substring_without_repeat_char(S));
+            break;
+
+
+
+
+        default:
+            printf("Invalid option\n");
+            break;
+    }
+    printf("\n\n");
     /*}while((c=getchar())!='q'); */
     return 0;
 }
