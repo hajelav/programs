@@ -791,6 +791,81 @@ void run_length_encoding(char *S){
     printf("%s", result);
 }
 
+
+/*
+ *Length of the longest substring without repeating characters
+ *http://www.geeksforgeeks.org/length-of-the-longest-substring-without-repeating-characters/
+ *
+ *auxillary array to remember that we have visted the char and what was the index, when we last saw that char
+ */
+typedef struct hash {
+    int visited;
+    int index;
+}hash;
+
+int longest_substring_without_repeat_char(char *S) {
+
+
+    int j = 1; // index to track the right end of the longest substring
+    int i = 0; // index to track the left end of the longest substring
+    int len; //len of string
+    int max; //max length of substring without repeating characters
+
+    struct hash H[26]; // delare the hash of 26 chars (assuming input String is all small case)
+
+    for(i=0;i<26;i++){
+        H[i].visited = 0;
+        H[i].index = 0;
+    };
+
+    if (!S)
+        return 0;
+
+    len = strlen(S);
+    if (len == 1)
+        return 1;
+
+
+    i =0;
+    max = 1; // initially assign max length to be 1
+    //fill the hash with the first char
+    H[S[0]-'a'].visited = 1;
+    H[S[0]-'a'].index = 0;
+
+    /*iterate thru S: start from the 1st index*/
+    while(j<len) {
+
+        /*for each char check if we have not seen it(ie present in the hash)*/
+        if(!H[S[j]-'a'].visited){
+
+            if(j-i+1 > max){
+                max = j-i+1;
+                printf("left index: %d\n", i);
+                printf("right index: %d\n", j);
+            }
+
+            /*update index of this char and mark as visited*/
+            H[S[j]-'a'].visited = 1;
+
+        }else{
+
+            /*we have already visted the char before: check if the index lies betweeb i and j ?, if it does 
+             * then update i to the next of index*/
+            if (H[S[j]-'a'].index >= i)
+                i = H[S[j]-'a'].index + 1;
+            else
+                printf("%d\n", i);
+
+        }
+        H[S[j]-'a'].index = j;
+
+        j++;
+    }
+
+    return max;
+}
+
+
 int main() {
     /*char c;*/
     int choice;
@@ -823,6 +898,7 @@ int main() {
 	printf("16 --  reverse the order of characters in each word within a sentence while still preserving whitespace and initial word\n");
 	printf("17 -- validate ip address\n");
 	printf("18 -- run length encoding\n");
+	printf("19 -- longest substring without repeat character\n");
 	
 	
 
@@ -939,6 +1015,11 @@ int main() {
 		    printf("Enter the string to be run length encoded\n");
 		    scanf(" %s", S);
 		    run_length_encoding(S);
+		    break;
+		case 19:
+		    printf("Enter the string\n");
+		    scanf(" %s", S);
+		    printf("%d",longest_substring_without_repeat_char(S));
 		    break;
 
 
