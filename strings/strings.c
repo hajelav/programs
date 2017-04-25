@@ -764,9 +764,6 @@ void run_length_encoding(char *S){
         }
     }
 
-
-    printf("result len:%d", result_len);
-    
     result = create_1Dchar_array(result_len);
 
     k = 0;
