@@ -916,6 +916,38 @@ char* remove_duplicate_in_place(char *S) {
 }
 
 
+/*
+ *How do you find an element in an sorted array of infinite size
+ *logic: 
+ *
+ *we start scanning the array in multuiples of 2 ( starting from 2) and run a binary search
+ *
+ * int find_element_infinite_array(int *A, int key){
+ *
+ *      len = 1;
+ *      low = 0;
+ *
+ *      while(1) { // keep continuing the search till we find an array
+ *
+ *          len = len*2; //double the size of array to scanned in each iteration
+ *          high = low + len - 1; //scan array from index low to high
+ *
+ *          if ( binsearch(A, low, high, key))
+ *              return 1; // found the key 
+ *
+ *          else {
+ *             
+ *              //keep searching from the next index after high from the previous iteration
+ *              low = hig+1;
+ *          }
+ *
+ *      }//while ends
+ *
+ * }
+ *
+ *
+ */
+
 int main() {
     /*char c;*/
     int choice;
