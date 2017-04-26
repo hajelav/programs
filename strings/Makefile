@@ -6,7 +6,7 @@ OBJ = ../utils.o strings.o
 %.o: %.c $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)
 
-strings: $(OBJ)
+string: $(OBJ)
 		gcc -o $@ $^ $(CFLAGS) -lm
 
 .PHONY: clean
@@ -14,4 +14,4 @@ strings: $(OBJ)
 clean:
 		rm -f *.o
 		rm -f ../utils.o
-		rm -f strings
+		rm -f string
