@@ -875,6 +875,19 @@ int longest_substring_without_repeat_char(char *S) {
     return max;
 }
 
+/*
+ *Given a sorted array, remove the duplicates in place such that each element appear only once and return the new length. Do not allocate extra space for another array, you must do this in place with constant memory. For example, Given input array A = [1,1,2], Your function should return length = 2, and A is now [1,2].
+ */
+
+void remove_duplicate_in_place(char *S) {
+
+    if(!S)
+        return NULL;
+
+
+}
+
+
 int main() {
     /*char c;*/
     int choice;
@@ -908,6 +921,7 @@ int main() {
     printf("17 -- validate ip address\n");
     printf("18 -- run length encoding\n");
     printf("19 -- longest substring without repeat character\n");
+    printf("20 -- remove duplicates from a sorted array in place\n");
 
 
 
@@ -1030,6 +1044,12 @@ int main() {
             scanf(" %s", S);
             printf("Longest substring: %d",longest_substring_without_repeat_char(S));
             break;
+        case 20:
+            printf("Enter the string\n");
+            scanf(" %s", S);
+            printf("Longest substring: %d",remove_duplicate_in_place(S));
+            break;
+
 
 
 
