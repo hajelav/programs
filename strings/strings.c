@@ -908,6 +908,8 @@ char* remove_duplicate_in_place(char *S) {
         }
 
     }//while ends
+
+    /*after the while loop i points to index next to the non-duplicate char string*/
     S[i] = '\0';
 
     return S;
