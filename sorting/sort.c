@@ -299,9 +299,11 @@ int order_statistic(int  *A, int low , int high, int st) {
 
 /*
  *note : this only works when size of both arrays are same
- To be completed
+if number of elements in the array is even(n%2 == 0) , the output will be 
+(median + 1)th index
 
  */
+
 int median_sorted_arrays(int *A, int *B, int lA, int hA, int lB, int hB) {
 
    int midA, midB;
@@ -309,15 +311,11 @@ int median_sorted_arrays(int *A, int *B, int lA, int hA, int lB, int hB) {
 
    
 
-   if(hA-lA == 1 && hB-lB == 1){
+   if(hA-lA == 1 || hB-lB == 1){
        //base case when both A and B have 2 elements
        return (MIN(MAX(A[lA], B[lB]), MIN(A[hA], B[hB])));
    }
 
-   //if there is only one element, in both arrays, then return the first element of first array
-   if(hA-lA == 0 && hB-lB == 0){
-       return A[lA];
-   }
 
    midA = (lA+hA)/2;
    midB = (lB+hB)/2;
@@ -331,7 +329,6 @@ int median_sorted_arrays(int *A, int *B, int lA, int hA, int lB, int hB) {
    }
     return median;
 }
-
 int _2sum(int *A, int i, int j, int sum) {
 
     //sort the array first
@@ -666,7 +663,7 @@ int main() {
 	printf("2 -- Counting inversions in an array(divide and conquer method)\n");
 	printf("3 -- Quicksort\n");
 	printf("4 -- ith order statistics\n");
-	printf("5 -- Median of two sorted arrays(divide and conquer method[logn])\n");
+	printf("5 -- Median of two sorted arrays(divide and conquer method[logn]) of equal length\n");
 	printf("6 -- find 2 numbers whose sum is equal to a given target\n");
 	printf("7 -- find 3 numbers whose sum is equal to a given target\n");
 	printf("8 -- Divide it into two Equal(it is important) partitions\n");
