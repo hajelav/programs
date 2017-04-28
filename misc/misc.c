@@ -104,7 +104,7 @@ int my_atoi(char *str) {
  /*
   *1. for n numbers , we will have 2^n subsets
   *for eg: for n = 4 (1,2,3,4)
-  *    total number of subsets = nC0 + nC1 + nC2 + nC3
+  *    total number of subsets = nC0 + nC1 + nC2 + nC3 + nC4
   *
   *    using the combination recurrence ( choosing r elements at a time from a set of n elements)
   *    n	n-1        n-1
@@ -244,6 +244,29 @@ int max_area_rectangle_histogram(int *hist, int noOfBars) {
     }
     return max_area;
 }
+
+/*native : brute force n square solution*/
+/*
+ *void max_area_rectangle_histogram1(int *hist, int noOfBars){
+ *    
+ *    max = A[0];
+ *    min = A[0];
+ *
+ *    for(i=0;i<len;i++) {
+ *        for(j=i+1;j<len;j++){
+ *            //get the min bar height
+ *            if(hist[j] < min)
+ *                min = hist[j];
+ *
+ *        //calculate the max running rectangle area
+ *        if((j-i+1)*min > max)
+ *            max = (j-i+1)*min
+ *
+ *    }
+ * return max;
+ *
+ *}
+ */
 
 void get_island_util(int **A, int r, int c, int i, int j, int **V) {
 

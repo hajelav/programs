@@ -304,7 +304,7 @@ if number of elements in the array is even(n%2 == 0) , the output will be
 
  */
 
-int median_sorted_arrays(int *A, int *B, int lA, int hA, int lB, int hB) {
+int median_sorted_arrays_same_size(int *A, int *B, int lA, int hA, int lB, int hB) {
 
    int midA, midB;
    int median;
@@ -329,6 +329,33 @@ int median_sorted_arrays(int *A, int *B, int lA, int hA, int lB, int hB) {
    }
     return median;
 }
+
+
+int median_sorted_arrays_different_sizes(int *A, int *B, int lA, int hA, int lB, int hB) {
+
+   int midA, midB;
+   int median;
+
+
+   if(hA-lA == 1 || hB-lB == 1){
+       //base case when both A and B have 2 elements
+       return (MIN(MAX(A[lA], B[lB]), MIN(A[hA], B[hB])));
+   }
+
+
+   midA = (lA+hA)/2;
+   midB = (lB+hB)/2;
+
+   if(A[midA] < B[midB]){
+       median = median_sorted_arrays(A, B, midA, hA, lB, midB);   
+   } else if (A[midA] > B[midB]) {
+       median = median_sorted_arrays(A, B, lA, midA, midB, hB);  
+   } else {
+       return A[midA];
+   }
+    return median;
+}
+
 int _2sum(int *A, int i, int j, int sum) {
 
     //sort the array first
@@ -674,6 +701,7 @@ int main() {
 	printf("13 --  wiggle sort(up down up down pattern)\n");
 	printf("14 -- given an array of integers, find at least a triplet which forms segments of a triangle\n");
 	printf("15 -- given n points on a 2D plane find the closest pair\n");
+	printf("16 -- median of two sorted array of different sizes\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -730,7 +758,7 @@ int main() {
 		scanf("%d", &n);
 		B = create_1Darray(n);
 		input_array(B, n);
-		printf("Median of two sorted arrays: %d", median_sorted_arrays(A, B, 0, m-1, 0, n-1));
+		printf("Median of two sorted arrays of same size: %d", median_sorted_arrays_same_size(A, B, 0, m-1, 0, n-1));
 		free(A);
 		free(B);
 		break;
@@ -812,6 +840,20 @@ int main() {
 
 	    case 15:
 		closest_pair();
+		break;
+
+            case 16:
+		printf("Enter no of elements in array1\n");
+		scanf("%d", &m);
+		A = create_1Darray(m);
+		input_array(A, m);
+		printf("Enter no of elements in array2\n");
+		scanf("%d", &n);
+		B = create_1Darray(n);
+		input_array(B, n);
+		printf("Median of two sorted arrays of different sizez: %d", median_sorted_arrays_different_sizes(A, B, 0, m-1, 0, n-1));
+		free(A);
+		free(B);
 		break;
 
 	    default:
