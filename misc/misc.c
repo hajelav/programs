@@ -270,89 +270,6 @@ int max_area_rectangle_histogram(int *hist, int noOfBars) {
 
 
 /*
- * leetcode problem 200
- * https://leetcode.com/problems/number-of-islands/#/description
- * http://www.careercup.com/question?id=3743299
- *
- * Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically or diagonally. You may assume all four edges of the grid are all surrounded by water.
- *
- * Example 1:
- *
- * 11110
- * 11010
- * 11000
- * 00000
- * Answer: 1
- *
- * Example 2:
- *
- * 11000
- * 11000
- * 00100
- * 00011
- * Answer: 3
-
- */
-
-void get_island_util(int **A, int r, int c, int i, int j, int **V) {
-
-    if( i>r || i<0)
-	return;
-    if(j<0 || j>c)
-	return;
-    if(A[i][j] == 0  || V[i][j] == 1)
-	return;
-
-    //recurese only when we find the color
-    if(!V[i][j] && (A[i][j] == 1)){
-	V[i][j] = 1; //mark as visited
-	get_island_util(A, r, c, i+1,j, V);
-	get_island_util(A, r, c, i,j+1, V);
-	/*get_island_util(A, r, c, i+1,j+1, V);*/ //commented to restrict diagonal movement of DFS
-	get_island_util(A, r, c, i-1,j, V);
-	get_island_util(A, r, c, i,j-1, V);
-	/*get_island_util(A, r, c, i-1,j-1, V);*/
-	/*get_island_util(A, r, c, i+1,j-1, V);*/
-	/*get_island_util(A, r, c, i-1,j+1, V);*/
-    } 
-}
-
-void get_island() {
-
-    int r, c;
-    int i, j;
-    int **A, **V;
-    int tot_islands = 0;
-    printf("Enter no of rows\n");
-    scanf("%d", &r);
-    printf("Enter no of cols\n");
-    scanf("%d", &c);
-
-    A = create_2Dmatrix(r, c);
-    input_2Darray(A, r, c);
-    print_2Dmatrix(A, r, c);
-
-    /*2 D matrix to mark visited*/
-    V = create_2Dmatrix(r, c);
-    init_2Darray(V, r, c , 0);
-
-
-    for(i=0;i<r;i++){
-	for(j=0;j<c;j++){
-	    if (!V[i][j] && A[i][j] == 1) {
-		//run DFS on each island(group of 1's) if its not already visited
-		get_island_util(A, r-1, c-1, i, j, V);
-		tot_islands += 1;
-	    }
-	}
-    }
-    
-    printf("tot islands: %d\n", tot_islands);
-    free(A);
-    free(V);
-}
-
-/*
  *water cup puzzle 
  *http://www.careercup.com/question?id=9820788
  TBD
@@ -1514,7 +1431,6 @@ int main() {
 	printf("3 -- Convert string to int(atoi)\n");
 	printf("4 -- Subsets of an array\n");
 	printf("5 -- maximum area of histogram\n");
-	printf("6 -- Counting no of islands\n");
 	printf("9 -- check if the two words are one edit away from each other. i.e one word can be formed from another by inserting/ deleting/replacing one character\n");
 	printf("10 -- Find how many numbers of length n are there such that each number is at least 4 smaller/greater than the number before and after it.\n");
 	printf("11 -- No of ways r objects can be choosen  from n objects(n C r)\n");
@@ -1588,11 +1504,6 @@ int main() {
 		printf("Max of of rectangle : %d\n", max_area_rectangle_histogram(A, n1));
 		free(A);
 		break;
-
-	    case 6:
-		get_island();
-		break;
-
 
 	    case 9:
 		printf("Enter string 1\n");
