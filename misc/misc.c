@@ -268,6 +268,32 @@ int max_area_rectangle_histogram(int *hist, int noOfBars) {
  *}
  */
 
+
+/*
+ * leetcode problem 200
+ * https://leetcode.com/problems/number-of-islands/#/description
+ * http://www.careercup.com/question?id=3743299
+ *
+ * Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically or diagonally. You may assume all four edges of the grid are all surrounded by water.
+ *
+ * Example 1:
+ *
+ * 11110
+ * 11010
+ * 11000
+ * 00000
+ * Answer: 1
+ *
+ * Example 2:
+ *
+ * 11000
+ * 11000
+ * 00100
+ * 00011
+ * Answer: 3
+
+ */
+
 void get_island_util(int **A, int r, int c, int i, int j, int **V) {
 
     if( i>r || i<0)
@@ -291,30 +317,6 @@ void get_island_util(int **A, int r, int c, int i, int j, int **V) {
     } 
 }
 
-/*
- * leetcode problem 200
- * https://leetcode.com/problems/number-of-islands/#/description
- * http://www.careercup.com/question?id=3743299
- *
- * Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
- *
- * Example 1:
- *
- * 11110
- * 11010
- * 11000
- * 00000
- * Answer: 1
- *
- * Example 2:
- *
- * 11000
- * 11000
- * 00100
- * 00011
- * Answer: 3
-
- */
 void get_island() {
 
     int r, c;
@@ -361,54 +363,6 @@ void get_island() {
   *http://www.careercup.com/question?id=14118790
   */
 
-
-/*
- *Given a sequence of numbers (34128) and an input map such as a dial pad on a phone (2-&gt;[a,b,c], 3-&gt;[d,e,f], 4-&gt;[g,h,i]) write an algorithm to return all possible words from the sequence. E.g. Input: 232 Output: [ada, adb, adc, aea, aeb, aec, afa, afb, afc, bda, bdb, bdc, bea, beb, bec, bfa, bfb, bfc, cda, cdb, cdc, cea, ceb, cec, cfa, cfb, cfc]  
- */
-
-void keypad_util(char **A, int i, int r, int c, char *str) {
-    int j;
-
-    if(i==r) {
-	//we print only at the leaves
-	printf("%s ", str);
-	return;;
-    }
-
-    for(j=0;j<c;j++) {
-	str[i] = A[i][j];
-	keypad_util(A, i+1, r, c, str);
-    }
-}
-
-/*
- *leetcode problem 17
- *https://leetcode.com/problems/letter-combinations-of-a-phone-number/
- */
-
-void keypad() {
-
-    char **A;
-    char *str;
-    int c = 3; // each number in a keypad as 3 letters
-    int r; // number of digits pressed
-
-    printf("enter number of digits pressed\n");
-    scanf("%d", &r);
-
-
-    /*create a 2D char array to store the letter combinations*/
-    A = create_2Dchar_array(r, c);
-
-    input_2Dchar_array(A, r, c);
-    print_2Dchar_array(A, r, c);
-
-
-    //array to print the strings
-    str = (char*)malloc(sizeof(char)*(r+1));
-    str[r] = '\0';
-    keypad_util(A, 0, r, c, str);
-}
 
 
 void permutation_util(char **A, char *V, int r, int c, int i, char *str) {
@@ -1561,8 +1515,6 @@ int main() {
 	printf("4 -- Subsets of an array\n");
 	printf("5 -- maximum area of histogram\n");
 	printf("6 -- Counting no of islands\n");
-	printf("7 -- All possible sequences from a number keypad in phone\n");
-	printf("8 -- check if a string is palindrome((lowercase and uppercase characters are considered equal -special characters are ignored)\n");
 	printf("9 -- check if the two words are one edit away from each other. i.e one word can be formed from another by inserting/ deleting/replacing one character\n");
 	printf("10 -- Find how many numbers of length n are there such that each number is at least 4 smaller/greater than the number before and after it.\n");
 	printf("11 -- No of ways r objects can be choosen  from n objects(n C r)\n");
@@ -1641,9 +1593,6 @@ int main() {
 		get_island();
 		break;
 
-	    case 7:
-		keypad();
-		break;
 
 	    case 9:
 		printf("Enter string 1\n");
