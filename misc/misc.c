@@ -839,7 +839,7 @@ In this case, no transaction is done, i.e. max profit = 0.
  *}
  */
 
-void buy_sell_stock_single(int *A, int len) {
+void buy_sell_stock_single1(int *A, int len) {
 
     int j = 1;
     int min_so_far, max_profit = 0;
@@ -859,6 +859,44 @@ void buy_sell_stock_single(int *A, int len) {
     }
     printf("Max Profit:%d\n",  max_profit);
 }
+
+/*
+ *logic :
+ *we follow a two pointer logic 
+ *inititiaze i = 0 
+ *           j = 1 
+ *
+ *we move j pointer forward , and check if price at j is greater than i ,
+ *   if yes, then we calculate the max profit, otherwise 
+ *   we have found a min price and we the newly found price(j) = i
+ */
+
+int buy_sell_stock_single(int *A, int len) {
+
+    int i, j;
+    int max_profit = 0;
+    j = 1;
+    i = 0;
+
+    if (!A || len <= 1)
+        return max_profit;
+
+    while (j<len){
+
+        if(A[j] < A[i])
+            i = j;
+        else {
+            if(A[j]-A[i] > max_profit)
+                max_profit = A[j]-A[i];
+        }
+        j++;
+    }
+
+    printf("Max Profit:%d\n",  max_profit);
+    return max_profit;
+
+}
+
 /*
  *leetcode problem 122
  *https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
