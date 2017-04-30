@@ -712,9 +712,20 @@ void remove_duplicate_sorted_array(int *A, int len) {
 /*
  *leetcode problem 27
  *https://leetcode.com/problems/remove-element/
+
+ Given an array and a value, remove all instances of that value in place and return the new length.
+
+ Do not allocate extra space for another array, you must do this in place with constant memory.
+
+ The order of elements can be changed. It doesn't matter what you leave beyond the new length.
+
+Example:
+Given input array nums = [3,2,2,3], val = 3
+
+Your function should return length = 2, with the first two elements of nums being 2.
  */
 
-void remove_all_instance_of_element(int *A, int len, int elem) {
+void remove_all_instance_of_element1(int *A, int len, int elem) {
 
     int i, j, temp;
     if(!A || len <= 0)
@@ -744,6 +755,29 @@ void remove_all_instance_of_element(int *A, int len, int elem) {
 }
 
 
+void remove_all_instance_of_element(int *A, int len, int elem) {
+
+    int i, j, temp;
+    if(!A || len <= 0)
+	return;
+
+    i = len-1;
+    j = len-1;
+
+    while(j>0) {
+        if(A[j]!=elem){
+            j--;
+
+        } else {
+	    temp = A[j];
+	    A[j] = A[i];
+	    A[i] = temp;
+	    j--;i--;
+        }
+    }
+
+    print_1Darray(A, len);
+}
 /*
  *leetcode problem 121
  *https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
