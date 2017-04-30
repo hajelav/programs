@@ -329,7 +329,7 @@ int main() {
 	printf("MENU OPTIONS\n");
 	printf("1 -- citation problem\n");
 	printf("2 -- Find the point of rotation(pivot) in rotated sorted array\n");
-	printf("3 -- Find the number of occurances of a given number in a sorted array\n");
+	printf("3 -- Find the number of occurences of a given number in a sorted array\n");
 	printf("4 -- Max range in an array\n");
 	printf("5 -- Find the missing number\n");
 	printf("6 -- count the number of occurrences of all elements in a sorted array\n");

@@ -327,6 +327,7 @@ void permutation() {
 /*
  *leetcode problem 161
  *https://leetcode.com/problems/one-edit-distance/
+ one edit distance
  */
 
 int one_edit_distance(char *S, char *T) {
@@ -371,60 +372,6 @@ int one_edit_distance(char *S, char *T) {
 	return 0;
     else 
        return 1;	
-}
-
-/*
- *http://www.careercup.com/question?id=5085262709260288
- */
-void num_problem_util(char A[][6], int i, int c, int n, char *path, int k) {
-    int j;
-
-    if(k==n) {
-	//we print only at the leaves
-	printf("%s ", path);
-	return;;
-    }
-
-    for(j=0;j<c;j++) {
-	if(A[i][j] != 'x') {
-	    path[k] = A[i][j];
-	    num_problem_util(A, A[i][j]-'0', c, n, path, k+1);
-	}
-    }
-}
-
-void clear_path(char *path){
-    memset(path, '\0', strlen(path)+1);
-}
-void number_problem() {
-   //maintain the state information, ie for each digit we store the number of permissible next digits
-   char state[][6] = { {'4', '5', '6', '7', '8', '9'},   // digit 0
-   	              {'5', '6', '7', '8', '9', 'x'},    // digit 1
-		      {'6', '7', '8', '9', 'x', 'x'},
-		      {'7', '8', '9', 'x', 'x', 'x'},
-		      {'0', '8', '9', 'x', 'x', 'x'},
-   		      {'0', '1', '9', 'x', 'x', 'x'},
-		      {'0', '1', '2', 'x', 'x', 'x'},
-		      {'0', '1', '2', '3', 'x', 'x'},
-		      {'0', '1', '2', '3', '4', 'x'},
-		      {'0', '1', '2', '3', '4', '5'} }; // digit 9
-
-   /*
-    * now we create a path array array to store all the valid combination of the arrays
-    * the length of the array will be 6 ( max number of column in state array)
-    */
-
-   char *path = (char*)malloc(sizeof(char)*(6+1));
-   int n, i;
-   printf("Enter length of digits\n");
-   scanf("%d", &n);
-
-   //scan through all the number starting from 1 and print valid digit combinations
-   for(i=1;i<=9;i++){
-       path[0] = '0'+i;
-       num_problem_util(state, i, 6, n, path, 1);
-       clear_path(path);
-   }
 }
 
 
@@ -1513,10 +1460,6 @@ int main() {
 		printf("One edit distance:%s\n", one_edit_distance(str, str1)?"Yes":"No");
 		break;
 
-	    case 10:
-		number_problem();
-		break;
-		 
 	    case 11:
 		combination();
 		break;
