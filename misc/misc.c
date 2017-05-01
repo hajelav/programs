@@ -9,6 +9,12 @@
  2. if (mid*mid < num) then sq root lies between mid and number
  3. else sq root lies between 1 and mid
  */
+
+/*
+ *Link to leetcode solutions
+ *https://tenderleo.gitbooks.io/leetcode-solutions-/content/GoogleHard/84.html
+ */
+
 double sqroot(double low, double high, double num) {
 
     double mid;
