@@ -927,98 +927,6 @@ void buy_sell_stock_multiple(int *A, int len) {
 }
 
 /*
- *leetcode problem 130
- *https://leetcode.com/problems/surrounded-regions/
- *
- * Given a 2D board containing 'X' and 'O', capture all regions surrounded by 'X'.
- *
- * A region is captured by flipping all 'O's into 'X's in that surrounded region.
- *
- * For example,
- *
- * X X X X
- * X O O X
- * X X O X
- * X O X X
- *
- * After running your function, the board should be:
- *
- * X X X X
- * X X X X
- * X X X X
- * X O X X
- */
-
-int  capture_regions_util(char **A, int r, int c, int i, int j, char **V) {
-
-    int left,right,up,down;
-    if( i>r || i<0 || j<0 || j>r){
-        //if the DFS happens to reach here, ie at the boundry of row/col of array 
-        return 0;
-    }
-
-    /*if we encounter 'x' or have previously visited*/
-    if(A[i][j] == 'x' || V[i][j] == 'v')
-        return 1;
-
-    //run dfs on all directions only when A[i][j] is not visited and its value is 'o'
-    if(V[i][j] != 'v' && (A[i][j] == 'o')){
-        V[i][j] = 'v'; //mark as visited
-        down = capture_regions_util(A, r, c, i+1,j, V); // go down
-        left = capture_regions_util(A, r, c, i,j+1, V); // go left
-        up = capture_regions_util(A, r, c, i-1,j, V); // go up
-        right = capture_regions_util(A, r, c, i,j-1, V); // go right
-    } 
-
-    //if we find that 'o' is surrounded by 'x', then we capture 'o' by replacing it with 'x'
-    //ie all  of our left/right/up/down recursive calls have returned 1
-    if(left && right && up && down){
-        A[i][j] = 'x';
-    }
-
-    return (left && right && up && down);
-}
-
-void capture_regions() {
-
-    int r, c;
-    int i, j;
-    char **A;
-    char **V;
-
-    printf("Enter no of rows\n");
-    scanf("%d", &r);
-    printf("Enter no of cols\n");
-    scanf("%d", &c);
-
-    /*input 2D array*/
-    A = create_2Dchar_array(r, c);
-    input_2Dchar_array(A, r, c);
-
-    printf("Input matrix\n");
-    print_2Dchar_array(A, r, c);
-
-    /*2D matrix to mark visited*/
-    V = create_2Dchar_array(r, c);
-    init_2Dchar_array(V, r, c , '\0');
-
-    for(i=0;i<r;i++){
-	for(j=0;j<c;j++){
-            if (V[i][j] != 'v' && A[i][j] == 'o') {
-		//run DFS on each island(group of 'o') if its not already visited
-                capture_regions_util(A, r-1, c-1, i, j, V);
-	    }
-	}
-    }
-    
-    printf("Output matrix\n");
-    print_2Dchar_array(A, r, c);
-    free(A);
-    free(V);
-}
-
-
-/*
  *leetcode problem 286
  *https://leetcode.com/problems/walls-and-gates/
  */
@@ -1486,7 +1394,6 @@ int main() {
 	printf("19 -- Remove all instances of an element from an Array\n");
 	printf("20 -- Best time to buy/sell stock(buying and selling is allowed only once)\n");
 	printf("21 -- Best time to buy/sell stock(buying and selling is allowed multiple times)\n");
-	printf("22 -- capture all regions surrounded by 'X'\n");
 	printf("23 -- Walls and gates\n");
 	printf("24 -- maximum size rectangle of all 1's in a matrix\n");
 	printf("25 -- merge all overlapping intervals\n");
@@ -1652,10 +1559,6 @@ int main() {
 		input_array(A, n1);
 		buy_sell_stock_multiple(A, n1);
 		free(A);
-		break;
-
-	    case 22: 
-		capture_regions();
 		break;
 
 	    case 23:

@@ -489,8 +489,6 @@ void print_wildcard(char *S, char *res, int i, int n) {
  */
 
 
-
-
 /*
  *leetcode problem 130
  *https://leetcode.com/problems/surrounded-regions/
@@ -514,44 +512,42 @@ void print_wildcard(char *S, char *res, int i, int n) {
  * X O X X
  */
 
-void capture_regions_util(char **A, int r, int c, int i, int j, char **V, int *captureByX) {
+int  capture_regions_util(char **A, int r, int c, int i, int j, char **V) {
 
-    if( i>r || i<0){
-	//if the DFS happens to reach here, ie at the boundry of row of array, we set the flag 
-	*captureByX = 1;
-	return ;
+    int left,right,up,down;
+    if( i>r || i<0 || j<0 || j>r){
+        //if the DFS happens to reach here, ie at the boundry of row/col of array 
+        return 0;
     }
 
-    if(j<0 || j>r) {
-	//if the DFS happens to reach here, ie at the boundry of col of array, we set the flag 
-	*captureByX = 1;
-	return ;
-    }
-
+    /*if we encounter 'x' or have previously visited*/
     if(A[i][j] == 'x' || V[i][j] == 'v')
-	return;
+        return 1;
 
     //run dfs on all directions only when A[i][j] is not visited and its value is 'o'
     if(V[i][j] != 'v' && (A[i][j] == 'o')){
-	V[i][j] = 'v'; //mark as visited
-	capture_regions_util(A, r, c, i+1,j, V, captureByX); // go south
-	capture_regions_util(A, r, c, i,j+1, V, captureByX); // go east
-	capture_regions_util(A, r, c, i-1,j, V, captureByX); // go north
-	capture_regions_util(A, r, c, i,j-1, V, captureByX); // go west
+        V[i][j] = 'v'; //mark as visited
+        down = capture_regions_util(A, r, c, i+1,j, V); // go down
+        left = capture_regions_util(A, r, c, i,j+1, V); // go left
+        up = capture_regions_util(A, r, c, i-1,j, V); // go up
+        right = capture_regions_util(A, r, c, i,j-1, V); // go right
     } 
 
     //if we find that 'o' is surrounded by 'x', then we capture 'o' by replacing it with 'x'
-    if((*captureByX == 0) && (A[i][j] == 'o')){
-	A[i][j] = 'x';
+    //ie all  of our left/right/up/down recursive calls have returned 1
+    if(left && right && up && down){
+        A[i][j] = 'x';
     }
+
+    return (left && right && up && down);
 }
 
 void capture_regions() {
 
     int r, c;
     int i, j;
-    char **A, **V;
-    int captureByX;
+    char **A;
+    char **V;
 
     printf("Enter no of rows\n");
     scanf("%d", &r);
@@ -571,10 +567,9 @@ void capture_regions() {
 
     for(i=0;i<r;i++){
 	for(j=0;j<c;j++){
-	    if (V[i][j] != 'v' && A[i][j] == 'o') {
-		captureByX = 0;
+            if (V[i][j] != 'v' && A[i][j] == 'o') {
 		//run DFS on each island(group of 'o') if its not already visited
-		capture_regions_util(A, r-1, c-1, i, j, V, &captureByX);
+                capture_regions_util(A, r-1, c-1, i, j, V);
 	    }
 	}
     }
