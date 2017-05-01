@@ -12,7 +12,10 @@
 
 /*
  *Link to leetcode solutions
+
  *https://tenderleo.gitbooks.io/leetcode-solutions-/content/GoogleHard/84.html
+
+  https://www.gitbook.com/book/tenderleo/leetcode-solutions-/details
  */
 
 double sqroot(double low, double high, double num) {
@@ -1304,12 +1307,27 @@ int happy_number(){
  *     There is only one duplicate number in the array, but it could be repeated more than once.
  */
 
-int duplicate_number() {
-    int n;
-    printf("Enter the number\n");
-    scanf("%d", &n);
- 
-return 0;
+int duplicate_number(n) {
+
+    int i;
+    int idx;
+    for(i=0;i<n;i++){
+        /*if the element is already at the correct index, do nothing*/
+        if(A[i] == i)
+            continue;
+
+        else {
+
+            idx = A[i];
+            temp = A[idx];
+            
+        }
+
+    }
+
+
+
+    return 0;
 }
 
 
@@ -1607,7 +1625,12 @@ int main() {
 		break;
 
 	    case 30:
-		printf("duplicate number : %d\n", duplicate_number());
+                printf("Enter the number of elements in the array\n");
+                scanf("%d", &n1);
+		A = create_1Darray(n1);
+		printf("Enter numbers in the range of 0 to %d, such that there is only one duplicate\n", n1-1);
+		input_array(A, n1);
+		printf("duplicate number : %d\n", duplicate_number(A, n1));
 		break;
 
 	    default:
