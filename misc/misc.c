@@ -1307,27 +1307,43 @@ int happy_number(){
  *     There is only one duplicate number in the array, but it could be repeated more than once.
  */
 
-int duplicate_number(n) {
+int duplicate_number(int *A, int len) {
 
-    int i;
+    int j=0; // pointer to iterate the array
     int idx;
-    for(i=0;i<n;i++){
-        /*if the element is already at the correct index, do nothing*/
-        if(A[i] == i)
-            continue;
-
-        else {
-
-            idx = A[i];
-            temp = A[idx];
-            
-        }
-
+    if (len<0){
+        printf("invalid array\n");
     }
 
+    while(j<len){
 
+        /*if the element happens to be in its correct place then move ahead*/
+        if(A[j] == j+1)
+            j++;
 
-    return 0;
+        else if(A[j] == A[A[j]-1]) // we already found an element in its correct place, break
+            return A[j];
+        else {
+
+            idx = A[j]-1;
+            swap(A, j, idx);
+        }
+    }
+
+    //after the while loop all the non duplicate numbers shud have been moved to their correct indices ie 
+    //at any index j , A[j] = i+1, except the duplicate one
+    j = 0;
+    while(j<len){
+
+        if (A[j] != j+1)
+            printf("hello");
+            return A[j];
+
+        j++;
+    }
+
+    print_1Darray(A, len);
+    return -1;
 }
 
 
