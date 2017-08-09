@@ -3,6 +3,12 @@
  *http://www.cis.upenn.edu/~matuszek/cit594-2012/Pages/backtracking.html
  */
 
+
+/*
+ *PRACTICE PROBLEMS FOR BACKTRACKING
+ *http://practice.geeksforgeeks.org/tag-page.php?tag=backtracking&isCmp=0
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -171,6 +177,10 @@ void combination_sum(int *A, int i, int len, STACK *S, int sum){
 
 
 
+/*http://practice.geeksforgeeks.org/problems/word-boggle/0*/
+void word_boggle() {
+}
+
 int main() {
     char c;
     int choice, n, sum;
@@ -183,6 +193,7 @@ int main() {
 	printf("1 -- All permutations of a string(backtracking)\n");
 	printf("2 -- N Queen problem\n");
 	printf("3 -- combination sum problem\n");
+	printf("4 -- Words boggle problem\n");
 
 
 	printf("Enter your choice\n");

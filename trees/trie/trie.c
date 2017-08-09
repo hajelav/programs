@@ -1,16 +1,17 @@
 /*
  *Trie implementation for strings(lowercase only)
  */
-#include "../../utils.h"
+/*#include "../../utils.h"*/
+#include "trie.h"
 
 //forward declaration
  #define NO_OF_CHARS 27 //note that 27th char is the string termination char
 
-typedef struct TNODE {
-    char c;
-    int word_count;
-    struct TNODE *next[NO_OF_CHARS];
-}TNODE;
+/*typedef struct TNODE {*/
+    /*char c;*/
+    /*int word_count;*/
+    /*struct TNODE *next[NO_OF_CHARS];*/
+/*}TNODE;*/
 
 TNODE *root = NULL;
 

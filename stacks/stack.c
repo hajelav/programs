@@ -1,11 +1,6 @@
-#include "../utils.h"
+#include "stack.h"
 
-#define STACK_SIZE 32
 
-typedef struct _stack {
-    int top;
-    char *arr;
-} STACK;
 
 STACK* init_stack() {
 
@@ -170,6 +165,7 @@ int reverse_polish_notation_value(char *str){
 /*http://www.geeksforgeeks.org/expression-evaluation*/
 int  infix_evaluation(char *infix) {
 
+    return 0;
 }
 
 int main() {

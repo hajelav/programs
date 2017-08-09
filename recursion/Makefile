@@ -1,6 +1,6 @@
 CC=gcc -Wall -Werror -g
 CFLAGS=-I.
-DEPS = ../utils.h
+DEPS = ../utils.h /home/vhajela/programs/trees/trie/trie.h
 OBJ = ../utils.o recursion.o 
 
 %.o: %.c $(DEPS)
