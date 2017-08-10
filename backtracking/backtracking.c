@@ -178,7 +178,56 @@ void combination_sum(int *A, int i, int len, STACK *S, int sum){
 
 
 
-/*http://practice.geeksforgeeks.org/problems/word-boggle/0*/
+/*
+ *http://practice.geeksforgeeks.org/problems/word-boggle/0
+ *Given a dictionary, a method to do lookup in dictionary and a M x N board where every cell has one character. Find all possible words that can be formed by a sequence of adjacent characters. Note that we can move to any of 8 adjacent characters, but a word should not have multiple instances of same cell.
+ *
+ *Example:
+ *
+ *Input: dictionary[] = {"GEEKS", "FOR", "QUIZ", "GO"};
+ *       boggle[][]   = {{'G','I','Z'},
+ *                       {'U','E','K'},
+ *                       {'Q','S','E'}};
+ *
+ *Output:  Following words of dictionary are present
+ *         GEEKS, QUIZ
+ */
+
+
+void word_boggle_util(){
+
+    int noOfWords, i, r, c;
+    int n = 256;
+    char *input;
+    TNODE *troot = NULL; // node to a trie
+    char **dict;
+
+    printf("Enter the no of words in dictionary\n");
+    scanf("%d", &noOfWords);
+
+    input = create_1Dchar_array(n);
+
+    for(i=0;i<noOfWords;i++){
+        printf("Enter %d word\n", i);
+        input_1Dchar_array(input);
+        troot = addWordInTrie(input, troot);
+        memset(input, '\0', n);
+    }
+    print_trie(troot);
+    printf("enter no of rows for dict\n");
+    scanf("%d", &r);
+    printf("enter no of colc for dict\n");
+    scanf("%d", &c);
+    dict = create_2Dchar_array(r, c);
+    printf("fill letters in the dictionary\n");
+    input_2Dchar_array(dict, r, c);
+    print_2Dchar_array(dict, r, c);
+
+
+
+
+}
+
 void word_boggle() {
 }
 
@@ -188,8 +237,6 @@ int main() {
     STACK *S = NULL;
     char *str;
     int *A;
-    char str1[256];
-    TNODE *troot = NULL;
     do {
 
 	printf("MENU OPTIONS\n");
@@ -233,11 +280,7 @@ int main() {
 		break;
 
             case 4:
-
-		printf("Enter the words of the \n");
-		scanf("%s", str1);
-		troot = addWordInTrie(str1, troot);
-		print_trie(troot);
+                word_boggle_util();
 		break;
 
 	}

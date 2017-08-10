@@ -35,6 +35,7 @@ void input_array(int *A, int n);
 void input_2Darray(int **A, int r, int c);
 void input_1Darray(int *A, int n);
 void input_2Dchar_array(char**A, int r, int c);
+void input_1Dchar_array(char *str);
 void print_2Dchar_array(char **T, int xlen, int ylen);
 void print_2Dmatrix(int **T, int xlen, int ylen);
 void print_2Darray(int **t, int xlen, int ylen);

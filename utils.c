@@ -224,3 +224,6 @@ void swap_str(char *A, int idx1, int idx2) {
     A[idx2] = temp;
 }
 
+void input_1Dchar_array(char *str) {
+    scanf("%s", str);
+}
