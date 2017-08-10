@@ -1,19 +1,10 @@
 /*
  *Trie implementation for strings(lowercase only)
  */
-/*#include "../../utils.h"*/
+#include "../../utils.h"
 #include "trie.h"
 
-//forward declaration
- #define NO_OF_CHARS 27 //note that 27th char is the string termination char
 
-/*typedef struct TNODE {*/
-    /*char c;*/
-    /*int word_count;*/
-    /*struct TNODE *next[NO_OF_CHARS];*/
-/*}TNODE;*/
-
-TNODE *root = NULL;
 
 void initTnode(TNODE* tnode) {
     int i;
@@ -30,7 +21,7 @@ TNODE* createTrieNode() {
 	node = (TNODE*)malloc(sizeof(TNODE));
 	if(node) {
 	    initTnode(node);
-	}
+            }
 	return node?node:NULL;
 }
 
@@ -86,7 +77,7 @@ void addWordInTrie(char *word, TNODE* troot) {
     //create root, if not created
     if(troot == NULL) {
 	troot = createTrieNode();
-	root = troot; // assign this pointer to global trie root
+	/*root = troot; // assign this pointer to global trie root*/
     } 
 
     while(*word!='\0') {
@@ -110,7 +101,7 @@ void addWordInTrie(char *word, TNODE* troot) {
     troot->next[NO_OF_CHARS-1] = createTrieNode();
 }
 
-void create_suffix_tree(char *str) {
+void create_suffix_tree(char *str, TNODE* root) {
 /*
  * suffix tree can be created just by adding all the suffixes of the string to the trie
  * for eg: bear#
@@ -269,6 +260,7 @@ void find_substring() {
     int noOfWords, wordSize, strLen;
     char * word;
     char str[128];
+    TNODE *root=NULL;
 
     printf("enter no of words\n");
     scanf("%d", &noOfWords);
@@ -327,6 +319,7 @@ void count_substrings(char *str, int len_sub) {
 
     int i, len_str;
     char *temp; // declare a temp array to store the substrings
+    TNODE *root;
 
     if(!str || len_sub < 1)
 	return;
@@ -372,7 +365,7 @@ int  word_break(TNODE *t, char *word, int l, int h) {
 
 
     if(searchWordInTrie(t, str))
-	return ;
+	return 0;
 
     else {
 	for(i=l;i<=h;i++){
@@ -440,139 +433,139 @@ https://leetcode.com/problems/word-search-ii/#/description
  *    ]
  */
 
-int main() {
+/*int main() {*/
 
-    char c;
-    char str[256];
-    char str1[256];
-    char *path;
-    TNODE *troot;
-    int choice, i, len;
-    char **board;
-    int boardRow, boardCol, wordSize;
-    int noOfWords, strLen;
+    /*char c;*/
+    /*char str[256];*/
+    /*char str1[256];*/
+    /*char *path;*/
+    /*TNODE *troot;*/
+    /*int choice, i, len;*/
+    /*char **board;*/
+    /*int boardRow, boardCol, wordSize;*/
+    /*int noOfWords, strLen;*/
     
-    do {
-	printf("MENU OPTIONS\n");
-	printf("1 -- Insert word in Trie\n");
-	printf("2 -- Search word in Trie\n");
-	printf("3 -- Create a suffix tree\n");
-	printf("4 -- Finding the longest repeated substring\n");
-	printf("5 -- Find the longest common substring\n");
-	printf("6 -- Print all the words in trie\n");
-	printf("7 -- Given set of strings, find longest common prefix\n");
-	printf("8 -- word search problem\n");
-	printf("9 -- substring with Concatenation of All Words\n");
-	printf("10 -- count substrings of len k in a string\n");
-	printf("11 -- word break problem\n");
+    /*do {*/
+	/*printf("MENU OPTIONS\n");*/
+	/*printf("1 -- Insert word in Trie\n");*/
+	/*printf("2 -- Search word in Trie\n");*/
+	/*printf("3 -- Create a suffix tree\n");*/
+	/*printf("4 -- Finding the longest repeated substring\n");*/
+	/*printf("5 -- Find the longest common substring\n");*/
+	/*printf("6 -- Print all the words in trie\n");*/
+	/*printf("7 -- Given set of strings, find longest common prefix\n");*/
+	/*printf("8 -- word search problem\n");*/
+	/*printf("9 -- substring with Concatenation of All Words\n");*/
+	/*printf("10 -- count substrings of len k in a string\n");*/
+	/*printf("11 -- word break problem\n");*/
 
 	
-	printf("enter your choice\n");
-	scanf("%d", &choice);
+	/*printf("enter your choice\n");*/
+	/*scanf("%d", &choice);*/
 
-	switch(choice) {
+	/*switch(choice) {*/
 
-	    case 1: 
-		printf("Enter the string\n");
-		scanf("%s", str);
-		addWordInTrie(str, root);
-		break;
-	    case 2: 
-		printf("Enter the string\n");
-		scanf("%s", str);
-		printf("Word %s\n", searchWordInTrie(root, str)?"found":"not found");
-		break;
+	    /*case 1: */
+		/*printf("Enter the string\n");*/
+		/*scanf("%s", str);*/
+		/*addWordInTrie(str, root);*/
+		/*break;*/
+	    /*case 2: */
+		/*printf("Enter the string\n");*/
+		/*scanf("%s", str);*/
+		/*printf("Word %s\n", searchWordInTrie(root, str)?"found":"not found");*/
+		/*break;*/
 
-	    case 3:
-		printf("Enter the string\n");
-		scanf("%s", str);
-		str[strlen(str)] = '\0';
-		create_suffix_tree(str);
+	    /*case 3:*/
+		/*printf("Enter the string\n");*/
+		/*scanf("%s", str);*/
+		/*str[strlen(str)] = '\0';*/
+		/*create_suffix_tree(str);*/
 
-	    case 4:
-		/*to  be implemented*/
-		break;
+	    /*case 4:*/
+		/*[>to  be implemented<]*/
+		/*break;*/
 
-	    case 5:
-		break;
+	    /*case 5:*/
+		/*break;*/
 
-	    case 6:
-		path = (char*)calloc(NO_OF_CHARS, sizeof(char));
+	    /*case 6:*/
+		/*path = (char*)calloc(NO_OF_CHARS, sizeof(char));*/
 		/*
 		 *To iterate all the words we first go through the dummy nodes and find the first not NULL pointer
 		 *and we pass that address to our print routine.
 		 */
-		for(i=0;i<NO_OF_CHARS;i++){
-		    if(root->next[i]){
-			troot = root->next[i];
-			print_words(troot, path, 0);
-		    }
-		}
-		break;
+		/*for(i=0;i<NO_OF_CHARS;i++){*/
+		    /*if(root->next[i]){*/
+			/*troot = root->next[i];*/
+			/*print_words(troot, path, 0);*/
+		    /*}*/
+		/*}*/
+		/*break;*/
 
-	    case 7: 
-		longest_common_prefix(root);
-		break;
+	    /*case 7: */
+		/*longest_common_prefix(root);*/
+		/*break;*/
 
-	    case 8:
-		printf("enter board row size\n");
-		scanf("%d", &boardRow);
-		printf("enter board col size\n");
-		scanf("%d", &boardCol);
-		board = create_2Dchar_array(boardRow, boardCol);
-		input_2Dchar_array(board, boardRow, boardCol);
+	    /*case 8:*/
+		/*printf("enter board row size\n");*/
+		/*scanf("%d", &boardRow);*/
+		/*printf("enter board col size\n");*/
+		/*scanf("%d", &boardCol);*/
+		/*board = create_2Dchar_array(boardRow, boardCol);*/
+		/*input_2Dchar_array(board, boardRow, boardCol);*/
 
-		printf("enter word size\n");
-		scanf("%d", &wordSize);
+		/*printf("enter word size\n");*/
+		/*scanf("%d", &wordSize);*/
 
-		for(i=0;i<wordSize;i++){
-		    printf("Enter the word\n");
-		    scanf("%s", str);
-		    addWordInTrie(str, root);
-		}
+		/*for(i=0;i<wordSize;i++){*/
+		    /*printf("Enter the word\n");*/
+		    /*scanf("%s", str);*/
+		    /*addWordInTrie(str, root);*/
+		/*}*/
 
-		find_words(board, boardRow, boardCol, root, wordSize);
-		break;
+		/*find_words(board, boardRow, boardCol, root, wordSize);*/
+		/*break;*/
 
-	    case 9:
-		find_substring();
-		break;
+	    /*case 9:*/
+		/*find_substring();*/
+		/*break;*/
 
-	    case 10:
-		printf("Enter the string\n");
-		scanf("%s", str);
-		printf("Enter substring length\n");
-		scanf("%d", &len);
-		count_substrings(str, len);
-		break;
+	    /*case 10:*/
+		/*printf("Enter the string\n");*/
+		/*scanf("%s", str);*/
+		/*printf("Enter substring length\n");*/
+		/*scanf("%d", &len);*/
+		/*count_substrings(str, len);*/
+		/*break;*/
 
-	    case 11:
-		printf("enter no of words in a dictionary\n");
-		scanf("%d", &noOfWords);
+	    /*case 11:*/
+		/*printf("enter no of words in a dictionary\n");*/
+		/*scanf("%d", &noOfWords);*/
 
-		printf("enter words\n");
+		/*printf("enter words\n");*/
 
-		for(i=0;i<noOfWords;i++){
-		    scanf("%s", str);
-		    addWordInTrie(str, root);
-		}
-		printf("Enter string\n");
-		scanf("%s", str1);
+		/*for(i=0;i<noOfWords;i++){*/
+		    /*scanf("%s", str);*/
+		    /*addWordInTrie(str, root);*/
+		/*}*/
+		/*printf("Enter string\n");*/
+		/*scanf("%s", str1);*/
 
-		strLen = strlen(str1);
+		/*strLen = strlen(str1);*/
 
-		printf("%d", word_break(root, str1, 0, strLen-1));
-		break;
+		/*printf("%d", word_break(root, str1, 0, strLen-1));*/
+		/*break;*/
 
 		
 
-	    default:
-		printf("Invalid option\n");
-		break;
-	}
+	    /*default:*/
+		/*printf("Invalid option\n");*/
+		/*break;*/
+	/*}*/
 
-    }while((c= getchar())!='q');
+    /*}while((c= getchar())!='q');*/
 
-    return 0;
-}
+    /*return 0;*/
+/*}*/
 

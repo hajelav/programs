@@ -14,6 +14,7 @@
 #include <math.h>
 #include <time.h>
 #include "../utils.h"
+#include "../trees/trie/trie.h"
 
 
 #define STACK_SIZE 32
@@ -187,6 +188,8 @@ int main() {
     STACK *S = NULL;
     char *str;
     int *A;
+    char str1[256];
+    TNODE *troot = NULL;
     do {
 
 	printf("MENU OPTIONS\n");
@@ -227,6 +230,13 @@ int main() {
 		combination_sum(A, 0, n, S, sum);
 		
 
+		break;
+
+            case 4:
+
+		printf("Enter the string\n");
+		scanf("%s", str1);
+		addWordInTrie(str, troot);
 		break;
 
 	}

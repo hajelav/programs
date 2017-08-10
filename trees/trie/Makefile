@@ -1,7 +1,7 @@
 CC=gcc -Wall -g
 CFLAGS=-I.
-DEPS = ../../utils.h
-OBJ = ../../utils.o trie.o 
+DEPS = ../../utils.h trie.h
+OBJ = ../../utils.o trie.o trie_main.o 
 
 %.o: %.c $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)

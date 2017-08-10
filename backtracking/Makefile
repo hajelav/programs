@@ -1,6 +1,6 @@
 CC=gcc -Wall -Werror -g
-CFLAGS=-I.
-DEPS = ../utils.h /home/vhajela/programs/trees/trie/trie.h
+CFLAGS=-I../
+DEPS = ../utils.h
 OBJ = ../utils.o backtracking.o
 
 %.o: %.c $(DEPS)
