@@ -236,7 +236,7 @@ int main() {
 
 		printf("Enter the string\n");
 		scanf("%s", str1);
-		addWordInTrie(str, troot);
+		troot = addWordInTrie(str, troot);
 		break;
 
 	}

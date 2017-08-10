@@ -13,3 +13,4 @@ int isLeaf(TNODE* node);
 int  searchWordInTrie(TNODE* troot, char *word);
 TNODE* addWordInTrie(char *word, TNODE* troot);
 void print_words(TNODE *troot, char *path, int cnt);
+void print_trie(TNODE* root);

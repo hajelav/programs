@@ -288,8 +288,7 @@ int main() {
     char c;
     char str[256];
     char str1[256];
-    char *path;
-    TNODE *troot; 
+    TNODE *troot=NULL; 
     int choice, i, len;
     char **board;
     int boardRow, boardCol, wordSize;
@@ -340,17 +339,7 @@ int main() {
 		break;
 
 	    case 6:
-		path = (char*)calloc(NO_OF_CHARS, sizeof(char));
-		/*
-		 *To iterate all the words we first go through the dummy nodes and find the first not NULL pointer
-		 *and we pass that address to our print routine.
-		 */
-		for(i=0;i<NO_OF_CHARS;i++){
-		    if(root->next[i]){
-			troot = root->next[i];
-			print_words(troot, path, 0);
-		    }
-		}
+	        print_trie(root);
 		break;
 
 	    case 7: 
