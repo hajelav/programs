@@ -13,5 +13,5 @@ trie: $(OBJ)
 
 clean:
 		rm -f *.o
-		rm -f ../../utils.o
+		rm -f ../../utils.o trie.o trie_main.o
 		rm -f trie
