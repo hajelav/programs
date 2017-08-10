@@ -234,9 +234,10 @@ int main() {
 
             case 4:
 
-		printf("Enter the string\n");
+		printf("Enter the words of the \n");
 		scanf("%s", str1);
-		troot = addWordInTrie(str, troot);
+		troot = addWordInTrie(str1, troot);
+		print_trie(troot);
 		break;
 
 	}

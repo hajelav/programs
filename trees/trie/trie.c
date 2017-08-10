@@ -71,6 +71,9 @@ TNODE* addWordInTrie(char *word, TNODE* troot) {
     TNODE *temp1;
     TNODE *root;
 
+    if (!(*word))
+        return NULL;
+
     /*search word in the trie first, if not found add it*/
     if(searchWordInTrie(troot, word))
 	return troot;
