@@ -201,6 +201,7 @@ void word_boggle_util(){
     char *input;
     TNODE *troot = NULL; // node to a trie
     char **dict;
+    int **visited;
 
     printf("Enter the no of words in dictionary\n");
     scanf("%d", &noOfWords);
@@ -219,16 +220,49 @@ void word_boggle_util(){
     printf("enter no of colc for dict\n");
     scanf("%d", &c);
     dict = create_2Dchar_array(r, c);
+    visited = create_2Darray(r, c);
     printf("fill letters in the dictionary\n");
     input_2Dchar_array(dict, r, c);
     print_2Dchar_array(dict, r, c);
 
+    for(i=0;i<r;i++){
+        for(j=0;j<c;j++){
+            word_boggle(dict, i, j, r, c, visited)
 
+        }
 
 
 }
 
-void word_boggle() {
+int isValid(int i, int j, int R, int C){
+
+    if (i < 0 || j < 0 ||
+       i >=R  || j >=R ) 
+        return 0;
+    return 1
+}
+
+void word_boggle(char *dict, int i, int j, int r, int c, int **visited) {
+
+    if !(isValid(i, j, R, C))
+        return 
+
+
+    visited[i][j] = 1; // mark the current char as visited
+
+    /*step through all the directions*/
+    if ((isValid(i-1, j, R, C)) && (!visited[i-1][j]))     //up
+    if ((isValid(i+1, j, R, C)) && (!visited[i+1][j]))     //down   
+    if (isValid(i, j-1, R, C) and )     //left
+    if (isValid(i, j+1, R, C) and )     //right
+    if (isValid(i-1, j+1, R, C) and ) 
+    if (isValid(i-1, j-1, R, C) and )
+    if (isValid(i+1, j-1, R, C) and )
+    if (isValid(i+1, j+1, R, C) and )
+
+     
+
+
 }
 
 int main() {
