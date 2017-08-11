@@ -37,8 +37,8 @@ int isLeaf(TNODE* node) {
  return 1;
 }
 
-/*search for the word in the trie */
-int  searchWordInTrie(TNODE* troot, char *word) {
+/*search for the whole word in the trie , return false if not present */
+int  searchWholeWordInTrie(TNODE* troot, char *word) {
 
     if(troot==NULL || word == NULL || *word == '\0') {
 	return 0;
@@ -65,6 +65,27 @@ int  searchWordInTrie(TNODE* troot, char *word) {
     return 1;
 }
 
+ /*
+  *returns true even if there is a partial match, for eg if trie has geeks
+  *then g . gee, geek would all return true
+  */
+int  searchPartialWordInTrie(TNODE* troot, char *word) {
+
+    if(troot==NULL || word == NULL || *word == '\0') {
+	return 0;
+    }
+
+    while(*word!='\0') {
+	if(troot->next[*word-'a'] == NULL) {
+	    return 0;
+	}
+	troot = troot->next[*word-'a'];
+	word++;
+    }
+
+    return 1;
+}
+
 /*add node in the trie*/
 TNODE* addWordInTrie(char *word, TNODE* troot) {
 
@@ -75,7 +96,7 @@ TNODE* addWordInTrie(char *word, TNODE* troot) {
         return NULL;
 
     /*search word in the trie first, if not found add it*/
-    if(searchWordInTrie(troot, word))
+    if(searchWholeWordInTrie(troot, word))
 	return troot;
 
     //create root, if not created

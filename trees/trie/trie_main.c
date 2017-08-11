@@ -78,7 +78,7 @@ void find_words_util(char **board, int boardRow, int boardCol, TNODE *root, char
     if(i>=boardRow || i<0 || j>=boardCol || j<0)
 	return;
     //return if you dont find the word in trie
-    if((*str) && (!searchWordInTrie(root, str)))
+    if((*str) && (!searchWholeWordInTrie(root, str)))
 	return;
 
     str[k] = board[i][j];
@@ -159,7 +159,7 @@ void find_substring() {
 	for(i=0;i<noOfWords;i++) {
 	    memcpy(word, str+start, wordSize);
 	    //search the word in trie
-	    if(searchWordInTrie(root, word)){
+	    if(searchWholeWordInTrie(root, word)){
 		start = start + wordSize;
 		count++;
 	    } else {
@@ -235,7 +235,7 @@ int  word_break(TNODE *t, char *word, int l, int h) {
 
 
 
-    if(searchWordInTrie(t, str))
+    if(searchWholeWordInTrie(t, str))
 	return 0;
 
     else {
@@ -297,7 +297,7 @@ int main() {
     do {
 	printf("MENU OPTIONS\n");
 	printf("1 -- Insert word in Trie\n");
-	printf("2 -- Search word in Trie\n");
+	printf("2 -- Search whole word in Trie\n");
 	printf("3 -- Create a suffix tree\n");
 	printf("4 -- Finding the longest repeated substring\n");
 	printf("5 -- Find the longest common substring\n");
@@ -307,6 +307,7 @@ int main() {
 	printf("9 -- substring with Concatenation of All Words\n");
 	printf("10 -- count substrings of len k in a string\n");
 	printf("11 -- word break problem\n");
+	printf("12 -- Search partial word in trie\n");
 
 	
 	printf("enter your choice\n");
@@ -322,7 +323,7 @@ int main() {
 	    case 2: 
 		printf("Enter the string\n");
 		scanf("%s", str);
-		printf("Word %s\n", searchWordInTrie(root, str)?"found":"not found");
+		printf("Word %s\n", searchWholeWordInTrie(root, str)?"found":"not found");
 		break;
 
 	    case 3:
@@ -394,6 +395,12 @@ int main() {
 		strLen = strlen(str1);
 
 		printf("%d", word_break(root, str1, 0, strLen-1));
+		break;
+
+            case 12:
+		printf("Enter the string\n");
+		scanf("%s", str);
+		printf("Word %s\n", searchPartialWordInTrie(root, str)?"found":"not found");
 		break;
 
 		

@@ -170,13 +170,18 @@ void print_all_possible_words(char **dict, int i, int j, int r, int c, int **vis
 
 }
 
-void print_all_valid_words(char **dict, int i, int j, int r, int c, int **visited, STACK *S) {
+void print_all_valid_words(char **dict, int i, int j, int r, int c, int **visited, STACK *S, TNODE *troot) {
 
     if (!isValid(i, j, r, c))
         return; 
 
+
     visited[i][j] = 1; // mark the current char as visited
     push(S, dict[i][j]);
+
+    //search the char in the trie, if it doesnt match then we dont have to check further
+    if(!searchWordInTrie((char*), troot))
+        return
 
     /*step through all the directions*/
     if ((isValid(i-1, j, r, c)) && (!visited[i-1][j]))     //up

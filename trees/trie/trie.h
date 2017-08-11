@@ -10,7 +10,12 @@ typedef struct TNODE {
 void initTnode(TNODE* tnode);
 TNODE* createTrieNode();
 int isLeaf(TNODE* node);
-int  searchWordInTrie(TNODE* troot, char *word);
+//retruns true only of the whole word matches
+int  searchWholeWordInTrie(TNODE* troot, char *word);
+
+// returns true even if there is a partial match, for eg if trie has geeks
+// then g . gee, geek would all return true
+int  searchPartialWordInTrie(TNODE* troot, char *word);
 TNODE* addWordInTrie(char *word, TNODE* troot);
 void print_words(TNODE *troot, char *path, int cnt);
 void print_trie(TNODE* root);
