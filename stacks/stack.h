@@ -1,12 +1,12 @@
 #include "../utils.h"
-#define STACK_SIZE 32
 
 typedef struct _stack {
     int top;
     char *arr;
+    int size;
 } STACK;
 
-STACK* init_stack();
+STACK* init_stack(int size);
 void push(STACK *s, char elem);
 void pop(STACK *s);
 int isEmpty(STACK *s);

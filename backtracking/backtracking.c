@@ -15,6 +15,7 @@
 #include <time.h>
 #include "../utils.h"
 #include "../trees/trie/trie.h"
+#include "../stacks/stack.h"
 
 
 #define STACK_SIZE 32
