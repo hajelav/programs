@@ -17,78 +17,6 @@
 #include "../trees/trie/trie.h"
 #include "../stacks/stack.h"
 
-
-#define STACK_SIZE 32
-
-typedef struct _stack {
-    int top;
-    int *arr;
-} STACK;
-
-STACK* init_stack() {
-
-    STACK *s;
-    s = (STACK*)malloc(sizeof(STACK));
-
-    if(!s)
-	return NULL;
-
-    s->top = -1; //initialize the top
-    s->arr = (int*)calloc(STACK_SIZE, sizeof(int));
-
-    if(!s->arr)
-	return NULL;
-
-    return s;
-}
-
-void push(STACK *s, int elem) {
-
-    if(s->top == STACK_SIZE){
-	printf("stack full\n");
-	return;
-    }
-    s->arr[++s->top] = elem;
-}
-
-void pop(STACK *s) {
-
-    if(!s)
-	return;
-
-    s->arr[s->top] = '\0';
-    s->top--;
-}
-
-int isEmpty(STACK *s){
-
-    if(s && s->top == -1)
-	return 1;
-    return 0;
-}
-
-void print_stack(STACK *s) {
-
-    int i;
-
-    if(!s)
-	return;
-
-    for(i=0;i<STACK_SIZE;i++){
-	if(s->arr[i])
-	    printf("%d ", s->arr[i]);
-    }
-    printf("\n");
-}
-
-void free_stack(STACK *s) {
-
-    if(s){
-	free(s->arr);
-	s->arr = NULL;
-	free(s);
-    }
-}
 char * create_string(int len){
     char *str;
     str = (char*)malloc(sizeof(char)*(len+1));
@@ -194,15 +122,63 @@ void combination_sum(int *A, int i, int len, STACK *S, int sum){
  *         GEEKS, QUIZ
  */
 
+int isValid(int i, int j, int R, int C){
+
+    if (i < 0 || j < 0 ||
+       i >=R  || j >=C ) 
+        return 0;
+    return 1;
+}
+
+/*this  prints all the combinations of words of all lengths in the 2d array*/
+void word_boggle(char **dict, int i, int j, int r, int c, int **visited, STACK *S) {
+
+    if (!isValid(i, j, r, c))
+        return; 
+
+    visited[i][j] = 1; // mark the current char as visited
+    push(S, dict[i][j]);
+
+    /*step through all the directions*/
+    if ((isValid(i-1, j, r, c)) && (!visited[i-1][j]))     //up
+        word_boggle(dict, i-1, j, r, c, visited, S);
+
+    if ((isValid(i+1, j, r, c)) && (!visited[i+1][j]))     //down   
+        word_boggle(dict, i+1, j, r, c, visited, S);
+
+    if ((isValid(i, j-1, r, c)) && (!visited[i][j-1]))     //left
+        word_boggle(dict, i, j-1, r, c, visited, S);
+
+    if ((isValid(i, j+1, r, c)) && (!visited[i][j+1]))     //right
+        word_boggle(dict, i, j+1, r, c, visited, S);
+
+    if ((isValid(i-1, j+1, r, c)) && (!visited[i-1][j+1])) 
+        word_boggle(dict, i-1, j+1, r, c, visited, S);
+
+    if ((isValid(i-1, j-1, r, c)) && (!visited[i-1][j-1]))
+        word_boggle(dict, i-1, j-1, r, c, visited, S);
+
+    if ((isValid(i+1, j-1, r, c)) && (!visited[i+1][j-1]))
+        word_boggle(dict, i+1, j-1, r, c, visited, S);
+
+    if ((isValid(i+1, j+1, r, c)) && (!visited[i+1][j+1]))
+        word_boggle(dict, i+1, j+1, r, c, visited, S);
+
+    print_stack(S);
+    pop(S);
+    visited[i][j] = 0;
+
+}
 
 void word_boggle_util(){
 
-    int noOfWords, i, r, c;
+    int noOfWords, i, j, r, c;
     int n = 256;
     char *input;
     TNODE *troot = NULL; // node to a trie
     char **dict;
     int **visited;
+    STACK *S;
 
     printf("Enter the no of words in dictionary\n");
     scanf("%d", &noOfWords);
@@ -226,45 +202,17 @@ void word_boggle_util(){
     input_2Dchar_array(dict, r, c);
     print_2Dchar_array(dict, r, c);
 
+    //initialize the stack of 32
+    S = init_stack(32);
     for(i=0;i<r;i++){
         for(j=0;j<c;j++){
-            word_boggle(dict, i, j, r, c, visited)
-
+            word_boggle(dict, i, j, r, c, visited, S);
         }
-
-
+    }
+    free_stack(S);
 }
 
-int isValid(int i, int j, int R, int C){
 
-    if (i < 0 || j < 0 ||
-       i >=R  || j >=R ) 
-        return 0;
-    return 1
-}
-
-void word_boggle(char *dict, int i, int j, int r, int c, int **visited) {
-
-    if !(isValid(i, j, R, C))
-        return 
-
-
-    visited[i][j] = 1; // mark the current char as visited
-
-    /*step through all the directions*/
-    if ((isValid(i-1, j, R, C)) && (!visited[i-1][j]))     //up
-    if ((isValid(i+1, j, R, C)) && (!visited[i+1][j]))     //down   
-    if (isValid(i, j-1, R, C) and )     //left
-    if (isValid(i, j+1, R, C) and )     //right
-    if (isValid(i-1, j+1, R, C) and ) 
-    if (isValid(i-1, j-1, R, C) and )
-    if (isValid(i+1, j-1, R, C) and )
-    if (isValid(i+1, j+1, R, C) and )
-
-     
-
-
-}
 
 int main() {
     char c;
@@ -308,7 +256,7 @@ int main() {
 		printf("enter sum\n");
 		    scanf("%d", &sum);
 
-		S = init_stack();
+		S = init_stack(32);
 		combination_sum(A, 0, n, S, sum);
 		
 
