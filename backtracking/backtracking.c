@@ -131,7 +131,7 @@ int isValid(int i, int j, int R, int C){
 }
 
 /*this  prints all the combinations of words of all lengths in the 2d array*/
-void word_boggle(char **dict, int i, int j, int r, int c, int **visited, STACK *S) {
+void print_all_possible_words(char **dict, int i, int j, int r, int c, int **visited, STACK *S) {
 
     if (!isValid(i, j, r, c))
         return; 
@@ -141,28 +141,28 @@ void word_boggle(char **dict, int i, int j, int r, int c, int **visited, STACK *
 
     /*step through all the directions*/
     if ((isValid(i-1, j, r, c)) && (!visited[i-1][j]))     //up
-        word_boggle(dict, i-1, j, r, c, visited, S);
+        print_all_possible_words(dict, i-1, j, r, c, visited, S);
 
     if ((isValid(i+1, j, r, c)) && (!visited[i+1][j]))     //down   
-        word_boggle(dict, i+1, j, r, c, visited, S);
+        print_all_possible_words(dict, i+1, j, r, c, visited, S);
 
     if ((isValid(i, j-1, r, c)) && (!visited[i][j-1]))     //left
-        word_boggle(dict, i, j-1, r, c, visited, S);
+        print_all_possible_words(dict, i, j-1, r, c, visited, S);
 
     if ((isValid(i, j+1, r, c)) && (!visited[i][j+1]))     //right
-        word_boggle(dict, i, j+1, r, c, visited, S);
+        print_all_possible_words(dict, i, j+1, r, c, visited, S);
 
     if ((isValid(i-1, j+1, r, c)) && (!visited[i-1][j+1])) 
-        word_boggle(dict, i-1, j+1, r, c, visited, S);
+        print_all_possible_words(dict, i-1, j+1, r, c, visited, S);
 
     if ((isValid(i-1, j-1, r, c)) && (!visited[i-1][j-1]))
-        word_boggle(dict, i-1, j-1, r, c, visited, S);
+        print_all_possible_words(dict, i-1, j-1, r, c, visited, S);
 
     if ((isValid(i+1, j-1, r, c)) && (!visited[i+1][j-1]))
-        word_boggle(dict, i+1, j-1, r, c, visited, S);
+        print_all_possible_words(dict, i+1, j-1, r, c, visited, S);
 
     if ((isValid(i+1, j+1, r, c)) && (!visited[i+1][j+1]))
-        word_boggle(dict, i+1, j+1, r, c, visited, S);
+        print_all_possible_words(dict, i+1, j+1, r, c, visited, S);
 
     print_stack(S);
     pop(S);
@@ -170,6 +170,44 @@ void word_boggle(char **dict, int i, int j, int r, int c, int **visited, STACK *
 
 }
 
+void print_all_valid_words(char **dict, int i, int j, int r, int c, int **visited, STACK *S) {
+
+    if (!isValid(i, j, r, c))
+        return; 
+
+    visited[i][j] = 1; // mark the current char as visited
+    push(S, dict[i][j]);
+
+    /*step through all the directions*/
+    if ((isValid(i-1, j, r, c)) && (!visited[i-1][j]))     //up
+        print_all_valid_words(dict, i-1, j, r, c, visited, S);
+
+    if ((isValid(i+1, j, r, c)) && (!visited[i+1][j]))     //down   
+        print_all_valid_words(dict, i+1, j, r, c, visited, S);
+
+    if ((isValid(i, j-1, r, c)) && (!visited[i][j-1]))     //left
+        print_all_valid_words(dict, i, j-1, r, c, visited, S);
+
+    if ((isValid(i, j+1, r, c)) && (!visited[i][j+1]))     //right
+        print_all_valid_words(dict, i, j+1, r, c, visited, S);
+
+    if ((isValid(i-1, j+1, r, c)) && (!visited[i-1][j+1])) 
+        print_all_valid_words(dict, i-1, j+1, r, c, visited, S);
+
+    if ((isValid(i-1, j-1, r, c)) && (!visited[i-1][j-1]))
+        print_all_valid_words(dict, i-1, j-1, r, c, visited, S);
+
+    if ((isValid(i+1, j-1, r, c)) && (!visited[i+1][j-1]))
+        print_all_valid_words(dict, i+1, j-1, r, c, visited, S);
+
+    if ((isValid(i+1, j+1, r, c)) && (!visited[i+1][j+1]))
+        print_all_valid_words(dict, i+1, j+1, r, c, visited, S);
+
+    print_stack(S);
+    pop(S);
+    visited[i][j] = 0;
+
+}
 void word_boggle_util(){
 
     int noOfWords, i, j, r, c;
@@ -206,7 +244,12 @@ void word_boggle_util(){
     S = init_stack(32);
     for(i=0;i<r;i++){
         for(j=0;j<c;j++){
-            word_boggle(dict, i, j, r, c, visited, S);
+
+           /*prints all combination of words of all lengths , that can be formed by the 2D char array  */
+            //print_all_possible_words(dict, i, j, r, c, visited, S);
+
+            /*prints all possible valid words that are present in the trie*/
+            print_all_valid_words(dict, i, j, r, c, visited, S, troot);
         }
     }
     free_stack(S);
