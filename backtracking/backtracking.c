@@ -265,7 +265,7 @@ void word_boggle_util(){
     memcpy(dict[1], "uek", 3);
     memcpy(dict[2], "qse", 3);
     print_2Dchar_array(dict, r, c);
-    printf("****OUTPUT****\n");
+    printf("=========OUTPUT=========\n");
 
     //initialize the stack of 32
     S = init_stack(32);
@@ -283,6 +283,10 @@ void word_boggle_util(){
 }
 
 
+void sudoku_solver_util(){
+
+}
+
 
 int main() {
     char c;
@@ -297,6 +301,7 @@ int main() {
 	printf("2 -- N Queen problem\n");
 	printf("3 -- combination sum problem\n");
 	printf("4 -- Words boggle problem\n");
+	printf("5 -- solve the sudoku\n");
 
 
 	printf("Enter your choice\n");
@@ -328,12 +333,13 @@ int main() {
 
 		S = init_stack(32);
 		combination_sum(A, 0, n, S, sum);
-		
-
 		break;
 
             case 4:
                 word_boggle_util();
+		break;
+            case 5:
+                sudoku_solver_util();
 		break;
 
 	}
