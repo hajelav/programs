@@ -43,7 +43,7 @@ int isEmpty(STACK *s){
     return 0;
 }
 
-void print_stack(STACK *s) {
+void print_stack1(STACK *s) {
 
     int i;
 
@@ -54,6 +54,12 @@ void print_stack(STACK *s) {
 	printf("%c ", s->arr[i]);
     }
     printf("\n");
+}
+void print_stack(STACK *s) {
+
+    if(!s)
+	return;
+    printf("%s\n", s->arr);
 }
 
 void free_stack(STACK *s) {

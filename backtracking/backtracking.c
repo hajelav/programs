@@ -179,10 +179,11 @@ void print_all_valid_words(char **dict, int i, int j, int r, int c, int **visite
     push(S, dict[i][j]);
 
     //search the stack till now, in the trie.If it doesnt match then we dont have to check further
-    if(!searchPartialWordInTrie(troot, S->arr))
-        print_stack(S);
+    
+    if(!searchPartialWordInTrie(troot, S->arr)){
         pop(S);
         return;
+    }
 
     visited[i][j] = 1; // mark the current char as visited
 
@@ -211,7 +212,14 @@ void print_all_valid_words(char **dict, int i, int j, int r, int c, int **visite
     if ((isValid(i+1, j+1, r, c)) && (!visited[i+1][j+1]))
         print_all_valid_words(dict, i+1, j+1, r, c, visited, S, troot);
 
-    /*print_stack(S);*/
+    /*
+     *this will print the stack every time the recursion returns, but the goal here is to 
+     *just print the word which is present in the trie, so we just search the whole word
+     *in the trie before we print it
+     */
+    if (searchWholeWordInTrie(troot, S->arr))
+        print_stack(S);
+
     pop(S);
     visited[i][j] = 0;
 
@@ -257,6 +265,7 @@ void word_boggle_util(){
     memcpy(dict[1], "uek", 3);
     memcpy(dict[2], "qse", 3);
     print_2Dchar_array(dict, r, c);
+    printf("****OUTPUT****\n");
 
     //initialize the stack of 32
     S = init_stack(32);
@@ -264,7 +273,7 @@ void word_boggle_util(){
         for(j=0;j<c;j++){
 
            /*prints all combination of words of all lengths , that can be formed by the 2D char array  */
-            //print_all_possible_words(dict, i, j, r, c, visited, S);
+            /*print_all_possible_words(dict, i, j, r, c, visited, S);*/
 
             /*prints all possible valid words that are present in the trie*/
             print_all_valid_words(dict, i, j, r, c, visited, S, troot);
