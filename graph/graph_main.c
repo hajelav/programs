@@ -1,195 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
-
-/* graphs data structures */
-
-//graph node
-typedef struct gnode {
-    int idx;
-    int edge_len;
-    struct gnode *next;
-} GNODE;
-
-//graph vertex
-typedef struct graph {
-    int idx; //index of vertex node
-    GNODE *gnode;
-    int torder; // topological order of the vertex
-    unsigned int processed:1; //visited
-    int dist;
-} GRAPH;
-
-typedef struct edge {
-    int from_vtx;
-    int to_vtx;
-    int shortest_edge;
-} EDGE;
-
-void init_edge(EDGE *g) {
-
-    g->shortest_edge = INT_MAX;
-    g->from_vtx = INT_MIN;
-    g->to_vtx = INT_MIN;
-}
-
-void init_graph(GRAPH *g, int n){
-
-    int i;
-    if(!g || n<=0)
-	return;
-
-    for(i=0;i<n;i++){
-	g[i].idx = i;
-	g[i].torder = 0;
-	g[i].gnode = NULL;
-	g[i].dist = 0;
-    }
-}
-
-void clear_visited_vertex(GRAPH *g, int n) {
-    
-    int i;
-    if(!g || !n)
-	return;
-
-    for(i=0;i<n;i++){
-	g[i].processed = 0;
-	g[i].torder = 0;
-    }
-
-}
-
-//create graph node
-GNODE* create_gnode(int idx, int edge) {
-
-    GNODE* gn = (GNODE*)malloc(sizeof(GNODE));
-    if(!gn)
-	return NULL;
-    gn->idx = idx;
-    gn->edge_len = edge;
-    gn->next = NULL;
-    return gn;
-}
-
-void create_graph( GRAPH *g, int idx, int edge) {
-
-    GNODE *gn, *temp;
-
-    gn = create_gnode(idx, edge);
-    if(!gn)
-	return;
-    if(!g->gnode){ 
-	g->gnode = gn;
-    } else {
-	temp = g->gnode;
-	g->gnode  = gn;
-	gn->next = temp;
-    }
-}
-
-void print_graph(GRAPH *g, int n) {
-    int i;
-    GNODE *trav;
-
-    for(i=0;i<n;i++){
-	trav = g[i].gnode;
-	    printf("%d-->", i);
-	while(trav){
-	    printf("%d ", trav->idx);
-	    trav = trav->next;
-	}
-	printf("\n");
-    }
-}
-
-/*
- *get the vertex node(GNODE) with shortest  edge. this routine scans 
- *processed nodes and find the shortest edge out the processed mould
- */
-
-void get_shortest_edge(GRAPH *g, int n, EDGE* e) {
-
-    int i;
-    GNODE *trav;
-    //create node (shortest vertex)
-    GNODE* minv = create_gnode(INT_MAX, INT_MAX);
-    if(!g || !minv || !e)
-	return;
-
-    for(i=0;i<n;i++){
-	
-	if(g[i].processed){ //look for the unvisited edges out of processed vertices(mould)
-
-	trav = g[i].gnode;
-	    while(trav){
-
-		//while traversing the adjaceny list we only need to look at the vertices which are not
-		//visited. Once we have found such an edge, we store the results. When this function returns
-		//we have the smallest from--->to edge to be considered from the mould(set of already sucked in vertices)
-		//in the MST
-		if((!g[trav->idx].processed) && (trav->edge_len <  e->shortest_edge)) {
-		    e->shortest_edge = trav->edge_len;
-		    e->from_vtx = i;
-		    e->to_vtx = trav->idx;
-		}
-		trav = trav->next;
-	    } //while ends
-	} //check if node is processed
-
-    } //end for loop
-
-    /*once we have found found the min edge, we mark the 'to' vertex as processed*/
-    g[e->to_vtx].processed = 1;
-    /*printf("%d ", e->to_vtx);*/
-}
-
-
-int is_all_nodes_processed(GRAPH *g, int n){
-
-    int i;
-
-    for(i=0;i<n;i++){
-	if(!g[i].processed)
-	    return 1;
-    }
-    return 0; 
-}
-
-//this function returns the new adjacency list for minimum spanning tree  for undirected graphs( note that
-//this MST list allocates new memory, which is different than original graph
-
-GRAPH* prims_MST(GRAPH *g, int n){
-
-    GRAPH *mst;
-    EDGE e;
-
-    if(!g)
-	return NULL;
-
-    mst = (GRAPH*) malloc(sizeof(GRAPH)*n);
-    init_graph(mst, n);
-    init_edge(&e);
-
-    //mark the first vertex as processed
-
-    g[0].processed = 1;
-    while(is_all_nodes_processed(g, n)){
-
-	get_shortest_edge(g, n, &e);
-	/*printf("\n%d--(%d)--%d", e.from_vtx, e.shortest_edge, e.to_vtx);*/
-
-	//we have found the new edge to be sucked into mould, now create  new MST
-	create_graph(&mst[e.from_vtx], e.to_vtx, e.shortest_edge); 
-	create_graph(&mst[e.to_vtx], e.from_vtx, e.shortest_edge); 
-	init_edge(&e);
-    }
-    return mst;
-}
-
-int isVisited(GRAPH *g, int idx) {
-    return(g[idx].processed);
-}
+#include "graph.h"
+#include "../utils.h"
 
 void DFS_clone(GRAPH* g, int vtx, GRAPH* gclone){
 
@@ -501,6 +311,76 @@ void topological_sort(GRAPH *g, int n) {
  *
  */
 
+/*
+ *get the vertex node(GNODE) with shortest  edge. this routine scans 
+ *processed nodes and find the shortest edge out the processed mould
+ */
+
+void get_shortest_edge(GRAPH *g, int n, EDGE* e) {
+
+    int i;
+    GNODE *trav;
+    //create node (shortest vertex)
+    GNODE* minv = create_gnode(INT_MAX, INT_MAX);
+    if(!g || !minv || !e)
+	return;
+
+    for(i=0;i<n;i++){
+	
+	if(g[i].processed){ //look for the unvisited edges out of processed vertices(mould)
+
+	trav = g[i].gnode;
+	    while(trav){
+
+		//while traversing the adjaceny list we only need to look at the vertices which are not
+		//visited. Once we have found such an edge, we store the results. When this function returns
+		//we have the smallest from--->to edge to be considered from the mould(set of already sucked in vertices)
+		//in the MST
+		if((!g[trav->idx].processed) && (trav->edge_len <  e->shortest_edge)) {
+		    e->shortest_edge = trav->edge_len;
+		    e->from_vtx = i;
+		    e->to_vtx = trav->idx;
+		}
+		trav = trav->next;
+	    } //while ends
+	} //check if node is processed
+
+    } //end for loop
+
+    /*once we have found found the min edge, we mark the 'to' vertex as processed*/
+    g[e->to_vtx].processed = 1;
+    /*printf("%d ", e->to_vtx);*/
+}
+//this function returns the new adjacency list for minimum spanning tree  for undirected graphs( note that
+//this MST list allocates new memory, which is different than original graph
+
+GRAPH* prims_MST(GRAPH *g, int n){
+
+    GRAPH *mst;
+    EDGE e;
+
+    if(!g)
+	return NULL;
+
+    mst = (GRAPH*) malloc(sizeof(GRAPH)*n);
+    init_graph(mst, n);
+    init_edge(&e);
+
+    //mark the first vertex as processed
+
+    g[0].processed = 1;
+    while(is_all_nodes_processed(g, n)){
+
+	get_shortest_edge(g, n, &e);
+	/*printf("\n%d--(%d)--%d", e.from_vtx, e.shortest_edge, e.to_vtx);*/
+
+	//we have found the new edge to be sucked into mould, now create  new MST
+	create_graph(&mst[e.from_vtx], e.to_vtx, e.shortest_edge); 
+	create_graph(&mst[e.to_vtx], e.from_vtx, e.shortest_edge); 
+	init_edge(&e);
+    }
+    return mst;
+}
 
 /*check if the graph is bipartite or not*/
 int main() {
