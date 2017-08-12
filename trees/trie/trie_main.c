@@ -316,7 +316,7 @@ int main() {
 	switch(choice) {
 
 	    case 1: 
-		printf("Enter the string\n");
+		printf("Enter the string to be added to trie\n");
 		scanf("%s", str);
 		root = addWordInTrie(str, root);
 		break;

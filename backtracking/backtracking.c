@@ -176,50 +176,54 @@ void print_all_valid_words(char **dict, int i, int j, int r, int c, int **visite
         return; 
 
 
-    visited[i][j] = 1; // mark the current char as visited
     push(S, dict[i][j]);
 
-    //search the char in the trie, if it doesnt match then we dont have to check further
-    if(!searchWordInTrie((char*), troot))
-        return
+    //search the stack till now, in the trie.If it doesnt match then we dont have to check further
+    if(!searchPartialWordInTrie(troot, S->arr))
+        print_stack(S);
+        pop(S);
+        return;
+
+    visited[i][j] = 1; // mark the current char as visited
 
     /*step through all the directions*/
     if ((isValid(i-1, j, r, c)) && (!visited[i-1][j]))     //up
-        print_all_valid_words(dict, i-1, j, r, c, visited, S);
+        print_all_valid_words(dict, i-1, j, r, c, visited, S, troot);
 
     if ((isValid(i+1, j, r, c)) && (!visited[i+1][j]))     //down   
-        print_all_valid_words(dict, i+1, j, r, c, visited, S);
+        print_all_valid_words(dict, i+1, j, r, c, visited, S, troot);
 
     if ((isValid(i, j-1, r, c)) && (!visited[i][j-1]))     //left
-        print_all_valid_words(dict, i, j-1, r, c, visited, S);
+        print_all_valid_words(dict, i, j-1, r, c, visited, S, troot);
 
     if ((isValid(i, j+1, r, c)) && (!visited[i][j+1]))     //right
-        print_all_valid_words(dict, i, j+1, r, c, visited, S);
+        print_all_valid_words(dict, i, j+1, r, c, visited, S, troot);
 
     if ((isValid(i-1, j+1, r, c)) && (!visited[i-1][j+1])) 
-        print_all_valid_words(dict, i-1, j+1, r, c, visited, S);
+        print_all_valid_words(dict, i-1, j+1, r, c, visited, S, troot);
 
     if ((isValid(i-1, j-1, r, c)) && (!visited[i-1][j-1]))
-        print_all_valid_words(dict, i-1, j-1, r, c, visited, S);
+        print_all_valid_words(dict, i-1, j-1, r, c, visited, S, troot);
 
     if ((isValid(i+1, j-1, r, c)) && (!visited[i+1][j-1]))
-        print_all_valid_words(dict, i+1, j-1, r, c, visited, S);
+        print_all_valid_words(dict, i+1, j-1, r, c, visited, S, troot);
 
     if ((isValid(i+1, j+1, r, c)) && (!visited[i+1][j+1]))
-        print_all_valid_words(dict, i+1, j+1, r, c, visited, S);
+        print_all_valid_words(dict, i+1, j+1, r, c, visited, S, troot);
 
-    print_stack(S);
+    /*print_stack(S);*/
     pop(S);
     visited[i][j] = 0;
 
 }
 void word_boggle_util(){
 
-    int noOfWords, i, j, r, c;
+    int noOfWords, i, j;
+    int r, c;
     int n = 256;
     char *input;
     TNODE *troot = NULL; // node to a trie
-    char **dict;
+    char **dict = NULL;
     int **visited;
     STACK *S;
 
@@ -235,14 +239,23 @@ void word_boggle_util(){
         memset(input, '\0', n);
     }
     print_trie(troot);
-    printf("enter no of rows for dict\n");
-    scanf("%d", &r);
-    printf("enter no of colc for dict\n");
-    scanf("%d", &c);
-    dict = create_2Dchar_array(r, c);
+    /*
+     *printf("enter no of rows for dict\n");
+     *scanf("%d", &r);
+     *printf("enter no of colc for dict\n");
+     *scanf("%d", &c);
+     *dict = create_2Dchar_array(r, c);
+     *visited = create_2Darray(r, c);
+     *printf("fill letters in the dictionary\n");
+     *input_2Dchar_array(dict, r, c);
+     */
+    r = 3;
+    c = 3;
     visited = create_2Darray(r, c);
-    printf("fill letters in the dictionary\n");
-    input_2Dchar_array(dict, r, c);
+    dict = create_2Dchar_array(r, c);
+    memcpy(dict[0], "giz", 3);
+    memcpy(dict[1], "uek", 3);
+    memcpy(dict[2], "qse", 3);
     print_2Dchar_array(dict, r, c);
 
     //initialize the stack of 32
