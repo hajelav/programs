@@ -289,6 +289,102 @@ http://practice.geeksforgeeks.org/problems/solve-the-sudoku/0*/
 
 
 
+/*this function gets the list of all valid numbers that can be choosen at any index i and j.
+as per sudoku rules for any number that can be placed at postion S[i][j]
+1. that number shud not be present at entire row
+2. that number shud not be present at entire col
+3. that number shud not be present in that block of 9 intergers
+
+idea: we maintain a hash ,and check all the numbers in row col and block.after the hash is filled
+all the empty slots are the candidates for valid choices to be used*/
+
+void get_valid_numbers_list(int S[][9], int R, int C, int i, int j){
+
+    //declare a hash from 0-9
+    int H[9];
+    int idx, row, col, start_i, start_j, end_i, end_j;
+    int block_i, block_j;
+    for (idx=0;idx<9;idx++){
+        H[idx] = 0;
+    }
+
+    //fill the hash with the entire col
+    for ( row=0;row < R; row++){
+        if(S[row][j] > 0){
+            H[row] = 1;
+        }
+    }
+    print_1Darray(H, R);
+
+    //fill the hash with the entire row
+    for ( col=0;col < C; col++){
+        if(S[i][col] > 0){
+            H[col] = 1;
+        }
+    }
+    print_1Darray(H, C);
+    //fill the hash with the block
+
+    /*the idea is to first find out that which block S[i][j] belong to,
+      and then check all i,j in that block to fill the hash*/
+    block_i = i/3; 
+    block_j = j/3;
+
+    switch(block_i){
+        case 0:
+            start_i = 0;
+            end_i = 2;
+            break;
+        case 1:
+            start_i = 3;
+            end_i = 5;
+            break;
+        case 2:
+            start_i = 6;
+            end_i = 8;
+            break;
+    }//switch ends
+    switch(block_j){
+        case 0:
+            start_j = 0;
+            end_j = 2;
+            break;
+        case 1:
+            start_j = 3;
+            end_j = 5;
+            break;
+        case 2:
+            start_j = 6;
+            end_j = 8;
+            break;
+    }//switch ends
+
+
+    /*
+     *now we have [start_i][start_j] , [end_i][end_j] indices for the block which has S[i][j].
+     *fill the hash now
+     */
+
+    for(;start_i <= start_j;start_i++){
+        for(;end_i <= end_j;end_i++){
+
+            if(S[start_i][end_i] > 0)
+                H[S[start_i][end_i]] = 1;
+        }
+    }
+
+    /*
+     *at this point the hash is filled with all rows, cols, and blocks numbers
+     *any zeros in the hash is a candidate for valid entry in soduko matrix
+     */
+
+    for(idx=0;idx<9;idx++){
+        if(!H[idx])
+            printf("%d ", idx);
+    }
+    printf("\n");
+}
+
 void sudoku_solver_util(){
 
     int S[9][9] = {{3,0,6,5,0,8,4,0,0},
@@ -299,11 +395,15 @@ void sudoku_solver_util(){
                    {0,5,0,0,9,0,6,0,0},
                    {1,3,0,0,0,0,2,5,0},
                    {0,0,0,0,0,0,0,7,4},
-                   {0,0,5,2,0,6,3,0,0}}
+                   {0,0,5,2,0,6,3,0,0}};
 
-
-
+    get_valid_numbers_list(S, 9, 9, 0, 1);
 }
+/*
+ *int sudoku_solver(int S[][9], int , int j, int C){
+ *
+ *}
+ */
 
 int main() {
     char c;
