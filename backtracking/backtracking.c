@@ -282,11 +282,28 @@ void word_boggle_util(){
     free_stack(S);
 }
 
+/*Given an incomplete Sudoku configuration in terms of a 9x9  2-D square matrix (mat[][]) the task to print a solution of the Sudoku. For simplicity you may assume that there will be only one unique solution.
+
+Example
+http://practice.geeksforgeeks.org/problems/solve-the-sudoku/0*/
+
+
 
 void sudoku_solver_util(){
 
-}
+    int S[9][9] = {{3,0,6,5,0,8,4,0,0},
+                   {5,2,0,0,0,0,0,0,0},
+                   {0,8,7,0,0,0,0,3,1},
+                   {0,0,3,0,1,0,0,8,0},
+                   {9,0,0,8,6,3,0,0,5},
+                   {0,5,0,0,9,0,6,0,0},
+                   {1,3,0,0,0,0,2,5,0},
+                   {0,0,0,0,0,0,0,7,4},
+                   {0,0,5,2,0,6,3,0,0}}
 
+
+
+}
 
 int main() {
     char c;
