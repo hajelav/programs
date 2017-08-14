@@ -301,28 +301,31 @@ all the empty slots are the candidates for valid choices to be used*/
 void get_valid_numbers_list(int S[][9], int R, int C, int i, int j){
 
     //declare a hash from 0-9
-    int H[9];
+    int H[10];
     int idx, row, col, start_i, start_j, end_i, end_j;
     int block_i, block_j;
-    for (idx=0;idx<9;idx++){
+    int l, m;
+    int *list;
+    int count = 0;
+    for (idx=0;idx<10;idx++){
         H[idx] = 0;
     }
 
     //fill the hash with the entire col
     for ( row=0;row < R; row++){
         if(S[row][j] > 0){
-            H[row] = 1;
+            H[S[row][j]] = 1;
         }
     }
-    print_1Darray(H, R);
+    /*print_1Darray(H, 10);*/
 
     //fill the hash with the entire row
     for ( col=0;col < C; col++){
         if(S[i][col] > 0){
-            H[col] = 1;
+            H[S[i][col]] = 1;
         }
     }
-    print_1Darray(H, C);
+    /*print_1Darray(H, 10);*/
     //fill the hash with the block
 
     /*the idea is to first find out that which block S[i][j] belong to,
@@ -365,24 +368,35 @@ void get_valid_numbers_list(int S[][9], int R, int C, int i, int j){
      *fill the hash now
      */
 
-    for(;start_i <= start_j;start_i++){
-        for(;end_i <= end_j;end_i++){
+    /*printf("%d %d\n", start_i, start_j);*/
+    /*printf("%d %d\n", end_i, end_j);*/
+    for(l=start_i;l<= end_i;l++){
+        for(m=start_j;m <= end_j;m++){
 
-            if(S[start_i][end_i] > 0)
-                H[S[start_i][end_i]] = 1;
+            if(S[l][m] > 0)
+                H[S[l][m]] = 1;
         }
     }
+    /*print_1Darray(H, 10);*/
 
     /*
      *at this point the hash is filled with all rows, cols, and blocks numbers
      *any zeros in the hash is a candidate for valid entry in soduko matrix
      */
 
-    for(idx=0;idx<9;idx++){
+    printf("List of valid choices for S[%d][%d]\n", i, j);
+    for(idx=1;idx<10;idx++){
         if(!H[idx])
-            printf("%d ", idx);
+            count++;
     }
-    printf("\n");
+
+    count = 0;
+    list = create_1Darray(count);
+    for(idx=1;idx<10;idx++){
+        if(!H[idx])
+            list[count++] = idx;
+    }
+    print_1Darray(list, count);
 }
 
 void sudoku_solver_util(){
