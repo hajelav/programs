@@ -9,6 +9,11 @@
  *http://practice.geeksforgeeks.org/tag-page.php?tag=backtracking&isCmp=0
  */
 
+/*
+ *Top 20 questions for backtracking
+ *http://www.geeksforgeeks.org/top-20-backtracking-algorithm-interview-questions/
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -298,7 +303,7 @@ as per sudoku rules for any number that can be placed at postion S[i][j]
 idea: we maintain a hash ,and check all the numbers in row col and block.after the hash is filled
 all the empty slots are the candidates for valid choices to be used*/
 
-void get_valid_numbers_list(int S[][9], int R, int C, int i, int j){
+int* get_valid_numbers_list(int S[][9], int R, int C, int i, int j){
 
     //declare a hash from 0-9
     int H[10];
@@ -397,6 +402,7 @@ void get_valid_numbers_list(int S[][9], int R, int C, int i, int j){
             list[count++] = idx;
     }
     print_1Darray(list, count);
+    return list;
 }
 
 void sudoku_solver_util(){
@@ -411,13 +417,11 @@ void sudoku_solver_util(){
                    {0,0,0,0,0,0,0,7,4},
                    {0,0,5,2,0,6,3,0,0}};
 
-    get_valid_numbers_list(S, 9, 9, 0, 1);
+    get_valid_numbers_list(S, 9, 9, 8, 7);
 }
-/*
- *int sudoku_solver(int S[][9], int , int j, int C){
- *
- *}
- */
+int sudoku_solver(int S[][9], int i , int j, int R, int C){
+
+}
 
 int main() {
     char c;
