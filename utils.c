@@ -160,6 +160,16 @@ void print_2Darray(int **t, int xlen, int ylen) {
     }
 }
 
+void print_2Darray_static(int (*t)[9], int xlen, int ylen) {
+
+    int i, j;
+    for(i=0;i<xlen;i++){
+	for(j=0;j<ylen;j++){
+	    printf("%d  ",t[i][j]);
+	}
+	printf("\n");
+    }
+}
 void input_2Darray(int **A, int r, int c) {
 
     int i, j;

@@ -303,7 +303,13 @@ as per sudoku rules for any number that can be placed at postion S[i][j]
 idea: we maintain a hash ,and check all the numbers in row col and block.after the hash is filled
 all the empty slots are the candidates for valid choices to be used*/
 
-int* get_valid_numbers_list(int S[][9], int R, int C, int i, int j){
+typedef struct DATA{
+    int *list;
+    int size;
+}DATA;
+
+
+DATA* get_valid_numbers_list(int S[][9], int R, int C, int i, int j){
 
     //declare a hash from 0-9
     int H[10];
@@ -311,6 +317,7 @@ int* get_valid_numbers_list(int S[][9], int R, int C, int i, int j){
     int block_i, block_j;
     int l, m;
     int *list;
+    DATA *data;
     int count = 0;
     for (idx=0;idx<10;idx++){
         H[idx] = 0;
@@ -402,7 +409,38 @@ int* get_valid_numbers_list(int S[][9], int R, int C, int i, int j){
             list[count++] = idx;
     }
     print_1Darray(list, count);
-    return list;
+
+    data = (DATA*)malloc(sizeof(DATA));
+    data->list = list;
+    data->size = count;
+    
+    return data;
+}
+
+void sudoku_solver(int S[][9], int row , int col, int R, int C){
+
+    int i, j, k;
+    DATA *data;
+
+    for(i=row;i<R;i++){
+        for(j=col;j<C;j++){
+            if(S[i][j] == 0) {
+                //get the list of valid numbers for S[i][j]
+                data = get_valid_numbers_list(S, R, C, i, j);
+
+                if(data && data->list[0] == 0) {// list is empty, ie no valid choices left at S[i][j]
+                    S[i][j] = 0;
+                    return;
+                }
+                //iterate thru the list of valid choices to fill the sudoku matrix
+                for(k=0;k<data->size;k++){
+                    S[i][j] = data->list[k];
+                    sudoku_solver(S, i, (j+1)%C, R, C);
+                }
+                free(data->list);
+            }
+        }
+    }
 }
 
 void sudoku_solver_util(){
@@ -417,10 +455,8 @@ void sudoku_solver_util(){
                    {0,0,0,0,0,0,0,7,4},
                    {0,0,5,2,0,6,3,0,0}};
 
-    get_valid_numbers_list(S, 9, 9, 8, 7);
-}
-int sudoku_solver(int S[][9], int i , int j, int R, int C){
-
+    sudoku_solver(S, 0, 0, 9, 9);
+    print_2Darray_static(S, 9, 9);
 }
 
 int main() {
