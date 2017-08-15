@@ -374,7 +374,6 @@ DATA* get_valid_numbers_list(int S[][9], int R, int C, int i, int j){
             break;
     }//switch ends
 
-
     /*
      *now we have [start_i][start_j] , [end_i][end_j] indices for the block which has S[i][j].
      *fill the hash now
@@ -435,7 +434,7 @@ void sudoku_solver(int S[][9], int row , int col, int R, int C){
                 //iterate thru the list of valid choices to fill the sudoku matrix
                 for(k=0;k<data->size;k++){
                     S[i][j] = data->list[k];
-                    sudoku_solver(S, i, (j+1)%C, R, C);
+                    sudoku_solver(S, i, j, R, C);
                 }
                 free(data->list);
             }
