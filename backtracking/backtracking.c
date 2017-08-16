@@ -395,19 +395,19 @@ DATA* get_valid_numbers_list(int S[][9], int R, int C, int i, int j){
      *any zeros in the hash is a candidate for valid entry in soduko matrix
      */
 
-    printf("List of valid choices for S[%d][%d]\n", i, j);
+    /*printf("List of valid choices for S[%d][%d]\n", i, j);*/
     for(idx=1;idx<10;idx++){
         if(!H[idx])
             count++;
     }
 
-    count = 0;
     list = create_1Darray(count);
+    count = 0;
     for(idx=1;idx<10;idx++){
         if(!H[idx])
             list[count++] = idx;
     }
-    print_1Darray(list, count);
+    /*print_1Darray(list, count);*/
 
     data = (DATA*)malloc(sizeof(DATA));
     data->list = list;
@@ -416,30 +416,43 @@ DATA* get_valid_numbers_list(int S[][9], int R, int C, int i, int j){
     return data;
 }
 
-void sudoku_solver(int S[][9], int row , int col, int R, int C){
+int sudoku_solver(int S[][9], int row , int col, int R, int C){
 
-    int i, j, k;
+    int i, j;
+    int k;
     DATA *data;
 
-    for(i=row;i<R;i++){
-        for(j=col;j<C;j++){
+    for(i=0;i<R;i++){
+        for(j=0;j<C;j++){
             if(S[i][j] == 0) {
+                printf("i=%d, j=%d\n", i , j);
                 //get the list of valid numbers for S[i][j]
                 data = get_valid_numbers_list(S, R, C, i, j);
 
                 if(data && data->list[0] == 0) {// list is empty, ie no valid choices left at S[i][j]
-                    S[i][j] = 0;
-                    return;
+                    /*printf("%d,%d S[i][j] = %d\n", i, j, S[i][j]);*/
+                    /*S[i][j] = 0;*/
+                    /*print_1Darray(data->list, data->size);*/
+                    return 1;
                 }
                 //iterate thru the list of valid choices to fill the sudoku matrix
                 for(k=0;k<data->size;k++){
                     S[i][j] = data->list[k];
-                    sudoku_solver(S, i, j, R, C);
+                    if (sudoku_solver(S, i, j, R, C)){
+                        S[i][j] = 0;
+                    } else {
+                        printf("break");
+                        /*break;*/
+                    }
+
                 }
                 free(data->list);
+                free(data);
+                return 0;
             }
         }
     }
+    return 0;
 }
 
 void sudoku_solver_util(){
@@ -454,7 +467,9 @@ void sudoku_solver_util(){
                    {0,0,0,0,0,0,0,7,4},
                    {0,0,5,2,0,6,3,0,0}};
 
+    print_2Darray_static(S, 9, 9);
     sudoku_solver(S, 0, 0, 9, 9);
+    printf("\n\n");
     print_2Darray_static(S, 9, 9);
 }
 
