@@ -12,6 +12,7 @@ TNODE* createTrieNode();
 int isLeaf(TNODE* node);
 //retruns true only of the whole word matches
 int  searchWholeWordInTrie(TNODE* troot, char *word);
+int searchWholeWordInTrieUsingIndex(TNODE* troot, char *word, int i, int j);
 
 // returns true even if there is a partial match, for eg if trie has geeks
 // then g . gee, geek would all return true

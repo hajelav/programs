@@ -323,7 +323,8 @@ int main() {
 	    case 2: 
 		printf("Enter the string\n");
 		scanf("%s", str);
-		printf("Word %s\n", searchWholeWordInTrie(root, str)?"found":"not found");
+		/*printf("Word %s\n", searchWholeWordInTrie(root, str)?"found":"not found");*/
+		printf("Word %s\n", searchWholeWordInTrieUsingIndex(root, str, 0, strlen(str)-1)?"found":"not found");
 		break;
 
 	    case 3:

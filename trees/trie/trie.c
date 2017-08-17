@@ -65,6 +65,33 @@ int  searchWholeWordInTrie(TNODE* troot, char *word) {
     return 1;
 }
 
+int searchWholeWordInTrieUsingIndex(TNODE* troot, char *word, int i, int j) {
+
+    if(troot==NULL || word == NULL || *word == '\0') {
+	return 0;
+    }
+
+    while(i<=j) {
+	if(troot->next[word[i]-'a'] == NULL) {
+	    return 0;
+	}
+	troot = troot->next[word[i]-'a'];
+	i++;
+    }
+
+    /*
+     *if we dont find the terminating char, it means its not a valid word in trie
+     *    though all the chars in the "word" matched the chars in trie
+     */
+    if(!troot->next[NO_OF_CHARS-1])
+	return 0;
+
+
+    /*update the word count if search is successful*/
+    troot->word_count++;
+    return 1;
+}
+
  /*
   *returns true even if there is a partial match, for eg if trie has geeks
   *then g . gee, geek would all return true

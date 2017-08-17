@@ -494,12 +494,29 @@ void sudoku_solver_util(){
  *i like icecream and mango
  */
 
+int word_break(char **dict, int s, int e, TNODE *troot){
+
+    int i;
+    char *str;
+    if(!dict || (s > e))
+        return 0;
+
+    for(i=s;i<=s;i++){
+
+        if(searchWholeWordInTrieUsingIndex(troot, dict[i], s, i)  && word_break(dict, i+1, e)){
+
+        }
+    }
+}
+
 void word_break_util() {
 
+    int i;
     char *S = "ilikesamsungmobile";
-    char *dict[12];
-
+    char **dict = (char**) malloc((12)*sizeof(char*));
+    TNODE *troot = NULL; // create a trie to add the words of the dictionary
     int len;
+
     dict[0] = "i";
     dict[1] = "like";
     dict[2] = "sam";
@@ -512,11 +529,17 @@ void word_break_util() {
     dict[9] = "man";
     dict[10] = "go";
     dict[11] = "mango";
-    
-    word_break(S, 0, len-1);
 
+    len = strlen(S);
 
+    //add words to trie
+    for(i=0;i<12;i++){
+        troot = addWordInTrie(dict[i], troot);
+    }
 
+    print_trie(troot);
+
+    word_break(S, 0, len-1, troot);
 }
 
 int main() {
