@@ -473,6 +473,52 @@ void sudoku_solver_util(){
     print_2Darray_static(S, 9, 9);
 }
 
+/*
+ *Word Break Problem using Backtracking
+ *Given a valid sentence without any spaces between the words and a dictionary of valid English words, find all possible ways to break the sentence in individual dictionary words.
+ *
+ *Example
+ *
+ *Consider the following dictionary 
+ *{ i, like, sam, sung, samsung, mobile, ice, 
+ *    cream, icecream, man, go, mango}
+ *
+ *Input: "ilikesamsungmobile"
+ *Output: i like sam sung mobile
+ *i like samsung mobile
+ *
+ *Input: "ilikeicecreamandmango"
+ *Output: i like ice cream and man go
+ *i like ice cream and mango
+ *i like icecream and man go
+ *i like icecream and mango
+ */
+
+void word_break_util() {
+
+    char *S = "ilikesamsungmobile";
+    char *dict[12];
+
+    int len;
+    dict[0] = "i";
+    dict[1] = "like";
+    dict[2] = "sam";
+    dict[3] = "sung";
+    dict[4] = "samsung";
+    dict[5] = "mobile";
+    dict[6] = "ice";
+    dict[7] = "cream";
+    dict[8] = "icecream";
+    dict[9] = "man";
+    dict[10] = "go";
+    dict[11] = "mango";
+    
+    word_break(S, 0, len-1);
+
+
+
+}
+
 int main() {
     char c;
     int choice, n, sum;
@@ -487,6 +533,7 @@ int main() {
 	printf("3 -- combination sum problem\n");
 	printf("4 -- Words boggle problem\n");
 	printf("5 -- solve the sudoku\n");
+	printf("6 -- word break problem using backtracking\n");
 
 
 	printf("Enter your choice\n");
@@ -525,6 +572,9 @@ int main() {
 		break;
             case 5:
                 sudoku_solver_util();
+		break;
+            case 6:
+                word_break_util();
 		break;
 
 	}
