@@ -503,13 +503,11 @@ void word_break(char *str, int s, int e, TNODE *troot){
     if(s > e)
         return ;
 
-    /*print_string_index(str, s, e);*/
-    printf("\n");
     for(i=s;i<=e;i++){
 
         if(searchWholeWordInTrieUsingIndex(troot, str, s, i)){  
             print_string_index(str, s, i);
-            printf(" ");
+            printf("\n");
             print_string_index(str, i+1, s);
             word_break(str, i+1, e, troot);
             /*print_string_index(str, i+1, s);*/
@@ -521,7 +519,8 @@ void word_break(char *str, int s, int e, TNODE *troot){
 void word_break_util() {
 
     int i;
-    char *S = "ilikesamsungmobile";
+    /*char *S = "ilikesamsungmobile";*/
+    char *S = "ilikeicecreamandmango";
     char **dict = (char**) malloc((12)*sizeof(char*));
     TNODE *troot = NULL; // create a trie to add the words of the dictionary
     int len;
@@ -538,15 +537,17 @@ void word_break_util() {
     dict[9] = "man";
     dict[10] = "go";
     dict[11] = "mango";
+    dict[12] = "and";
 
     len = strlen(S);
 
     //add words to trie
-    for(i=0;i<12;i++){
+    for(i=0;i<13;i++){
         troot = addWordInTrie(dict[i], troot);
     }
 
     print_trie(troot);
+    printf("\n");
 
     word_break(S, 0, len-1, troot);
 }
