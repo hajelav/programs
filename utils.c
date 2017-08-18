@@ -237,3 +237,12 @@ void swap_str(char *A, int idx1, int idx2) {
 void input_1Dchar_array(char *str) {
     scanf("%s", str);
 }
+
+void print_string_index(char *S, int i, int j){
+    int k;
+    for(k=i;k<=j;k++){
+        printf("%c",S[k]);
+    }
+
+
+}

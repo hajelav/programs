@@ -494,16 +494,25 @@ void sudoku_solver_util(){
  *i like icecream and mango
  */
 
-int word_break(char **dict, int s, int e, TNODE *troot){
+void word_break(char *str, int s, int e, TNODE *troot){
 
     int i;
-    char *str;
-    if(!dict || (s > e))
-        return 0;
+    if(!str)
+        return ;
 
-    for(i=s;i<=s;i++){
+    if(s > e)
+        return ;
 
-        if(searchWholeWordInTrieUsingIndex(troot, dict[i], s, i)  && word_break(dict, i+1, e)){
+    /*print_string_index(str, s, e);*/
+    printf("\n");
+    for(i=s;i<=e;i++){
+
+        if(searchWholeWordInTrieUsingIndex(troot, str, s, i)){  
+            print_string_index(str, s, i);
+            printf(" ");
+            print_string_index(str, i+1, s);
+            word_break(str, i+1, e, troot);
+            /*print_string_index(str, i+1, s);*/
 
         }
     }
