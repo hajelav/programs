@@ -508,10 +508,9 @@ void word_break(char *str, int s, int e, TNODE *troot){
         if(searchWholeWordInTrieUsingIndex(troot, str, s, i)){  
             print_string_index(str, s, i);
             printf("\n");
-            print_string_index(str, i+1, s);
+            /*print_string_index(str, i+1, s);*/
             word_break(str, i+1, e, troot);
             /*print_string_index(str, i+1, s);*/
-
         }
     }
 }
