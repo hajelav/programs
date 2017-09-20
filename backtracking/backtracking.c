@@ -566,6 +566,7 @@ int main() {
 	printf("4 -- Words boggle problem\n");
 	printf("5 -- solve the sudoku\n");
 	printf("6 -- word break problem using backtracking\n");
+	printf("7 -- removing invalid parentheses\n");
 
 
 	printf("Enter your choice\n");
@@ -607,6 +608,9 @@ int main() {
 		break;
             case 6:
                 word_break_util();
+		break;
+            case 7:
+                remove_invalid_parentheses_util();
 		break;
 
 	}

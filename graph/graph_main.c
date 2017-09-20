@@ -1,6 +1,12 @@
 #include "graph.h"
 #include "../utils.h"
 
+
+/******************************************************************************************
+GRAPH PROBLEMS AND CONCEPTS
+http://www.geeksforgeeks.org/graph-data-structure-and-algorithms/
+******************************************************************************************/
+
 void DFS_clone(GRAPH* g, int vtx, GRAPH* gclone){
 
     GNODE *trav;
@@ -354,6 +360,18 @@ void get_shortest_edge(GRAPH *g, int n, EDGE* e) {
 //this function returns the new adjacency list for minimum spanning tree  for undirected graphs( note that
 //this MST list allocates new memory, which is different than original graph
 
+
+/*
+ *minimum spanning tree: 
+ *
+ *A tree is a connected graph with no cycles.A spanning tree is a subgraph of G which has the same set of vertices of G and is a tree. 
+ *A mininum spanning tree of a weighted graph G is the spanning tree of G whose edges sum to minimum weight. There can be more than one spanning tree in a graph -> consider a graph with identical weight edges
+ *
+ *
+ *https://www.youtube.com/watch?v=LOak_hxG49g&index=10&list=PLPk0UGJMykbEONivKJXMXGiiKrJ3Ef_34
+ */
+
+
 GRAPH* prims_MST(GRAPH *g, int n){
 
     GRAPH *mst;
@@ -430,6 +448,7 @@ int main() {
 		break;
 
 	    case 3:
+	        prims_MST();
 		break;
 
 	    case 4:
