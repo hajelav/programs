@@ -369,6 +369,13 @@ void get_shortest_edge(GRAPH *g, int n, EDGE* e) {
  *
  *
  *https://www.youtube.com/watch?v=LOak_hxG49g&index=10&list=PLPk0UGJMykbEONivKJXMXGiiKrJ3Ef_34
+
+ complexity = O(mlogn)
+ n -> vertices
+ m -> edges
+
+ Note that prims and dijikstra algorithms are almost similar in the way it works, ie both starts with creating a mould and
+ keep sucking vertices of shortest length into that mould. The only difference being, dijikstra requires a source vertex as a starting point for the algo while in prims you can choose any vertex
  */
 
 
