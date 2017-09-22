@@ -31,7 +31,7 @@ void DFS_clone(GRAPH* g, int vtx, GRAPH* gclone){
     }
 }
 
-/* DFS : O(V+E) */
+/* DFS : O(n+m), n - vertices, m - edges */
 void DFS(GRAPH *g, int vtx){
 
     GNODE *trav;
@@ -102,6 +102,12 @@ int  detect_cycle(GRAPH *g, int n) {
     }
 
     return cycle;
+}
+
+
+int detect_cycle1(GRAPH *g, int no_of_nodes) {
+
+
 }
 
 //return 0 only when queue is empty , ie when all the element are set to -1
@@ -413,7 +419,8 @@ GRAPH* prims_MST(GRAPH *g, int n){
 /*check if the graph is bipartite or not*/
 int main() {
     char c;
-    int choice, n, i, j,  adj, elen, vtx;
+    int choice, i, j,  adj, elen, vtx;
+    int n; //no of nodes in the graph
     GRAPH *g = NULL;
     GRAPH* gclone = NULL;
 
@@ -423,7 +430,7 @@ int main() {
 	printf("1 -- create a graph\n");
 	printf("2 -- print graph\n");
 	printf("3 -- Prims minimum spanning tree(MST)\n");
-	printf("4 -- BFS\n");
+	printf("4 -- BFS in a graph\n");
 	printf("5 -- DFS in a graph\n");
 	printf("6 -- Detect cycle in a directed graph\n");
 	printf("7 -- Topological sorting\n");
@@ -458,7 +465,7 @@ int main() {
 		break;
 
 	    case 3:
-	        prims_MST();
+		/*prims_MST();*/
 		break;
 
 	    case 4:
@@ -471,6 +478,10 @@ int main() {
 		break;
 
 	    case 5:
+		printf("Enter the source vertex in graph\n");
+		scanf("%d", &vtx);
+		clear_visited_vertex(g, n);
+		DFS(g, vtx);
 		break;
 
 	    case 6:
