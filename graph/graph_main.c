@@ -122,11 +122,12 @@ int detect_cycle1(GRAPH *g, int no_of_nodes) {
     STACK *s = NULL;
     GNODE *trav = NULL;
 
-    int vertex, cycle = 0;
-    
+    int cycle = 0;
+    int vertex;
 
 
-    if (!g || no_of_nodes){
+
+    if (!g || no_of_nodes <= 0){
         return -1;
     }
 
@@ -138,12 +139,13 @@ int detect_cycle1(GRAPH *g, int no_of_nodes) {
     }
 
     /*push the first vertex(can be any node) into the stacl*/
-    push(s, g[0].idx);
+    push(s, g[0].idx + '0');
 
     /*run the loop till the stack is not empty*/
     while(!isEmpty(s)){
 
-        vertex = s->top;
+        vertex =  get_top_element(s)-'0';
+        /*print_stack1(s);*/
 
         /*pop the element from the stack*/
         pop(s);
@@ -154,18 +156,16 @@ int detect_cycle1(GRAPH *g, int no_of_nodes) {
         } else {
             g[vertex].processed = 1;
 
-        }
-
-        /*push all the nodes of the popped vertex*/
-        trav = g[vertex].gnode;
-        while(trav){
-            push(s, trav->idx);
-            trav = trav->next;
+            /*push all the nodes of the popped vertex*/
+            trav = g[vertex].gnode;
+            while(trav){
+                push(s, trav->idx + '0');
+                trav = trav->next;
+            }
         }
     }
 
     return cycle;
-
 }
 
 //return 0 only when queue is empty , ie when all the element are set to -1
@@ -543,6 +543,7 @@ int main() {
 		break;
 
 	    case 6:
+	        printf("cycles: %d\n", detect_cycle1(g, n));
 		break;
 
 	    case 7:

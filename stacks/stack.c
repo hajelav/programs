@@ -51,7 +51,7 @@ void print_stack1(STACK *s) {
 	return;
 
     for(i=0;i<s->size;i++){
-	printf("%c ", s->arr[i]);
+	printf("%c->", s->arr[i]);
     }
     printf("\n");
 }
@@ -70,3 +70,16 @@ void free_stack(STACK *s) {
 	free(s);
     }
 }
+
+
+char get_top_element(STACK *s) {
+
+    if(s && s->top >-1 ){
+        return s->arr[s->top];
+    } else {
+        return '\0';
+    }
+
+}
+
+
