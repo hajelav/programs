@@ -111,10 +111,15 @@ int  detect_cycle(GRAPH *g, int n) {
  *while ( stack is not emply){
  *
  *    1. pop the stack
- *    2. if popped vertex is visited then increment the cycle count
- *        else mark the vertex as visited
- *    3.  get the neighbors list of the popped vertex , and push all neighbors to the stack
+ *    2. if popped vertex is visited then 
+ *          increment the cycle count
+ *       else mark the vertex as visited
+ *    3.    get the neighbors list of the popped vertex , and push all neighbors to the stack
  *}
+ * function returns
+ * > 0  -- number of cycles
+ * = 0  -- no cycles
+ * < 0  -- error
  */
 
 int detect_cycle1(GRAPH *g, int no_of_nodes) {
@@ -496,6 +501,7 @@ int main() {
 	printf("9 -- Print all paths from source to destination\n");
 	printf("10 -- single source shortest path using BFS(when all edge len = 1)\n");
 	printf("11 -- clone the graph\n");
+	printf("6 -- Detect cycle in an undirected graph\n");
 
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
