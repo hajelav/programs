@@ -1,5 +1,6 @@
 #include "graph.h"
 #include "../utils.h"
+#include "../stacks/stack.h"
 
 
 /******************************************************************************************
@@ -104,8 +105,21 @@ int  detect_cycle(GRAPH *g, int n) {
     return cycle;
 }
 
+/*
+ *logic: we use a stack to detect a cycle,
+ *we take any starting vertex(can be vertex 0), and push that onto the stack.
+ *while ( stack is not emply){
+ *
+ *    1. pop the stack
+ *    2. if popped vertex is visited then increment the cycle count
+ *        else mark the vertex as visited
+ *    3.  get the neighbors list of the popped vertex , and push all neighbors to the stack
+ *}
+ */
 
 int detect_cycle1(GRAPH *g, int no_of_nodes) {
+
+
 
 
 }
