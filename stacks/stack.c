@@ -70,6 +70,3 @@ void free_stack(STACK *s) {
 	free(s);
     }
 }
-
-
-

@@ -119,8 +119,52 @@ int  detect_cycle(GRAPH *g, int n) {
 
 int detect_cycle1(GRAPH *g, int no_of_nodes) {
 
+    STACK *s = NULL;
+    GNODE *trav = NULL;
+
+    int vertex, cycle = 0;
+    
 
 
+    if (!g || no_of_nodes){
+        return -1;
+    }
+
+    /*initialize the stack */
+    s = init_stack(no_of_nodes);
+    if(!s){
+        printf("stack init failed\n");
+        return -1;
+    }
+
+    /*push the first vertex(can be any node) into the stacl*/
+    push(s, g[0].idx);
+
+    /*run the loop till the stack is not empty*/
+    while(!isEmpty(s)){
+
+        vertex = s->top;
+
+        /*pop the element from the stack*/
+        pop(s);
+
+        /*check if the vertex has been visited */
+        if (g[vertex].processed) {
+            cycle += 1;
+        } else {
+            g[vertex].processed = 1;
+
+        }
+
+        /*push all the nodes of the popped vertex*/
+        trav = g[vertex].gnode;
+        while(trav){
+            push(s, trav->idx);
+            trav = trav->next;
+        }
+    }
+
+    return cycle;
 
 }
 

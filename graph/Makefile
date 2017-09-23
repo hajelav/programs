@@ -1,7 +1,7 @@
 CC=gcc -Wall -Werror -g
 CFLAGS=-I.
 DEPS = ../utils.h graph.h
-OBJ = ../utils.o graph.o graph_main.o
+OBJ = ../utils.o graph.o graph_main.o ../stack/stack.o
 
 %.o: %.c $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)
@@ -13,5 +13,5 @@ graph: $(OBJ)
 
 clean:
 		rm -f *.o
-		rm -f ../utils.o graph.o graph_main.o
+		rm -f ../utils.o graph.o graph_main.o ../stack/stack.o
 		rm -f graph 
