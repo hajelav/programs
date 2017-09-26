@@ -3,6 +3,7 @@ CONCEPTS
 https://www.youtube.com/watch?v=0jNmHPfA_yE
 https://www.youtube.com/watch?v=VHRhJWacxis
 https://www.cs.princeton.edu/~rs/AlgsDS07/01UnionFind.pdf
+https://www.hackerearth.com/practice/notes/disjoint-set-union-union-find/
 **************************************************************************************/
 #include "union_find.h"
 #include "../utils.h"

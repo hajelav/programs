@@ -2,7 +2,7 @@
 
 //data structure for union-find 
 typedef struct _uf {
-    int *uf_leader; // each element in the array represent a subset in a union-find
+    int *uf_leader; // each element in the array represent a subset in a union-find and the index is represent by objects itself
     int *uf_size; // size of each subset
     int  total_obj; // total number of objects to be grouped into subsets
 
