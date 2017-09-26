@@ -47,3 +47,5 @@ int main() {
     /*}while((c=getchar())!='q'); */
     return 0;
 }
+
+ 

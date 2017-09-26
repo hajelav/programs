@@ -122,15 +122,13 @@ int  detect_cycle(GRAPH *g, int n) {
  * < 0  -- error
  */
 
-int detect_cycle1(GRAPH *g, int no_of_nodes) {
+int detect_cycle_directed_graph(GRAPH *g, int no_of_nodes) {
 
     STACK *s = NULL;
     GNODE *trav = NULL;
 
     int cycle = 0;
     int vertex;
-
-
 
     if (!g || no_of_nodes <= 0){
         return -1;
@@ -549,7 +547,7 @@ int main() {
 		break;
 
 	    case 6:
-	        printf("cycles: %d\n", detect_cycle1(g, n));
+	        printf("cycles: %d\n", detect_cycle_directed_graph(g, n));
 		break;
 
 	    case 7:

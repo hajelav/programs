@@ -1,6 +1,5 @@
 #include "../utils.h"
 
-
 /*initilize the union-find data structure*/
 UF* uf_init(int total_obj ) {
 
@@ -40,3 +39,4 @@ void uf_union(int obj1, int obj2){
 
 
 }
+

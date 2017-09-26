@@ -1,0 +1,21 @@
+This folder contains input files to test your program.
+You may modify these files or add your own - they are purely for debugging.
+
+Each JSON file contains a dictionary with input parameters to your program.
+For example:
+    {
+        "requests": [
+            "10:00am, 30", 
+            "10:15am, 45", 
+            "11:00am, 20", 
+            "11:15am, 60", 
+            "12:30pm, 60", 
+            "1:00pm, 75"
+        ]
+    }
+
+To test your program using the JSON file run:
+    ./answer ./inputs/small_input.json
+
+This calls schedule_with_lunch() in answer.c as follows:
+    schedule_with_lunch(requests)
