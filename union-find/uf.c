@@ -1,9 +1,10 @@
-#include "../utils.h"
+#include "uf.h"
 
 /*initilize the union-find data structure*/
 UF* uf_init(int total_obj ) {
 
     UF *uf = NULL;
+    int i;
     uf = (UF*)malloc(sizeof(UF));
     if(!uf)
         return NULL;
@@ -12,7 +13,7 @@ UF* uf_init(int total_obj ) {
     uf->parent = (int*)calloc(sizeof(int), total_obj);
     uf->size = (int*)calloc(sizeof(int), total_obj);
 
-    if (!uf->uf_size  || !uf_parent)
+    if (!uf->size  || !uf->parent)
         return NULL;
 
     /*initially each object in a set is its own root*/
@@ -22,7 +23,7 @@ UF* uf_init(int total_obj ) {
 
     /*initially size of each subset is 1, since there is just one element(root) present in subset*/
     for(i=0;i<total_obj;i++){
-        uf->parent[i] = 1;
+        uf->size[i] = 1;
     }
 
     return uf;
@@ -32,10 +33,10 @@ void uf_free(UF *uf) {
 
     if(uf) {
         uf->total_obj = 0;
-        free(uf->uf_parent);
-        uf->uf_parent = NULL;
-        free(uf->uf_size)
-        uf->uf_size = NULL;
+        free(uf->parent);
+        uf->parent = NULL;
+        free(uf->size);
+        uf->size = NULL;
 
         // free the structure now
         free(uf);
@@ -53,7 +54,7 @@ int get_root(UF *uf, int obj){
         obj = uf->parent[obj];
     }
     
-    return obj
+    return obj;
 }
 
 void uf_union(UF* uf, int obj1, int obj2) {
@@ -68,13 +69,13 @@ void uf_union(UF* uf, int obj1, int obj2) {
 
     root1 = get_root(uf, obj1);
     root2 = get_root(uf, obj2);
-    if(uf->size[root1] <= uf->siz[root2]){
+    if(uf->size[root1] < uf->size[root2]){
         uf->parent[root1] = root2;
-        uf->size[root2] += uf->parent[root1]; 
+        uf->size[root2] += uf->size[root1]; 
 
     }else{
         uf->parent[root2] = root1;
-        uf->size[root1] += uf->parent[root2]; 
+        uf->size[root1] += uf->size[root2]; 
     }
 }
 
@@ -85,7 +86,7 @@ void uf_union(UF* uf, int obj1, int obj2) {
  *-1 -> invalid input
  */
 
-int connected(UF* uf, int obj1, int obj2){
+int uf_connected(UF* uf, int obj1, int obj2){
 
     int root1, root2;
 
@@ -107,9 +108,18 @@ void uf_print(UF *uf) {
     int i;
     if(!uf)
         return;
-    printf("OBJ     PARENT\n");
-    for(i=0;i<uf->size;i++){
-        printf("%d\t\t%d", i, uf->parent[i]); 
+    printf("\nOBJ\n");
+    for(i=0;i < uf->total_obj;i++){
+        printf("%d\t", i); 
     }
+    printf("\nSIZE\n");
+    for(i=0;i < uf->total_obj;i++){
+        printf("%d\t", uf->size[i]); 
+    }
+    printf("\nPARENT\n");
+    for(i=0;i < uf->total_obj;i++){
+        printf("%d\t", uf->parent[i]); 
+    }
+    printf("\n");
 
 }

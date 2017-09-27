@@ -17,10 +17,10 @@ typedef struct _uf {
 }UF;
 
 UF* uf_init(int total_obj);
-void uf_union(int obj1, int obj2); //combine the two subsets
-int uf_find(UF *uf); // find the root of the subset
-void uf_free(UF *uf)
-int connected(UF* uf, int obj1, int obj2); // check if obj1 and obj2 belong to a the same subset(connected)
+void uf_union(UF* uf, int obj1, int obj2); //combine the two subsets
+int get_root(UF *uf, int obj1); // find the root of the subset
+void uf_free(UF *uf);
+int uf_connected(UF* uf, int obj1, int obj2); // check if obj1 and obj2 belong to a the same subset(connected)
 void uf_print(UF *uf);
 
 
