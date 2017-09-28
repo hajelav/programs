@@ -87,28 +87,6 @@ int binary_search(int *A, int low, int high, int key) {
     return res;
 }
 
-/*get the index of point of rotation*/
-/*
- *int get_pivot_rotated_sorted(int *A, int l, int h) {
- *
- *    int mid, res;
- *
- *    mid =  l + (h-l)/2;
- *
- *    if(l>=h)
- *        return l;
- *
- *    if(A[l] <= A[mid] && A[mid] > A[h])
- *        res = get_pivot_rotated_sorted(A, mid+1, h);
- *    else if(A[l] > A[mid] && A[mid] < A[h])
- *        res = get_pivot_rotated_sorted(A, l, mid);
- *    else if(A[l] <= A[mid] && A[mid] <= A[h]) //handle duplicates
- *        return l;
- *
- *    return res;
- *}
- */
-
 int get_pivot_rotated_sorted(int *A, int l, int h) {
 
     int mid, res;
