@@ -1,5 +1,5 @@
 /*##################################################################################
- *ASSUMPTION : All intergers are assumed to be 32-bit for this file  
+ *ASSUMPTION : All integers are assumed to be 32-bit for this file  
  *#################################################################################*/
 
 /*
@@ -164,15 +164,14 @@ int getBits(int n){
 
 int rotateBitsRight(unsigned int n, int by) {
 
-    int nbits, temp;
-    nbits = getBits(n);
-    printf("nbits:%d\n", nbits);
-    temp = n;
+    int moveLeft, moveRight;
+    /*move the 'by' number of bits to the left end*/
+    moveLeft = n<<(32-by);
+    
+    /*move the 'by' number of bits to the right end*/
+    moveRight = n>>by;
 
-    n = n>>by;
-    temp = temp & ((1<<by)-1);
-    temp = temp<<(nbits-by); 
-    return n|temp;
+    return (moveLeft|moveRight);
 }
 
 
