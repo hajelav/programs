@@ -81,32 +81,6 @@ int rightMostSetBit( int n) {
  *}
  */
 
-/*
- *Write an Efficient C Program to Reverse Bits of a Number (Method 1)
- */
-
-/*
- *int reverseBits(int n){
- *
- *    int temp, sum = 0;
- *    temp = n;
- *    int cnt=-1;
- *    //get the number of bits in the number
- *    while(n>0){
- *        cnt++;
- *        n = n>>1;
- *    }
- *
- *    while(temp > 0){
- *        sum += (temp&1)<<cnt;
- *        cnt--;
- *        temp = temp>>1;
- *    }
- *
- *    return sum;
- *}
- */
-
 void printBinary(uint32_t n){
 
     uint32_t i, j=31;
@@ -126,19 +100,21 @@ void printBinary(uint32_t n){
 /* leetcode problem 190
  * Reverse Bits of a Number (Method 2)
  */
+
 uint32_t reverse_bits(uint32_t n){
 
-    uint32_t i, j = 31;
+    int i;
     uint32_t res = 0;
+    uint32_t rightmostBit;
 
-    for(i=0;i<32;i++){
+    for(i=31;i>=0;i--){
 	/*
 	 *logic : extract the leftmost bit of n (n&1) , and then shift that bit to j places(<<j)
 	 *        where j start from 31 to 0. keep on ORing the result from the previous value
 	 */
+	rightmostBit = n&1;
 
-	res = res | ((n&1) << j);
-	j--;
+	res = res | ( rightmostBit << i);
 	n = n>>1;
     }
 
