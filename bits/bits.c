@@ -1,3 +1,7 @@
+/*##################################################################################
+ *ASSUMPTION : All intergers are assumed to be 32-bit for this file  
+ *#################################################################################*/
+
 /*
  * Important things to remember for bitwise operators
 
@@ -8,6 +12,34 @@
  */
 
 #include "../utils.h"
+
+void printBinary(uint32_t n){
+
+    uint32_t i, j=31;
+    uint32_t A[32];
+    int count = 0;
+
+    for(i=0;i<32;i++){
+        A[j] = n%2;
+        j--;
+        n = n/2;
+    }
+
+    for(i=0;i<32;i++){
+        count++;
+        printf("%u", A[i]);
+        if(count == 4){
+            printf(" ");
+            count = 0;
+        }
+
+    }
+}
+
+int get2compliment(int n){
+    return(~n + 1);
+}
+
 /*
  * leetcode problem 191
  * Write a C program to find the parity of an unsigned integer
@@ -81,21 +113,6 @@ int rightMostSetBit( int n) {
  *}
  */
 
-void printBinary(uint32_t n){
-
-    uint32_t i, j=31;
-    uint32_t A[32];
-
-    for(i=0;i<32;i++){
-	A[j] = n%2;
-	j--;
-	n = n/2;
-    }
-
-    for(i=0;i<32;i++){
-	printf("%u", A[i]);
-    }
-}
 
 /* leetcode problem 190
  * Reverse Bits of a Number (Method 2)
@@ -112,7 +129,7 @@ uint32_t reverse_bits(uint32_t n){
 	 *logic : extract the leftmost bit of n (n&1) , and then shift that bit to j places(<<j)
 	 *        where j start from 31 to 0. keep on ORing the result from the previous value
 	 */
-	rightmostBit = n&1;
+	rightmostBit = n&1;// get the rightmost bit
 
 	res = res | ( rightmostBit << i);
 	n = n>>1;
@@ -485,6 +502,8 @@ void gray_code(int n) {
     }
 
 }
+
+
 
 
 int main() {
