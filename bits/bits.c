@@ -8,6 +8,7 @@
  * 1. Subtraction of 1 from a number toggles all the bits (from right to left) till the rightmost set bit(including the righmost set bit). So if we subtract a number by 1 and do bitwise & with itself (n & (n-1)), we unset the righmost set bit. 
    2. (n & -n ) gives the position of first set bit(from right) in number n 
    3. to flip a bit, XOR that bit with 1.
+   4. if the bit is XORed with 0, it remains same
  *
  */
 
@@ -175,12 +176,16 @@ int rotateBitsRight(unsigned int n, int by) {
 }
 
 
-
 /*
- *Find the two non-repeating elements in an array of repeating elements
-http://www.geeksforgeeks.org/find-two-non-repeating-elements-in-an-array-of-repeating-elements/
- */
+ *leetcode problem 260
+ *https://leetcode.com/problems/single-number-iii/
+ *Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once.
+ *
+logic : let x and y be the two elements that appear only once. the set bits(1) in xor will give all the bits that set(1) in x and unset(0) in y
+or unset(0) and set(1) in y. Now we need to divide the array(A) elements into two groups - one set of elements with same bit set and other set with same bit not set. By doing so, we will get x in one set and y in another set. Now if we do XOR of all the elements in first set, we will get first non-repeating element, and by doing same in other set we will get the second non-repeating element.
 
+http://www.geeksforgeeks.org/find-two-non-repeating-elements-in-an-array-of-repeating-elements/
+*/
 
 /*  This finction sets the values of *x and *y to nonr-epeating
  *   elements in an array arr[] of size n*/
@@ -254,13 +259,6 @@ int add1(unsigned int n) {
 }
 
 /*
- *Count total set bits in all numbers from 1 to n
- */
-
-
-
-
-/*
  *Swap bits in a given number
  */
  /*
@@ -285,52 +283,6 @@ int swapBits(int n, int x, int y) {
 
     //return the same no as we dont need to swap 
     return n;
-}
-
-
-/*
- *Add two numbers without using arithmetic operators
- *http://www.geeksforgeeks.org/category/bit-magic/page/2/
- */
-
-
-/*
- *Swap all odd and even bits (method 1)
- *http://www.geeksforgeeks.org/swap-all-odd-and-even-bits/
- */
-
-/*
- *int swapEvenOddBits(int n) {
- *    int x =3;
- *    int temp = n;
- *
- *    while(n){
- *
- *        //bits at evn-odd postions are different(01 or 10), so we need to swap
- *        if(((n & 3) == 1) || ((n & 3) ==2)){
- *            //xor the bits(01 or 10) with 11 to get the bits swapped
- *            temp = temp^x;
- *        }
- *        //move 000011 pattern from right to left
- *        x = x<<2;
- *        n = n>>2;
- *    }
- *    return temp;
- *}
- */
-
-
- /*
-  *Swap all odd and even bits (method 2)
-  */
-
-int swapEvenOddBits(int n) {
-
-    int x,y;
-     x = (n & 0x55555555) << 1; // move even bits to odd places 
-     y = (n >> 1) & 0x55555555; // shift odd bits to even places and mask all even places
-
-     return x|y;
 }
 
 /*
@@ -359,16 +311,19 @@ int swapNibbles(int n) {
      return x|y;
 }
 
-unsigned int swap_bits(unsigned int x)
+int swapEvenOddBits(unsigned int n) {
 {
-    /*Get all even bits of x*/
-	unsigned int even_bits = x & 0xAAAAAAAA; //(1010101010101010)
+    unsigned int even_bits, odd_bits;
 
-    // Get all odd bits of x
-    unsigned int odd_bits  = x & 0x55555555; //(0101010101010101)
+    /*get all even bits*/
+    even_bits  = n & 0x55555555; //(OEOE OEOE)
 
-    even_bits >>= 1;  // Right shift even bits
-    odd_bits <<= 1;   // Left shift odd bits
+    /*Get all odd bits*/
+    odd_bits = x & 0xAAAAAAAA; //(1010101010101010)
+
+
+    odd_bits >>= 1;  // Right shift even bits
+    even_bits <<= 1;   // Left shift odd bits
 
     return (even_bits | odd_bits); // Combine even and odd bits
 }
@@ -408,47 +363,6 @@ void subsets(int *A, int n) {
     }
 }
 
-/*
- *leetcode problem 260
- *https://leetcode.com/problems/single-number-iii/
- *Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once.
- *
-logic : let x and y be the two elements that appear only once. the set bits(1) in xor will give all the bits that set(1) in x and unset(0) in y
-or unset(0) and set(1) in y. Now we need to divide the array(A) elements into two groups - one set of elements with same bit set and other set with same bit not set. By doing so, we will get x in one set and y in another set. Now if we do XOR of all the elements in first set, we will get first non-repeating element, and by doing same in other set we will get the second non-repeating element.
-*/
-
-void two_numbers( int *A, int len) {
-
-    int i, rightmost_set_bit;
-    int x=0, y=0;
-    int xor = A[0]; 
-
-
-    /*get the xor of all the elements*/
-    for(i=1;i<len;i++){
-	xor = xor^A[i];
-    }
-
-    /*
-     *Now in xor(variable), we need to  get only one set bit(making rest other set bits to 0). This can be done by easily by considering only
-     *the first set(1) bit from the right. [ Remember point 2 at the start of the file]
-     */
-
-    rightmost_set_bit = xor & (-xor);
-
-
-    /*Now divide elements in two sets by comparing rightmost set bit of xor with bit at same position in each element*/
-    for(i=0;i<len;i++){
-
-	if(A[i] & rightmost_set_bit)
-	    x = x ^ A[i]; /* XOR of first set */
-	else
-	    y = y ^ A[i]; /* XOR of second set*/
-    }
-
-    printf("two numbers : %d %d\n", x, y);
-
-}
 
 
 /*
@@ -527,7 +441,6 @@ int main() {
 	printf("11 -- Swap all odd and even bits\t");
 	printf("12 -- Swap even and odd nibbles\t");
 	printf("13 -- Given a set of distinct integers, nums, return all possible subsets\t");
-	printf("14 -- Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once\t");
 	printf("15 -- gray code\t");
 
 	
@@ -630,17 +543,6 @@ int main() {
 		input_array(A, n);
 		subsets(A, n);
 		free(A);
-
-	    case 14:
-		printf("enter no of elements in the array\n");
-		scanf("%d", &n);
-		printf("Enter numbers\n");
-
-		A = create_1Darray(n);
-		input_array(A, n);
-		two_numbers(A, n);
-		free(A);
-		break;
 
 	case 15:		
 		printf("enter no of elements in the array\n");
