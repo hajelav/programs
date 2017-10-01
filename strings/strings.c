@@ -634,9 +634,10 @@ void reverse_words_preserving_order(char *S) {
     i = 0;
     len = strlen(S);
     j = len - 1;
+    reverse_str(S, i, j);
     i = j;
 
-    while(j>0){
+    while(j>=0){
 
         if(i >= 0 && S[i] != ' '){
             i--;
@@ -965,7 +966,6 @@ int main() {
     printf("MENU OPTIONS\n");
     printf("1 -- remove spaces from string\n");
     printf("2-- Check if a given sequence of moves for a robot is circular or not\n");
-    printf("3 -- Regex matching problem\n");
     printf("4 -- Palindrome detection with non-alphanumeric characters\n");
     printf("5 -- Normalize the path\n");
     printf("6 -- replace space by percentage20 in a string\n");
