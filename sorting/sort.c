@@ -243,7 +243,7 @@ int partition(int *A, int l, int h) {
 
 void quicksort(int *A, int low, int high) {
 
-    int piv;
+    int piv; //pivot
 
     if(low>=high)
 	return;

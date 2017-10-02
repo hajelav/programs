@@ -87,11 +87,13 @@ int binary_search(int *A, int low, int high, int key) {
     return res;
 }
 
+
 int get_pivot_rotated_sorted(int *A, int l, int h) {
 
     int mid, res;
 
     mid =  l + (h-l)/2;
+    printf("low=%d high=%d\n", l, h);
 
     if(l>=h)
 	return l;
@@ -214,7 +216,7 @@ int missing_number_old(int *A, int low, int high) {
     return res;
 }
 
-int missing_number(int *A, int low, int high) {
+int missing_number1(int *A, int low, int high) {
 
     int mid;
     int res;
@@ -230,7 +232,29 @@ int missing_number(int *A, int low, int high) {
 
     // if the diff between no and its index at low is equal to mid , then the missing number lies in the right half of array
     if(mid < A[mid]){
-	res = missing_number(A, low , mid-1);
+	res = missing_number1(A, low , mid-1);
+    } else { // else no lies on the left half
+	res = missing_number1(A, mid, high);
+    }
+    return res;
+}
+int missing_number(int *A, int low, int high) {
+
+    int mid;
+    int res;
+
+    printf("low=%d high=%d\n", low, high);
+    if(low >= high)
+	return low;
+
+
+    mid = low + (high-low)/2;
+    if (low == mid)
+        return low;
+
+    // if the diff between no and its index at low is equal to mid , then the missing number lies in the right half of array
+    if(A[low]-low < A[mid]-mid){
+	res = missing_number(A, low , mid);
     } else { // else no lies on the left half
 	res = missing_number(A, mid, high);
     }
@@ -334,7 +358,7 @@ int main() {
 		A = create_1Darray(n); 
 		input_array(A, n);
 		res = get_pivot_rotated_sorted(A, 0, n-1);
-		printf("index of rotation(pivot): %d\n", res);
+		printf("Number: %d Index of rotation(pivot): %d\n", A[res], res);
 		break;
 
 	    case 3:
@@ -356,7 +380,7 @@ int main() {
 		scanf("%d", &n);
 		A = create_1Darray(n); 
 		input_array(A, n);
-		printf("Missing Number: %d\n", A[missing_number(A, 0, n-1)]+1);
+		printf("Index of number left to the missing number: %d[Missing No %d\n", missing_number(A, 0, n-1), A[missing_number(A, 0, n-1)]+1);
 		free(A);
 		break;
 
