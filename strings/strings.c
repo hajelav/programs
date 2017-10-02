@@ -252,6 +252,31 @@ void pop(char *N, int n, int *sp) {
     }
 }
 
+/*
+ *Given an absolute path for a file (Unix-style), simplify it.
+ *
+ *For example,
+ *    path = "/home/", => "/home"
+ *    path = "/a/./b/../../c/", => "/c"
+ *
+ *    logic :
+ *
+ *    while(each char in path){
+ *
+ *      if(char != "."){
+ *
+ *      if(stack->top == '\' and char == '\')
+ *          continue;
+ *      
+ *      push(stack, char);
+ *
+ *      } else {
+ *          pop(Stack);
+ *      }
+ *
+ *    }//while ends
+ */
+
 char* normalize(char *S) {
 
     int len, i=0;
