@@ -338,9 +338,62 @@ void replace_spaces(char *str, char *pattern) {
  *
  *    logic : http://www.geeksforgeeks.org/find-the-smallest-window-in-a-string-containing-all-characters-of-another-string/
  *    http://articles.leetcode.com/2010/11/finding-minimum-window-in-s-which.html
+ *
+ *    define a hash which will keep track 1) if we have seen a char in S, and 2) last seen index of char
+ *    we will fill the hash with hash with chars of T ( and not the index part )
+ *    Now we will start reading S char by char , and see if that char is present in hash, if yes then we update 
+ *    the last seen index  for that char. As we fill the hash, we will also keep track of the number of chars covered so far
+ *    When the last seen indices of all the chars are covered in the hash, then the difference of the min and max index is
+ *    the window. We have to find min of such window
  */
 
+
+/*define a custom hash which will keep track of the chars of T seen in S, and their corresponding indices*/
+typedef struct _hash{
+    int H[256];
+    int lastSeenIdx[256]; //index of the characters seen in S
+
+}HASH;
+
+void init_hash(HASH *hash){
+
+    int i;
+    for(i=0;i<256;i++){
+
+        hash->H[i] = 0; // initially hash is empty
+        hash->lastSeenIdx[i] = -1; // none of the chars in S are seen initially
+    }
+}
+
 char * min_window_substring(char *S, char *T) {
+
+    HASH h;
+    int i, len_T;
+    int minIndex = INT_MIN, maxIndex = INT_MIN; // get the min and max index of the char in S
+    init_hash(&h);
+
+    /*fill the hash for T*/
+    for (i=0; i<256; i++){
+        if(!hash->H[T[i]])
+            hash->H[T[i]] = 1;
+    }
+    len_T = strlen(T);
+
+    /*loop through S, char by char*/
+    while (S[i]) {
+
+        /*we need to update the last seen index only when char is present in hash*/
+        if(H[S[i]]){
+
+            if
+                hash->lastSeenIdx[i] = i;
+
+        }
+        i++;
+    }
+}
+
+char * min_window_substring1(char *S, char *T) {
 
     int *needToFill; //hash of T. It stores the frequency of chars in T
     int *hasFound; // this store the frequency of chars in S, as we move along S
