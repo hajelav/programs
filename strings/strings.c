@@ -365,102 +365,49 @@ void init_hash(HASH *hash){
     }
 }
 
-char * min_window_substring(char *S, char *T) {
+char* min_window_substring(char *S, char *T) {
 
-    HASH h;
+    HASH hash;
     int i, len_T;
-    int minIndex = INT_MIN, maxIndex = INT_MIN; // get the min and max index of the char in S
-    init_hash(&h);
-
-    /*fill the hash for T*/
-    for (i=0; i<256; i++){
-        if(!hash->H[T[i]])
-            hash->H[T[i]] = 1;
-    }
+    int minIndex = INT_MAX, maxIndex = INT_MIN; // get the min and max index of the char in S
+    int count = 0;
+    init_hash(&hash);
     len_T = strlen(T);
 
+    /*fill the hash for T*/
+    for (i=0; i<len_T; i++){
+        if(!hash.H[(int)T[i]])  //(int) is added to convert char into ascii
+            hash.H[(int)T[i]] = 1 ;
+    }
+
+    /*for(i=0;i<256;i++){*/
+        /*printf("%d %d,", hash.H[i], hash.lastSeenIdx[i]);*/
+    /*}*/
+
     /*loop through S, char by char*/
+    i=0;
     while (S[i]) {
 
         /*we need to update the last seen index only when char is present in hash*/
-        if(H[S[i]]){
+        if(hash.H[(int)S[i]]){
 
-            if
-                hash->lastSeenIdx[i] = i;
+            hash.lastSeenIdx[i] = i;
 
+            if (count >= len_T){
+
+                if(hash.lastSeenIdx[i] < minIndex)
+                    minIndex = hash.lastSeenIdx[i]; //store the min index
+                if(hash.lastSeenIdx[i] > maxIndex)
+                    maxIndex = hash.lastSeenIdx[i]; // store the max index
+            }
+            count++;
         }
         i++;
     }
-}
 
-char * min_window_substring1(char *S, char *T) {
-
-    int *needToFill; //hash of T. It stores the frequency of chars in T
-    int *hasFound; // this store the frequency of chars in S, as we move along S
-    int len_S, len_T;
-    int start = 0, end = 0, i = 0;
-    int count = 0; // maintain this var to count the number length of T in S 
-    int min_window_start_idx = 0, min_window_end_idx = 0;
-    int min_window = INT_MAX;
-    if(!S || !T)
-        return NULL;
-
-    len_S = strlen(S);
-    len_T = strlen(T);
-
-    /*create a hash of 26 chars assuming that input is uppercase letters(this solution can be extended to generic case)*/
-    needToFill = (int*)calloc(sizeof(int), 26); // this remains constant and used to keep the count of chars in T
-    hasFound = (int*)calloc(sizeof(int), 26);  // this keeps changing as we move along S(char by char)
-
-    /*go through T and fill the needToFill hash*/
-    while(T[i]!='\0'){
-        needToFill[T[i]-'a']++;
-        i++;
-    }
-
-    /*now run through S*/
-    while(end<len_S) {
-
-        //if you found the char in T and the count of hasFound[char] is than needToFill[char]
-        if(needToFill[S[end]-'a'])  {
-            if(hasFound[S[end]-'a'] < needToFill[S[end]-'a']){
-                count++; //increment the count, which counts the total chars found in S matching T
-            }
-            hasFound[S[end]-'a']++; //increment the count in hasFound
-        }
-
-        //if we have found all the chars of T in S previously and we find first char of T again,then we move the start
-        //pointer forward till the point the needToFill constrainst in maintained.
-        if((min_window < INT_MAX) && (needToFill[S[start]-'a'] && S[end] == S[start]) && (count > 0)) {
-
-            while((needToFill[S[start]-'a'] == 0) || (hasFound[S[start]-'a'] > needToFill[S[start]-'a']))   {
-
-                if(hasFound[S[start]-'a'] > needToFill[S[start]-'a'])
-                    hasFound[S[start]-'a']--;
-                start++;
-            }
-        }
-        /*when we have found the window containing all the chars in T, we calculate the indexes*/
-        if(count == len_T){
-            if(end-start < min_window){
-                min_window = end-start;
-                min_window_start_idx = start;
-                min_window_end_idx = end;
-            }
-        } 
-
-        end++;
-    } //while ends
-
-    /*if(min_window_start_idx>0 && min_window_end_idx>0) */
-    printf("min window length : %d, [start index = %d end index = %d]\n", min_window+1, min_window_start_idx, min_window_end_idx);
-    /*else*/
-    /*printf("Min window length  : %d\n", min_window);*/
-
+    printf("minIndex:%d, maxIndex:%d\n", minIndex, maxIndex);
     return NULL;
-    /***** HAS A BUG, NEED TO BE CORRECTED ** */
 }
-
 
 /*
  *leetcode problem 93
