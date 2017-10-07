@@ -30,9 +30,13 @@ void initMemBlock(MEMPOOL* mp, uint32_t numOfmemUnits, uint32_t memUnitSize) {
     for(i=0; i<numOfmemUnits; i++){
 
         mu = (MEMUNIT*)((uint8_t*)mp->memBlock + i*memUnitSize)
+        
             if(!mp->memFreeList){
+                mp->memFreeList = mu;
+                mu->prev = mp->memFreeList;
+                prev = mu;
+            } else {
 
-                
 
             }
     }
