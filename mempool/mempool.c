@@ -16,12 +16,40 @@ typedef struct _memPool {
     uint32_t memBlockFree;  // total memory free
 }MEMPOOL;
 
+void initMemBlock(MEMPOOL* mp, uint32_t numOfmemUnits, uint32_t memUnitSize) {
+
+    uint32_t i;
+    MEMUNIT *mu = NULL;
+    MEMUNIT *prev;
+
+    if(!mp || !mp->memBlock || numOfmemUnits <=0)
+        return;
+
+    
+
+    for(i=0; i<numOfmemUnits; i++){
+
+        mu = (MEMUNIT*)((uint8_t*)mp->memBlock + i*memUnitSize)
+            if(!mp->memFreeList){
+
+                
+
+            }
+    }
+}
+
 MEMPOOL*  initMemPool(uint32_t memUnitSize, uint32_t memBlockSize){
 
     MEMPOOL * mp;
+    uint32_t  numOfmemUnits = 0
+    uint32_t payloadSize = 0;
+    uint32_t i;
+
     mp = (MEMPOOL*)calloc(sizeof(MEMPOOL), 0);
-    if (!mpi || memUnitSize || memBlockSize)
+    if (!mpi || memUnitSize || memBlockSize){
         printf("failed initilizing mempool\n");
+        return NULL;
+    }
 
     if(memBlockSize < memUnitSize)
         printf("Block memory size cannot be less than memory unit size\n");
@@ -41,7 +69,19 @@ MEMPOOL*  initMemPool(uint32_t memUnitSize, uint32_t memBlockSize){
    mp->memBlockUsed = 0;
 
    //initially the total memory avaialable would be the combined total of all payloads in each free mem units
-   mp->memBlockFree = memBlockSize - (memBlockSize/memUnitSize - (
+   
+   numOfmemUnits =  (memBlockSize/memUnitSize)
+   payloadSize = memUnitSize - (sizeof(MEMUNIT));
+
+   mp->memBlockFree = memBlockSize - (numOfmemUnits*sizeof(MEMUNIT); 
+
+   //cast the raw memory(memBlock) into memUnits
+   initMemBlock(mp, numOfmemUnits);
+   for(i=0; i<numOfmemUnits; i++){
+
+
+   }
+   
 
 
         
