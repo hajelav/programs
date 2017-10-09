@@ -16,7 +16,7 @@ typedef struct _memPool {
     uint32_t memBlockFree;  // total memory free
 }MEMPOOL;
 
-void initMemBlock(MEMPOOL* mp, uint32_t numOfmemUnits, uint32_t memUnitSize) {
+int initMemBlock(MEMPOOL* mp, uint32_t numOfmemUnits, uint32_t memUnitSize) {
 
     uint32_t i;
     MEMUNIT *mu = NULL;
@@ -25,21 +25,21 @@ void initMemBlock(MEMPOOL* mp, uint32_t numOfmemUnits, uint32_t memUnitSize) {
     if(!mp || !mp->memBlock || numOfmemUnits <=0)
         return;
 
-    
-
     for(i=0; i<numOfmemUnits; i++){
 
         mu = (MEMUNIT*)((uint8_t*)mp->memBlock + i*memUnitSize)
-        
+
             if(!mp->memFreeList){
                 mp->memFreeList = mu;
                 mu->prev = mp->memFreeList;
                 prev = mu;
             } else {
-
-
+                mu->prev = prev;
+                prev->next = mu;
+                prev = mu;
             }
     }
+    return 1;
 }
 
 MEMPOOL*  initMemPool(uint32_t memUnitSize, uint32_t memBlockSize){
@@ -74,34 +74,13 @@ MEMPOOL*  initMemPool(uint32_t memUnitSize, uint32_t memBlockSize){
 
    //initially the total memory avaialable would be the combined total of all payloads in each free mem units
    
-   numOfmemUnits =  (memBlockSize/memUnitSize)
-   payloadSize = memUnitSize - (sizeof(MEMUNIT));
+   numOfmemUnits =  (memBlockSize/memUnitSize); // number of memory units
+   payloadSize = memUnitSize - (sizeof(MEMUNIT)); // payload size = memunitSize - headers
 
    mp->memBlockFree = memBlockSize - (numOfmemUnits*sizeof(MEMUNIT); 
 
    //cast the raw memory(memBlock) into memUnits
-   initMemBlock(mp, numOfmemUnits);
-   for(i=0; i<numOfmemUnits; i++){
-
-
-   }
+   if(!initMemBlock(mp, numOfmemUnits))
+    return;
    
-
-
-        
-
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
-
 }
