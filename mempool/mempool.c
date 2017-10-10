@@ -1,29 +1,18 @@
 #include "mempool.h"
 
-typedef struct _memUnit  {
-    struct _memUnit *prev;
-    struct _memUnit *next;
-}MEMUNIT;
+#define GET_NEXT_BLOCK
+#define GET_PREV_BLOCK(p) (uint8_t*)GET_HEADER(p) + ((HEADER*)p)->size
+#define GET_PAYLOAD(p) (uint8_t*)p + sizeof(HEADER)  // move to payload pointer from the header
+#define GET_HEADER(p) (uint8_t*)p - sizeof(HEADER)  // move back the size of header from the 
 
-//data structure for a memory pool
-typedef struct _memPool {
-    uint32_t memBlockSize;  // total size of the mempool, ie the block of memory to be requested from the heap of OS
-    uint32_t memUnitSize;   // size of each mem unit inside the mempool. internally mem block layout is defined by mem units
-    void*    memBlock;
-    MEMUNIT *memFreeList;   // list of free mem units
-    MEMUNIT *memAllocList;  // list of allocatted mem units
-    uint32_t memBlockUsed;  // total memory  used 
-    uint32_t memBlockFree;  // total memory free
-}MEMPOOL;
-
-int initMemBlock(MEMPOOL* mp, uint32_t numOfmemUnits, uint32_t memUnitSize) {
+int initMemBlock(MEMPOOL* mp, uint32_t memPoolSize) {
 
     uint32_t i;
     MEMUNIT *mu = NULL;
     MEMUNIT *prev;
 
-    if(!mp || !mp->memBlock || numOfmemUnits <=0)
-        return;
+    if(!mp || !mp->memBlock)
+        return 0;
 
     for(i=0; i<numOfmemUnits; i++){
 
@@ -42,7 +31,7 @@ int initMemBlock(MEMPOOL* mp, uint32_t numOfmemUnits, uint32_t memUnitSize) {
     return 1;
 }
 
-MEMPOOL*  initMemPool(uint32_t memUnitSize, uint32_t memBlockSize){
+MEMPOOL*  initMemPool(uint32_t memPoolSize){
 
     MEMPOOL * mp;
     uint32_t  numOfmemUnits = 0
@@ -50,37 +39,39 @@ MEMPOOL*  initMemPool(uint32_t memUnitSize, uint32_t memBlockSize){
     uint32_t i;
 
     mp = (MEMPOOL*)calloc(sizeof(MEMPOOL), 0);
-    if (!mpi || memUnitSize || memBlockSize){
+
+    if (!mpi || memBlockSize){
         printf("failed initilizing mempool\n");
         return NULL;
     }
 
-    if(memBlockSize < memUnitSize)
-        printf("Block memory size cannot be less than memory unit size\n");
-
     //initialize the large memory block
-    mp->memBlock = malloc(memBlockSize);
+    mp->memBlock = malloc(memPoolSize);
 
-    // initialize the attributes
-    mp->memBlockSize = memBlockSize;
-    mp->memUnitSize = memUnitSize;
-    
     //initially the memAllocList should be NULL
     mp->memAllocList = NULL;
     mp->memFreeList = NULL;
 
-   // initially total memory used will be equal to 0
-   mp->memBlockUsed = 0;
-
-   //initially the total memory avaialable would be the combined total of all payloads in each free mem units
-   
-   numOfmemUnits =  (memBlockSize/memUnitSize); // number of memory units
-   payloadSize = memUnitSize - (sizeof(MEMUNIT)); // payload size = memunitSize - headers
-
-   mp->memBlockFree = memBlockSize - (numOfmemUnits*sizeof(MEMUNIT); 
-
-   //cast the raw memory(memBlock) into memUnits
-   if(!initMemBlock(mp, numOfmemUnits))
-    return;
    
 }
+
+void* memPoolMalloc(MEMPOOL *mp, uint32_t requestSize) {
+
+
+    if (requestSize <=0 ){
+    printf("request size invalid\n");
+    return NULL;
+    }
+
+    if((!mp) ||  // mempool not initialized
+       (mp && mp->memBlockFree < requestSize)) // not enough free memory left in mempool
+
+        return malloc(requestSize);
+
+
+
+
+
+
+
+   }
