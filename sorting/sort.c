@@ -206,6 +206,35 @@ int count_inversion(int *A, int low, int high) {
     return totInv;
 }
 
+/*
+ *partition routine without using extra space
+ *https://www.youtube.com/watch?v=LYzdRN5iFdA&index=26&list=PLXFMmlk03Dt7Q0xr1PIAriY5623cKiH7V
+ */
+
+int partition1(int *A, int l, int h) {
+
+    int i;//denotes the boundry between partitioned and unpartitioned elements
+    int j; // denoted the boundry between element scanned and not scanned so far
+    int pivot;
+
+    if(l == h)  
+        return l;
+
+    i = l+1;
+    j = l+1;
+    pivot = A[l]; // let the first element be pivot
+    while(j <= high){
+
+        if(A[j] < pivot){
+            swap(A, i, j);
+            i++;
+        }
+        j++;
+    }
+    swap(A, l, i-1);
+}
+
+/*partition routing using extra space*/
 int partition(int *A, int l, int h) {
 
     int i, j, k, s;
