@@ -153,7 +153,7 @@ void find_coverage(INTVL *intvl, int *low, int *high) {
 
 /*
  *To merge intervals
- *1. traverse the interval in in-order
+ *1. traverse the interval in in-order , ie sort the intervals in the order of low value
  *2. for the first interval(leftmost in interval tree), set the prev_low and prev_high as interval low and high
  *3. when ever you reach an interval, and find that previous interval is not overlapping, then print the previous interval
  *4. at the end of recursion, print prev_low and prev_high as the last interval
