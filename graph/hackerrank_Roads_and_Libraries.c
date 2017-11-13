@@ -11,7 +11,6 @@
 //graph node
 typedef struct gnode {
     int idx;
-    int costLib;
     int edge_len;
     struct gnode *next;
 } GNODE;
@@ -28,37 +27,32 @@ typedef struct graph {
 
 
 /********************************* FUNCTIONS DEFINITIONS HERE ************************************/
-void init_edge(EDGE *g) {
 
-        g->shortest_edge = INT_MAX;
-            g->from_vtx = INT_MIN;
-                g->to_vtx = INT_MIN;
-}
-
-void init_graph(GRAPH *g, int n){
+void init_graph(GRAPH *g, int noOfVertex, int costLib){
 
     int i;
-    if(!g || n<=0)
+    if(!g || noOfVertex <= 0)
         return;
 
-    for(i=0;i<n;i++){
+    for(i=1;i<=noOfVertex;i++){
         g[i].idx = i;
         g[i].torder = 0;
         g[i].gnode = NULL;
+        g[i].costLib = costLib;
         g[i].dist = 0;
     }
 }
 
 void clear_visited_vertex(GRAPH *g, int n) {
-        
-        int i;
-            if(!g || !n)
-                    return;
 
-                for(i=0;i<n;i++){
-                        g[i].processed = 0;
-                            g[i].torder = 0;
-                                }
+    int i;
+    if(!g || !n)
+        return;
+
+    for(i=0;i<n;i++){
+        g[i].processed = 0;
+        g[i].torder = 0;
+    }
 
 }
 
@@ -90,11 +84,27 @@ void create_graph( GRAPH *g, int idx, int edge) {
     }
 }
 
+void connect_vertex( GRAPH *g, int fromVertex, int toVertex, int edgeLen) {
+
+    GNODE *gn, *temp;
+
+    gn = create_gnode(toVertex, edgeLen);
+    if(!gn)
+        return;
+    if(!g[fromVertex].gnode){ 
+        g[fromVertex].gnode = gn;
+    } else {
+        temp = g[fromVertex].gnode;
+        g[fromVertex].gnode  = gn;
+        gn->next = temp;
+    }
+}
+
 void print_graph(GRAPH *g, int n) {
     int i;
     GNODE *trav;
 
-    for(i=0;i<n;i++){
+    for(i=1;i<=n;i++){
         trav = g[i].gnode;
         printf("%d-->", i);
         while(trav){
@@ -121,27 +131,34 @@ int isVisited(GRAPH *g, int idx) {
 }
 
 
-
 int main() {
 
-GRAPH *g;
-
-    int q; 
-    scanf("%i", &q);
-    for(int a0 = 0; a0 < q; a0++){
-        int noOfCities; 
-        int noOfRoads; 
-        long int costLib; 
-        long int costRoad; 
-        scanf("%i %i %li %li", &noOfCities, &noOfRoads, &costLib, &costRoad);
-        g = (GRAPH*)malloc(sizeof(GRAPH)*noOfCities);
-
-        for(int a1 = 0; a1 < noOfRoads; a1++){
+    GRAPH *g;
+    int a0, a1;
+    int noOfCities; 
+    int noOfRoads; 
+    long int costLib; 
+    long int costRoad; 
             int city_1; 
             int city_2; 
+
+    int q; 
+    printf("enter number of queries\n");
+    scanf("%i", &q);
+    for(a0 = 0; a0 < q; a0++){
+        printf("enter no of cities(vertex), no of roads(edge), cost of lib, cost of road\n");
+        scanf("%i %i %li %li", &noOfCities, &noOfRoads, &costLib, &costRoad);
+        g = (GRAPH*)malloc(sizeof(GRAPH)*(noOfCities+1));
+        init_graph(g, noOfCities, costLib);
+
+        for(a1 = 0; a1 < noOfRoads; a1++){
+            printf("enter city1 , city2\n");
             scanf("%i %i", &city_1, &city_2);
+            connect_vertex(g, city_1, city_2, costRoad); // connect edge from city1 to city2
+            connect_vertex(g, city_2, city_1, costRoad); // connect edge from city2 to city1
         }
     }
+    print_graph(g, noOfCities);
     return 0;
 }
 
