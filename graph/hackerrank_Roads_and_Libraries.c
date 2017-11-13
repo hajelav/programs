@@ -21,7 +21,7 @@ typedef struct graph {
     int costLib;
     GNODE *gnode;
     int torder; // topological order of the vertex
-    unsigned int processed:1; //visited
+    unsigned int visited:1; //visited
     int dist;
 } GRAPH;
 
@@ -50,7 +50,7 @@ void clear_visited_vertex(GRAPH *g, int n) {
         return;
 
     for(i=0;i<n;i++){
-        g[i].processed = 0;
+        g[i].visited = 0;
         g[i].torder = 0;
     }
 
@@ -115,19 +115,29 @@ void print_graph(GRAPH *g, int n) {
     }
 }
 
-int is_all_nodes_processed(GRAPH *g, int n){
+int is_all_nodes_visited(GRAPH *g, int n){
 
     int i;
 
     for(i=0;i<n;i++){
-        if(!g[i].processed)
+        if(!g[i].visited)
             return 1;
     }
     return 0; 
 }
 
 int isVisited(GRAPH *g, int idx) {
-    return(g[idx].processed);
+    return(g[idx].visited);
+}
+
+
+int minCost(GRAPH *g, int noOfVertex, int costLib, int costRoad){
+
+    if(costRoad > costRoad){
+        return (noOfVertex*costLib);
+    }
+
+return 0;
 }
 
 
@@ -139,8 +149,8 @@ int main() {
     int noOfRoads; 
     long int costLib; 
     long int costRoad; 
-            int city_1; 
-            int city_2; 
+    int city_1; 
+    int city_2; 
 
     int q; 
     printf("enter number of queries\n");
@@ -158,6 +168,7 @@ int main() {
             connect_vertex(g, city_2, city_1, costRoad); // connect edge from city2 to city1
         }
     }
+    minCost(g, noOfCities, costLib, costRoad);
     print_graph(g, noOfCities);
     return 0;
 }
