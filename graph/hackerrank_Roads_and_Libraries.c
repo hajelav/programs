@@ -40,6 +40,7 @@ void init_graph(GRAPH *g, int noOfVertex, int costLib){
         g[i].gnode = NULL;
         g[i].costLib = costLib;
         g[i].dist = 0;
+        g[i].visited = 0;
     }
 }
 
