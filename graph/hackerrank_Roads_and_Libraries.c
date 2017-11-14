@@ -126,11 +126,15 @@ int isVisited(GRAPH *g, int idx) {
  *edge lenghts of a graph are equal(say 1)
  */
 
-void enqueue(GRAPH** q, GRAPH* g, int front, int *end) {
+//while we put the edges into the queue, we also count it. the solution would be to sum all the edges for
+int enqueue(GRAPH** q, GRAPH* g, int front, int *end) {
+
+    int noOfEdges = 0;
+
     GNODE *trav;
 
     if(q[front] == NULL)
-	return;
+	return 0;
 
     //get the neigbor vertices of q[front]
     trav = q[front]->gnode;
@@ -138,6 +142,8 @@ void enqueue(GRAPH** q, GRAPH* g, int front, int *end) {
     while(trav){
 	/*insert into the q only if the vertex is not visited*/
 	if(!g[trav->idx].visited){
+
+	    noOfEdges = noOfEdges + 1;
 	    q[*end] = &g[trav->idx];
 	    //update the distance
 	    q[*end]->distFromSrcVertex = q[front]->distFromSrcVertex + 1;
@@ -146,6 +152,7 @@ void enqueue(GRAPH** q, GRAPH* g, int front, int *end) {
 	}
 	trav = trav->next;
     }
+    return noOfEdges;
 }
 
 void dequeue(GRAPH **q, int *front) {
@@ -158,38 +165,43 @@ void dequeue(GRAPH **q, int *front) {
 /*
  *implementation of BFS in graphs using queue, given a source node and number of nodes in a graph
  */
-void BFS( GRAPH *g, int src, int n) {
+int BFS( GRAPH *g, int src, int n) {
 
     int front = 0, end; 
     GRAPH **q;
+    int noOfEdges = 0;
 
     //create a queue of n(no of vertices) pointers to the the graph nodes
     q  = (GRAPH**)malloc(sizeof(GRAPH*)*n);
 
     //initialize the queue with source vertex
     q[0] =  &g[src];
+
+    //mark the src index as visited
+    q[0]->visited = 1;
     //intitalize front to 0(queue is deleted from front)
     front = 0;
     //intitalize end to front+1(queue is inserted)
     end = front + 1;
 
     while(front!=end) {
-	//insert the neighbors from the end of queue
-	enqueue(q, g, front, &end);
+        //insert the neighbors from the end of queue
+        noOfEdges += enqueue(q, g, front, &end);
 
-	//print from the front and dequeue 
-	printf("%d-->", q[front]->idx);
+        //print from the front and dequeue 
+        //printf("%d-->", q[front]->idx);
 
-	//delete from the front
-	dequeue(q, &front);
+        //delete from the front
+        dequeue(q, &front);
     }
-    printf("%d\n", q[end]->distFromSrcVertex);
+    return noOfEdges;
 }
 
 int minCost(GRAPH *g, int noOfVertex, int costLib, int costRoad){
 
     int i;
-    if(costRoad > costRoad){
+    int minCost = 0;
+    if(costRoad > costLib){
         return (noOfVertex*costLib);
     }
 
@@ -197,11 +209,11 @@ int minCost(GRAPH *g, int noOfVertex, int costLib, int costRoad){
     for(i = 1; i <= noOfVertex; i++){
         if(!g[i].visited){
             g[i].visited = 1;
-            BFS(g, i, noOfVertex);
+            minCost = minCost + costLib + (BFS(g, i, noOfVertex) * costRoad);
         }
     }
 
-    return 0;   
+    return minCost;   
 }
 
 
@@ -217,23 +229,23 @@ int main() {
     int city_2; 
 
     int q; 
-    printf("enter number of queries\n");
+    //printf("enter number of queries\n");
     scanf("%i", &q);
     for(a0 = 0; a0 < q; a0++){
-        printf("enter no of cities(vertex), no of roads(edge), cost of lib, cost of road\n");
+      //  printf("enter no of cities(vertex), no of roads(edge), cost of lib, cost of road\n");
         scanf("%i %i %li %li", &noOfCities, &noOfRoads, &costLib, &costRoad);
         g = (GRAPH*)malloc(sizeof(GRAPH)*(noOfCities+1));
         init_graph(g, noOfCities, costLib);
 
         for(a1 = 0; a1 < noOfRoads; a1++){
-            printf("enter city1 , city2\n");
+        //    printf("enter city1 , city2\n");
             scanf("%i %i", &city_1, &city_2);
             connect_vertex(g, city_1, city_2, costRoad); // connect edge from city1 to city2
             connect_vertex(g, city_2, city_1, costRoad); // connect edge from city2 to city1
         }
+    printf("%d\n", minCost(g, noOfCities, costLib, costRoad));
     }
-    minCost(g, noOfCities, costLib, costRoad);
-    print_graph(g, noOfCities);
+    //print_graph(g, noOfCities);
     return 0;
 }
 
