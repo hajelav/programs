@@ -22,7 +22,7 @@ typedef struct graph {
     GNODE *gnode;
     int torder; // topological order of the vertex
     unsigned int visited:1; //visited
-    int dist;
+    int distFromSrcVertex;
 } GRAPH;
 
 
@@ -39,7 +39,7 @@ void init_graph(GRAPH *g, int noOfVertex, int costLib){
         g[i].torder = 0;
         g[i].gnode = NULL;
         g[i].costLib = costLib;
-        g[i].dist = 0;
+        g[i].distFromSrcVertex = 0;
         g[i].visited = 0;
     }
 }
@@ -116,29 +116,92 @@ void print_graph(GRAPH *g, int n) {
     }
 }
 
-int is_all_nodes_visited(GRAPH *g, int n){
-
-    int i;
-
-    for(i=0;i<n;i++){
-        if(!g[i].visited)
-            return 1;
-    }
-    return 0; 
-}
-
 int isVisited(GRAPH *g, int idx) {
     return(g[idx].visited);
 }
 
+/*
+ *BFS  for directed/undirected graphs
+ *Note : BFS can also be used to compute the shortest path from  a single source to all destinations, when all 
+ *edge lenghts of a graph are equal(say 1)
+ */
+
+void enqueue(GRAPH** q, GRAPH* g, int front, int *end) {
+    GNODE *trav;
+
+    if(q[front] == NULL)
+	return;
+
+    //get the neigbor vertices of q[front]
+    trav = q[front]->gnode;
+
+    while(trav){
+	/*insert into the q only if the vertex is not visited*/
+	if(!g[trav->idx].visited){
+	    q[*end] = &g[trav->idx];
+	    //update the distance
+	    q[*end]->distFromSrcVertex = q[front]->distFromSrcVertex + 1;
+	    (*end)++;
+	    g[trav->idx].visited = 1;
+	}
+	trav = trav->next;
+    }
+}
+
+void dequeue(GRAPH **q, int *front) {
+    if(q[*front]){
+	q[*front] = NULL;
+	(*front)++;
+    }
+}
+
+/*
+ *implementation of BFS in graphs using queue, given a source node and number of nodes in a graph
+ */
+void BFS( GRAPH *g, int src, int n) {
+
+    int front = 0, end; 
+    GRAPH **q;
+
+    //create a queue of n(no of vertices) pointers to the the graph nodes
+    q  = (GRAPH**)malloc(sizeof(GRAPH*)*n);
+
+    //initialize the queue with source vertex
+    q[0] =  &g[src];
+    //intitalize front to 0(queue is deleted from front)
+    front = 0;
+    //intitalize end to front+1(queue is inserted)
+    end = front + 1;
+
+    while(front!=end) {
+	//insert the neighbors from the end of queue
+	enqueue(q, g, front, &end);
+
+	//print from the front and dequeue 
+	printf("%d-->", q[front]->idx);
+
+	//delete from the front
+	dequeue(q, &front);
+    }
+    printf("%d\n", q[end]->distFromSrcVertex);
+}
 
 int minCost(GRAPH *g, int noOfVertex, int costLib, int costRoad){
 
+    int i;
     if(costRoad > costRoad){
         return (noOfVertex*costLib);
     }
 
-return 0;
+    /*run BFS through all disconnected components, and add up the the total cost*/
+    for(i = 1; i <= noOfVertex; i++){
+        if(!g[i].visited){
+            g[i].visited = 1;
+            BFS(g, i, noOfVertex);
+        }
+    }
+
+    return 0;   
 }
 
 
