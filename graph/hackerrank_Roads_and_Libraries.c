@@ -18,7 +18,7 @@ typedef struct gnode {
 //graph vertex
 typedef struct graph {
     int idx; //index of vertex node
-    int costLib;
+    long int costLib;
     GNODE *gnode;
     int torder; // topological order of the vertex
     unsigned int visited:1; //visited
@@ -28,7 +28,7 @@ typedef struct graph {
 
 /********************************* FUNCTIONS DEFINITIONS HERE ************************************/
 
-void init_graph(GRAPH *g, int noOfVertex, int costLib){
+void init_graph(GRAPH *g, int noOfVertex, long int costLib){
 
     int i;
     if(!g || noOfVertex <= 0)
@@ -42,19 +42,6 @@ void init_graph(GRAPH *g, int noOfVertex, int costLib){
         g[i].distFromSrcVertex = 0;
         g[i].visited = 0;
     }
-}
-
-void clear_visited_vertex(GRAPH *g, int n) {
-
-    int i;
-    if(!g || !n)
-        return;
-
-    for(i=0;i<n;i++){
-        g[i].visited = 0;
-        g[i].torder = 0;
-    }
-
 }
 
 //create graph node
@@ -116,10 +103,6 @@ void print_graph(GRAPH *g, int n) {
     }
 }
 
-int isVisited(GRAPH *g, int idx) {
-    return(g[idx].visited);
-}
-
 /*
  *BFS  for directed/undirected graphs
  *Note : BFS can also be used to compute the shortest path from  a single source to all destinations, when all 
@@ -127,9 +110,9 @@ int isVisited(GRAPH *g, int idx) {
  */
 
 //while we put the edges into the queue, we also count it. the solution would be to sum all the edges for
-int enqueue(GRAPH** q, GRAPH* g, int front, int *end) {
+long int enqueue(GRAPH** q, GRAPH* g, int front, int *end) {
 
-    int noOfEdges = 0;
+    long int noOfEdges = 0;
 
     GNODE *trav;
 
@@ -165,11 +148,11 @@ void dequeue(GRAPH **q, int *front) {
 /*
  *implementation of BFS in graphs using queue, given a source node and number of nodes in a graph
  */
-int BFS( GRAPH *g, int src, int n) {
+long int BFS( GRAPH *g, int src, int n) {
 
     int front = 0, end; 
     GRAPH **q;
-    int noOfEdges = 0;
+    long int noOfEdges = 0;
 
     //create a queue of n(no of vertices) pointers to the the graph nodes
     q  = (GRAPH**)malloc(sizeof(GRAPH*)*n);
@@ -197,10 +180,10 @@ int BFS( GRAPH *g, int src, int n) {
     return noOfEdges;
 }
 
-int minCost(GRAPH *g, int noOfVertex, int costLib, int costRoad){
+long int minCost(GRAPH *g, int noOfVertex, long int costLib, long int costRoad){
 
     int i;
-    int minCost = 0;
+    long int minCost = 0;
     if(costRoad > costLib){
         return (noOfVertex*costLib);
     }
@@ -243,7 +226,7 @@ int main() {
             connect_vertex(g, city_1, city_2, costRoad); // connect edge from city1 to city2
             connect_vertex(g, city_2, city_1, costRoad); // connect edge from city2 to city1
         }
-    printf("%d\n", minCost(g, noOfCities, costLib, costRoad));
+    printf(" %ld\n", minCost(g, noOfCities, costLib, costRoad));
     }
     //print_graph(g, noOfCities);
     return 0;
