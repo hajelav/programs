@@ -199,6 +199,31 @@ long int minCost(GRAPH *g, int noOfVertex, long int costLib, long int costRoad){
     return minCost;   
 }
 
+void freeEdgeList(GNODE *g){
+    GNODE* tmp;
+
+    while (g != NULL)
+    {
+        tmp = g;
+        g = g->next;
+        free(tmp);
+    }
+}
+
+void free_graph(GRAPH *g, int noOfVertex){
+
+    int i;
+    for(i=0;i<noOfVertex;i++){
+        freeEdgeList(g[i]);
+    }
+
+}
+
+void free_queue(){
+
+
+}
+
 
 int main() {
 
