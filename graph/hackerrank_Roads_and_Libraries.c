@@ -28,6 +28,35 @@ typedef struct graph {
 
 /********************************* FUNCTIONS DEFINITIONS HERE ************************************/
 
+void freeEdgeList(GNODE *g){
+    GNODE* tmp;
+
+    while (g != NULL)
+    {
+        tmp = g;
+        g = g->next;
+        free(tmp);
+    }
+}
+
+void free_graph(GRAPH *g, int noOfVertex){
+
+    int i;
+    for(i=0;i<noOfVertex;i++){
+        freeEdgeList(g[i].gnode);
+        g[i].gnode = NULL;
+    }
+
+}
+
+void free_queue(GRAPH **q){
+
+    if(*q){
+        free(*q);
+    }
+    *q = NULL;
+}
+
 void init_graph(GRAPH *g, int noOfVertex, long int costLib){
 
     int i;
@@ -177,6 +206,7 @@ long int BFS( GRAPH *g, int src, int n) {
         //delete from the front
         dequeue(q, &front);
     }
+    free_queue(q);
     return noOfEdges;
 }
 
@@ -197,31 +227,6 @@ long int minCost(GRAPH *g, int noOfVertex, long int costLib, long int costRoad){
     }
 
     return minCost;   
-}
-
-void freeEdgeList(GNODE *g){
-    GNODE* tmp;
-
-    while (g != NULL)
-    {
-        tmp = g;
-        g = g->next;
-        free(tmp);
-    }
-}
-
-void free_graph(GRAPH *g, int noOfVertex){
-
-    int i;
-    for(i=0;i<noOfVertex;i++){
-        freeEdgeList(g[i]);
-    }
-
-}
-
-void free_queue(){
-
-
 }
 
 
@@ -251,7 +256,8 @@ int main() {
             connect_vertex(g, city_1, city_2, costRoad); // connect edge from city1 to city2
             connect_vertex(g, city_2, city_1, costRoad); // connect edge from city2 to city1
         }
-    printf(" %ld\n", minCost(g, noOfCities, costLib, costRoad));
+    printf("%ld\n", minCost(g, noOfCities, costLib, costRoad));
+    free_graph(g, noOfCities);
     }
     //print_graph(g, noOfCities);
     return 0;
