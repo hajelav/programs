@@ -240,19 +240,27 @@ int main() {
     long int costRoad; 
     int city_1; 
     int city_2; 
+    FILE *fp = NULL;
 
     int q; 
     //printf("enter number of queries\n");
-    scanf("%i", &q);
+    fp = fopen("test.txt", "r");
+    if(!fp){
+        printf("error opening file test.txt\n");
+        return 0;
+    }
+
+    fscanf(fp, "%d", &q); 
+    /*scanf("%i", &q);*/
     for(a0 = 0; a0 < q; a0++){
       //  printf("enter no of cities(vertex), no of roads(edge), cost of lib, cost of road\n");
-        scanf("%i %i %li %li", &noOfCities, &noOfRoads, &costLib, &costRoad);
+        fscanf(fp, "%i %i %li %li", &noOfCities, &noOfRoads, &costLib, &costRoad);
         g = (GRAPH*)malloc(sizeof(GRAPH)*(noOfCities+1));
         init_graph(g, noOfCities, costLib);
 
         for(a1 = 0; a1 < noOfRoads; a1++){
         //    printf("enter city1 , city2\n");
-            scanf("%i %i", &city_1, &city_2);
+            fscanf(fp, "%i %i", &city_1, &city_2);
             connect_vertex(g, city_1, city_2, costRoad); // connect edge from city1 to city2
             connect_vertex(g, city_2, city_1, costRoad); // connect edge from city2 to city1
         }
@@ -263,3 +271,39 @@ int main() {
     return 0;
 }
 
+/*
+ *int main() {
+ *
+ *    GRAPH *g;
+ *    int a0, a1;
+ *    int noOfCities; 
+ *    int noOfRoads; 
+ *    long int costLib; 
+ *    long int costRoad; 
+ *    int city_1; 
+ *    int city_2; 
+ *
+ *    int q; 
+ *    //printf("enter number of queries\n");
+ *
+ *    [>scanf("%i", &q);<]
+ *    for(a0 = 0; a0 < q; a0++){
+ *      //  printf("enter no of cities(vertex), no of roads(edge), cost of lib, cost of road\n");
+ *        scanf("%i %i %li %li", &noOfCities, &noOfRoads, &costLib, &costRoad);
+ *        g = (GRAPH*)malloc(sizeof(GRAPH)*(noOfCities+1));
+ *        init_graph(g, noOfCities, costLib);
+ *
+ *        for(a1 = 0; a1 < noOfRoads; a1++){
+ *        //    printf("enter city1 , city2\n");
+ *            scanf("%i %i", &city_1, &city_2);
+ *            connect_vertex(g, city_1, city_2, costRoad); // connect edge from city1 to city2
+ *            connect_vertex(g, city_2, city_1, costRoad); // connect edge from city2 to city1
+ *        }
+ *    printf("%ld\n", minCost(g, noOfCities, costLib, costRoad));
+ *    free_graph(g, noOfCities);
+ *    }
+ *    //print_graph(g, noOfCities);
+ *    return 0;
+ *}
+ *
+ */
