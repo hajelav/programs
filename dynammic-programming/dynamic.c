@@ -7,9 +7,7 @@
  obtimal substructure :
   let S be the array that stores the LIS 
   L[j] = length of longest subsequence at array len j
-
-  L[j] = Max ( 1 + Max of all the LIS of i ( where 0 < i < j)
-
+  L[j] = Max ( 1 + Max of all the LIS of i ( where 0 < i < j), A[i])
  */
 int LIS(int *a, int elem) {
 
@@ -76,7 +74,7 @@ int min_edit_distance(char *X, char *Y) {
      * let Y be of len j (0,1,2.......j-1,j)
      * 
      * if(X[i] == Y[j])
-     * T[i[]j] (min edit dist from Xi to Yj) = T[i-1][j-1]
+     * T[i][j] (min edit dist from Xi to Yj) = T[i-1][j-1]
      * else {
      * T[i][j] = Min(T[i-1][j-1],  //when Y[j] is obtained after replacing X[i]
      * 		     T[i-1][j],   //when Y[j] is obtained by deleting the last characted of X, ie X[i]

@@ -1,6 +1,12 @@
 #include "stack.h"
 #include "../utils.h"
 #define STACK_SIZE 32
+
+/*
+concept for stock prices questions
+https://www.youtube.com/watch?v=g1USSZVWDsY
+*/
+
 /*
  * LinkedIn question
  *Given a nested list of integers, returns the sum of all integers in the list weighted by their depth 
