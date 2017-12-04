@@ -152,23 +152,32 @@ https://www.youtube.com/watch?v=ZaVM057DuzE
  *With an infinite supply of given coins, No of ways these coins can be arrange to get a given sum
  */
 
+
+
 int coin_change(int *coin, int n, int sum) {
 
     int i, j;
     int **N;
 
-    /*intialize a 2D array of n+1 rows and sum+1 cols*/
+
+    /*intialize a 2D array of n+1 rows and sum+1 cols
+     * n+1 rows for arbitary 0 denomination coin
+     * sum+1 for including sum = 0*/
 
     N = (int**)malloc(sizeof(int*)*n+1);
     for(i=0;i<n+1;i++) {
 	N[i] = (int*)malloc(sizeof(int)*(sum+1));
     }
 
-    N[0][0] = 0;
-    //initialize all rows for col 0 as zero
+    N[0][0] = 1;
+
+    //if we have a coin of denomination 0, then we can have only 1 way to to to have 0 as sum for all i(no of coins) 
     for(i=0;i<n+1;i++){
 	N[i][0] = 1;
     }
+
+
+    // no of ways the sum j can be formed if we just have one coin of denomination 0
     for(j=0;j<sum+1;j++){
 	N[0][j] = 0;
     }
@@ -178,6 +187,10 @@ int coin_change(int *coin, int n, int sum) {
 	
 	    //if the denomination of the coin is less than the sum
 	    if(coin[i-1] <= j){
+                /*
+	        1. No of ways to exlude the current coin(i) to get sum j = N[i-1][j]
+	        2. No of ways to include the current coin = no of ways to include sum(j) - current coin's denomination
+                */
 		N[i][j] = N[i-1][j] + N[i][j-coin[i-1]];
 
 	    } else {
