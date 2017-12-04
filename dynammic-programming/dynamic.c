@@ -148,6 +148,7 @@ int min_cost_path(int **A, int r, int c, int posi, int posj) {
 /*
  *http://www.geeksforgeeks.org/dynamic-programming-set-7-coin-change
 https://www.youtube.com/watch?v=_fgjrs570YE
+https://www.youtube.com/watch?v=ZaVM057DuzE
  *With an infinite supply of given coins, No of ways these coins can be arrange to get a given sum
  */
 
