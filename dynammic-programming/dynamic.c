@@ -152,13 +152,10 @@ https://www.youtube.com/watch?v=ZaVM057DuzE
  *With an infinite supply of given coins, No of ways these coins can be arrange to get a given sum
  */
 
-
-
 int coin_change(int *coin, int n, int sum) {
 
     int i, j;
     int **N;
-
 
     /*intialize a 2D array of n+1 rows and sum+1 cols
      * n+1 rows for arbitary 0 denomination coin
@@ -172,18 +169,18 @@ int coin_change(int *coin, int n, int sum) {
     N[0][0] = 1;
 
     //if we have a coin of denomination 0, then we can have only 1 way to to to have 0 as sum for all i(no of coins) 
-    for(i=0;i<n+1;i++){
+    for(i=0;i<=n;i++){
 	N[i][0] = 1;
     }
 
 
     // no of ways the sum j can be formed if we just have one coin of denomination 0
-    for(j=0;j<sum+1;j++){
+    for(j=0;j<=sum;j++){
 	N[0][j] = 0;
     }
 
-    for(i=1;i<n+1;i++){
-	for(j=1;j<sum+1;j++) {
+    for(i=1;i<=n;i++){
+	for(j=1;j<=sum;j++) {
 	
 	    //if the denomination of the coin is less than the sum
 	    if(coin[i-1] <= j){
@@ -201,8 +198,8 @@ int coin_change(int *coin, int n, int sum) {
     }
 
     //print the N array
-    for(i=0;i<n+1;i++){
-	for(j=0;j<sum+1;j++) {
+    for(i=0;i<=n;i++){
+	for(j=0;j<=sum;j++) {
 	    printf("%d ", N[i][j]);
 	}
 	printf("\n");
@@ -210,8 +207,6 @@ int coin_change(int *coin, int n, int sum) {
 
     return N[n][sum];
 }
-
-
 /*
  *https://www.youtube.com/watch?v=8LusJS5-AGo
  *http://www.geeksforgeeks.org/dynamic-programming-set-10-0-1-knapsack-problem/
@@ -1172,7 +1167,8 @@ void text_justification() {
     int *wordLen;
     char **A; //input array
     int **C; //cost array to store the cost of string i to string j in one line  
-    int *minCost, *result;
+    //int *minCost;
+    //int *result;
 
     printf("enter the number of words\n");
     scanf("%d", &no_of_words);
@@ -1234,7 +1230,7 @@ void text_justification() {
      *    2. to store the final result
      */
 
-    minCost = create_1Darray(no_of_words);
+    //minCost = create_1Darray(no_of_words);
     
 
     /*take two pointers i and j(point of split), initially set the pointers to the end of array*/
