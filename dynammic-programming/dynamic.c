@@ -1395,10 +1395,64 @@ void decode_message() {
  *leetcode problem 139
  *For example, given
  *s = "leetcode",
- *  dict = ["leet", "code"].
+ *dict = ["leet", "code"].
  *
  *  Return true because "leetcode" can be segmented as "leet code"
  */
+
+int longest_common_subsequence(char *A, int lenA, char *B, int lenB){
+
+    int i, j;
+    int **LCS; // 2D array to store the longest common subsequence
+
+
+    //printf("%d %d", lenA, lenB);
+    LCS = create_2Darray(lenA+1, lenB+1);
+
+/*
+logic : 
+    A = a1a2a3....ai..an
+    B = b1b2b3b4 .bj....bm
+
+    suppose L(2D array) holds the longest common subsequence of for any i and j
+
+    if A[i] == B[j]
+        L[i][j] = L[i-1][j-1] + 1
+    else
+        L[i][j] = MAX(L[i-1][j], L[i][j-1])
+*/
+    
+
+/*we have initialized the length of LCS array to be lenA+1 and lenB+1 to accomodate the null string in A and B 
+ * the first row and col in LCS will be zero as, the length of longest common subsequnce for null string("") when compared
+ * to the any length of other string will always be zero*/
+
+
+    for(i=0;i<lenA;i++){
+        LCS[i][0] = 0;
+    }
+    for(i=0;i<lenB;i++){
+        LCS[0][i] = 0;
+    }
+
+
+    for(i=1;i<lenA+1;i++){
+        for(j=1;j<lenB+1;j++){
+
+            if (A[i-1] == B[j-1])
+                LCS[i][j] = LCS[i-1][j-1] + 1;
+            else{
+                LCS[i][j] = MAX(LCS[i-1][j], LCS[i][j-1]);
+
+
+            }
+        }
+    }
+
+    print_2Darray(LCS, lenA+1, lenB+1);
+    return LCS[lenA][lenB];
+
+}
 
 int main(){
 
@@ -1416,7 +1470,7 @@ int main(){
 
 	printf("MENU OPTIONS\n");
 	printf("1 -- Longest Increasing subsequence(LIS)\n");
-	printf("2 -- Longest Common subsequence(LCS)\n");
+	printf("2 -- Longest common subsequence(LCS)\n");
 	printf("3 -- Minimum edit distance\n");
 	printf("4 -- Minimum cost path\n");
 	printf("5 -- Coin change problem\n");
@@ -1456,11 +1510,34 @@ int main(){
 		for(i=0;i<elem;i++){
 		    scanf("%d", &a[i]);
 		}
-		printf("\nLongest Incresing Subsequence=%d\n", LIS(a, elem));
+		printf("\nLongest Increasing Subsequence=%d\n", LIS(a, elem));
 		free(a);
 		break;
 
 	    case 2:
+		printf("Enter no of elements for array 1\n");
+		scanf("%d", &m);
+
+		X = (char*)malloc(sizeof(char)*(m+1));
+		X[m] = '\0';
+		printf("Enter elements for array 1\n");
+
+		for(i=0;i<m;i++){
+		    scanf(" %c", &X[i]);  //space is intentionally added to make scanf work
+		}
+		printf("Enter no of elements for array 2\n");
+		scanf("%d", &n);
+
+		Y = (char*)malloc(sizeof(char)*(n+1));
+		Y[n] = '\0';
+		printf("Enter elements for array 2\n");
+
+		for(i=0;i<n;i++){
+		    scanf(" %c", &Y[i]); // space is intentionally added to make scanf work
+		}
+		printf("\nlongest common subsequence=%d\n", longest_common_subsequence(X, m, Y, n));
+		free(X);
+		free(Y);
 		break;
 
 	    case 3:
