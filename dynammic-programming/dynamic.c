@@ -1457,7 +1457,7 @@ logic :
     i = lenA;
     j = lenB;
 
-    while(i>=0 && j>=0){ // loop till we dont reach to the start of LCS array ( ie i=0 and j=0 )
+    while(i>0 && j>0){ // loop till we dont reach to the start of LCS array ( ie i=0 and j=0 )
 
         //check if i,j came from up, left or diagonal
 
@@ -1467,9 +1467,9 @@ logic :
                 j = j-1;
         } else{
             //if we reach here then , we must have come either from up or left
-            if(LCS[i][j] == LCS[i-1][j]) // we came from up
+            if(i-1 > 0 && LCS[i][j] == LCS[i-1][j]) // we came from up
                 i = i-1;
-            else if(LCS[i][j] == LCS[i][j-1]) // we came from left
+            if(j-1 > 0 && LCS[i][j] == LCS[i][j-1]) // we came from left
                 j = j-1;
         }
     }
@@ -1541,6 +1541,8 @@ int main(){
 	    case 2:
 		printf("Enter no of elements for array 1\n");
 		scanf("%d", &m);
+		printf("Enter no of elements for array 2\n");
+		scanf("%d", &n);
 
 		X = (char*)malloc(sizeof(char)*(m+1));
 		X[m] = '\0';
@@ -1549,8 +1551,6 @@ int main(){
 		for(i=0;i<m;i++){
 		    scanf(" %c", &X[i]);  //space is intentionally added to make scanf work
 		}
-		printf("Enter no of elements for array 2\n");
-		scanf("%d", &n);
 
 		Y = (char*)malloc(sizeof(char)*(n+1));
 		Y[n] = '\0';
