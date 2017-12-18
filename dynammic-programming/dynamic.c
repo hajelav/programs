@@ -1402,7 +1402,7 @@ void decode_message() {
 
 int longest_common_subsequence(char *A, int lenA, char *B, int lenB){
 
-    int i, j;
+    int i, j, result = 0;
     int **LCS; // 2D array to store the longest common subsequence
 
 
@@ -1450,7 +1450,31 @@ logic :
     }
 
     print_2Darray(LCS, lenA+1, lenB+1);
-    return LCS[lenA][lenB];
+    result = LCS[lenA][lenB];
+    //return LCS[lenA][lenB]; // this is the length of max longest common subsequence
+
+    //now we find out the longest common subsequence which has len LCS[lenA][lenB]
+    i = lenA;
+    j = lenB;
+
+    while(i>=0 && j>=0){ // loop till we dont reach to the start of LCS array ( ie i=0 and j=0 )
+
+        //check if i,j came from up, left or diagonal
+
+        if(A[i-1] == B[j-1]){  //we reached here from diagonal
+                printf("%c ", A[i-1]);
+                i = i-1;
+                j = j-1;
+        } else{
+            //if we reach here then , we must have come either from up or left
+            if(LCS[i][j] == LCS[i-1][j]) // we came from up
+                i = i-1;
+            else if(LCS[i][j] == LCS[i][j-1]) // we came from left
+                j = j-1;
+        }
+    }
+    
+    return result;
 
 }
 
