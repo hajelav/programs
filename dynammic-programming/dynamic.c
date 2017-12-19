@@ -1428,10 +1428,10 @@ logic :
  * to the any length of other string will always be zero*/
 
 
-    for(i=0;i<lenA;i++){
+    for(i=0;i<lenA+1;i++){
         LCS[i][0] = 0;
     }
-    for(i=0;i<lenB;i++){
+    for(i=0;i<lenB+1;i++){
         LCS[0][i] = 0;
     }
 
@@ -1463,14 +1463,18 @@ logic :
 
         if(A[i-1] == B[j-1]){  //we reached here from diagonal
                 printf("%c ", A[i-1]);
-                i = i-1;
-                j = j-1;
+                i--;
+                j--;
         } else{
             //if we reach here then , we must have come either from up or left
             if(i-1 > 0 && LCS[i][j] == LCS[i-1][j]) // we came from up
-                i = i-1;
-            if(j-1 > 0 && LCS[i][j] == LCS[i][j-1]) // we came from left
-                j = j-1;
+                 i--;
+            else if(j-1 > 0 && LCS[i][j] == LCS[i][j-1]) // we came from left
+                 j--;
+            else{
+                 j--;
+                 i--;
+            }
         }
     }
     
