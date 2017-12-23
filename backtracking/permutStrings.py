@@ -12,19 +12,22 @@ to processed string
 
 def permutationsOfString(originalString, processedSoFar) :
 
-    subString = ""
 
     if(not originalString):
         print processedSoFar
         return
 
     for i in range(len(originalString)):
+
+
         #pop the char at index i from original list and append it to the other list
         processedSoFar.append(originalString[i])
         originalString.pop(i)
 
         permutationsOfString(originalString, processedSoFar)
 
+        #remove the char which was appended to processedSoFar list and insert it
+        #back at index i in originalString
         c = processedSoFar.pop()
         originalString.insert(i, c)
 
