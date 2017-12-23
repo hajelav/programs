@@ -4,6 +4,8 @@ import sys
 #https://www.youtube.com/watch?v=NdF1QDTRkck&index=10&list=PLFE6E58F856038C69
 
 '''
+program to find all subset of a given string:
+
 In permutation/combination type of problems, always take two strings
 1. originalString
 2.ProcessedSoFar
