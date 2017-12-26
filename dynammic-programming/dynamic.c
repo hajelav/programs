@@ -1491,9 +1491,9 @@ Output:  True  //There is a subset (4, 5) with sum 9.
 https://www.youtube.com/watch?v=PKLLFEN3HpU
 */
 
-int sum_of_subset(int *set, int sizeOfSet , int sum) {
+int sum_of_subset(int *set, int sizeOfset , int sum) {
 
-    int i, j, result = 0;
+    int i, j;
     int **L; // 2D array, colums(j) are denoted by sum starting with 0, rows(i) are denoted by items in set starting with null set
 
     /* create a 2D array(including null set and zero sum) to cover all the sums from 0 to sum
@@ -1503,15 +1503,48 @@ int sum_of_subset(int *set, int sizeOfSet , int sum) {
 
     L = create_2Darray(sizeOfset+1, sum+1);
 
+    /*
     Base cases:
 
     1. the first entry of array L, ie l[0][0] will be 1 , bceause a null set(i=0) can have sum as zero
-    2. the first col(j=0), will always be 1 ( 
+    2. the first col(j=0), will always be 1 ( because any no of elements in the set can form 0 as sum)
+    3. first row except L[0][0] will be 0 ( because a null set(i=0) cannot have sum>0 )
+    */
+
+    /* recurrence relation :
+     *
+     * 1.if any element in the set > sum, then we exclude that element
+     * else we take  (excluding that element from the set ie [i-1][j]) || ( including that element and calculating the soution for the left over sum from prev items in set, ie [i-1][sum-set[i])
+     *
+     *  if ( i > j )
+     *      L[i][j] = L[i-1][j]
+     *  else
+     *      L[i][j] = L[i-1][j] ||  L[i-1][j - set[i]]
+     */ 
 
 
+    //base case 3:
+    for(j=0;j<=sum;j++){
+        L[0][j] = 0;
+    }
 
+    //case 1,2:
+    for(i=0;i<=sizeOfset;i++){
 
+        L[i][0] = 1;
+    }
 
+    for(i=1; i<=sizeOfset; i++){
+        for(j=1; j<=sum; j++){
+
+            if (set[i-1] > j)
+                L[i][j] = L[i-1][j];
+            else
+                L[i][j] =  L[i-1][j] || L[i-1][j-set[i-1]]; //exclude item + include item
+        }
+    }
+    print_2Darray(L, sizeOfset+1, sum+1);
+    return L[sizeOfset][sum];
 }
 
 int main(){
@@ -1844,7 +1877,7 @@ int main(){
                      for(i=0;i<n;i++){
                          scanf("%d", &V[i]);
                      }
-                     sum_of_subset(V, n, sum);
+                     printf("%s a subset equal to %d in set of items", sum_of_subset(V, n, sum)?"found":"not found", sum);
                      break;
 
 	    default:
