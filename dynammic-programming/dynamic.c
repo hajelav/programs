@@ -1482,6 +1482,38 @@ logic :
 
 }
 
+/*
+Given a set of non-negative integers, and a value sum, determine if there is a subset of the given set with sum equal to given sum.
+
+Examples: set[] = {3, 34, 4, 12, 5, 2}, sum = 9
+Output:  True  //There is a subset (4, 5) with sum 9.
+
+https://www.youtube.com/watch?v=PKLLFEN3HpU
+*/
+
+int sum_of_subset(int *set, int sizeOfSet , int sum) {
+
+    int i, j, result = 0;
+    int **L; // 2D array, colums(j) are denoted by sum starting with 0, rows(i) are denoted by items in set starting with null set
+
+    /* create a 2D array(including null set and zero sum) to cover all the sums from 0 to sum
+     * and all the items in a set inclucling {} to sizeof set
+     */
+
+
+    L = create_2Darray(sizeOfset+1, sum+1);
+
+    Base cases:
+
+    1. the first entry of array L, ie l[0][0] will be 1 , bceause a null set(i=0) can have sum as zero
+    2. the first col(j=0), will always be 1 ( 
+
+
+
+
+
+}
+
 int main(){
 
 
@@ -1524,6 +1556,7 @@ int main(){
 	printf("25 -- min cost to paint all the houses(with k colors)\n");
 	printf("27 -- wildcard matching\n");
 	printf("28 -- text justification problem(word wrap problem)\n");
+	printf("29 -- sum of subset problem)\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -1797,6 +1830,22 @@ int main(){
 	    case 28:
 		     text_justification();
 		     break;
+	    case 29:
+                     printf("Enter sum\n");
+                     scanf("%d", &sum);
+
+                     printf("Enter the number of items in a set\n");
+                     scanf("%d", &n);
+
+                     //array to store values of n items
+                     V = (int*)malloc(sizeof(int)*n);
+
+                     printf("Enter %d items\n", n);
+                     for(i=0;i<n;i++){
+                         scanf("%d", &V[i]);
+                     }
+                     sum_of_subset(V, n, sum);
+                     break;
 
 	    default:
 		printf("Invalid option\n");
