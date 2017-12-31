@@ -1801,6 +1801,31 @@ int check_mirror_image(TREE* node1, TREE *node2){
 }
 
 
+/*this function prints all ancestors of the a node in a binary tree */
+
+int print_all_ancestors(TREE *node, TREE *ancestorOf){
+
+    if(!node || !ancestorOf)
+        return 0;
+
+    //if you reach the target node, return 1
+    if(node->value == ancestorOf->value)
+        return 1;
+
+    /* for a node, if any of the subtree(left or right) returns 1, then print that node */
+    if( print_all_ancestors(node->left, ancestorOf) || 
+            print_all_ancestors(node->right, ancestorOf)) {
+
+        printf("%d ", node->value);
+        return 1;
+
+    }
+
+    return 0;
+
+}
+
+
 
 int main() {
     char c;
@@ -1873,6 +1898,7 @@ int main() {
 	printf("53 -- Extract Leaves of a Binary Tree in a Doubly Linked List.\n");
 	printf("54 -- connect nodes at same level in a binary tree.\n");
 	printf("55 -- check if two trees are mirror images of each other.\n");
+	printf("56 -- print all ancestors of a tree in a binary tree.\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -2238,6 +2264,10 @@ int main() {
 	    case 55:
 		trav = root;
 		check_mirror_image(trav, NULL);
+		break;
+	    case 56:
+		trav = root;
+		print_all_ancestors(trav, node);
 		break;
 
 
