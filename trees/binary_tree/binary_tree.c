@@ -1876,6 +1876,26 @@ void print_all_diagonals(TREE *node) {
 }
 
 
+/* function to print the tree vertically 
+ * https://www.youtube.com/watch?v=PQKkr036wRc&index=27&list=PLeIMaH7i8JDj7DnmO7lll97P1yZjMCpgY
+ */
+
+void print_tree_vertically(TREE *node) {
+/*
+algo:
+    1. run a while loop to left most node and count the horizontal  distance(L) to the left
+    2. run a while loop to right most node and count the horizontal distance(R) to the right
+    3. create a chained-hash of length (|L| + |R| + 1) such that hash(x) = x + |L| ( to make the index start from 0)
+    4. Now run a modified in-order traversal of tree with an extra recursion paramert K(initialized to 0 from root)
+        4.1 For the right child , increment K+1
+        4.2 For the left child, decrement K-1
+    5. As we traverse each node in the tree, we fill the hash, hash(K) 
+    6. Once the traversal is complete we print the hash, which is eventually vertical order traversal
+*/
+
+}
+
+
 
 int main() {
     char c;
@@ -2334,7 +2354,7 @@ int main() {
 		is_subtree(trav, node);
 		break;
 
-	    case 58:
+	    case 59:
 		trav = root;
 		print_all_diagonals(trav);
 		break;
