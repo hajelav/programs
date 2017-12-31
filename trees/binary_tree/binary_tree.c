@@ -1850,6 +1850,24 @@ int is_identical(TREE *node1, TREE *node2){
 }
 
 
+/* check if a tree is a subtree of another tree */
+
+int is_subtree(TREE* node, TREE* subTree) {
+
+    //if the subtree is NULL, then return true because a NULL tree is always a subtree of any tree
+    if(!subTree)
+        return 1;
+    if(!node)
+        return 0;
+
+    if(is_identical(node, subTree))
+        return 1;
+
+    return ( is_subtree(node->left, subTree) || is_subtree(node->right, subTree));
+
+}
+
+
 
 int main() {
     char c;
@@ -1923,7 +1941,8 @@ int main() {
 	printf("54 -- connect nodes at same level in a binary tree.\n");
 	printf("55 -- check if two trees are mirror images of each other.\n");
 	printf("56 -- print all ancestors of a tree in a binary tree.\n");
-	printf("56 -- check if two binary trees are identical.\n");
+	printf("57 -- check if two binary trees are identical.\n");
+	printf("58 -- check if a binary tree is a subtree of another tree.\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -2301,6 +2320,9 @@ int main() {
 		is_identical(trav, node);
 		break;
 
+	    case 58:
+		trav = root;
+		is_subtree(trav, node);
 
 	    default:
 		printf("Invalid option\n");
