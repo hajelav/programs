@@ -1781,6 +1781,25 @@ a level order traveral of all nodes of the tree including their levels.
 
 
 
+/* check if two binary trees are mirror images of each other */
+
+int check_mirror_image(TREE* node1, TREE *node2){
+
+    if (node1 == NULL && node2 == NULL)
+        return 1;
+    if (node1 == NULL || node2 == NULL)
+        return 0;
+    
+    /*check if the values at the nodes are equal, if yes the compare the left child of node1 to right child of node2 and vice versa */
+    if (node1->value == node2->value){
+
+        if(check_mirror_image(node1->left, node2->right) && check_mirror_image(node1->right, node2->left))
+            return 1;
+
+    } 
+        return 0;
+}
+
 
 
 int main() {
@@ -1853,6 +1872,7 @@ int main() {
 	printf("52 -- given a sorted array, convert it to a balanced BST.\n");
 	printf("53 -- Extract Leaves of a Binary Tree in a Doubly Linked List.\n");
 	printf("54 -- connect nodes at same level in a binary tree.\n");
+	printf("55 -- check if two trees are mirror images of each other.\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -2213,6 +2233,11 @@ int main() {
 	    case 51:
 		trav = root;
 		balance_BST(trav);
+		break;
+
+	    case 55:
+		trav = root;
+		check_mirror_image(trav, NULL);
 		break;
 
 
