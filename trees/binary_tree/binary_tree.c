@@ -1867,6 +1867,14 @@ int is_subtree(TREE* node, TREE* subTree) {
 
 }
 
+/* this function prints all diagonals of a binary tree
+ * https://www.youtube.com/watch?v=e9ZGxH1y_PE&list=PLeIMaH7i8JDj7DnmO7lll97P1yZjMCpgY&index=29*/
+
+void print_all_diagonals(TREE *node) {
+
+
+}
+
 
 
 int main() {
@@ -1943,6 +1951,7 @@ int main() {
 	printf("56 -- print all ancestors of a tree in a binary tree.\n");
 	printf("57 -- check if two binary trees are identical.\n");
 	printf("58 -- check if a binary tree is a subtree of another tree.\n");
+	printf("59 -- print all diagonals of a binary tree.\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -2323,6 +2332,12 @@ int main() {
 	    case 58:
 		trav = root;
 		is_subtree(trav, node);
+		break;
+
+	    case 58:
+		trav = root;
+		print_all_diagonals(trav);
+		break;
 
 	    default:
 		printf("Invalid option\n");
