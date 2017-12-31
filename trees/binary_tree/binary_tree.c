@@ -1,5 +1,10 @@
 #include "../../utils.h"
 
+/*
+ * good soucre of binary tree problems:
+ * https://www.youtube.com/playlist?list=PLeIMaH7i8JDj7DnmO7lll97P1yZjMCpgY
+*/
+
 //define tree structure
 typedef struct TREE {
     int value;
@@ -1825,6 +1830,25 @@ int print_all_ancestors(TREE *node, TREE *ancestorOf){
 
 }
 
+/* check if two binary trees are identical */
+int is_identical(TREE *node1, TREE *node2){
+
+    if(node1 == NULL && node2 == NULL){
+        return 1;
+    }
+
+    if(node1 != NULL && node2 != NULL){  // if both nodes are not null, then recursively check both left and right subtress
+
+        if(node1->value && node2->value){
+
+            if(is_identical(node1->left, node2->left) && is_identical(node1->right, node2->right))
+                return 1;
+        }
+
+    }
+    return 0;
+}
+
 
 
 int main() {
@@ -1899,6 +1923,7 @@ int main() {
 	printf("54 -- connect nodes at same level in a binary tree.\n");
 	printf("55 -- check if two trees are mirror images of each other.\n");
 	printf("56 -- print all ancestors of a tree in a binary tree.\n");
+	printf("56 -- check if two binary trees are identical.\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -2265,9 +2290,15 @@ int main() {
 		trav = root;
 		check_mirror_image(trav, NULL);
 		break;
+
 	    case 56:
 		trav = root;
 		print_all_ancestors(trav, node);
+		break;
+
+	    case 57:
+		trav = root;
+		is_identical(trav, node);
 		break;
 
 
