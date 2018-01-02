@@ -1896,6 +1896,26 @@ algo:
 }
 
 
+/* diameter of a binary tree - length of the longest path in a binary tree */
+
+int tree_diameter(TREE *node) {
+    int leftHeight, rightHeight, leftDiameter, rightDiameter, diameter;
+
+    if(!node)
+        return 0;
+    leftHeight = max_height(node->left);
+    rightHeight = max_height(node->right);
+    diameter = leftHeight + rightHeight + 1;
+
+    leftDiameter = tree_diameter(node->left); //calculate the left diameter
+    rightDiameter = tree_diameter(node->right);
+
+    return MAX(diameter, MAX(leftDiameter, rightDiameter));
+
+}
+
+
+
 
 int main() {
     char c;
@@ -1972,6 +1992,7 @@ int main() {
 	printf("57 -- check if two binary trees are identical.\n");
 	printf("58 -- check if a binary tree is a subtree of another tree.\n");
 	printf("59 -- print all diagonals of a binary tree.\n");
+	printf("60 -- diameter of a  binary tree.\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -2357,6 +2378,10 @@ int main() {
 	    case 59:
 		trav = root;
 		print_all_diagonals(trav);
+		break;
+	    case 60:
+		trav = root;
+		tree_diameter(trav);
 		break;
 
 	    default:
