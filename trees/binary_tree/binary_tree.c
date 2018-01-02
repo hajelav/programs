@@ -1914,6 +1914,29 @@ int tree_diameter(TREE *node) {
 
 }
 
+/*check if two trees are isomorphic */
+int is_isomorphic(TREE *node1, TREE *node2){
+
+    //trees are isomorphic if both tress are NULL
+    if(node1 == NULL && node2 == NULL)
+        return 1;
+    //if one tree is NULL and another one is not NULL, then trees are not isomorphic 
+    if(!node1 || !node2)
+        return 0;
+    //if the data is diferent on corresponsing nodes, then also trees are not isomorphic
+    if(node1->value != node2->value)
+        return 0;
+
+    if((is_isomorphic(node1->left, node2->left) && is_isomorphic(node1->right, node2->right)) ||
+                (is_isomorphic(node1->left, node2->right) && is_isomorphic(node1->right, node2->left)))
+                return 1;
+
+    return 0;
+
+
+}
+
+
 
 
 
@@ -1993,6 +2016,7 @@ int main() {
 	printf("58 -- check if a binary tree is a subtree of another tree.\n");
 	printf("59 -- print all diagonals of a binary tree.\n");
 	printf("60 -- diameter of a  binary tree.\n");
+	printf("61 -- check if two binary trees are isomorphic.\n");
 
 	printf("\n");
 	printf("Enter your choice\n");
@@ -2382,6 +2406,10 @@ int main() {
 	    case 60:
 		trav = root;
 		tree_diameter(trav);
+		break;
+	    case 61:
+		trav = root;
+		is_isomorphic(trav, node);
 		break;
 
 	    default:
