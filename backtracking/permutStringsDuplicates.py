@@ -20,6 +20,9 @@ def permutationsOfString(originalString, processedSoFar) :
 
     for i in range(len(originalString)):
 
+        if ( i > 0 and (originalString[i] == originalString[i-1])):
+            continue
+
 
         #pop the char at index i from original list and append it to the other list
         processedSoFar.append(originalString[i])
