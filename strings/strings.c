@@ -975,6 +975,11 @@ char* remove_duplicate_in_place(char *S) {
  */
 
 
+/* print all subsequence of a given string */
+void print_subsequence(char *S, int len) {
+
+}
+
 int main() {
     /*char c;*/
     int choice;
@@ -1008,6 +1013,7 @@ int main() {
     printf("18 -- run length encoding\n");
     printf("19 -- longest substring without repeat character\n");
     printf("20 -- remove duplicates from a sorted array in place\n");
+    printf("21 -- print all subsequence of a string\n");
 
 
 
@@ -1134,6 +1140,11 @@ int main() {
             printf("Enter the string\n");
             scanf(" %s", S);
             printf("String after removing duplicates: %s",remove_duplicate_in_place(S));
+            break;
+        case 21:
+            printf("Enter the string\n");
+            scanf(" %s", S);
+            print_subsequence(S);
             break;
 
         default:
