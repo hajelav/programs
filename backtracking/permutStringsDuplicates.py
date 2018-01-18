@@ -2,7 +2,8 @@
 import sys
 #https://www.youtube.com/watch?v=uFJhEPrbycQ&list=PLFE6E58F856038C69&index=9
 '''
-program to find all permutation of a given string
+program to find all permutation of a given string( a string can have duplicate
+chars)
 In permutation/combination type of problems, always take two strings
 1. originalString
 2.ProcessedSoFar
