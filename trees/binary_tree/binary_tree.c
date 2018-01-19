@@ -1938,6 +1938,10 @@ int is_isomorphic(TREE *node1, TREE *node2){
 
 
 
+/* print tree in a zigzag(zig zag/ spiral) fashion
+ * https://www.geeksforgeeks.org/level-order-traversal-in-spiral-form/
+ * */
+
 
 
 int main() {
