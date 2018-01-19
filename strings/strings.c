@@ -588,7 +588,7 @@ void reverse_words(char *S) {
 }
 
 /*
- * linkedin
+ * linkedin(shortest word distance)
  *provide a method that takes two  words and returns the shortest distance (in words) between those two
  *words in the provided text. 
  *   Example:

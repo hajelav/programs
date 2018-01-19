@@ -389,8 +389,6 @@ void combination() {
     free(str);
 }
 
-
-
 double my_pow(double x, int n) {
 
     double temp;
