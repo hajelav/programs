@@ -472,12 +472,24 @@ int isomorphic_strings(char *S, char *T) {
 
     while(S[i]){
 
-        if(hash[S[i]-'a']!='\0' && hash[S[i]-'a']!=T[i])
-            return 0;
-        else
-            hash[S[i]-'a'] = T[i];
+        //printf("%d\n", (int)S[i]);
+
+        if(hash[(int)S[i]] == '\0' && hash[(int)T[i]] == '\0') {
+            hash[(int)S[i]] = T[i]; //map S char with T
+            hash[(int)T[i]] = S[i]; // map T char with S
+
+        } else {
+
+            if(hash[(int)T[i]] != S[i])
+                return 0;
+        }
+
         i++;
-    }
+    } //while ends
+
+    for (i=0;i<256;i++)
+        if(hash[i])
+        printf("%c ", hash[i]);
     return 1;
 }
 
@@ -1144,7 +1156,7 @@ int main() {
         case 21:
             printf("Enter the string\n");
             scanf(" %s", S);
-            print_subsequence(S);
+            print_subsequence(S, 2);
             break;
 
         default:
