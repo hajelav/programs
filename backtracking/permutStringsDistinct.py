@@ -1,6 +1,6 @@
 #!/bin/python
 import sys
-#https://www.youtube.com/watch?v=uFJhEPrbycQ&list=PLFE6E58F856038C69&index=9
+#https://www.youtube.com/watch?v=NdF1QDTRkck&index=10&list=PLFE6E58F856038C69
 '''
 program to find all permutation of a given string
 In permutation/combination type of problems, always take two strings
@@ -31,9 +31,6 @@ def permutationsOfString(originalString, processedSoFar) :
         #back at index i in originalString
         c = processedSoFar.pop()
         originalString.insert(i, c)
-
-
-
 
 
 if __name__ == "__main__":
