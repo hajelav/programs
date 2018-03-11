@@ -21,6 +21,12 @@ def permutationsOfString(originalString, processedSoFar) :
 
     for i in range(len(originalString)):
 
+        '''
+        this is the condition to avoid the suplicates, we first check if its not
+        the first char, and if previous char is equal to the current char, then
+        we ignore it( as we would already have considered it in the previous
+        recursion
+        '''
         if ( i > 0 and (originalString[i] == originalString[i-1])):
             continue
 
@@ -44,6 +50,7 @@ if __name__ == "__main__":
 
     print 'enter string to permut'
     originalString = list(raw_input())
+    originalString = sorted(originalString)
     processedSoFar = []
     permutationsOfString(originalString, processedSoFar)
 

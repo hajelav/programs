@@ -9,6 +9,8 @@ In permutation/combination type of problems, always take two strings
 
 Try to think recursively solving the problem by moving the chars from original
 to processed string
+
+Time complexity : O(n!)
 '''
 
 def permutationsOfString(originalString, processedSoFar) :
