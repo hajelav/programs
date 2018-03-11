@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define QUEUE_LEN 4 
+#define CACHE_SIZE 4 
 #define HASH_SIZE 10 //no of allowable values of pages ( ie pages 0,1,2...9)
 /*
- *date structures for LRU cache : doubly link list with Queue implementation.
+ *data structures for LRU cache : doubly link list with Queue implementation.
  *Node at the front are always recent , whereas nodes at the end are the least used.
  */
 typedef struct QNODE {
@@ -87,7 +87,7 @@ int lookup(HASH* hash, int pno) {
     return (hash->arr[pno]?1:0);
 }
 
-/*add page to the cache*/
+/*add page to the front of the cache*/
 void enqueue(HASH* hash, QUEUE *q, int pno) {
 
     QNODE *qnode, *temp;
@@ -149,9 +149,9 @@ void dequeue(HASH *hash, QUEUE *q, int pno){
 void refer_page( HASH *hash, QUEUE *q, int page_no) {
 
     //first look up, if the page exist in the cache
-    if(lookup(hash, page_no)){
-	//page found
-	
+    if(lookup(hash, page_no)){ //page found
+
+		
 	dequeue(hash, q, page_no); //remove the found page first
 	//insert it at the head
 	enqueue(hash, q, page_no);
@@ -162,7 +162,7 @@ void refer_page( HASH *hash, QUEUE *q, int page_no) {
 	    enqueue(hash, q, page_no);
 	} else {
 	    //page is not found, but cache is already full. we need to first evict 
-	    //least recently used page(pointed by tail) and the new node
+	    //least recently used page(pointed by tail) and add the new node
 	    dequeue(hash, q, q->tail->page_no); //remove the LRU ( ie at the tail)
 	    enqueue(hash, q, page_no);
 	}
@@ -189,7 +189,7 @@ int main(){
     HASH  *hash;
 
 
-    q = create_queue(QUEUE_LEN);
+    q = create_queue(CACHE_SIZE);
     hash = create_hash(HASH_SIZE);
 
     printf("Enter the number of pages\n");
