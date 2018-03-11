@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #define QUEUE_LEN 4 
-#define HASH_SIZE 10
+#define HASH_SIZE 10 //no of allowable values of pages ( ie pages 0,1,2...9)
 /*
  *date structures for LRU cache : doubly link list with Queue implementation.
  *Node at the front are always recent , whereas nodes at the end are the least used.
