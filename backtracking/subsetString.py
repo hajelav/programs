@@ -2,9 +2,15 @@
 #!/bin/python
 import sys
 #https://www.youtube.com/watch?v=NdF1QDTRkck&index=10&list=PLFE6E58F856038C69
+# start from 12:18
 
 '''
 program to find all subset of a given string:
+
+    All subsets(of a string of n chars) is the sum of number of ways of choosing
+    0 to n chars.
+
+    No of subsets = nC0 + nC1 + nC2 + ....+ nCn
 
 In permutation/combination type of problems, always take two strings
 1. originalString
