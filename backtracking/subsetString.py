@@ -1,4 +1,3 @@
-
 #!/bin/python
 import sys
 #https://www.youtube.com/watch?v=NdF1QDTRkck&index=10&list=PLFE6E58F856038C69
@@ -22,8 +21,7 @@ to processed string
 
 def subsetsOfString(origS, procSoFar, index) :
 
-    originalString = list(origS) #declare a local stack variable, as list is  passed by refernce in python
-
+    originalString = list(origS) #declare a local stack variable, as list is passed by refernce in python
     processedSoFar = list(procSoFar)
 
     if(not originalString):
