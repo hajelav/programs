@@ -29,8 +29,6 @@ def letterCombinationUtil(digitList, index, phoneMap, processedSoFar):
         letterCombinationUtil(digitList, index+1, phoneMap, processedSoFar)
         processedSoFar.pop()
 
-
-
 def letterCombination(digits):
     processedSoFar = []
 
