@@ -114,7 +114,7 @@ int get_pivot_rotated_sorted(int *A, int l, int h) {
     return res;
 }
 
-/*search an element in rotated sorted array, with length as len*/
+/*search an element in rotated sorted array, with length as len(no duplicates allowed)*/
 int search_rotated_sorted(int *A, int len, int key) {
 
     int pivot_idx; //index of pivot
@@ -340,7 +340,7 @@ int main() {
 	printf("4 -- Max range in an array\n");
 	printf("5 -- Find the missing number\n");
 	printf("6 -- count the number of occurrences of all elements in a sorted array\n");
-	printf("7 -- search an element in rotated sorted array\n");
+	printf("7 -- search an element in rotated sorted array(no duplicates allowed)\n");
 	printf("8 -- find the first element in an array that is greater than the target in a sorted array\n");
 
 
