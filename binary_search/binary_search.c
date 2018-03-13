@@ -88,6 +88,7 @@ int binary_search(int *A, int low, int high, int key) {
 }
 
 
+
 int get_pivot_rotated_sorted(int *A, int l, int h) {
 
     int mid, res;
@@ -103,7 +104,11 @@ int get_pivot_rotated_sorted(int *A, int l, int h) {
     else if (A[l] > A[mid]) 
 	res = get_pivot_rotated_sorted(A, l, mid);
     else
-	res = get_pivot_rotated_sorted(A, mid+1, h);
+        if(A[l] < A[h])
+            //if this condition is true then pivot is not rotated
+            res = -1;
+        else
+            res = get_pivot_rotated_sorted(A, mid+1, h);
 
 
     return res;
@@ -113,28 +118,28 @@ int get_pivot_rotated_sorted(int *A, int l, int h) {
 int search_rotated_sorted(int *A, int len, int key) {
 
     int pivot_idx; //index of pivot
-    int idx;
+    int result;
 
     if(!A || len < 1)
 	return -1;
 
     /*first find out the pivot of roation in the array, the functions returns 
-     * the index of last element in array if there is no pivot found*/
+     * -1 if there is no pivot found*/
 
     pivot_idx = get_pivot_rotated_sorted(A, 0, len-1);
 
     printf("Pivot index : %d\n", pivot_idx);
 
-    if(pivot_idx < len-1) {
-	//the array is rotated, now just search the element in two sorted arrays
-	if((idx = binary_search(A, 0, pivot_idx-1, key)) < 0)
-	    return binary_search(A, pivot_idx, len-1, key);
-	else 
-	    return idx;
-    } else {
+    if(pivot_idx < 0) {
 	/*the array is not rotated, do a bin search in the entire array*/
 	return binary_search(A, 0, len-1, key);
+	//the array is rotated, now just search the element in two sorted arrays
+    } else {
+        //search two sorted arrays by pivots
+	if((result = binary_search(A, 0, pivot_idx-1, key)) < 0)
+	    result =  binary_search(A, pivot_idx, len-1, key);
     }
+    return result;
 } 
 
 /*linkedin*/
@@ -358,7 +363,7 @@ int main() {
 		A = create_1Darray(n); 
 		input_array(A, n);
 		res = get_pivot_rotated_sorted(A, 0, n-1);
-		printf("Number: %d Index of rotation(pivot): %d\n", A[res], res);
+		printf("Number: %d, Index of rotation(pivot): %d\n", A[res], res);
 		break;
 
 	    case 3:
