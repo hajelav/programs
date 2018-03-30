@@ -130,7 +130,6 @@ int main() {
     //initialize event handler system
     eh = initEventHandler();
 
-
     // initialize events
     f = &cb1;
     e = initEvent(f);
@@ -145,6 +144,7 @@ int main() {
     f = &cb3;
     e = initEvent(f);
     registerEvent(eh, e);
+
     return 0;
 }
 
