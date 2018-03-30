@@ -84,7 +84,7 @@ void create_interval_tree(INTVL *intvl, int low, int high) {
 }
 
 
-/*search for a given interval in an interval tree. If an interval is found we return the pointer to that node, otherwise return NULL*/
+/*search for an overlapping interval in an interval tree. If an interval is found we return the pointer to that node, otherwise return NULL*/
 INTVL* interval_search(INTVL *intvl, int low, int high) {
 
     INTVL *result;

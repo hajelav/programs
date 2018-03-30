@@ -1,0 +1,7 @@
+{
+    "covenantList": ["default_likelihood", "state"],
+     "CovenantsLoanMap": {
+            "default_likelihood" : "max_default_likelihood", 
+            "state": "banned_state"
+        }
+}
