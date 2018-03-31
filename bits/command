@@ -1,0 +1,1 @@
+gcc -g -Wall -Werror -o buddy buddyBitmap.c
