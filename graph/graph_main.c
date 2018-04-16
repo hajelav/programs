@@ -6,6 +6,15 @@
 /******************************************************************************************
 GRAPH PROBLEMS AND CONCEPTS
 http://www.geeksforgeeks.org/graph-data-structure-and-algorithms/
+
+CONCEPTS
+
+1. Minimum cut problem
+https://www.youtube.com/watch?v=4Ih3UhVuEtw&list=PLXFMmlk03Dt7Q0xr1PIAriY5623cKiH7V&index=40
+https://www.youtube.com/watch?v=c75gg0wicus&list=PLXFMmlk03Dt7Q0xr1PIAriY5623cKiH7V&index=42
+
+
+
 ******************************************************************************************/
 
 void DFS_clone(GRAPH* g, int vtx, GRAPH* gclone){
@@ -572,7 +581,6 @@ int main() {
 		DFS_clone(g, 0, gclone);
 		print_graph(gclone, n);
 		break;
-
 
 	    default:
 		printf("Invalid option\n");
