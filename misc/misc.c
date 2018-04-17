@@ -1412,6 +1412,41 @@ int duplicate_number(int *A, int len) {
  *https://tenderleo.gitbooks.io/leetcode-solutions-/content/GoogleHard/42.html
  */
 
+int trap(int* height, int heightSize) {
+        
+    int *left;
+    int *right;
+    int i, j, maxValue = INT_MIN;
+    int waterCollected = 0;
+
+    if(!height || heightSize <=0)
+        return 0;
+
+    left = (int*)malloc(sizeof(int)*heightSize);
+    right = (int*)malloc(sizeof(int)*heightSize);
+
+    //first pass : fill all max values to the left of each tower
+    for(i=0; i<heightSize; i++) {
+        maxValue = MAX(height[i], maxValue);
+        left[i] = maxValue;
+    }
+
+    //second pass : fill all max values to the right of each tower
+    maxValue = INT_MIN;
+    for(j=heightSize-1; j>=0; j--) {
+        maxValue = MAX(height[j], maxValue);
+        right[j] = maxValue;
+    }
+
+    //third pass : calucate the water collected
+
+    for(i=0; i<heightSize; i++){
+        waterCollected += (MIN(left[i], right[i]) - height[i]);
+    }
+
+    return waterCollected;
+}
+
 
 int main() {
 
@@ -1454,6 +1489,7 @@ int main() {
 	printf("29 -- happy number\n");
 	printf("30 -- find the duplicate number\n");
 	printf("31 -- find the missing number\n");
+	printf("32 -- trapping rain water\n");
 	
 
 	printf("\n");
@@ -1648,6 +1684,15 @@ int main() {
 		input_array(A, n1);
 		printf("duplicate number : %d\n", duplicate_number(A, n1));
 		break;
+
+	    case 32:
+                printf("Enter the number of elements in the array\n");
+                scanf("%d", &n1);
+		A = create_1Darray(n1);
+		input_array(A, n1);
+		printf("water collected:%d\n", trap(A, n1));
+		break;
+
 
 	    default:
 		printf("invalid choice\n");
