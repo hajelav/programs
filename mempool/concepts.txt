@@ -1,1 +1,2 @@
-http://www.codinglabs.net/tutorial_memory_pool.aspx
+http://www.codinglabs.net/tutorial_memory_pool.aspx   -> use this one to implement in C (very clear implementation)
+https://github.com/jobtalle/pool
