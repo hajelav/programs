@@ -17,6 +17,18 @@ In permutation/combination type of problems, always take two strings
 
 Try to think recursively solving the problem by moving the chars from original
 to processed string
+
+
+idea is to  take an element and
+1. include it in subset
+2. exclude from the subset
+
+nCr = no of ways when one elements is included in subset + no of ways when an
+element is excluded from subset
+
+ir nCr =  n-1Cr-1 ( element included : no of ways to choose the remaining r-1
+from n-1) + n-1Cr (element excluded : no of ways to choose r-1 from n-1 )
+
 '''
 
 def subsetsOfString(origS, procSoFar, index) :

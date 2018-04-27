@@ -4,7 +4,7 @@ import sys
 '''
 program to find all permutation of a given string
 In permutation/combination type of problems, always take two strings
-1. originalString
+1.originalString
 2.ProcessedSoFar
 
 Try to think recursively solving the problem by moving the chars from original
@@ -16,6 +16,7 @@ Time complexity : O(n!)
 def permutationsOfString(originalString, processedSoFar) :
 
 
+    #print the processedSoFar list, when originalString becomes empty
     if(not originalString):
         print processedSoFar
         return
