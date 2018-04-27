@@ -29,14 +29,16 @@ def letterCombinationUtil(digitList, index, phoneMap, processedSoFar):
         letterCombinationUtil(digitList, index+1, phoneMap, processedSoFar)
         processedSoFar.pop()
 
-def letterCombination(digits):
+def letterCombination(digitsList):
     processedSoFar = []
 
     #if digit string have any character which does not have letter mapping, then
     # we return empty list
+    '''
     for digit in digits:
         if( not phoneMap[digit] ):
             print []
+    '''
     letterCombinationUtil(digitList, 0, phoneMap, processedSoFar)
 
 

@@ -91,7 +91,7 @@ LIST* delete_item(LIST* head,int value) {
 
 }
 /*reverse the link list  by reversing the pointers*/
-LIST* reverse_list(LIST *node){
+LIST* reverse_list_old(LIST *node){
     LIST *temp;
     if(node == NULL)
         return node;
@@ -139,30 +139,6 @@ LIST * reverse_iter (LIST *node ) {
     return prev;
 }
 
-/*reverse the link list recursively */
-LIST * reverse ( LIST* node ) {
-    static LIST* temp;
-    static LIST * head;
-
-    if(node == NULL)
-        return NULL;
-
-    else {
-        reverse(node->next);
-        if(temp == NULL){
-            head = node;
-            temp = head;
-        }else {
-            temp->next = node;
-            node->next = NULL;
-            temp=node;
-        }
-    }
-
-    return head;
-
-}
-
 /* pair wise swap of elements */
 
 /*LIST* pairwise_swap(LIST* node){
@@ -172,9 +148,8 @@ LIST * reverse ( LIST* node ) {
   return NULL;
   first = trav;
   second = trav->next;
-
-
   }*/
+
 /*remove the duplicate nodes from sorted link list */
 void delDuplicateFromSortedLL(LIST *head){
 

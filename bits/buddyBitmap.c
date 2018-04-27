@@ -159,6 +159,11 @@ void clearBit(int *A, int off, int len, int sizeA){
         //move in up direction--> we have to set all nodes which are 1, to 0 from i to root
         clearBitUp(A, i);
 
+        //since we are setting bit from 1 to 0, we need to set at least one bit to 0 in the downward direction, we can do
+        //this by either making all letf or right childs to be zero
+
+        //clearBitDown(A, i); --> TBD
+
     }//for ends
     
 

@@ -245,8 +245,8 @@ DLIST* convert_DLL_to_bin_tree(DLIST *node) {
     /*get the middle of the list and fill the left and right pointers*/
     mid = get_middle(node, &left, &right);
 
-    if(node == mid)
-	return node;
+//    if(node == mid)
+//	return node;
 
     mid->prev = convert_DLL_to_bin_tree(left);
     mid->next = convert_DLL_to_bin_tree(right);
