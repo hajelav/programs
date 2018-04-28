@@ -17,7 +17,7 @@ int LIS(int *a, int elem) {
     //create an auxillary array to store all the longest increasing subsequence array length at each index i
     S = (int*)malloc(sizeof(int)*elem);
 
-    //initialize all LIS length to 1
+    //initialize all LIS length to 1 as for each element intitially , the LIS is the element itself
     init_array(S, elem);
 
     for (i=1;i<elem;i++){
@@ -166,16 +166,16 @@ int coin_change(int *coin, int n, int sum) {
 	N[i] = (int*)malloc(sizeof(int)*(sum+1));
     }
 
-    N[0][0] = 1;
+    N[0][0] = 1; //  there is one way to form 0 sum using 0 denomination coin
 
-    //if we have a coin of denomination 0, then we can have only 1 way to to to have 0 as sum for all i(no of coins) 
+    //if we have a coin of denomination 0, then we can have only 1 way(using coin of denomination 0) to to to have 0 as sum for all i(no of coins) 
     for(i=0;i<=n;i++){
 	N[i][0] = 1;
     }
 
 
     // no of ways the sum j can be formed if we just have one coin of denomination 0
-    for(j=0;j<=sum;j++){
+    for(j=1;j<=sum;j++){
 	N[0][j] = 0;
     }
 
@@ -191,6 +191,8 @@ int coin_change(int *coin, int n, int sum) {
 		N[i][j] = N[i-1][j] + N[i][j-coin[i-1]];
 
 	    } else {
+	        /*if the coin denomination is greater then sum, the there is no change in the no of ways: ie same as no of ways by not including that coin
+	         */
 		N[i][j] = N[i-1][j];
 	    }
 
@@ -450,6 +452,7 @@ void digits(){
 /*
  * leetcode problem 53
  *maximum sum contiguos array
+ *maximum sum subarray
  *recurrence
  *
  *Let S be the max sum array such that S[i] be the max sum contiguos sum till i
@@ -1547,6 +1550,19 @@ int sum_of_subset(int *set, int sizeOfset , int sum) {
     return L[sizeOfset][sum];
 }
 
+void longest_common_substring() {
+
+    /*
+       The longest common suffix has following optimal substructure property
+       LCSuff(X, Y, m, n) = LCSuff(X, Y, m-1, n-1) + 1 if X[m-1] = Y[n-1]
+       0  Otherwise (if X[m-1] != Y[n-1])
+
+       The maximum length Longest Common Suffix is the longest common substring.
+       LCSubStr(X, Y, m, n)  = Max(LCSuff(X, Y, i, j)) where 1 <= i <= m
+       and 1 <= j <= n
+       */
+}
+
 int main(){
 
 
@@ -1589,7 +1605,8 @@ int main(){
 	printf("25 -- min cost to paint all the houses(with k colors)\n");
 	printf("27 -- wildcard matching\n");
 	printf("28 -- text justification problem(word wrap problem)\n");
-	printf("29 -- sum of subset problem)\n");
+	printf("29 -- sum of subset problem\n");
+	printf("30 -- longest common substring\n");
 	printf("\n");
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -1878,6 +1895,9 @@ int main(){
                          scanf("%d", &V[i]);
                      }
                      printf("%s a subset equal to %d in set of items", sum_of_subset(V, n, sum)?"found":"not found", sum);
+                     break;
+            case 30:
+                     longest_common_substring();
                      break;
 
 	    default:
