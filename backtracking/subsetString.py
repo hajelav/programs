@@ -27,7 +27,7 @@ nCr = no of ways when one elements is included in subset + no of ways when an
 element is excluded from subset
 
 ir nCr =  n-1Cr-1 ( element included : no of ways to choose the remaining r-1
-from n-1) + n-1Cr (element excluded : no of ways to choose r-1 from n-1 )
+from n-1) + n-1Cr (element excluded : no of ways to choose r1 from n-1 )
 
 '''
 
