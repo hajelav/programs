@@ -1,10 +1,9 @@
 /*
  *Ternary search tree implementation for strings(lowercase only)
 http://www.drdobbs.com/database/ternary-search-trees/184410528
-https://www.youtube.com/watch?v=YYsJGCR4HAY
 http://igoro.com/archive/efficient-auto-complete-with-a-ternary-search-tree/
 http://www.geeksforgeeks.org/ternary-search-tree/
-https://www.youtube.com/watch?v=zdYUlU4OJaY
+https://www.youtube.com/watch?v=JaO8cU9WlWg
 */
 #include <stdio.h>
 #include <stdlib.h>
