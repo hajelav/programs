@@ -1,8 +1,5 @@
 /**
  * threadpool.h
- *
- *  Created on: Dec 11, 2010
- *      Author: Tomer Heber (heber.tomer@gmail.com).
  */
 
 #ifndef THREADPOOL_H_

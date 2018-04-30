@@ -1,8 +1,5 @@
 /**
  * threadpool.c
- *
- *  Created on: Dec 11, 2010
- *      Author: Tomer Heber (heber.tomer@gmail.com).
  */
 
 #include "threadpool.h"
