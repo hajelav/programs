@@ -370,6 +370,8 @@ int eggdrop(int e, int f) {
 /*
  * longest palindromic subsequence
  * https://www.youtube.com/watch?v=_nCsPn7_OgI&list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr&index=19
+ * https://www.youtube.com/watch?v=yZWmS6CXbQc
+ *
  *optimal substructure :
  *Let us consider an i, j to be the index of maximum palindromic seq in S.
  *and L be the array for storing the max palidromic seq length
@@ -1340,13 +1342,13 @@ int wildcard_matching() {
 /*
  *leetcode problem 91
  *https://leetcode.com/problems/decode-ways/
- F(n) = F(n-1) + F(n-2)     if s[n] is a valid encoding digit and s[n-1]s[n] is also a valid encoding number.
+ N(j) = N(j-1) + N(j-2)     if s[j] is a valid encoding digit and s[j-1]s[j] is also a valid encoding number.
 
- F(n) = F(n-1)                     if s[n] is a valid encoding digit and s[n-1]s[n] is NOT a valid encoding number.
+ N(j) = N(j-1)                     if s[j] is a valid encoding digit and s[j-1]s[j] is NOT a valid encoding number.
 
- F(n) = F(n-2)                     if s[n] is NOT a valid encoding digit and s[n-1]s[n] is  a valid encoding number.
+ N(j) = N(j-2)                     if s[j] is NOT a valid encoding digit and s[j-1]s[j] is  a valid encoding number.
 
- F(n) = 0                             if s[n] is NOT a valid encoding digit and s[n-1]s[n] is NOT  a valid encoding number.
+ N(j) = 0                             if s[j] is NOT a valid encoding digit and s[j-1]s[j] is NOT  a valid encoding number.
  Given an encoded message containing digits, determine the total number of ways to decode it.
  For example,
  Given encoded message "12", it could be decoded as "AB" (1 2) or "L" (12).
