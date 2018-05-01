@@ -1643,6 +1643,11 @@ void print_q(TREE **q, int n) {
     }
 }
 
+/*
+ * use this as serialize-deserialize refernce
+ * https://www.youtube.com/watch?v=jwzo6IsMAFQ
+ *  
+ */  
 TREE** serialize(TREE* node, int n) {
 
     char *res = NULL;
@@ -1792,7 +1797,9 @@ int check_mirror_image(TREE* node1, TREE *node2){
 
     if (node1 == NULL && node2 == NULL)
         return 1;
-    if (node1 == NULL || node2 == NULL)
+    if (node1 == NULL && node2 != NULL)
+        return 0;
+    if (node1 != NULL && node2 == NULL)
         return 0;
     
     /*check if the values at the nodes are equal, if yes the compare the left child of node1 to right child of node2 and vice versa */

@@ -207,6 +207,15 @@ static struct threadpool_task* threadpool_task_get_task(struct threadpool *pool)
 		}
 
 		/* Block until a new task arrives. */
+                /*https://www.ibm.com/support/knowledgecenter/en/ssw_i5_54/apis/users_78.htm*/
+
+
+                /*
+                 *when a thread blocked here will get a signal to continue, it will again
+                 *go back to line 194 , which will make the logic to exit for loop and 
+                 *proceed to line 229
+                 */
+
 		if (pthread_cond_wait(&(pool->cond),&(pool->mutex))) {
 			perror("pthread_cond_wait: ");
 			if (pthread_mutex_unlock(&(pool->mutex))) {
@@ -215,7 +224,7 @@ static struct threadpool_task* threadpool_task_get_task(struct threadpool *pool)
 
 			return NULL;
 		}
-	}
+	} //while ends
 
 	if ((task = (struct threadpool_task*)threadpool_queue_dequeue(&(pool->tasks_queue))) == NULL) {
 		/* Since task is NULL returning task will return NULL as required. */
@@ -258,7 +267,7 @@ static void *worker_thr_routine(void *data)
 
 		/* Execute routine (if any). */
 		if (task->routine_cb) {
-			task->routine_cb(task->data);
+			task->routine_cb(task->data);  // call the fuction with the provided data as argument
 
 			/* Release the task by returning it to the free_task_queue. */
 			threadpool_task_init(task);
@@ -425,6 +434,10 @@ struct threadpool* threadpool_init(int num_of_threads)
 
 	/* Start the worker threads. */
 	for (pool->num_of_threads = 0; pool->num_of_threads < num_of_threads; (pool->num_of_threads)++) {
+
+          /*
+	   *we create the  threads for the pool and pass the thread pool data structure  
+           */
 		if (pthread_create(&(pool->thr_arr[pool->num_of_threads]),NULL,worker_thr_routine,pool)) {
 			perror("pthread_create:");
 

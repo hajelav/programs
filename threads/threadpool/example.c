@@ -1,8 +1,5 @@
 /*
  * example.c
- *
- *  Created on: Dec 25, 2010
- *      Author: Tomer Heber (heber.tomer@gmail.com).
  */
 
 #include "threadpool.h"
