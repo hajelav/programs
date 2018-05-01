@@ -1646,6 +1646,7 @@ void print_q(TREE **q, int n) {
 /*
  * use this as serialize-deserialize refernce
  * https://www.youtube.com/watch?v=jwzo6IsMAFQ
+ * https://www.youtube.com/watch?v=H594EV9OuDI
  *  
  */  
 TREE** serialize(TREE* node, int n) {
