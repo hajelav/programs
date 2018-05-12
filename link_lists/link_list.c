@@ -11,13 +11,6 @@ typedef struct LIST {
     struct LIST *next;
 } LIST;
 
-typedef struct DLIST {
-    int val;
-    struct LIST* next;
-    struct LIST* prev;
-
-} DLIST;
-
 LIST* create_node (int value) {
     LIST *temp = (LIST*)malloc(sizeof(LIST));
     temp->next = NULL;
@@ -51,6 +44,82 @@ void print_list(LIST* head){
     printf("NULL");
     printf("\n");
 }
+
+
+
+/*
+ *remove n th Node From End of List
+ *Given a linked list, remove the n-th node from the end of list and return its head.
+ *
+ *Example:
+ *
+ *Given linked list: 1->2->3->4->5, and n = 2.
+ *
+ *After removing the second node from the end, the linked list becomes 1->2->3->5.
+ *
+ */
+
+LIST* removeNthFromEnd(LIST* head, int n) {
+
+    LIST *nextNode, *prevNode, *tempNode;
+
+    if(!head || (n<=0))
+        return NULL;
+
+    /*initialize two pointers pointing to head*/
+    nextNode = head;
+    prevNode = head;
+
+
+    /*since we are doing it in single pass, we move the nextNode n positons forward*/
+    while(n > 0 && nextNode){
+        nextNode = nextNode->next;
+        n--;
+    }
+
+    /*
+     *if we happen to reach to the end of list, that means, we need to delete the first element
+     *    of the node. Therefore we make the head point to the next element of the list
+     */
+    if(!nextNode){
+        head = prevNode->next;
+        prevNode->next = NULL;
+        free(prevNode);
+        return head;
+    }
+
+    /*
+     *run both prev and next pointers, after the while loop ends, prevNode will point to 
+     *    the previous element to be deleted
+     */
+
+    while(nextNode && nextNode->next) {
+        prevNode = prevNode->next;
+        nextNode = nextNode->next;
+    }
+
+
+    /*remove the node*/
+    tempNode = prevNode->next;
+
+    if(tempNode) {
+        prevNode->next = tempNode->next;
+        tempNode->next = NULL;
+        free(tempNode);
+
+    } else {
+        /*
+         *if tempNode is NULL, that means there is only one element in the list , so
+         *    head points to null
+         */
+        head = tempNode;
+    }
+
+    return head;
+
+}
+
+
 
 /*find an item in the list*/
 LIST* find_item (LIST* head,int value) {
@@ -91,7 +160,7 @@ LIST* delete_item(LIST* head,int value) {
 
 }
 /*reverse the link list  by reversing the pointers*/
-LIST* reverse_list_old(LIST *node){
+LIST* reverse_list(LIST *node){
     LIST *temp;
     if(node == NULL)
         return node;
@@ -817,49 +886,6 @@ void sort_linklist(LIST *node) {
 
 }
 
-/*
- *leetcode problem 19
- *https://leetcode.com/problems/remove-nth-node-from-end-of-list/
-solution: do using single pass only
-*/
-
-void remove_nth_node_from_last_util(LIST *head, int  *cnt, int n) {
-
-    LIST *temp;
-    if(!head || n<=0)
-        return;
-
-    remove_nth_node_from_last_util(head->next, cnt, n);
-
-    (*cnt)++;
-    if(*cnt == n+1){
-        temp = head->next;
-        if(temp){
-            head->next = temp->next;
-            free(temp);
-        }
-    }
-}
-
-void remove_nth_node_from_last(LIST *head, int n) {
-
-    int count = 0;
-    LIST *temp;
-    if(!head || n<=0)
-        return;
-
-    remove_nth_node_from_last_util(head, &count, n); 
-
-    //if n happen to be the first node, then delete it here
-    if(count == n){
-
-        temp = head;
-        head = head->next;
-        free(temp); 
-    }
-    print_list(head);
-}
-
 int main() {
     int item,n,n1,n2,list1[50],list2[50];
     LIST *head1=NULL;
@@ -1050,7 +1076,7 @@ int main() {
             case 'm':
                 printf("Enter nth node\n");
                 scanf("%d", &n);
-                remove_nth_node_from_last(head, n);
+                removeNthFromEnd(head, n);
                 break;
 
             case 'q':
