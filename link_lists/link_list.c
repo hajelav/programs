@@ -45,6 +45,20 @@ void print_list(LIST* head){
     printf("\n");
 }
 
+/*reverse the link list  by reversing the pointers*/
+LIST* reverse_list(LIST *node){
+    LIST *temp;
+    if(node == NULL)
+        return node;
+    temp = reverse_list(node->next);
+    if(temp==NULL)
+        temp=node;
+    else{
+        node->next->next = node;
+        node->next = NULL;
+    }
+    return temp; 
+}
 
 
 /*
@@ -199,6 +213,66 @@ LIST* rotateRight(LIST* head, int k) {
 }
 
 
+/*
+ *plus one linked list
+ *
+ *Given a non-negative integer represented as non-empty a singly linked list of digits, plus one to the integer.
+ *
+ *You may assume the integer do not contain any leading zero, except the number 0 itself.
+ *
+ *The digits are stored such that the most significant digit is at the head of the list.
+ *
+ *Example:
+ *Input:
+ *1->2->3
+ *
+ *Output:
+ *1->2->4
+ *
+ */
+
+LIST* plusOne(LIST* head) {
+
+    LIST *list, *tempList;
+    LIST *newList = NULL;
+
+    int S, C = 0;
+
+    if(!head)
+        return NULL;
+
+    /*reverse the list first to add 1 to LSB*/
+    list = reverse_list(head);
+
+    /*add 1 to LSB first*/
+    S = (list->value + 1 + C)%10;
+    C = (list->value + 1 + C)/10;
+
+    /*insert the sum , into a newly created list*/
+    newList = insert_item(newList, S);
+
+    tempList = list->next;
+
+    /*loop though remainder of the list, and add sum to the newList*/
+    while(tempList) {
+
+        S = (tempList->value + C)%10;
+        newList = insert_item(newList, S);
+        C = (tempList->value + C)/10;
+
+        tempList = tempList->next;
+
+    }
+
+    /*after running through the whole list, if C > 0, add the carry to the newList*/
+    if(C>0){
+        newList = insert_item(newList, C);
+    }
+
+    //print_list(newList);
+    return newList;
+}
+
 /*find an item in the list*/
 LIST* find_item (LIST* head,int value) {
     LIST * trav = head;
@@ -237,20 +311,6 @@ LIST* delete_item(LIST* head,int value) {
     return head;
 
 }
-/*reverse the link list  by reversing the pointers*/
-LIST* reverse_list(LIST *node){
-    LIST *temp;
-    if(node == NULL)
-        return node;
-    temp = reverse_list(node->next);
-    if(temp==NULL)
-        temp=node;
-    else{
-        node->next->next = node;
-        node->next = NULL;
-    }
-    return temp; 
-}
 
 /*reverse the link list iteratively */
 
@@ -286,16 +346,6 @@ LIST * reverse_iter (LIST *node ) {
     return prev;
 }
 
-/* pair wise swap of elements */
-
-/*LIST* pairwise_swap(LIST* node){
-  LIST* trav,first,second;
-  trav = node;
-  if (trav = NULL)
-  return NULL;
-  first = trav;
-  second = trav->next;
-  }*/
 
 /*remove the duplicate nodes from sorted link list */
 void delDuplicateFromSortedLL(LIST *head){
