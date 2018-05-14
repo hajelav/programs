@@ -273,6 +273,123 @@ LIST* plusOne(LIST* head) {
     return newList;
 }
 
+
+/*
+ *
+ *convert sorted singly link list to binary search tree
+ *
+ *Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
+ *
+ *For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+ *
+ *Example:
+ *
+ *Given the sorted linked list: [-10,-3,0,5,9],
+ *
+ *One possible answer is: [0,-3,9,-10,null,5], which represents the following height balanced BST:
+ *
+ *            0
+ *           / \
+ *         -3   9
+ *         /   /
+ *       -10  5
+ */
+
+/*Definition for singly-linked list.*/
+struct ListNode {
+    int val;
+    struct ListNode *next;
+};
+/*Definition for a binary tree node.*/
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
+
+struct TreeNode* createTreeNode(int val) {
+
+    struct TreeNode *treeNode;
+    treeNode = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+
+    if(!treeNode)
+        return NULL;
+    treeNode->left = NULL;
+    treeNode->right = NULL;
+    treeNode->val = val;
+
+    return treeNode;
+
+}
+
+struct ListNode* getMiddleNode(struct ListNode *node){
+
+    struct ListNode *slowNode, *fastNode;
+    if(!node)
+        return NULL;
+
+    slowNode = node;
+    fastNode = node;
+
+    /*run two pointers, one twice fast than the other*/
+    while(fastNode && fastNode->next){
+        slowNode = slowNode->next;
+        fastNode = fastNode->next->next;
+    }
+
+    return slowNode;
+
+}
+
+struct TreeNode* sortedListToBST(struct ListNode* head) {
+
+
+    struct ListNode *midNode, *leftList, *rightList;
+    struct TreeNode *treeNode; 
+
+    if(!head)
+        return NULL;
+
+    /*get the middle node of the list*/
+    midNode = getMiddleNode(head);
+
+    /*the right list is the list next to the the midNode*/
+    rightList = midNode->next;
+
+    /*
+     *if the list has only one node, ie the midNode is same as head
+     *then set leftList to NULL
+     */
+    if(midNode->val == head->val)
+        leftList = NULL;
+    else
+        /*the leftList start node will be head*/
+        leftList = head;
+
+    /*
+     *seperate the list by the mid point, ie go the the previous node of
+     *midNode, and set its next to NULL
+     */
+    while(head->next) { 
+        if(head->next->val == midNode->val)
+            break;
+
+        head = head->next;
+    }
+    head->next = NULL;
+
+    /*create a treeNode with the value of midNode*/
+    treeNode = createTreeNode(midNode->val);
+
+    treeNode->left = sortedListToBST(leftList);
+    treeNode->right = sortedListToBST(rightList);
+
+    return treeNode;
+
+}
+
+
+
 /*find an item in the list*/
 LIST* find_item (LIST* head,int value) {
     LIST * trav = head;
