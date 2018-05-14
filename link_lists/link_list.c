@@ -18,6 +18,7 @@ LIST* create_node (int value) {
     temp->value = value;
     return temp;
 }
+
 /* inserts items into the link list */
 LIST*  insert_item(LIST* node,int value) {
     LIST *temp;
@@ -32,6 +33,7 @@ LIST*  insert_item(LIST* node,int value) {
     }
     return node;
 }
+
 /*prints the list*/
 void print_list(LIST* head){
     LIST* trav = head;
@@ -133,8 +135,6 @@ LIST* removeNthFromEnd(LIST* head, int n) {
     return head;
 
 }
-
-
 
 /*
  *rotate list
@@ -389,8 +389,6 @@ struct TreeNode* sortedListToBST(struct ListNode* head) {
 
 }
 
-
-
 /*
  *
  *merge two sorted lists
@@ -547,6 +545,27 @@ LIST* deleteDuplicates(LIST *head){
     }
 
     return head;
+}
+
+/*
+ *delete node in a linked list, given the access to only that node
+ *Write a function to delete a node (except the tail) in a singly linked list, given only access to that node.
+ *
+ *Supposed the linked list is 1 -> 2 -> 3 -> 4 and you are given the third node with value 3, the linked list should become 1 -> 2 -> 4 after calling your function.
+ *
+ */
+
+void deleteNode(LIST* node) {
+
+    LIST *temp;
+    if(!node || (!node->next))
+        return;
+
+    node->value = node->next->value;
+    temp = node->next;
+    node->next = node->next->next;
+    temp->next = NULL;
+    free(temp);
 }
 
 
