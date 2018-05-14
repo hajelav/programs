@@ -322,6 +322,7 @@ struct TreeNode* createTreeNode(int val) {
 
 }
 
+/*get the middle node*/
 struct ListNode* getMiddleNode(struct ListNode *node){
 
     struct ListNode *slowNode, *fastNode;
@@ -388,112 +389,6 @@ struct TreeNode* sortedListToBST(struct ListNode* head) {
 }
 
 
-
-/*find an item in the list*/
-LIST* find_item (LIST* head,int value) {
-    LIST * trav = head;
-    if(trav->value == value){
-        return trav;
-    }else{
-        while(trav->next!=NULL){
-            if(trav->next->value == value)
-                return trav;
-            trav=trav->next;
-        }
-
-    }
-    return NULL;
-}
-
-/* delete an item from the list */
-LIST* delete_item(LIST* head,int value) {
-    LIST *trav,*temp;
-    trav = find_item(head,value);
-    if(trav){ 
-        if (trav == head ){
-            head = trav->next;
-            trav->next = NULL;
-            free(trav);
-        }else{
-            temp = trav->next->next;
-            trav->next->next = NULL;
-            free(trav->next);
-            trav->next = temp;
-        }
-        printf("Item deleted successfully\n");
-    }else
-        printf("Item not found\n");
-
-    return head;
-
-}
-
-/*reverse the link list iteratively */
-
-LIST * reverse_iter (LIST *node ) {
-
-    LIST *prev,*curr,*next;
-
-    if (!node)
-        return NULL;
-
-    prev = NULL; //initialize prev node to NULL
-    curr = node;
-
-    while(curr!=NULL){
-
-        /*store the next node in the list*/
-        next = curr->next;
-
-        /*reverse the pointers of the current node, so that it points to the previous node*/
-        curr->next = prev;
-
-        /*shift the prev node so that it becomes the current node*/
-        prev = curr;
-
-        /*shift the current node, so that it becomes the next node*/
-        curr = next;
-    }
-
-    /*
-     *at the end of the loop, the previous pointer will point to the last node of the list
-     *and all the pointers would have been reversed
-     */
-    return prev;
-}
-
-
-/*remove the duplicate nodes from sorted link list */
-void delDuplicateFromSortedLL(LIST *head){
-
-    LIST* ptr1, *ptr2;
-
-    if(head == NULL)
-        return;
-
-    ptr1 = head;
-    ptr2 = head->next;
-
-    while(ptr1 && ptr2) {
-
-        if(ptr2->value == ptr1->value){
-            //duplicate exists. delete it
-            ptr1->next = ptr2->next;
-            free(ptr2);
-            //make ptr2 the next node in the list
-            ptr2 = ptr1->next;
-        } else {
-            ptr1 =  ptr1->next;
-            ptr2 = ptr2->next;
-        }
-    }
-}
-
-/* remove the duplicates from unsorted link list */
-
-void delDuplicateFromUnsortedLL(LIST* head){
-
-}
 
 /*
  *
@@ -609,8 +504,127 @@ LIST* swapPairs(LIST* head) {
 
 }
 
+/*
+ *remove duplicates from sorted list
+ *
+ *Given a sorted linked list, delete all duplicates such that each element appear only once.
+ *
+ *Example 1:
+ *
+ *Input: 1->1->2
+ *Output: 1->2
+ *Example 2:
+ *
+ *Input: 1->1->2->3->3
+ *Output: 1->2->3
+ */
 
-/*Delete all occurences of a given node */
+LIST* deleteDuplicates(LIST *head){
+
+    LIST *currNode, *nextNode;
+
+    if(!head)
+        return NULL;
+
+    currNode = head;
+    nextNode = head->next;
+
+    while(currNode && nextNode) {
+
+        if(currNode->value == nextNode->value){
+            /*duplicate exists. delete it*/
+            currNode->next = nextNode->next;
+            nextNode->next = NULL;
+            free(nextNode);
+
+            /*make nextNode to the next node in the list*/
+            nextNode = currNode->next;
+        } else {
+            currNode = currNode->next;
+            nextNode = nextNode->next;
+        }
+    }
+
+    return head;
+}
+
+
+/*find an item in the list*/
+LIST* find_item (LIST* head,int value) {
+    LIST * trav = head;
+    if(trav->value == value){
+        return trav;
+    }else{
+        while(trav->next!=NULL){
+            if(trav->next->value == value)
+                return trav;
+            trav=trav->next;
+        }
+
+    }
+    return NULL;
+}
+
+/* delete an item from the list */
+LIST* delete_item(LIST* head,int value) {
+    LIST *trav,*temp;
+    trav = find_item(head,value);
+    if(trav){ 
+        if (trav == head ){
+            head = trav->next;
+            trav->next = NULL;
+            free(trav);
+        }else{
+            temp = trav->next->next;
+            trav->next->next = NULL;
+            free(trav->next);
+            trav->next = temp;
+        }
+        printf("Item deleted successfully\n");
+    }else
+        printf("Item not found\n");
+
+    return head;
+
+}
+
+/*reverse the link list iteratively */
+
+LIST * reverse_iter (LIST *node ) {
+
+    LIST *prev,*curr,*next;
+
+    if (!node)
+        return NULL;
+
+    prev = NULL; //initialize prev node to NULL
+    curr = node;
+
+    while(curr!=NULL){
+
+        /*store the next node in the list*/
+        next = curr->next;
+
+        /*reverse the pointers of the current node, so that it points to the previous node*/
+        curr->next = prev;
+
+        /*shift the prev node so that it becomes the current node*/
+        prev = curr;
+
+        /*shift the current node, so that it becomes the next node*/
+        curr = next;
+    }
+
+    /*
+     *at the end of the loop, the previous pointer will point to the last node of the list
+     *and all the pointers would have been reversed
+     */
+    return prev;
+}
+
+
+
+/*delete all occurences of a given node */
 
 LIST* del_all_occurence(LIST* head, int value) {
 
@@ -762,26 +776,6 @@ void deleteAlternateNodes(LIST* node) {
         if(ptr1)
             ptr2 = ptr1->next;
     }
-}
-/* function to print the middle element of a link list */
-LIST* get_middle(LIST *node){
-
-    LIST *ptr1, *ptr2;
-    if(node == NULL)
-        return NULL;
-    if(!node->next)
-        return node;
-
-    ptr1 = ptr2 = node;
-
-    while(ptr2 && ptr2->next!=NULL){
-
-        ptr1=ptr1->next;
-        ptr2=ptr2->next->next;
-    }
-
-    return ptr1;
-
 }
 
 /* function to delete a link-list using recursion */
@@ -1171,7 +1165,6 @@ int main() {
         printf("9--reverse iteratively\t");
         printf("b-Sort the list\t");
         printf("c-Delete alternate nodes\t");
-        printf("d--Write a function to print the middle of a given linked list\t");
         printf("e--delete a link list using recursion\t");
         printf("f--clone a link list with random pointer\t");
         printf("g--Move last element to front of a given Linked List\t");
@@ -1242,7 +1235,7 @@ int main() {
                 print_list(head3);
                 break;
             case '7':
-                delDuplicateFromSortedLL(head);
+                deleteDuplicates(head);
                 print_list(head);
                 break;
             case '8':
@@ -1269,11 +1262,6 @@ int main() {
                 deleteAlternateNodes(head);
                 print_list(head);
                 break;
-            case 'd':
-                temp = get_middle(head);
-                printf("Middle element: %d\n", temp?temp->value:0);
-                break;
-
             case 'e':
                 delLinkList(head, &temp);
                 print_list(head);
