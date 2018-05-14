@@ -45,7 +45,8 @@ void print_list(LIST* head){
     printf("\n");
 }
 
-/*reverse the link list  by reversing the pointers*/
+/*reverse link list recursively*/
+
 LIST* reverse_list(LIST *node){
     LIST *temp;
     if(node == NULL)
