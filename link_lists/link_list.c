@@ -338,7 +338,6 @@ struct ListNode* getMiddleNode(struct ListNode *node){
     }
 
     return slowNode;
-
 }
 
 struct TreeNode* sortedListToBST(struct ListNode* head) {
