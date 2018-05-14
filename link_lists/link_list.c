@@ -546,6 +546,70 @@ LIST* merge_list(LIST* head1, LIST* head2){
     return new;
 }
 
+/*
+ *swap nodes in pairs
+ *Given a linked list, swap every two adjacent nodes and return its head.
+ *
+ *Example:
+ *
+ *Given 1->2->3->4, you should return the list as 2->1->4->3.
+ *Note:
+ *
+ *Your algorithm should use only constant extra space.
+ *You may not modify the values in the list's nodes, only nodes itself may be changed.
+ */
+
+LIST* swapPairs(LIST* head) {
+
+    LIST *temp, *currNode, *nextNode, *newHead = NULL, *prevNode;
+
+    if(!head)
+        return NULL;
+
+    prevNode = NULL;
+    currNode = head;
+    nextNode = currNode->next;
+
+
+    /*if there is only one node, just return the head*/
+    if(!nextNode)
+        return head;
+
+    while(currNode && nextNode){
+
+        /*store the pointer to the next node of nextNode*/
+        temp = nextNode->next;
+
+        /*store the second node of the list as head*/
+        if(!newHead)
+            newHead = nextNode;
+
+        /*interchange the pair of currNode and nextNode*/
+        nextNode->next = currNode;
+        currNode->next = temp;
+
+
+        if(prevNode)
+            prevNode->next = nextNode;
+
+        /*store the previous node(to be used in next iteration)*/
+        prevNode = currNode;
+
+        /*move the currNode to the next pair*/
+        currNode = temp;
+
+        /*move the nextNode to the next pair, if currNode is not NULL*/
+        if(currNode)
+            nextNode = currNode->next;
+
+    }
+
+    /*return the newHead, ie second node of the original list*/
+    return newHead;
+
+}
+
+
 /*Delete all occurences of a given node */
 
 LIST* del_all_occurence(LIST* head, int value) {
@@ -639,75 +703,6 @@ void delete_all_occurences_recursive(LIST** node, int value) {
             free(temp);
         }
     }
-}
-
-
-/*Pair waise swap of link list (just the value)*/
-
-int pair_wise_swap (LIST *node) {
-
-
-    int temp;
-    while (node != NULL && node->next!=NULL) {
-        temp = node->next->value;
-        node->next->value = node->value;
-        node->value = temp;
-        node = node->next->next;
-    }
-    return 1;
-
-}
-
-/*
- *pair wise swap by changing the links
- */
-
-LIST* pair_wise_swap_links(LIST* node){
-
-
-    LIST *prev = NULL, *cur, *next;
-    LIST *head;
-
-    if(!node)
-        return NULL;
-
-    head = node;
-    cur = node;
-    next = node->next;
-
-    while(cur && next) {
-        cur->next = next->next;
-        next->next = cur;
-        if(!prev){
-            head = next;
-        } else {
-            prev->next = next;
-        }
-
-        prev = cur;
-        cur = cur->next;
-        if(cur)
-            next = cur->next;
-    }
-
-    return head;
-} 
-/*
- *pair wise swap recursive
- *leetcode problem 24
-https://leetcode.com/problems/swap-nodes-in-pairs/
-*/
-
-void pair_wise_swap_recur (LIST *node) {
-    int temp;
-    if((node == NULL) || (node->next == NULL)) 
-        return;
-
-    temp = node->next->value;
-    node->next->value = node->value;
-    node->value = temp;
-    pair_wise_swap_recur(node->next->next);	
-    /*return;*/
 }
 
 /*Sorting of linklist using bubble sort */
@@ -1174,7 +1169,6 @@ int main() {
         printf("7--Delete duplicate\t");
         printf("8--Delete all occerences of a given value\t");
         printf("9--reverse iteratively\t");
-        printf("a-Pair wise swap\t");
         printf("b-Sort the list\t");
         printf("c-Delete alternate nodes\t");
         printf("d--Write a function to print the middle of a given linked list\t");
@@ -1264,14 +1258,8 @@ int main() {
                     printf("List is empty");
                 else
                     print_list(head);
-
                 break;
 
-            case 'a':
-                // if(pair_wise_swap(head))
-                pair_wise_swap_recur(head);
-                print_list(head);
-                break;
             case 'b':
                 sort_list(head);
                 print_list(head);
@@ -1331,7 +1319,7 @@ int main() {
                 print_list(segEvenOddNodes(head));
                 break;
             case 'k':
-                print_list(pair_wise_swap_links(head));
+                print_list(swapPairs(head));
                 break;
 
             case 'l':
