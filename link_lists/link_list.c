@@ -588,9 +588,17 @@ LIST* delete_item(LIST* head,int value) {
 
 }
 
-/*reverse the link list iteratively */
+/*
+ *reverse linked list iteratively
+ *Reverse a singly linked list.
+ *
+ *Example:
+ *
+ *Input: 1->2->3->4->5->NULL
+ *Output: 5->4->3->2->1->NULL
+ */
 
-LIST * reverse_iter (LIST *node ) {
+LIST* reverseList(LIST *node ) {
 
     LIST *prev,*curr,*next;
 
@@ -1247,7 +1255,7 @@ int main() {
                 print_list(head);
                 break;
             case '9':
-                if(!(head = reverse_iter(head)))
+                if(!(head = reverseList(head)))
                     printf("List is empty");
                 else
                     print_list(head);
