@@ -570,45 +570,6 @@ void deleteNode(LIST* node) {
 }
 
 
-/*find an item in the list*/
-LIST* find_item (LIST* head,int value) {
-    LIST * trav = head;
-    if(trav->value == value){
-        return trav;
-    }else{
-        while(trav->next!=NULL){
-            if(trav->next->value == value)
-                return trav;
-            trav=trav->next;
-        }
-
-    }
-    return NULL;
-}
-
-/* delete an item from the list */
-LIST* delete_item(LIST* head,int value) {
-    LIST *trav,*temp;
-    trav = find_item(head,value);
-    if(trav){ 
-        if (trav == head ){
-            head = trav->next;
-            trav->next = NULL;
-            free(trav);
-        }else{
-            temp = trav->next->next;
-            trav->next->next = NULL;
-            free(trav->next);
-            trav->next = temp;
-        }
-        printf("Item deleted successfully\n");
-    }else
-        printf("Item not found\n");
-
-    return head;
-
-}
-
 /*
  *reverse linked list iteratively
  *Reverse a singly linked list.
@@ -649,179 +610,6 @@ LIST* reverseList(LIST *node ) {
      *and all the pointers would have been reversed
      */
     return prev;
-}
-
-
-
-/*delete all occurences of a given node */
-
-LIST* del_all_occurence(LIST* head, int value) {
-
-    LIST *p2,*temp,*p1;
-    if(head == NULL)
-        return NULL;
-
-    p2 = head;
-    /*p3 = p1->next;*/
-
-    while(p2!=NULL) {
-        if(p2->value == value){
-            temp = p1->next;
-            p1->next = temp->next;
-            p2 = temp->next;
-            free(temp);
-
-        }else{
-            p1 = p1->next;
-            p2 = p2->next;
-        }
-    }//while ends
-
-    //Now check for the head node
-    if(head->value == value){
-        temp = head;
-        head = head->next;
-        free(temp);
-    }
-
-    return head;
-}//function ends
-
-
-/*delete all occurrence of a given value in a link list(non-recursive)*/
-LIST* delete_all_occurences_nonrecursive(LIST* node, int value) {
-
-    LIST *curr_node = NULL, *next_node = NULL;
-    LIST *temp;
-    if(!node)
-        return NULL;
-
-    curr_node = NULL; //set current pointer to null
-    next_node = node; // set next pointer to head node
-
-    while(next_node){
-
-        if(next_node->value == value){
-
-            if(!curr_node){
-                /*the head node matches the value, so we need to delete it*/
-                temp = next_node->next;
-                next_node->next = NULL;
-                free(next_node);
-                next_node = temp;
-
-                /*point the head node to the next node, and current still points to NULL*/
-                node = next_node;
-
-            } else {
-                curr_node->next = next_node->next;
-                next_node->next = NULL;
-                free(next_node);
-                next_node = curr_node->next;
-
-            }
-        } else {
-            curr_node = next_node;
-            next_node = next_node->next;
-        }
-    }
-    return node;
-}
-
-/*delete all occurrence of a given value in a link list(recursive)*/
-void delete_all_occurences_recursive(LIST** node, int value) {
-
-    LIST *temp;
-
-    if(node && (*node)->next == NULL)
-        return;
-    if(!node)
-        return;
-
-    delete_all_occurences_recursive(&(*node)->next, value);
-    temp = (*node)->next;
-    if(temp) {
-        if(temp->value == value){
-            (*node)->next = temp->next;
-            free(temp);
-        }
-    }
-}
-
-/*Sorting of linklist using bubble sort */
-void sort_list ( LIST *head) {
-    int count=0,tmp,i;
-    LIST *node;
-    node=head;
-    /*count the number of elements*/
-    while (node!=NULL){
-        count++;
-        node=node->next;
-    }
-    /*do a bubble sort */
-    for ( i=1;i<count;i++){
-        node = head;
-        while(node->next!=NULL){
-            if(node->value > node->next->value)
-            {
-                tmp = node->value;
-                node->value = node->next->value;
-                node->next->value = tmp;
-            }
-            node = node->next;
-        }
-    }
-}
-
-/* method 1: delete alternate nodes */
-void delete_alternate ( LIST* node ) {
-    LIST *temp;
-    while ( node!=NULL && node->next!= NULL) {
-        temp = node->next;
-        node->next = node->next->next;
-        free(temp);
-
-        node = node->next;
-    }
-}
-
-/* method 2 : delete alternate nodes */
-
-void deleteAlternateNodes(LIST* node) {
-
-    LIST *ptr1, *ptr2;
-
-    ptr1 = node;
-    if(!ptr1)
-        return;
-    ptr2 = node->next;
-
-    while(ptr1 && ptr2){
-
-        ptr1->next = ptr2->next;
-        free(ptr2);
-        //adjust the pointers
-        ptr1 = ptr1->next;
-        if(ptr1)
-            ptr2 = ptr1->next;
-    }
-}
-
-/* function to delete a link-list using recursion */
-
-void  delLinkList(LIST*node, LIST** temp){
-    if(node == NULL)
-        return;
-
-    delLinkList(node->next, temp);
-    if(*temp == NULL){
-        *temp = node;
-    } else {
-        free(*temp);
-        node->next = NULL;
-        *temp = node;
-    }
-
 }
 
 /*
@@ -990,36 +778,6 @@ LIST* cloneLinkList(LIST* olist) {
 }
 
 /*
- *Move last element to front of a given Linked List
- */
-LIST* moveLastElemToFront(LIST* node){
-
-    LIST* ptr1, *ptr2, *head;
-
-    if(node== NULL)
-        return NULL;
-    //store the head 
-    head = node;
-    ptr1 = node;
-    ptr2 = node->next;
-    while(ptr2 && ptr2->next){
-
-        ptr2 = ptr2->next;
-        ptr1 = ptr1->next;
-    }
-
-    //set the second last node's next to NULL
-    if(ptr2) {
-        ptr1->next = NULL;
-        //set the last node's next to head , so that it becomes the new head
-        ptr2->next = head;
-        head = ptr2;
-    } 
-
-    return head;
-}
-
-/*
  *add two numbers represented by link list
  You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
 
@@ -1081,6 +839,283 @@ LIST* addNumbers(LIST* list1, LIST* list2){
 
     newsum = reverse_list(newsum);
     return newsum;
+}
+
+/*
+ *remove linked list elements
+ *Remove all elements from a linked list of integers that have value val.
+ *
+ *Example:
+ *
+ *Input:  1->2->6->3->4->5->6, val = 6
+ *Output: 1->2->3->4->5
+ */
+
+LIST* removeElements(LIST *head, int val) {
+
+    LIST *currNode, *temp;
+
+    if(!head)
+        return NULL;
+
+    currNode = head;
+
+    while(currNode && currNode->next){
+
+        if(currNode->next->value == val){
+            temp = currNode->next;
+            currNode->next = temp->next;
+            temp->next = NULL;
+            free(temp);
+        } else {
+            currNode = currNode->next;
+        }
+
+    }
+
+    /*if head has same value as val, then delete it and move the head forward*/
+    if(head->value == val){
+        temp = head;
+        head = head->next;
+        temp->next = NULL;
+        free(temp);
+    }
+    return head;
+}
+
+
+/*
+ *intersection of two linked lists
+ *
+ *Write a program to find the node at which the intersection of two singly linked lists begins.
+ *
+ *
+ *For example, the following two linked lists:
+ *
+ *A:          a1 → a2
+ *                   ↘
+ *                    c1 → c2 → c3
+ *                   ↗            
+ *B:     b1 → b2 → b3
+ *begin to intersect at node c1.
+ *
+ *Notes:
+ *
+ *If the two linked lists have no intersection at all, return null.
+ *The linked lists must retain their original structure after the function returns.
+ *You may assume there are no cycles anywhere in the entire linked structure.
+ *Your code should preferably run in O(n) time and use only O(1) memory.
+ */
+
+LIST* getIntersectionNode(LIST *headA, LIST *headB) {
+
+    int lenHeadA = 0, lenHeadB = 0, len, count = 0;
+    LIST *trav = NULL, *first, *second;
+
+    /*get length of the first list*/
+    trav = headA;
+    while(trav){
+        lenHeadA++;
+        trav = trav->next;
+    }
+
+    /*get length of the second list*/
+    trav = headB;
+    while(trav){
+        lenHeadB++;
+        trav = trav->next;
+    }
+
+    /*find the absolute diff in len for the lists*/
+    len = (lenHeadA - lenHeadB) > 0 ? lenHeadA - lenHeadB : lenHeadB - lenHeadA;
+
+    if(lenHeadA - lenHeadB > 0){
+
+        /*first list is longer, so move the pointer 'len' distance forward*/
+        first = headA;
+        while(count < len){
+            first = first->next;
+            count++;
+        }
+        /*second points to start of the second list*/
+        second = headB;
+
+    } else {
+
+        /*second list is longer, so move the pointer 'len' distance forward*/
+        second = headB;
+        while(count < len){
+            second = second->next;
+            count++;
+        }
+        /*first points to start of the first list*/
+        first = headA;
+
+    }
+
+    /*
+     *move both first and second pointer, whereever the pointers meet, thats
+     *the intersection of the lists
+     */
+
+    while(first && second){
+
+        if(first == second)
+            return first;
+        first = first->next;
+        second = second->next;
+
+    }
+
+    /*the lists do not intersect, so return NULL*/
+    return NULL;
+}
+
+        
+/*find an item in the list*/
+LIST* find_item (LIST* head,int value) {
+    LIST * trav = head;
+    if(trav->value == value){
+        return trav;
+    }else{
+        while(trav->next!=NULL){
+            if(trav->next->value == value)
+                return trav;
+            trav=trav->next;
+        }
+
+    }
+    return NULL;
+}
+
+/* delete an item from the list */
+LIST* delete_item(LIST* head,int value) {
+    LIST *trav,*temp;
+    trav = find_item(head,value);
+    if(trav){ 
+        if (trav == head ){
+            head = trav->next;
+            trav->next = NULL;
+            free(trav);
+        }else{
+            temp = trav->next->next;
+            trav->next->next = NULL;
+            free(trav->next);
+            trav->next = temp;
+        }
+        printf("Item deleted successfully\n");
+    }else
+        printf("Item not found\n");
+
+    return head;
+
+}
+
+/*Sorting of linklist using bubble sort */
+void sort_list ( LIST *head) {
+    int count=0,tmp,i;
+    LIST *node;
+    node=head;
+    /*count the number of elements*/
+    while (node!=NULL){
+        count++;
+        node=node->next;
+    }
+    /*do a bubble sort */
+    for ( i=1;i<count;i++){
+        node = head;
+        while(node->next!=NULL){
+            if(node->value > node->next->value)
+            {
+                tmp = node->value;
+                node->value = node->next->value;
+                node->next->value = tmp;
+            }
+            node = node->next;
+        }
+    }
+}
+
+/* method 1: delete alternate nodes */
+void delete_alternate ( LIST* node ) {
+    LIST *temp;
+    while ( node!=NULL && node->next!= NULL) {
+        temp = node->next;
+        node->next = node->next->next;
+        free(temp);
+
+        node = node->next;
+    }
+}
+
+/* method 2 : delete alternate nodes */
+
+void deleteAlternateNodes(LIST* node) {
+
+    LIST *ptr1, *ptr2;
+
+    ptr1 = node;
+    if(!ptr1)
+        return;
+    ptr2 = node->next;
+
+    while(ptr1 && ptr2){
+
+        ptr1->next = ptr2->next;
+        free(ptr2);
+        //adjust the pointers
+        ptr1 = ptr1->next;
+        if(ptr1)
+            ptr2 = ptr1->next;
+    }
+}
+
+/* function to delete a link-list using recursion */
+
+void  delLinkList(LIST*node, LIST** temp){
+    if(node == NULL)
+        return;
+
+    delLinkList(node->next, temp);
+    if(*temp == NULL){
+        *temp = node;
+    } else {
+        free(*temp);
+        node->next = NULL;
+        *temp = node;
+    }
+
+}
+
+
+/*
+ *Move last element to front of a given Linked List
+ */
+LIST* moveLastElemToFront(LIST* node) {
+
+    LIST* ptr1, *ptr2, *head;
+
+    if(node== NULL)
+        return NULL;
+    //store the head 
+    head = node;
+    ptr1 = node;
+    ptr2 = node->next;
+    while(ptr2 && ptr2->next){
+
+        ptr2 = ptr2->next;
+        ptr1 = ptr1->next;
+    }
+
+    //set the second last node's next to NULL
+    if(ptr2) {
+        ptr1->next = NULL;
+        //set the last node's next to head , so that it becomes the new head
+        ptr2->next = head;
+        head = ptr2;
+    } 
+
+    return head;
 }
 
 /*
@@ -1279,9 +1314,7 @@ int main() {
             case '8':
                 printf("Enter the node to  be deleted\n");
                 scanf("%d",&n1);
-                /*head = del_all_occurence(head,n1);*/
-                head = delete_all_occurences_nonrecursive(head, n1);
-                /*delete_all_occurences_recursive(&head, n1);*/
+                head = removeElements(head, n1);
                 print_list(head);
                 break;
             case '9':
