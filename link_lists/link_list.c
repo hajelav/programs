@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 /*defining the link list structure*/
 
@@ -826,20 +827,24 @@ void  delLinkList(LIST*node, LIST** temp){
 /*
  *function to detect a loop/cycle in a link list
  */
-int detectLoop(LIST* node){
-    LIST* ptr1, *ptr2;
+bool detectLoop(LIST* node) {
 
-    ptr1 = ptr2 = node;
+    LIST *currNode, *nextNode;
 
-    while(ptr2 && ptr2->next && ptr1!=ptr2){
+    if(!node)
+        return false;
 
-        if(ptr1 == ptr2)
-            return 1;
-        ptr1 = ptr1->next;
-        ptr2 = ptr2->next->next;
+    currNode = nextNode = node;
+
+    while(nextNode && nextNode->next){
+
+        currNode = currNode->next;
+        nextNode = nextNode->next->next;
+
+        if(currNode == nextNode)
+            return true;
     }
-
-    return 0;
+    return false;
 }
 
 
