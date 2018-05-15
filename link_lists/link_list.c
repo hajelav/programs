@@ -861,72 +861,77 @@ This method is also dependent on Floyd’s Cycle detection algorithm.
 */
 
 
-/* Function to remove loop.
- *  loop_node --> Pointer to one of the loop nodes
- *   head -->  Pointer to the start node of the linked list */
-void removeLoop(LIST *loop_node, LIST *head)
-{
-    LIST *ptr1 = loop_node;
-    LIST *ptr2 = loop_node;
+/*linked list cycle - return the node where the cycle begins*/
 
-    // Count the number of nodes in loop
-    unsigned int k = 1, i;
-    while (ptr1->next != ptr2)
-    {
-        ptr1 = ptr1->next;
-        k++;
+LIST* hasCycle(LIST *node) {
+
+    LIST *currNode, *nextNode;
+
+    if(!node)
+        return NULL;
+
+    currNode = nextNode = node;
+
+    while(nextNode && nextNode->next){
+
+        currNode = currNode->next;
+        nextNode = nextNode->next->next;
+
+        if(currNode == nextNode)
+            return currNode;
     }
 
-    // Fix one pointer to head
-    ptr1 = head;
+    return NULL;
 
-    // And the other pointer to k nodes after head
-    ptr2 = head;
-    for (i = 0; i < k; i++)
-        ptr2 = ptr2->next;
-
-    /*  Move both pointers at the same pace,
-        they will meet at loop starting node */
-    while (ptr2 != ptr1)
-    {
-        ptr1 = ptr1->next;
-        ptr2 = ptr2->next;
-    }
-
-    // Get pointer to the last node
-    ptr2 = ptr2->next;
-    while (ptr2->next != ptr1)
-        ptr2 = ptr2->next;
-
-    /* Set the next node of the loop ending node
-       to fix the loop */
-    ptr2->next = NULL;
 }
-/* This function detects and removes loop in the list
- *   If loop was there in the list then it returns 1,
- *     otherwise returns 0 */
-int detectAndRemoveLoop(LIST *list)
-{
-    LIST  *slow_p = list, *fast_p = list;
 
-    while (slow_p && fast_p && fast_p->next)
-    {
-        slow_p = slow_p->next;
-        fast_p  = fast_p->next->next;
 
-        /* If slow_p and fast_p meet at some point then there
-         *            is a loop */
-        if (slow_p == fast_p)
-        {
-            removeLoop(slow_p, list);
+LIST *detectCycle(LIST *head) {
 
-            /* Return 1 to indicate that loop is found */
-            return 1;
-        }
+    LIST *node, *nodeInCycle;
+    int cycleLen = 1;
+    if(!head)
+        return NULL;
+
+    /*find if there exists in cycle*/
+    nodeInCycle = hasCycle(head);
+
+    if(!nodeInCycle)
+        return NULL;
+
+    /*find the length of the cycle */
+    node = nodeInCycle;
+    while(node->next != nodeInCycle){
+        node = node->next;
+        cycleLen++;
     }
 
-    /* Return 0 to indeciate that ther is no loop*/
-    return 0;
+
+    /*move the node pointer to the length of the cycle(cycleLen)*/
+    node = head;
+    while(cycleLen-1 > 0){
+        node = node->next;
+        cycleLen--;
+    }
+
+
+    /*
+     *run the node pointer and head simultaneously, 
+     *the next of node pointer and head meet at the cycle start node
+     */
+    while(node->next != head){
+        node = node->next;
+        head = head->next;
+    }
+
+    /*
+     *to remove cycle, we need to do
+     *    node->next = NULL
+     */
+
+
+    /*head is the node where the cycle starts*/
+    return head; 
 }
 
 
