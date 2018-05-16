@@ -1,4 +1,100 @@
 #include "../utils.h"
+
+/*
+ *reverse string
+ *Write a function that takes a string as input and returns the string reversed.
+ *
+ *Example:
+ *Given s = "hello", return "olleh".
+ *
+ */
+
+char* reverseString(char* S) {
+
+
+    int i, j, len;
+    char t;
+
+    if(!S)
+        return NULL;
+
+    len = strlen(S);
+    if(len <= 0)
+        return "";
+
+    i = 0;
+    j = len-1;
+
+    while(i<j){
+        t = S[i];
+        S[i] = S[j];
+        S[j] = t;     
+
+        i++;
+        j--;
+    }
+
+    return S;
+
+}
+
+/*
+ *reverse words in a string - preserving whitespace and initial word order 
+ *Given a string, you need to reverse the order of characters in each word within a sentence while still preserving    whitespace and initial word order.
+ *
+ *Example 1:
+ *Input: "Let's take LeetCode contest"
+ *Output: "s'teL ekat edoCteeL tsetnoc"
+ */
+
+void reverseStr(char *S , int low , int high) {
+
+    char temp;
+
+    if (!S || (low >= high))
+        return;
+
+    while(low < high) {
+        temp = S[low];
+        S[low] = S[high];
+        S[high] = temp;
+
+        low++;
+        high--;
+    }
+}
+
+char* reverseWords(char* s) {
+
+    int len;
+    int i, j;
+    if(!s)
+        return NULL;
+    len = strlen(s);
+
+    if(len <= 0)
+        return "";
+
+    i = j = 0;
+    while(j < len){
+
+        if(j+1<len && (s[j] != ' ') && (s[j+1] == ' ')) {
+
+            reverseStr(s, i, j);
+            i = j+1;
+
+        } else if(s[j] == ' '){
+            i++;
+        }
+        j++;
+    }
+    reverseStr(s, i, len-1);
+
+    return s;
+
+}
+
+
 /*
  *Remove spaces from a given string
  */
@@ -543,6 +639,7 @@ void print_string(char *S, int len){
         i++;
     }
 }
+
 
 void reverse_string(char *S, int len) {
 
