@@ -64,7 +64,7 @@ void reverseStr(char *S , int low , int high) {
     }
 }
 
-char* reverseWords(char* s) {
+char* reverseWordsPreservingOrder(char* s) {
 
     int len;
     int i, j;
@@ -94,7 +94,53 @@ char* reverseWords(char* s) {
 
 }
 
+/*
+ *reverse words in a string 
+ *Given an input string , reverse the string word by word. 
+ *
+ *Example:
+ *
+ *Input:  ["t","h","e"," ","s","k","y"," ","i","s"," ","b","l","u","e"]
+ *Output: ["b","l","u","e"," ","i","s"," ","s","k","y"," ","t","h","e"]
+ *Note: 
+ *
+ *A word is defined as a sequence of non-space characters.
+ *The input string does not contain leading or trailing spaces.
+ *The words are always separated by a single space.
+ *
+ */
+void reverseWords(char *S) {
 
+    int i, j, len;
+    len = strlen(S);
+
+    if(!S || len == 0)
+        return;
+
+    i = 0;
+    j = 0;
+
+    /*reverse the whole sentence first*/
+    reverseStr(S, i, len-1);
+
+    /*run the loop till the end of the sentence*/
+    while(S[j]) {
+
+        /*
+         *whenever we find a space, we reverse the word found previously , ie from i to j-1
+         *after we reverse the word  update i to point to next char after space   
+         */
+        if(S[j] == ' '){
+            reverseStr(S, i, j-1);    			    
+            i = j+1;
+        }
+        j++;
+    }
+
+    /*reverse the last word*/
+    if(j==len)
+        reverseStr(S, i, j-1); 
+}
 /*
  *Remove spaces from a given string
  */
@@ -662,39 +708,6 @@ void reverse_string(char *S, int len) {
     }
 }
 
-/*leetcode problem 186*/
-void reverse_words(char *S) {
-
-    int i, j, len;
-    len = strlen(S);
-
-    if(!S || len == 0)
-        return;
-
-    i = 0;
-    j = 0;
-
-    /*reverse the whole sentence first*/
-    reverse_string(S, strlen(S));
-
-    /*run the loop till the end of the sentence*/
-    while(S[j]) {
-
-        /*
-         *whenever we find a space, we reverse the word found previously , ie from i to j-1
-         *after we reverse the word  update i to point to next char after space   
-         */
-        if(S[j] == ' '){
-            reverse_string(S+i, j-i);    			    
-            i = j+1;
-        }
-        j++;
-    }
-
-    /*reverse the last word*/
-    if(j==len)
-        reverse_string(S+i, j-i); 
-}
 
 /*
  * linkedin(shortest word distance)
@@ -755,36 +768,6 @@ void reverse_str(char *S , int low , int high) {
         high--;
     }
 }
-
-
-void reverse_words_preserving_order(char *S) {
-
-    int i, j, len;
-    if (!S){
-        printf("string is null");
-        return;
-    }
-
-    i = 0;
-    len = strlen(S);
-    j = len - 1;
-    reverse_str(S, i, j);
-    i = j;
-
-    while(j>=0){
-
-        if(i >= 0 && S[i] != ' '){
-            i--;
-        } else {
-
-            reverse_str(S, i+1, j);
-            j = i-1;
-            i--;
-
-        }
-    }
-}
-
 
 /*
  *leetcode problem 468
@@ -1204,7 +1187,7 @@ int main() {
             printf("Enter the sentence\n");
             scanf(" %[^\n]s", S);  //make scanf work with spaces
             /*fgets(S, 128, stdin);*/
-            reverse_words(S);
+            reverseWords(S);
             print_string(S, strlen(S));
             break;
 
@@ -1225,7 +1208,7 @@ int main() {
 
             printf("Enter the string\n");
             scanf(" %[^\n]s", S);
-            reverse_words_preserving_order(S);
+            reverseWordsPreservingOrder(S);
             printf("%s", S);
             break;
 
