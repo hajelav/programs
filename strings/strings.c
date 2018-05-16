@@ -141,6 +141,72 @@ void reverseWords(char *S) {
     if(j==len)
         reverseStr(S, i, j-1); 
 }
+
+
+/*
+ *valid palindrome
+ *
+ *Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+ *
+ *Note: For the purpose of this problem, we define empty string as valid palindrome.
+ *
+ *Example 1:
+ *
+ *Input: "A man, a plan, a canal: Panama"
+ *Output: true
+ *Example 2:
+ *
+ *Input: "race a car"
+ *Output: false
+ */
+
+bool isValid(char c) {
+
+    if((c >= 'A' && c <= 'Z') || 
+            (c >= 'a' && c <= 'z') ||
+            (c >= '0' && c <= '9'))
+
+        return true;
+    return false;
+
+}
+
+bool isPalindrome(char* s) {
+
+    int len;
+    int i, j;
+
+    if(!s)
+        return false;
+    len = strlen(s);
+
+    if(len <=0)
+        return true;
+
+    i=0; j=len-1;
+
+    while(i<j){
+
+        if( isValid(s[i]) && isValid(s[j])){
+
+            if( toupper(s[i]) != toupper(s[j]) )
+                return false;
+            i++; j--;
+
+        } else if( !isValid(s[i]) && isValid(s[j]) ){
+            i++;
+        } else if( isValid(s[i]) && !isValid(s[j]) ){
+            j--;
+        } else {
+            i++; j--;
+        }
+
+    }
+
+    return true;
+}
+
+
 /*
  *Remove spaces from a given string
  */
