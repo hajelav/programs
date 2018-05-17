@@ -1,5 +1,6 @@
 #include "../utils.h"
 
+
 /*
  *reverse string
  *Write a function that takes a string as input and returns the string reversed.
@@ -205,6 +206,66 @@ bool isPalindrome(char* s) {
 
     return true;
 }
+
+/*
+ *read n characters given read4
+
+ *The API: int read4(char *buf) reads 4 characters at a time from a file.
+ *
+ *The return value is the actual number of characters read. For example, it returns 3 if there is only 3 characters left in the file.
+ *
+ *By using the read4 API, implement the function int read(char *buf, int n) that reads n characters from the file.
+ *
+ *Example 1:
+ *
+ *Input: buf = "abc", n = 4
+ *Output: "abc"
+ *Explanation: The actual number of characters read is 3, which is "abc".
+ *Example 2:
+ *
+ *Input: buf = "abcde", n = 5 
+ *Output: "abcde"
+ *Note:
+ *The read function will only be called once for each test case.
+ */
+
+int read4(char* buf){
+/*implemented by called*/
+    return 0;
+}
+
+int read(char *buf, int n) {
+
+
+    char *buf4 = (char*)malloc(sizeof(char)*4);
+    int bytesRead = 0;
+    int totalBytesRead = 0;
+
+    if(!buf || (*buf == '\0') || n<=0)
+        return 0;
+
+
+
+    while(n > 0) {
+
+        bytesRead = read4(buf4);
+
+        if(bytesRead < 0)
+            return 0;
+        if(bytesRead == 0)
+            break;
+
+        
+        bytesRead  = MIN(bytesRead, n);
+
+        strncpy(buf+totalBytesRead, buf4, bytesRead);
+        totalBytesRead += bytesRead;
+        n -= bytesRead;
+
+    } 
+    return totalBytesRead;
+} 
+
 
 
 /*
