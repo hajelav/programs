@@ -306,6 +306,80 @@ int strStr(char* haystack, char* needle) {
     return -1;
 }
 
+/*
+ *valid parentheses
+ *
+ *Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+ *
+ *An input string is valid if:
+ *
+ *Open brackets must be closed by the same type of brackets.
+ *Open brackets must be closed in the correct order.
+ *Note that an empty string is also considered valid.
+ *
+ *Example 1:
+ *
+ *Input: "()"
+ *Output: true
+ *Example 2:
+ *
+ *Input: "()[]{}"
+ *Output: true
+ *Example 3:
+ *
+ *Input: "(]"
+ *Output: false
+ */
+
+bool isValidParentheses(char* s) {
+
+    int i = 0, len, stackPtr = -1;
+    char *stack;
+
+    if(!s)
+        return false;
+
+    len = strlen(s);
+
+    if(len <= 0)
+        return true;
+
+    /*create a stack of size len+1*/
+    stack = (char*)calloc(len+1, sizeof(char));
+    stack[len] = '\0';
+
+    while(i < len) {
+
+        if( (s[i] == '(') ||
+                (s[i] == '{') ||
+                (s[i] == '[') ) {
+
+            /*increment stack pointer and push into the stack*/
+            stack[++stackPtr] = s[i];
+
+
+        } else  if( (stackPtr >= 0 && s[i] == ')' && stack[stackPtr] == '(') ||
+                (stackPtr >= 0 && s[i] == '}' && stack[stackPtr] == '{') ||
+                (stackPtr >= 0 && s[i] == ']' && stack[stackPtr] == '[') ) {
+
+            /*pop the stack and decrement stack pointer*/
+                    stack[stackPtr--] = '\0';
+        } else 
+            return false;
+
+        i++;
+
+    }
+
+    free(stack);
+
+    /*return true if stack is empty*/
+    if(stackPtr < 0)
+        return true;
+
+    return false;
+}
+
 
 
 /*
