@@ -208,7 +208,7 @@ bool isPalindrome(char* s) {
 }
 
 /*
- *read n characters given read4
+ *read n characters given read4 - call read only once per test case
 
  *The API: int read4(char *buf) reads 4 characters at a time from a file.
  *
@@ -266,10 +266,50 @@ int read(char *buf, int n) {
     return totalBytesRead;
 } 
 
+/*
+ *implement strstr().
+ *
+ *Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+ *
+ *Example 1:
+ *
+ *Input: haystack = "hello", needle = "ll"
+ *Output: 2
+ *Example 2:
+ *
+ *Input: haystack = "aaaaa", needle = "bba"
+ *Output: -1
+ *Clarification:
+ *
+ *What should we return when needle is an empty string? This is a great question to ask during an interview.
+ *
+ *For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr() and Java's indexOf().
+ */
+
+int strStr(char* haystack, char* needle) {
+
+    int i, lenNeedle, lenHaystack;
+    if(!haystack || !needle)
+        return 0;
+    lenNeedle = strlen(needle);
+    lenHaystack = strlen(haystack);
+
+    if(lenNeedle > lenHaystack)
+        return -1;
+
+    for(i=0; i<(lenHaystack-lenNeedle+1); i++){
+
+        if(memcmp(haystack+i, needle, lenNeedle) == 0)
+            return i;
+    }
+
+    return -1;
+}
+
 
 
 /*
- *Remove spaces from a given string
+ *remove spaces from a given string
  */
 
 void removeSpaces(char* str) {
