@@ -372,12 +372,119 @@ bool isValidParentheses(char* s) {
     }
 
     free(stack);
-
     /*return true if stack is empty*/
     if(stackPtr < 0)
         return true;
 
     return false;
+}
+
+/*
+ *add binary strings
+ *
+ *Given two binary strings, return their sum (also a binary string).
+ *
+ *The input strings are both non-empty and contains only characters 1 or 0.
+ *
+ *Example 1:
+ *
+ *Input: a = "11", b = "1"
+ *Output: "100"
+ *Example 2:
+ *
+ *Input: a = "1010", b = "1011"
+ *Output: "10101"
+ */
+
+void reverse(char *A){
+
+    int len, low = 0, high, temp;
+    len = strlen(A);
+
+    if(len == 0)
+        return;
+
+    high = len-1;
+    while(low < high){
+
+        temp = A[low];
+        A[low] = A[high];
+        A[high] = temp;
+
+        low++; high--;
+    }
+
+}
+
+char* addBinary(char* A, char* B) {
+
+    int len, lenA, lenB, count=0;
+    int C = 0;
+
+    int i=0, j=0, tempA,tempB;
+    char *sum;
+
+    if(!A || !B)
+        return NULL;
+
+    lenA = strlen(A);
+    lenB = strlen(B);
+
+    if(lenA == 0 || lenB == 0)
+        return NULL;
+
+    /*get the max len of the two strings*/
+    len = MAX(lenA, lenB);
+
+    /*
+     *create a new array to store the result. the length of new array
+     *will max (lenA, lenB) + 1(to store the carry, if carry > 0) + 1(to store the last '\0' char)
+     */
+
+    sum = (char*)calloc(len+2, sizeof(char));
+    sum[len+1] = '\0';
+
+    /*reverse both the binary arrays, since the addition is done from LSB in the original arrays*/
+    reverse(A);
+    reverse(B);
+
+
+    /*run the loop til both the arrays are iterated*/
+    while((i<lenA) || (j<lenB)) {
+
+        if(i<lenA)
+            tempA = A[i]-'0';
+        else
+            tempA = 0;
+
+        if(j<lenB)
+            tempB = B[j]-'0';
+        else
+            tempB = 0;
+
+        if(tempA + tempB + C == 0){
+            sum[count] = '0'; C = 0;
+        } else if(tempA + tempB + C == 1){
+            sum[count] = '1'; C = 0;
+        }else if(tempA + tempB + C == 2){
+            sum[count] = '0'; C = 1;
+        } else if(tempA + tempB + C == 3){
+            sum[count] = '1'; C = 1;
+        }
+
+        count++; i++; j++;
+
+    }
+
+
+    /*if the carry > 0, add 1 to the sum array*/
+    if(C>0)
+        sum[count] = '1';
+
+
+    /*reverse the result to get the right sum*/
+    reverse(sum);
+    return sum;
 }
 
 
