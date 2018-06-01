@@ -81,35 +81,6 @@ int get2compliment(int n){
     return (~n+1);
 }
 
-/*
- *https://leetcode.com/problems/string-to-integer-atoi/
- *leetcode problem 8
- */
-int my_atoi(char *str) {
-
-    int len, k;
-    int num=0;
-
-    if(!str)
-	return 0;
-
-    k = (*str == '-')?1:0;
-    len = strlen(str);
-
-    while(k<len) {
-	/*num += pow(10, (len-k-1))*(str[k]-'0');*/
-	num = num*10 + str[k]-'0';
-	k++;
-    }
-
-    if(*str == '-'){
-	//number is negative
-	num = get2compliment(num);
-    }
-    return num;
-}
-
-
  /*
   *1. for n numbers , we will have 2^n subsets
   *for eg: for n = 4 (1,2,3,4)
@@ -1464,7 +1435,6 @@ int main() {
 	printf("MENU OPTIONS\n");
 	printf("1 -- Square root of a number\n");
 	printf("2 -- LCM of an array of intergers(using GCD method)\n");
-	printf("3 -- Convert string to int(atoi)\n");
 	printf("4 -- Subsets of an array\n");
 	printf("5 -- maximum area of histogram\n");
 	printf("9 -- check if the two words are one edit away from each other. i.e one word can be formed from another by inserting/ deleting/replacing one character\n");
@@ -1513,11 +1483,6 @@ int main() {
 		free(A);
 		break;
 
-	    case 3:
-		printf("Enter string\n");
-		scanf("%s", str);
-		printf("Number : %d", my_atoi(str));
-		break;
 
 	    case 4:
 		printf("Enter no of elements in array\n");

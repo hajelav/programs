@@ -96,7 +96,7 @@ char* reverseWordsPreservingOrder(char* s) {
 }
 
 /*
- *reverse words in a string 
+ *reverse words in a string  : string contains single spaces only
  *Given an input string , reverse the string word by word. 
  *
  *Example:
@@ -110,7 +110,7 @@ char* reverseWordsPreservingOrder(char* s) {
  *The words are always separated by a single space.
  *
  */
-void reverseWords(char *S) {
+void reverseWordsSingleSpace(char *S) {
 
     int i, j, len;
     len = strlen(S);
@@ -141,9 +141,78 @@ void reverseWords(char *S) {
     /*reverse the last word*/
     if(j==len)
         reverseStr(S, i, j-1); 
+    /*printf("%s", S);*/
 }
 
 
+/*
+ *reverse words in a string : a string can contain multiple spaces
+ *                    
+ *Example:  
+ *
+ *Input: "the sky is blue",
+ *    Output: "blue is sky the".
+ *    Note:
+ *
+ *    - A word is defined as a sequence of non-space characters.
+ *    - Input string may contain leading or trailing spaces. However, your reversed string should not contain leading or      trailing spaces.
+ *    - You need to reduce multiple spaces between two words to a single space in the reversed string.
+ */
+
+
+void reverseWordsMultipleSpaces(char *S) {
+
+    int i, j, len;
+    len = strlen(S);
+
+    if(!S || len == 0)
+        return;
+
+    /*
+     *This piece of code remove all leading/tracing spaces,
+     *and reduce spaces between words to just one space
+     START
+     */
+
+    i = 0;
+    j = 0;
+
+    while(S[j]) {
+
+        if(j-1 >= 0 && S[j] == ' ' && S[j-1] != ' ') {
+     //       S[i] = ' ';
+            i++; j++;
+
+        } else if(S[j] != ' ') {
+
+            S[i] = S[j];
+            i++; j++;
+
+        } else {
+            j++;
+        }
+
+    } 
+
+    S[i] = '\0';
+
+    /*if the last element is space , then make it null // test case passes in leetcode*/
+    if(i-1 >=0 && S[i-1] == ' ')
+        S[i-1] = '\0';
+
+    /*
+     *This piece of code remove all leading/tracing spaces,
+     *and reduce spaces between words to just one space
+     END
+     */
+    
+
+    /*now reverse the words in the sentence*/
+    reverseWordsSingleSpace(S);
+    printf("%s", S);
+
+
+}
 /*
  *valid palindrome
  *
@@ -575,6 +644,7 @@ int myAtoi(char* str) {
 }
 
 
+
 /*
  *remove spaces from a given string
  */
@@ -597,10 +667,12 @@ void removeSpaces(char* str) {
  *http://www.geeksforgeeks.org/check-if-a-given-sequence-of-moves-for-a-robot-is-circular-or-not/
  */
 
-struct dir {
-    char L;
-    char R;
-} D[4] = {{'N', 's'}, {'S', 'N'}, {'W', 'E'}, {'E', 'W'}};
+/*
+ *struct dir {
+ *    char L;
+ *    char R;
+ *} D[4] = {{'N', 's'}, {'S', 'N'}, {'W', 'E'}, {'E', 'W'}};
+ */
 
 /*
  *D[0] = East
@@ -1621,8 +1693,9 @@ int main() {
             printf("Enter the sentence\n");
             scanf(" %[^\n]s", S);  //make scanf work with spaces
             /*fgets(S, 128, stdin);*/
-            reverseWords(S);
-            print_string(S, strlen(S));
+            reverseWordsMultipleSpaces(S);
+            /*reverseWordsSingleSpace(S);*/
+            //print_string(S, strlen(S));
             break;
 
         case 14:
