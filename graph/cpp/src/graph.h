@@ -20,5 +20,5 @@ class Graph {
         void BFS(int node);
         void DFS_stack(int node);
         void clearVisited(void);
-
+        bool DFS_cycle(int node);
 };

@@ -106,3 +106,48 @@ void Graph::DFS_stack(int node) {
     }
 }
 
+
+bool Graph::DFS_cycle(int node) {
+
+    list<int> s; //using list as a stack
+    int vertex;
+    bool flag = false;
+    
+    clearVisited(); //clear the visited array
+
+    /*push the node into the stack*/
+    s.push_back(node);
+    /*mark the first node in the stack as visited*/
+    m_visited[s.back()] = 1;
+
+    while(!s.empty()) {
+
+        flag = false;
+        vertex = s.back();
+        for ( auto n : m_g[vertex] ) {
+            if(!m_visited[n]) {
+                m_visited[n] = 1;
+                s.push_back(n);
+                flag = true;
+                break;
+            } else {
+                /*if we have reached here, it means that we have found an edge, to a
+                previously visited node ( a cycle )*/
+                cout << "hello" << endl;
+                return true;
+
+            }
+        }
+        
+        /*the flag is used to pop the stack only when all the adjacent nodes of a 
+        vertex are already been visited. If the flag is true , then it means that not all 
+        edges , adjacent to vertex were visited*/
+        if(!flag) {
+            //cout << vertex << " ";
+            s.pop_back();
+        }
+    }
+
+    return false;
+}
+
