@@ -61,124 +61,6 @@ void DFS(GRAPH *g, int vtx){
     }
 }
 
-/*
- *variant of DFS: if cycle is found , we store 1 in cycle variable
- */
-void DFS_cycle(GRAPH *g, int vtx, int *path, int *cycle) {
-
-    GNODE *trav;
-    if(isVisited(g, vtx)){
-	/*if we reach here that means , we have already came to a vertex which is already visited.*/
-	return;
-    }
-
-    g[vtx].processed = 1;
-
-    trav = g[vtx].gnode;
-	path[vtx] = 1;
-
-	//go through the neighbors
-    while(trav){
-	if(!path[trav->idx]) {
-	    DFS_cycle(g, trav->idx, path, cycle);
-	} else {
-	    //we have found a vertex we have already visited in a path. hence a cycle
-	    *cycle |= 1; 
-	}
-	trav = trav->next;
-    }
-    //remove the vertex from the path array , since there was no cycle
-	path[vtx] = 0;
-}
-
-int  detect_cycle(GRAPH *g, int n) {
-
-    int cycle = 0, i;
-    /*
-     *path array:if we havent visited a vertex, we add 1 to the corresponding index of the the vertex; eg path[vertex] = 1
-     */
-    int *path = (int*)malloc(sizeof(int)*n);
-
-    //mark all nodes in the path array as unvisited(0) initially
-    for(i=0;i<n;i++){
-	path[i] = 0;
-    }
-
-    for(i=0;i<n;i++) {
-	DFS_cycle(g, i, path, &cycle);
-	cycle |= cycle;
-	/*printf("Vertex=%d, cycle = %d\n", i,cycle);*/
-	/*cycle = 0;*/
-    }
-
-    return cycle;
-}
-
-/*
- *logic: we use a stack to detect a cycle,
- *we take any starting vertex(can be vertex 0), and push that onto the stack.
- *while ( stack is not emply){
- *
- *    1. pop the stack
- *    2. if popped vertex is visited then 
- *          increment the cycle count
- *       else mark the vertex as visited
- *    3.    get the neighbors list of the popped vertex , and push all neighbors to the stack
- *}
- * function returns
- * > 0  -- number of cycles
- * = 0  -- no cycles
- * < 0  -- error
- */
-
-int detect_cycle_directed_graph(GRAPH *g, int no_of_nodes) {
-
-    STACK *s = NULL;
-    GNODE *trav = NULL;
-
-    int cycle = 0;
-    int vertex;
-
-    if (!g || no_of_nodes <= 0){
-        return -1;
-    }
-
-    /*initialize the stack */
-    s = init_stack(no_of_nodes);
-    if(!s){
-        printf("stack init failed\n");
-        return -1;
-    }
-
-    /*push the first vertex(can be any node) into the stacl*/
-    push(s, g[0].idx + '0');
-
-    /*run the loop till the stack is not empty*/
-    while(!isEmpty(s)){
-
-        vertex =  get_top_element(s)-'0';
-        /*print_stack1(s);*/
-
-        /*pop the element from the stack*/
-        pop(s);
-
-        /*check if the vertex has been visited */
-        if (g[vertex].processed) {
-            cycle += 1;
-        } else {
-            g[vertex].processed = 1;
-
-            /*push all the nodes of the popped vertex*/
-            trav = g[vertex].gnode;
-            while(trav){
-                push(s, trav->idx + '0');
-                trav = trav->next;
-            }
-        }
-    }
-
-    return cycle;
-}
 
 //return 0 only when queue is empty , ie when all the element are set to -1
 int queue_empty(int *q, int n) {
@@ -502,13 +384,11 @@ int main() {
 	printf("3 -- Prims minimum spanning tree(MST)\n");
 	printf("4 -- BFS in a graph\n");
 	printf("5 -- DFS in a graph\n");
-	printf("6 -- Detect cycle in a directed graph\n");
 	printf("7 -- Topological sorting\n");
 	printf("8 -- Kruskal's MST\n");
 	printf("9 -- Print all paths from source to destination\n");
 	printf("10 -- single source shortest path using BFS(when all edge len = 1)\n");
 	printf("11 -- clone the graph\n");
-	printf("6 -- Detect cycle in an undirected graph\n");
 
 	printf("Enter your choice\n");
 	scanf("%d",&choice);
@@ -553,10 +433,6 @@ int main() {
 		scanf("%d", &vtx);
 		clear_visited_vertex(g, n);
 		DFS(g, vtx);
-		break;
-
-	    case 6:
-	        printf("cycles: %d\n", detect_cycle_directed_graph(g, n));
 		break;
 
 	    case 7:
