@@ -61,7 +61,6 @@ void Graph::BFS(int node) {
                 m_visited[n] = 1;
                 q.push_back(n);
             }
-
         }
         /*print and pop from the front of the queue */
         cout << vertex << " " ;
@@ -132,22 +131,27 @@ bool Graph::DFS_cycle(int node) {
                 break;
             } else {
                 /*if we have reached here, it means that we have found an edge, to a
-                previously visited node ( a cycle )*/
-                cout << "hello" << endl;
-                return true;
+                previously visited node. now if this node still happens to be in the
+                stack ,then it means there is a back edge ( cycle )*/
+                
+                if(find(s.begin(), s.end(), n) != s.end())
+                    return true;
+
+
+                //cout << "vertex=" << vertex << "node=" << n << endl;
+                //return true;
 
             }
         }
         
         /*the flag is used to pop the stack only when all the adjacent nodes of a 
         vertex are already been visited. If the flag is true , then it means that not all 
-        edges , adjacent to vertex were visited*/
+        edges ,adjacent to vertex were visited*/
         if(!flag) {
             //cout << vertex << " ";
             s.pop_back();
         }
     }
-
     return false;
 }
 
