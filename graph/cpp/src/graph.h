@@ -13,7 +13,7 @@ class Graph {
         int m_vertices;         //no of vertices
         vector<node> m_g;       //adjacency list
         vector<int> m_visited; 
-        list<int> m_topological_order;
+        vector<int> m_topological_order;
 
     public:
         Graph(int vertices);

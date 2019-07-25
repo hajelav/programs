@@ -41,8 +41,10 @@ void Graph::printGraph() {
 
 void Graph::print_topological_order() {
 
-    for(auto const& i : m_topological_order) {
-        cout << i << "-->";
+    int i;
+
+    for(i=0; i<m_vertices; i++) {
+        cout << "vertex[" << i << "] -- Topological order[" << m_topological_order[i] << "]" << endl;
     }
 }
 
@@ -195,7 +197,7 @@ void Graph::DFS_topological_sort_util(int node, int *curr_node) {
         edges , adjacent to vertex were visited*/
         if(!flag) {
             //cout << vertex << " ";
-            m_topological_order.push_back(*curr_node);
+            m_topological_order[vertex] = *curr_node;
             *curr_node = *curr_node - 1;
             s.pop_back();
         }
@@ -210,7 +212,7 @@ void Graph::DFS_topological_sort() {
     clearVisited();
 
     /*initialize the curr_node to the no of vertices*/
-    curr_node = m_vertices;
+    curr_node = m_vertices-1;
 
     /*iterate over each vertices*/
     for(i=0; i<m_vertices; i++) {
@@ -218,5 +220,4 @@ void Graph::DFS_topological_sort() {
       DFS_topological_sort_util(i, &curr_node);  
 
     }
-    
 }

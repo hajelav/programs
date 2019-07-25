@@ -35,10 +35,10 @@ int main() {
     g.addEdge(3, 1); 
 
     g.printGraph();
-    g.DFS_topological_sort();
-    g.print_topological_order();
+    //g.DFS_topological_sort();
+    //g.print_topological_order();
     //g.BFS(0);
-    //g.DFS_stack(2);
+    g.DFS_stack(0);
     cout << endl;
     //cout << "DFS cycle = " << g.DFS_cycle(0) << endl;
 
