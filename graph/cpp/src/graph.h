@@ -13,6 +13,7 @@ class Graph {
         int m_vertices;         //no of vertices
         vector<node> m_g;       //adjacency list
         vector<int> m_visited; 
+        list<int> m_topological_order;
 
     public:
         Graph(int vertices);
@@ -22,4 +23,7 @@ class Graph {
         void DFS_stack(int node);
         void clearVisited(void);
         bool DFS_cycle(int node);
+        void DFS_topological_sort();
+        void print_topological_order();
+        void DFS_topological_sort_util(int node, int *curr_node);
 };
