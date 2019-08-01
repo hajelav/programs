@@ -1,3 +1,19 @@
+
+/*
+ *https://www.youtube.com/watch?v=NdF1QDTRkck&index=10&list=PLFE6E58F856038C69
+ *
+ *program to find all permutation of a given string
+ *In permutation/combination type of problems, always take two strings
+ *1.originalString
+ *2.ProcessedSoFar
+ *
+ *Try to think recursively solving the problem by moving the chars from original
+ *to processed string
+ *
+ *Time complexity : O(n!)
+ */
+
+
 class Solution {
     public:
         vector<vector<int>> permute(vector<int>& nums) {
