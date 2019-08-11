@@ -26,7 +26,5 @@ class Solution {
                 subsetsWithDupUtil(temp, nums, result, j + 1);
                 temp.pop_back();
             }
-
-
         }
 };
