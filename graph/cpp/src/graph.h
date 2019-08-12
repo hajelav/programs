@@ -11,7 +11,7 @@ class Graph {
 
     private:
         int m_vertices;         //no of vertices
-        vector<node> m_g;       //adjacency list
+        vector<node> m_g;       //adjacency list ( vector<vector<int>> m_g )
         vector<int> m_visited; 
         vector<int> m_topological_order;
 
@@ -21,6 +21,7 @@ class Graph {
         void printGraph();
         void BFS(int node);
         void DFS_stack(int node);
+        void DFS(int node);
         void clearVisited(void);
         bool DFS_cycle(int node);
         void DFS_topological_sort();

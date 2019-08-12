@@ -115,6 +115,21 @@ void Graph::DFS_stack(int node) {
     }
 }
 
+/* recursive DFS module */
+void Graph::DFS(int node) {
+
+    if(m_visited[node])
+        return;
+
+    cout << node << " " << endl;
+    m_visited[node] = 1; /* mark the node as visited */
+
+    for ( auto n : m_g[node]) {
+        /* loop through the neighbors of a 'node' */
+        DFS(n);
+    }
+}
+
 
 bool Graph::DFS_cycle(int node) {
 
