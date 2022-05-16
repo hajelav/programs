@@ -9,7 +9,7 @@ using namespace std;
 int  createTree(vector<int>& arr, vector<int>& segTree, int low, int high, int idx) {
 
 	if(low == high ) {
-	//		cout << "low:" << low << " high:" << high << "idx:" << idx << endl;
+		//		cout << "low:" << low << " high:" << high << "idx:" << idx << endl;
 		segTree[idx] = arr[low];
 		return arr[low];
 	}
@@ -47,7 +47,7 @@ void update(vector<int>& segTree, int low, int high, int idx, int i, int delta) 
 	if(idx < low || idx > high)
 		return;
 	if(low == high) {
-	//	cout << "low:" << low << " high:" << high << " idx:" << idx << endl;
+		//	cout << "low:" << low << " high:" << high << " idx:" << idx << endl;
 		segTree[i] += delta;
 		return;
 	}
@@ -87,7 +87,6 @@ int query(vector<int>& segTree, int i, int low, int high, int qStart, int qEnd) 
 	if(!isOverlap(qStart, qEnd, low, high))
 		return 0;
 
-	cout << "i:" << i << endl;
 	/* case 3; low and high lies completely between query range : return the value at node
 	 * note that = is added for the case say low = 2 , hight 2, qStart = 2, qEnd = 8*/
 	if(qStart <= low && high <= qEnd)
@@ -97,6 +96,7 @@ int query(vector<int>& segTree, int i, int low, int high, int qStart, int qEnd) 
 	int mid = low + ((high-low)>>1);
 	int left = query(segTree, 2*i+1, low, mid, qStart, qEnd);
 	int right = query(segTree, 2*i+2, mid+1, high, qStart, qEnd);
+
 	return left+right;
 }
 
