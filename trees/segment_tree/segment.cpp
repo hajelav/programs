@@ -75,6 +75,39 @@ void print(vector<int>& arr) {
 	cout << endl;
 }
 
+bool isOverlap(int qStart, int qEnd, int low, int high) {
+
+	if((qEnd < low) || (high < qStart))
+		return false;
+	return true;	       
+}
+
+int query(vector<int>& segTree, int i, int low, int high, int qStart, int qEnd) {
+
+	if(!isOverlap(qStart, qEnd, low, high))
+		return 0;
+
+	cout << "i:" << i << endl;
+	/* case 3; low and high lies completely between query range : return the value at node
+	 * note that = is added for the case say low = 2 , hight 2, qStart = 2, qEnd = 8*/
+	if(qStart <= low && high <= qEnd)
+		return segTree[i];
+	/* case 1: query range partial overlaps between low and high : recurse both sides of tree*/
+	/* case 2: query range lies completely between low and high : recurse both sides of the tree*/
+	int mid = low + ((high-low)>>1);
+	int left = query(segTree, 2*i+1, low, mid, qStart, qEnd);
+	int right = query(segTree, 2*i+2, mid+1, high, qStart, qEnd);
+	return left+right;
+}
+
+int queryRange(vector<int>& segTree, vector<int>& arr, int start, int end) {
+
+	int low = 0; int high = arr.size()-1;
+	if(!isOverlap(start, end, low, high))
+		return -1;
+	return query(segTree, 0, low, high, start, end);
+}
+
 
 /*
  * #################################
@@ -92,8 +125,9 @@ int main() {
 	vector<int> segTree = createSegmentTree(arr);
 	print(segTree);
 	//update the 5th index from 6 to 10
-	updateSegmentTree(segTree, arr, 9, 10);
-	print(segTree);
+	//updateSegmentTree(segTree, arr, 9, 10);
+	//print(segTree);
+	cout << queryRange(segTree, arr, 7, 9);
 	cout << endl;
 	return 0;
 }
