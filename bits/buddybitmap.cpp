@@ -15,15 +15,20 @@ class BuddyBitmap {
 	int getParentIdx(int i);
 	int getLeftChildIdx(int i);
 	int getRightChildIdx(int i);
+	int getSiblingIdx(int i);
+
 
 	//clear bit functions
 	void clearBit(int offSet, int len);
-	void clearAncestors(vector<int>& bitmap, int i);
-	void clearDescendantLeft(vector<int>& bitmap, int i);
+	void clearAncestors(int i);
+	void clearDescendantLeft(int i);
 	void clearBits(int offset, int len);
 
 	//set bit functions
 	void setBit(int offSet, int len);
+	void setBitAncestors(int i);
+	void setBitDescendants(int i);
+
 
 };
 
@@ -45,13 +50,24 @@ int BuddyBitmap::getLeftChildIdx(int i) {
 int BuddyBitmap::getRightChildIdx(int i) {
 	if(2*i+2 > mSize)
 		return -1;
-	return 2*2+1;
+	return 2*i+2;
 }
 
 
+int BuddyBitmap::getSiblingIdx(int i) {
+	int parent = getParentIdx(i);
+	if(parent < 0)
+		return -1;
+	if(i == 2*parent + 1)
+		return 2*parent+2;
+	else
+		return 2*parent+1;
+
+}
+
 void BuddyBitmap::printBuddyBitmap() {
 
-	cout << "**************************************************" << endl;
+	cout << "****************PRINT*****************************" << endl;
 	for(auto &a : bitmap)
 		cout << a << " ";
 	cout << endl;
@@ -63,7 +79,74 @@ void BuddyBitmap::printBuddyBitmap() {
 /**********************************************************************************************
  * set bit code here
  **********************************************************************************************/
+/* recursively go through all the nodes below the node and set them as 1 */
 
+void BuddyBitmap::setBitDescendants(int i) {
+
+	cout << "i:" << " " << i << endl;
+	/* return if you go beyond leaf nodes */
+	if(i < 0)
+		return;
+	/* if you encounter a node with 1, then no need to go down as all the nodes
+	 * below it , will be 1
+	 */
+	if(bitmap[i])
+		return;
+	bitmap[i] = 1;
+
+	int left = getLeftChildIdx(i);
+	int right = getRightChildIdx(i);
+	setBitDescendants(left);
+	setBitDescendants(right);
+
+}
+
+void BuddyBitmap::setBitAncestors(int i) {
+	cout << "setBitAncestors:" << i << endl;
+
+	int idx;
+	while((idx = getSiblingIdx(i)) > 0 && bitmap[idx] > 0) {
+		cout << "sibling:" << idx << endl;
+		//set the parent idx to 1
+		int parent = getParentIdx(i);
+		bitmap[parent] = 1;
+		i = parent;
+	}
+
+}
+
+void BuddyBitmap::setBit(int offset, int len) {
+
+	if(offset < 0 || offset+len-1 > mSize){
+		cout << "setBit: no action" << endl;
+		return;
+	}
+
+	int range = offset+len-1;
+	for(int i=offset; i<=range; i++) {
+
+		//bitmap is already set, continue
+		if(bitmap[i] == 1) {
+			cout << i << " bit already set" << endl;
+			continue;
+		}
+
+		/* set the bit at pos i to 1. after that we need to do 2 steps
+		 * 1. we need to travel down the tree and make sure all the bits below tree rooted at i 
+		 * are 1 
+		 * 2. since we have turned on the bit at i, we also need to see , if any path up to the
+		 * root also needs to be set to 1 ?. To do this we go to sibling(i), and if its 1 then
+		 * we set parent(i) to 1. Repeat this on the path to the root, till the time
+		 * you find a sibling which is set to 1
+		 */
+		cout << "calling descendants" << endl;
+		setBitDescendants(i);
+		setBitAncestors(i);
+
+
+	}
+
+}
 
 /**********************************************************************************************
  * clear bit code here
@@ -73,7 +156,7 @@ void BuddyBitmap::printBuddyBitmap() {
 /* clear all the parent to 0 , from ith node till the root. There is an optimization here
  * we can stop the loop(need not go till root, if any bitmap[i] becomes 0
  * */ 
-void BuddyBitmap::clearAncestors(vector<int>& bitmap, int i) {
+void BuddyBitmap::clearAncestors(int i) {
 
 	while(bitmap[i] > 0 && i > 0) {
 		bitmap[i] = 0;
@@ -81,7 +164,7 @@ void BuddyBitmap::clearAncestors(vector<int>& bitmap, int i) {
 	}
 }
 /* clear all the left children from node i */
-void BuddyBitmap::clearDescendantLeft(vector<int>& bitmap, int i) {
+void BuddyBitmap::clearDescendantLeft(int i) {
 	while(i > 0) {
 		bitmap[i] = 0;
 		i = getLeftChildIdx(i);
@@ -112,8 +195,8 @@ void BuddyBitmap::clearBits(int offset, int len) {
 		 * to make all 0's either to the left path or the right path
 		 */
 
-		clearAncestors(bitmap, i);
-		clearDescendantLeft(bitmap, i);
+		clearAncestors(i);
+		clearDescendantLeft(i);
 	}
 }
 
@@ -139,5 +222,11 @@ int main() {
 	cin >> offset;
 	cin >> len;
 	buddy.clearBits(offset, len);
+	buddy.printBuddyBitmap();
+
+	cout << "SET BITS : enter offset and len" << endl;
+	cin >> offset;
+	cin >> len;
+	buddy.setBit(offset, len);
 	buddy.printBuddyBitmap();
 }
