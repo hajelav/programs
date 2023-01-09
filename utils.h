@@ -15,6 +15,10 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
 
 
 
@@ -41,7 +45,7 @@ void input_1Dchar_array(char *str);
 void print_2Dchar_array(char **T, int xlen, int ylen);
 void print_2Dmatrix(int **T, int xlen, int ylen);
 void print_2Darray(int **t, int xlen, int ylen);
-void print_2Darray_static(int (*t)[], int xlen, int ylen);
+//void print_2Darray_static(int (*t)[], int xlen, int ylen);
 void print_1Darray(int *A, int n);
 void print_string_index(char *A, int i, int j);
 void swap(int *A, int idx1, int idx2);
