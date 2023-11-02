@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/mylib.h
+
+/home/vivek/programs/design-patters/strategy/lib/mylib.cpp
+mylib.h
+/home/vivek/programs/design-patters/strategy/lib/mylib.h
+
+/home/vivek/programs/design-patters/strategy/src/main.cpp
+iostream
+-
+mylib.h
+/home/vivek/programs/design-patters/strategy/src/mylib.h
+
