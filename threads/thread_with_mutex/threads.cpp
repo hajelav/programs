@@ -54,7 +54,7 @@ void* consumer(void* data) {
     account->withdraw(random_number);
     cout << "Withdraw:" << random_number << " Balance:" << account->get_balance() << endl;
     pthread_mutex_unlock(&mutex);
-     pthread_exit(NULL);
+    pthread_exit(NULL);
 }
 
 //producer thread function

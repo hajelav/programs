@@ -8,6 +8,8 @@ Implementing producer/consumer problem using condition variables
 #include <iostream>
 #include <time.h>
 #include <queue>
+#include <thread>
+#include <functional>
 
 using namespace std;
 
@@ -71,13 +73,29 @@ class Buffer {
     
 };
 
-void* producer(void*) {
+void* producer(void* data) {
 
+    //int *t = static_cast<int*>(data);
+    //cout << "Thread :" << *t << endl;
+   
+    while(1) {
+         Buffer *buf = static_cast<Buffer*>(data);
+        int num = rand()%10;
+        cout << "Adding : " << num << endl;
+        buf->enqueue(num);
+    }
 
 }
 
-void* consumer(void*) {
+void* consumer(void* data) {
 
+    //int *t = static_cast<int*>(data);
+    //cout << "Thread :" << *t << endl;
+     
+    while(1) {
+        Buffer *buf = static_cast<Buffer*>(data);
+        cout << "Removing :" << buf->dequeue() << endl;
+    }
 }
 
 
@@ -85,27 +103,33 @@ int main() {
 
     //create a vector or producers
     
-    vector<pthread_t> producers(NUM_PRODUCER_THREADS);
-    vector<pthread_t> consumers(NUM_CONSUMER_THREADS);
+    vector<thread> producers;
+    vector<thread> consumers;
    
 
     //create a shared buffer 
     Buffer *buf = new Buffer(10);
     //create 5 producers/consumer threads
     for(int i=0; i<NUM_PRODUCER_THREADS; i++) {
-        pthread_create(&producers[i], NULL, buf->enqueue(i), NULL);
+        //pthread_create(&producers[i], NULL, producer, (void*)&i);
+        int num = rand()%10;
+        producers.push_back(thread(bind(&Buffer::enqueue, buf, num)));
        
     }
-    for(int i=0; i<NUM_PRODUCER_THREADS; i++) {
-        pthread_create(&producers[i], NULL, producer, (void*)account);
-        pthread_create(&consumers[i], NULL, consumer, (void*)account);
+    for(int i=0; i<NUM_CONSUMER_THREADS; i++) {
+        int num = rand()%10;
+        consumers.push_back(thread(bind(&Buffer::dequeue, buf, num)));
     }
     
 
-   for(int i=0; i<num_threads; i++) {
-        pthread_join(producers[i], NULL);
-        pthread_join(consumers[i], NULL);
+   for(int i=0; i<NUM_PRODUCER_THREADS; i++) {
+        producers[i].join();
+       
    }
-    pthread_mutex_destroy(&mutex);
+   for(int i=0; i<NUM_CONSUMER_THREADS; i++) {
+        
+        consumers[i].join();
+   }
+    
     return 0;
 }
