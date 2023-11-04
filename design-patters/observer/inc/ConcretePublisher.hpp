@@ -10,6 +10,7 @@ using namespace std;
 class ConcretePublisher : public AbstractPublisher {
 
     public:
+        ConcretePublisher(string msg) : message(msg) {}
 
         void registerSubscriber(AbstractSubscriber* subscriber) {
             subscribers.push_back(subscriber);
@@ -26,15 +27,20 @@ class ConcretePublisher : public AbstractPublisher {
           
         }
 
+        string getMessage() {
+            return message;
+        }
+
         void notifySubscribers() {
             for(auto &a : subscribers) {
-                a->update(a);
+                a->update(this);
             }
         }
 
     private:
         //maintain a list of subscribers
-        vector<AbstractSubscriber*> subscribers; 
+        vector<AbstractSubscriber*> subscribers;
+        string message; 
 
     
 };

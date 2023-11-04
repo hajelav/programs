@@ -2,15 +2,17 @@
 #define CONCRETE_SUBSCRIBER_H
 
 #include "AbstractSubscriber.hpp"
+#include "AbstractPublisher.hpp"
 #include <iostream>
 
 using namespace std;
 
 class ConcreteSubscriber : public AbstractSubscriber {
     public:
-        ConcreteSubscriber(string name) : name(name) {}
-        void update(const string& msg) {
-            cout << name << " received " << msg << endl;
+        ConcreteSubscriber(string n) : name(n) {}
+
+        void update(AbstractPublisher* publisher) {
+            cout << getSubscriberName() << " received  message : " << publisher->getMessage() << endl;
         }
 
         string getSubscriberName() {
