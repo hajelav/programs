@@ -2,6 +2,7 @@
 #define ABSTRACT_DUCK_H
 
 #include "AbstractFlyBehavior.hpp"
+#include "AbstractQuackBehavior.hpp"
 
 class Duck {
 
@@ -13,8 +14,13 @@ class Duck {
         void performFly() {
             flyBehavior->fly();
         }
+        void performQuack() {
+            quackBehaviour->quack();
+        }
     
         AbstractFlyBehavior* flyBehavior;
+        AbstractQuackBehaviour* quackBehaviour; 
+
         
 
 };

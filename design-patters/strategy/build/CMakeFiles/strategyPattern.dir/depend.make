@@ -3,9 +3,11 @@
 
 CMakeFiles/strategyPattern.dir/src/main.cpp.o: ../inc/AbstractDuck.hpp
 CMakeFiles/strategyPattern.dir/src/main.cpp.o: ../inc/AbstractFlyBehavior.hpp
+CMakeFiles/strategyPattern.dir/src/main.cpp.o: ../inc/AbstractQuackBehavior.hpp
 CMakeFiles/strategyPattern.dir/src/main.cpp.o: ../inc/FlyWithWingsConcrete.hpp
 CMakeFiles/strategyPattern.dir/src/main.cpp.o: ../inc/MallardDuckConcrete.hpp
 CMakeFiles/strategyPattern.dir/src/main.cpp.o: ../inc/NoFlyConcrete.hpp
+CMakeFiles/strategyPattern.dir/src/main.cpp.o: ../inc/QuackConcrete.hpp
 CMakeFiles/strategyPattern.dir/src/main.cpp.o: ../inc/RubberDuckConcrete.hpp
 CMakeFiles/strategyPattern.dir/src/main.cpp.o: ../src/main.cpp
 

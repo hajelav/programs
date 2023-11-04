@@ -9,8 +9,12 @@
 ../inc/AbstractDuck.hpp
 AbstractFlyBehavior.hpp
 ../inc/AbstractFlyBehavior.hpp
+AbstractQuackBehavior.hpp
+../inc/AbstractQuackBehavior.hpp
 
 ../inc/AbstractFlyBehavior.hpp
+
+../inc/AbstractQuackBehavior.hpp
 
 ../inc/FlyWithWingsConcrete.hpp
 AbstractFlyBehavior.hpp
@@ -23,12 +27,20 @@ AbstractDuck.hpp
 ../inc/AbstractDuck.hpp
 FlyWithWingsConcrete.hpp
 ../inc/FlyWithWingsConcrete.hpp
+QuackConcrete.hpp
+../inc/QuackConcrete.hpp
 iostream
 -
 
 ../inc/NoFlyConcrete.hpp
 AbstractFlyBehavior.hpp
 ../inc/AbstractFlyBehavior.hpp
+iostream
+-
+
+../inc/QuackConcrete.hpp
+AbstractQuackBehavior.hpp
+../inc/AbstractQuackBehavior.hpp
 iostream
 -
 
