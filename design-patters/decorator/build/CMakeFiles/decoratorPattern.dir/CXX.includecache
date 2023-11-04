@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/AbstractBeverage.hpp
+iostream
+-
+
+../inc/AbstractCondimentDecorator.hpp
+AbstractBeverage.hpp
+../inc/AbstractBeverage.hpp
+
+../inc/ConcreteBeverageHouseBlend.hpp
+AbstractBeverage.hpp
+../inc/AbstractBeverage.hpp
+
+../inc/ConcreteCondimentMocha.hpp
+AbstractCondimentDecorator.hpp
+../inc/AbstractCondimentDecorator.hpp
+
+../inc/ConcreteCondimentWhip.hpp
+AbstractCondimentDecorator.hpp
+../inc/AbstractCondimentDecorator.hpp
+
+/home/vivek/programs/design-patters/decorator/src/main.cpp
+iostream
+-
+AbstractBeverage.hpp
+/home/vivek/programs/design-patters/decorator/src/AbstractBeverage.hpp
+AbstractCondimentDecorator.hpp
+/home/vivek/programs/design-patters/decorator/src/AbstractCondimentDecorator.hpp
+ConcreteBeverageHouseBlend.hpp
+/home/vivek/programs/design-patters/decorator/src/ConcreteBeverageHouseBlend.hpp
+ConcreteCondimentMocha.hpp
+/home/vivek/programs/design-patters/decorator/src/ConcreteCondimentMocha.hpp
+ConcreteCondimentWhip.hpp
+/home/vivek/programs/design-patters/decorator/src/ConcreteCondimentWhip.hpp
+
