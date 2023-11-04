@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /home/vivek/programs/design-patters/strategy/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/test.dir/all
+all: CMakeFiles/strategyPattern.dir/all
 
 .PHONY : all
 
@@ -63,36 +63,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/test.dir/clean
+clean: CMakeFiles/strategyPattern.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/test.dir
+# Target rules for target CMakeFiles/strategyPattern.dir
 
 # All Build rule for target.
-CMakeFiles/test.dir/all:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/depend
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vivek/programs/design-patters/strategy/build/CMakeFiles --progress-num=1,2,3 "Built target test"
-.PHONY : CMakeFiles/test.dir/all
+CMakeFiles/strategyPattern.dir/all:
+	$(MAKE) -f CMakeFiles/strategyPattern.dir/build.make CMakeFiles/strategyPattern.dir/depend
+	$(MAKE) -f CMakeFiles/strategyPattern.dir/build.make CMakeFiles/strategyPattern.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vivek/programs/design-patters/strategy/build/CMakeFiles --progress-num=1,2 "Built target strategyPattern"
+.PHONY : CMakeFiles/strategyPattern.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patters/strategy/build/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test.dir/all
+CMakeFiles/strategyPattern.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patters/strategy/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/strategyPattern.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patters/strategy/build/CMakeFiles 0
-.PHONY : CMakeFiles/test.dir/rule
+.PHONY : CMakeFiles/strategyPattern.dir/rule
 
 # Convenience name for target.
-test: CMakeFiles/test.dir/rule
+strategyPattern: CMakeFiles/strategyPattern.dir/rule
 
-.PHONY : test
+.PHONY : strategyPattern
 
 # clean rule for target.
-CMakeFiles/test.dir/clean:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/clean
-.PHONY : CMakeFiles/test.dir/clean
+CMakeFiles/strategyPattern.dir/clean:
+	$(MAKE) -f CMakeFiles/strategyPattern.dir/build.make CMakeFiles/strategyPattern.dir/clean
+.PHONY : CMakeFiles/strategyPattern.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

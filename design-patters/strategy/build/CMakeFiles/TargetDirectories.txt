@@ -1,3 +1,3 @@
 /home/vivek/programs/design-patters/strategy/build/CMakeFiles/rebuild_cache.dir
 /home/vivek/programs/design-patters/strategy/build/CMakeFiles/edit_cache.dir
-/home/vivek/programs/design-patters/strategy/build/CMakeFiles/test.dir
+/home/vivek/programs/design-patters/strategy/build/CMakeFiles/strategyPattern.dir

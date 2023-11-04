@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/test.dir/src/main.cpp.o CMakeFiles/test.dir/lib/mylib.cpp.o  -o bin/test 

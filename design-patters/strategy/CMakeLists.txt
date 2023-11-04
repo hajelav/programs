@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Define the sources for your project
 set(SOURCES
     src/main.cpp
-    lib/mylib.cpp
+#   lib/mylib.cpp
 )
 
 # Include directories
@@ -19,5 +19,5 @@ include_directories(inc)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Create an executable from the sources
-add_executable(test ${SOURCES})
+add_executable(strategyPattern ${SOURCES})
 

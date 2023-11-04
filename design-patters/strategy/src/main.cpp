@@ -1,9 +1,12 @@
 #include <iostream>
-#include "mylib.h"
+//#include "mylib.h"
+#include "AbstractDuck.hpp"
+#include "MallardDuck.hpp"
 
 int main() {
-    std::cout << "Hello, CMake Tutorial!" << std::endl;
-    int result = add(5, 7);
-    std::cout << "5 + 7 = " << result << std::endl;
+
+    Duck *duck = new MallardDuck();
+    duck->performFly();
+    
     return 0;
 }

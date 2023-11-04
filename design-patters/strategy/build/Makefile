@@ -111,44 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named test
+# Target rules for targets named strategyPattern
 
 # Build rule for target.
-test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test
-.PHONY : test
+strategyPattern: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 strategyPattern
+.PHONY : strategyPattern
 
 # fast build rule for target.
-test/fast:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
-.PHONY : test/fast
-
-lib/mylib.o: lib/mylib.cpp.o
-
-.PHONY : lib/mylib.o
-
-# target to build an object file
-lib/mylib.cpp.o:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/lib/mylib.cpp.o
-.PHONY : lib/mylib.cpp.o
-
-lib/mylib.i: lib/mylib.cpp.i
-
-.PHONY : lib/mylib.i
-
-# target to preprocess a source file
-lib/mylib.cpp.i:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/lib/mylib.cpp.i
-.PHONY : lib/mylib.cpp.i
-
-lib/mylib.s: lib/mylib.cpp.s
-
-.PHONY : lib/mylib.s
-
-# target to generate assembly for a file
-lib/mylib.cpp.s:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/lib/mylib.cpp.s
-.PHONY : lib/mylib.cpp.s
+strategyPattern/fast:
+	$(MAKE) -f CMakeFiles/strategyPattern.dir/build.make CMakeFiles/strategyPattern.dir/build
+.PHONY : strategyPattern/fast
 
 src/main.o: src/main.cpp.o
 
@@ -156,7 +129,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/main.cpp.o
+	$(MAKE) -f CMakeFiles/strategyPattern.dir/build.make CMakeFiles/strategyPattern.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -165,7 +138,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/main.cpp.i
+	$(MAKE) -f CMakeFiles/strategyPattern.dir/build.make CMakeFiles/strategyPattern.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -174,7 +147,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/main.cpp.s
+	$(MAKE) -f CMakeFiles/strategyPattern.dir/build.make CMakeFiles/strategyPattern.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 # Help Target
@@ -185,10 +158,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... test"
-	@echo "... lib/mylib.o"
-	@echo "... lib/mylib.i"
-	@echo "... lib/mylib.s"
+	@echo "... strategyPattern"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

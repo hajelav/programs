@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/AbstractDuck.hpp
+AbstractFlyBehavior.hpp
+../inc/AbstractFlyBehavior.hpp
+
+../inc/AbstractFlyBehavior.hpp
+
+../inc/FlyWithWings.hpp
+AbstractFlyBehavior.hpp
+../inc/AbstractFlyBehavior.hpp
+iostream
+-
+
+../inc/MallardDuck.hpp
+AbstractDuck.hpp
+../inc/AbstractDuck.hpp
+FlyWithWings.hpp
+../inc/FlyWithWings.hpp
+iostream
+-
+
+/home/vivek/programs/design-patters/strategy/src/main.cpp
+iostream
+-
+AbstractDuck.hpp
+/home/vivek/programs/design-patters/strategy/src/AbstractDuck.hpp
+MallardDuck.hpp
+/home/vivek/programs/design-patters/strategy/src/MallardDuck.hpp
+
