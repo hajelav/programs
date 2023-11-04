@@ -33,6 +33,9 @@ class ConcretePublisher : public AbstractPublisher {
 
         void notifySubscribers() {
             for(auto &a : subscribers) {
+                /* here we are passing the published class pointer instead of a 
+                string message.This gives us more flexibility , as the subscriber class
+                has access to full published object instead of just a string message */
                 a->update(this);
             }
         }
