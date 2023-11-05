@@ -1,5 +1,20 @@
-#ifndef C92A8375_B43B_4CBA_97E0_770689310054
-#define C92A8375_B43B_4CBA_97E0_770689310054
+#ifndef CONCRETE_NY_STYLE_CHEESE_PIZZA_H
+#define CONCRETE_NY_STYLE_CHEESE_PIZZA_H
 
+#include "AbstractPizza.hpp"
 
-#endif /* C92A8375_B43B_4CBA_97E0_770689310054 */
+using namespace std;
+
+class ConcreteNYStyleCheesePizza : public AbstractPizza {
+
+    public:
+        ConcreteNYStyleCheesePizza() {
+            name = "NY style Sauce and cheese Pizza";
+            dough = "Thin crust dough";
+            sauce = "Marinara sauce";
+            toppings.push_back("grated raggiano cheese");
+        }
+               
+};
+
+#endif /* CONCRETE_NY_STYLE_CHEESE_PIZZA_H */

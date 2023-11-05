@@ -1,5 +1,24 @@
-#ifndef B6D0B62D_021B_45FD_9ACE_09C9A3A76686
-#define B6D0B62D_021B_45FD_9ACE_09C9A3A76686
+#ifndef CONCRETE_CHICAGO_STYLE_VEGGIE_PIZZA_H
+#define CONCRETE_CHICAGO_STYLE_VEGGIE_PIZZA_H
 
+#include "AbstractPizza.hpp"
 
-#endif /* B6D0B62D_021B_45FD_9ACE_09C9A3A76686 */
+using namespace std;
+
+class ConcreteChicagoStyleVeggiePizza : public AbstractPizza {
+
+    public:
+        ConcreteChicagoStyleVeggiePizza() {
+            name = "Chicago style deep dish veggie pizza";
+            dough = "Extra thick crust";
+            sauce = "Plum tomato sauce";
+            toppings.push_back("grated raggiano cheese");
+        }
+        //overriding the function from the base class
+        void cut() override {
+            cout << "Cutting the pizza into square slices" << endl;
+        }
+        
+};
+
+#endif /* CONCRETE_CHICAGO_STYLE_VEGGIE_PIZZA_H */

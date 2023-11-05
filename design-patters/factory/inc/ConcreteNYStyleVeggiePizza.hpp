@@ -1,5 +1,20 @@
-#ifndef A0461C70_3B1F_41D6_9A76_17103C4AED1F
-#define A0461C70_3B1F_41D6_9A76_17103C4AED1F
+#ifndef CONCRETE_NY_STYLE_VEGGIE_PIZZA_H
+#define CONCRETE_NY_STYLE_VEGGIE_PIZZA_H
 
+#include "AbstractPizza.hpp"
 
-#endif /* A0461C70_3B1F_41D6_9A76_17103C4AED1F */
+using namespace std;
+
+class ConcreteNYStyleVeggiePizza : public AbstractPizza {
+
+    public:
+        ConcreteNYStyleVeggiePizza() {
+            name = "NY style Sauce and veggie Pizza";
+            dough = "Thin crust dough";
+            sauce = "Marinara sauce";
+            toppings.push_back("Onions, pepper, mushrooms");
+        }
+        
+};
+
+#endif /* CONCRETE_NY_STYLE_VEGGIE_PIZZA_H */
