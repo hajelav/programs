@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/Singleton.hpp
+iostream
+-
+
+/home/vivek/programs/design-patters/singleton/src/main.cpp
+iostream
+-
+Singleton.hpp
+/home/vivek/programs/design-patters/singleton/src/Singleton.hpp
+iostream
+-
+assert.h
+-
+

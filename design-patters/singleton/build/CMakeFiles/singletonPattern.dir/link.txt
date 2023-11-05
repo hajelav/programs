@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/singletonPattern.dir/src/main.cpp.o  -o bin/singletonPattern 
