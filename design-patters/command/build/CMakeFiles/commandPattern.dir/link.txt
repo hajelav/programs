@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/commandPattern.dir/src/main.cpp.o  -o bin/commandPattern 

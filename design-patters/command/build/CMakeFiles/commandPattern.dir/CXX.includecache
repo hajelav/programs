@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/AbstractCommand.hpp
+
+../inc/ConcreteLightOffCommand.hpp
+Lights.hpp
+../inc/Lights.hpp
+AbstractCommand.hpp
+../inc/AbstractCommand.hpp
+
+../inc/ConcreteLightOnCommand.hpp
+AbstractCommand.hpp
+../inc/AbstractCommand.hpp
+Lights.hpp
+../inc/Lights.hpp
+
+../inc/InvokerRemoteController.hpp
+AbstractCommand.hpp
+../inc/AbstractCommand.hpp
+
+../vendor/Lights.hpp
+iostream
+-
+
+/home/vivek/programs/design-patters/command/src/main.cpp
+iostream
+-
+Lights.hpp
+/home/vivek/programs/design-patters/command/src/Lights.hpp
+InvokerRemoteController.hpp
+/home/vivek/programs/design-patters/command/src/InvokerRemoteController.hpp
+AbstractCommand.hpp
+/home/vivek/programs/design-patters/command/src/AbstractCommand.hpp
+ConcreteLightOffCommand.hpp
+/home/vivek/programs/design-patters/command/src/ConcreteLightOffCommand.hpp
+ConcreteLightOnCommand.hpp
+/home/vivek/programs/design-patters/command/src/ConcreteLightOnCommand.hpp
+
