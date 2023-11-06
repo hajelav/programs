@@ -26,10 +26,19 @@ int main() {
     //initialize the turn on command
     AbstractCommand *command2 = new ConcreteLightOnCommand(light);
 
-    //set the command to turn off the lights
+    //set the command to turn on the lights
     controller->setCommand(command2);
     //execute the command 
     controller->executeCommand();
+
+
+    //undo the last command
+    controller->undoLastCommand();
+    //undo the last comman again
+    controller->undoLastCommand();
+    //undo the last command
+    controller->undoLastCommand();
+    
 
 
 

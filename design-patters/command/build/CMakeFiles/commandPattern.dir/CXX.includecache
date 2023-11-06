@@ -9,10 +9,10 @@
 ../inc/AbstractCommand.hpp
 
 ../inc/ConcreteLightOffCommand.hpp
-Lights.hpp
-../inc/Lights.hpp
 AbstractCommand.hpp
 ../inc/AbstractCommand.hpp
+Lights.hpp
+../inc/Lights.hpp
 
 ../inc/ConcreteLightOnCommand.hpp
 AbstractCommand.hpp
@@ -23,6 +23,10 @@ Lights.hpp
 ../inc/InvokerRemoteController.hpp
 AbstractCommand.hpp
 ../inc/AbstractCommand.hpp
+vector
+-
+memory
+-
 
 ../vendor/Lights.hpp
 iostream

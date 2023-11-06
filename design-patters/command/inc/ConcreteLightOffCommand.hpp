@@ -5,6 +5,8 @@
 #include "AbstractCommand.hpp"
 #include "Lights.hpp"
 
+using namespace std;
+
 class ConcreteLightOffCommand : public AbstractCommand {
 
     public:
@@ -13,6 +15,12 @@ class ConcreteLightOffCommand : public AbstractCommand {
         }
         void execute() {
             light->off();
+        }
+
+        //undo is just opposite of this command
+        void undo() {
+            cout << "undo action of light off" << endl;
+            light->on();
         }
 
     private:

@@ -4,6 +4,7 @@
 #include "AbstractCommand.hpp"
 #include "Lights.hpp"
 
+using namespace std;
 class ConcreteLightOnCommand : public AbstractCommand {
 
     public:
@@ -12,6 +13,10 @@ class ConcreteLightOnCommand : public AbstractCommand {
         }
         void execute() {
             light->on();
+        }
+        void undo() {
+            cout << "undo action of light on" << endl;
+            light->off();
         }
 
     private:
