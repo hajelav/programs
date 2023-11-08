@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/Facade.hpp
+SubSystemA.hpp
+../inc/SubSystemA.hpp
+SubSystemB.hpp
+../inc/SubSystemB.hpp
+SubSystemC.hpp
+../inc/SubSystemC.hpp
+iostream
+-
+
+../inc/SubSystemA.hpp
+iostream
+-
+
+../inc/SubSystemB.hpp
+iostream
+-
+
+../inc/SubSystemC.hpp
+iostream
+-
+
+/home/vivek/programs/design-patters/facade/src/main.cpp
+SubSystemA.hpp
+/home/vivek/programs/design-patters/facade/src/SubSystemA.hpp
+SubSystemB.hpp
+/home/vivek/programs/design-patters/facade/src/SubSystemB.hpp
+SubSystemC.hpp
+/home/vivek/programs/design-patters/facade/src/SubSystemC.hpp
+Facade.hpp
+/home/vivek/programs/design-patters/facade/src/Facade.hpp
+
