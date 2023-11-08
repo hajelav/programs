@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/AbstractNewSystemAdapter.hpp
+
+../inc/ConcreteAdapter.hpp
+AbstractNewSystemAdapter.hpp
+../inc/AbstractNewSystemAdapter.hpp
+OldSystemAdaptee.hpp
+../inc/OldSystemAdaptee.hpp
+
+../inc/OldSystemAdaptee.hpp
+iostream
+-
+
+/home/vivek/programs/design-patters/adaptor/src/main.cpp
+iostream
+-
+AbstractNewSystemAdapter.hpp
+/home/vivek/programs/design-patters/adaptor/src/AbstractNewSystemAdapter.hpp
+ConcreteAdapter.hpp
+/home/vivek/programs/design-patters/adaptor/src/ConcreteAdapter.hpp
+
