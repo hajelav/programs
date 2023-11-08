@@ -12,11 +12,12 @@ class Facade {
 
     public:
         void operation1() {
-            cout << ""
+            cout << "Facade : operation 1" << endl;
             subsystemA->operationA();
             subsystemB->operationB();
         }
         void operation2() {
+            cout << "Facade : operation 2" << endl;
             subsystemB->operationB();
             subsystemC->operationC();
         }
