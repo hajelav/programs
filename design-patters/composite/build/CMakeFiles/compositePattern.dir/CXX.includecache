@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/AbstractComponent.hpp
+
+../inc/CompositeComponent.hpp
+AbstractComponent.hpp
+../inc/AbstractComponent.hpp
+vector
+-
+iostream
+-
+
+../inc/LeafComponent.hpp
+AbstractComponent.hpp
+../inc/AbstractComponent.hpp
+iostream
+-
+
+/home/vivek/programs/design-patters/composite/src/main.cpp
+AbstractComponent.hpp
+/home/vivek/programs/design-patters/composite/src/AbstractComponent.hpp
+CompositeComponent.hpp
+/home/vivek/programs/design-patters/composite/src/CompositeComponent.hpp
+LeafComponent.hpp
+/home/vivek/programs/design-patters/composite/src/LeafComponent.hpp
+
