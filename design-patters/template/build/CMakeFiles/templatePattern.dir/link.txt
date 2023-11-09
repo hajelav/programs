@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/templatePattern.dir/src/main.cpp.o  -o bin/templatePattern 

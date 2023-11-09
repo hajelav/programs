@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/AbstractTemplateClass.hpp
+iostream
+-
+
+../inc/ConcreteClassA.hpp
+AbstractTemplateClass.hpp
+../inc/AbstractTemplateClass.hpp
+iostream
+-
+
+../inc/ConcreteClassB.hpp
+AbstractTemplateClass.hpp
+../inc/AbstractTemplateClass.hpp
+iostream
+-
+
+/home/vivek/programs/design-patters/template/src/main.cpp
+AbstractTemplateClass.hpp
+/home/vivek/programs/design-patters/template/src/AbstractTemplateClass.hpp
+ConcreteClassA.hpp
+/home/vivek/programs/design-patters/template/src/ConcreteClassA.hpp
+ConcreteClassB.hpp
+/home/vivek/programs/design-patters/template/src/ConcreteClassB.hpp
+
