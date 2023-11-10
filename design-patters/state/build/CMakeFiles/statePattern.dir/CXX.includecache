@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/AbstractState.hpp
+Context.hpp
+../inc/Context.hpp
+
+../inc/ConcreteStateA.hpp
+AbstractState.hpp
+../inc/AbstractState.hpp
+Context.hpp
+../inc/Context.hpp
+ConcreteStateB.hpp
+../inc/ConcreteStateB.hpp
+
+../inc/ConcreteStateB.hpp
+AbstractState.hpp
+../inc/AbstractState.hpp
+Context.hpp
+../inc/Context.hpp
+ConcreteStateA.hpp
+../inc/ConcreteStateA.hpp
+
+../inc/Context.hpp
+AbstractState.hpp
+../inc/AbstractState.hpp
+iostream
+-
+
+/home/vivek/programs/design-patters/state/src/main.cpp
+Context.hpp
+/home/vivek/programs/design-patters/state/src/Context.hpp
+ConcreteStateA.hpp
+/home/vivek/programs/design-patters/state/src/ConcreteStateA.hpp
+
