@@ -5,6 +5,7 @@ project(MyProject)  # Name your project
 # Specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_BUILD_TYPE Debug)
 
 # Define the sources for your project
 set(SOURCES
@@ -24,5 +25,5 @@ include_directories(
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Create an executable from the sources
-add_executable(smartPointers ${SOURCES})
+add_executable(sharedPointer ${SOURCES})
 
