@@ -10,7 +10,6 @@ set(CMAKE_BUILD_TYPE Debug)
 # Define the sources for your project
 set(SOURCES
     src/main.cpp
-#   lib/mylib.cpp
 )
 
 # Include directories
