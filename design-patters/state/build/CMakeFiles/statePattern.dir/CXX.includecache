@@ -7,8 +7,6 @@
 #IncludeRegexTransform: 
 
 ../inc/AbstractState.hpp
-Context.hpp
-../inc/Context.hpp
 
 ../inc/ConcreteStateA.hpp
 AbstractState.hpp
@@ -35,6 +33,8 @@ iostream
 /home/vivek/programs/design-patters/state/src/main.cpp
 Context.hpp
 /home/vivek/programs/design-patters/state/src/Context.hpp
+ConcreteStateB.hpp
+/home/vivek/programs/design-patters/state/src/ConcreteStateB.hpp
 ConcreteStateA.hpp
 /home/vivek/programs/design-patters/state/src/ConcreteStateA.hpp
 

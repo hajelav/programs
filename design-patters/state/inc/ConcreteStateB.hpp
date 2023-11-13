@@ -5,20 +5,22 @@
 #include "Context.hpp"
 #include "ConcreteStateA.hpp"
 
+class ConcreteStateA;
 class ConcreteStateB : public AbstractState
 {
-private:
-    /* data */
-public:
 
-    ConcreteStateB() {} 
-    ~ConcreteStateB() {} 
+public:
+      ConcreteStateB() {} 
+      ~ConcreteStateB() {} 
 
     void handle(Context* context) override {
         cout << "ConcreteStateB handles the request." << endl;
-        AbstractState *stateA = new ConcreteStateA();
+        //AbstractState *stateA = new ConcreteStateA();
+        
         context->setState(new ConcreteStateA());
-    }
+    } 
+      
 };
+
 
 #endif // CONCRETE_STATE_B_H

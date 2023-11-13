@@ -6,6 +6,7 @@ Pattern in C++
 */
 
 #include "Context.hpp"
+#include "ConcreteStateB.hpp"
 #include "ConcreteStateA.hpp"
 
 int main() {

@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/AbstractSubjectImage.hpp
+
+../inc/ProxyImage.hpp
+AbstractSubjectImage.hpp
+../inc/AbstractSubjectImage.hpp
+RealSubjectImage.hpp
+../inc/RealSubjectImage.hpp
+iostream
+-
+memory
+-
+
+../inc/RealSubjectImage.hpp
+AbstractSubjectImage.hpp
+../inc/AbstractSubjectImage.hpp
+iostream
+-
+
+/home/vivek/programs/design-patters/proxy/src/main.cpp
+AbstractSubjectImage.hpp
+/home/vivek/programs/design-patters/proxy/src/AbstractSubjectImage.hpp
+RealSubjectImage.hpp
+/home/vivek/programs/design-patters/proxy/src/RealSubjectImage.hpp
+ProxyImage.hpp
+/home/vivek/programs/design-patters/proxy/src/ProxyImage.hpp
+memory
+-
+iostream
+-
+
