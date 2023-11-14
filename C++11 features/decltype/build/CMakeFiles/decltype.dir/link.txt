@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/decltype.dir/src/main.cpp.o  -o bin/decltype 

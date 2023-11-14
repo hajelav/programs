@@ -1,0 +1,3 @@
+/home/vivek/programs/C++11 features/decltype/build/CMakeFiles/rebuild_cache.dir
+/home/vivek/programs/C++11 features/decltype/build/CMakeFiles/edit_cache.dir
+/home/vivek/programs/C++11 features/decltype/build/CMakeFiles/decltype.dir

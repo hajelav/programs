@@ -21,7 +21,7 @@ public:
         currstate = state;
     }
     /* whenever the request is made on the context,
-     it is delegated to state to handle*/
+     it is delegated to state to handle */
     void request() {
         if(currstate) {
             currstate->handle(this);

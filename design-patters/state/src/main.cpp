@@ -19,9 +19,9 @@ int main() {
     //perform request() on context to change the states
     context->request();
 
-    context->request();
+    //context->request();
 
-    context->request();
+    //context->request();
 
     return 0;
 }

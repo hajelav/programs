@@ -5,7 +5,7 @@
 #include "Context.hpp"
 #include "ConcreteStateA.hpp"
 
-class ConcreteStateA;
+//class ConcreteStateA;
 class ConcreteStateB : public AbstractState
 {
 
