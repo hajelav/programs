@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/variadicTemplates.dir/src/main.cpp.o  -o bin/variadicTemplates 
