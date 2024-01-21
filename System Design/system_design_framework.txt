@@ -1,0 +1,13 @@
+4 step framework
+
+Step 1 : Spend 5 mins
+
+    1) Gather functional requirements
+    2) Gather non functional requirements
+        2.1 Security
+        2.2 Consistency
+        2.3 Performance  -> Imp
+        2,4 Scale -> Imp
+        2.5 Availibility -> Imp
+
+Step 2 : 

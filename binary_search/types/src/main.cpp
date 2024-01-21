@@ -5,7 +5,7 @@
 using namespace std;
 
 /*
-simple binary searh which -1 false when the element is not found
+simple binary searh which returns -1  when the element is not found
 else return the leftmost index of the found element
 */
 int binSearchLeft(vector<int>& nums, int low, int high, int key) {
@@ -29,7 +29,7 @@ int binSearchLeft(vector<int>& nums, int low, int high, int key) {
 }
 
 /*
-simple binary searh which -1 false when the element is not found
+simple binary searh which  returns-1 when the element is not found
 else return the right index of the found element
 */
 int binSearchRight(vector<int>& nums, int low, int high, int key) {
