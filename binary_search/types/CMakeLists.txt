@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)  # Minimum CMake version required
 
-project(BinnarySearchTypes)  # Name your project
+project(MyProject)  # Name your project
 
 # Specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
@@ -24,5 +24,5 @@ include_directories(
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Create an executable from the sources
-add_executable(binarySearch ${SOURCES})
+add_executable(binSearch ${SOURCES})
 
