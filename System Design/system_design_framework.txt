@@ -11,3 +11,11 @@ Step 1 : Spend 5 mins
         2.5 Availibility -> Imp
 
 Step 2 : 
+    1) API design : come up with some high level API , as to how the ends user will
+    interact with your system. Use RestAPI schema
+
+    2) Propose a high level design with all major components. Come up with a high level 
+    design diagram.
+
+    3) Data model : define the schema and some tables to store the data. You can always 
+    start with relational DB schema.
