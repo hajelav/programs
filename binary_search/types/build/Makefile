@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named binarySearch
+# Target rules for targets named binSearch
 
 # Build rule for target.
-binarySearch: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 binarySearch
-.PHONY : binarySearch
+binSearch: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 binSearch
+.PHONY : binSearch
 
 # fast build rule for target.
-binarySearch/fast:
-	$(MAKE) -f CMakeFiles/binarySearch.dir/build.make CMakeFiles/binarySearch.dir/build
-.PHONY : binarySearch/fast
+binSearch/fast:
+	$(MAKE) -f CMakeFiles/binSearch.dir/build.make CMakeFiles/binSearch.dir/build
+.PHONY : binSearch/fast
 
 src/main.o: src/main.cpp.o
 
@@ -129,7 +129,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/binarySearch.dir/build.make CMakeFiles/binarySearch.dir/src/main.cpp.o
+	$(MAKE) -f CMakeFiles/binSearch.dir/build.make CMakeFiles/binSearch.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -138,7 +138,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/binarySearch.dir/build.make CMakeFiles/binarySearch.dir/src/main.cpp.i
+	$(MAKE) -f CMakeFiles/binSearch.dir/build.make CMakeFiles/binSearch.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -147,7 +147,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/binarySearch.dir/build.make CMakeFiles/binarySearch.dir/src/main.cpp.s
+	$(MAKE) -f CMakeFiles/binSearch.dir/build.make CMakeFiles/binSearch.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 # Help Target
@@ -158,7 +158,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... binarySearch"
+	@echo "... binSearch"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /home/vivek/programs/binary_search/types/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/binarySearch.dir/all
+all: CMakeFiles/binSearch.dir/all
 
 .PHONY : all
 
@@ -63,36 +63,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/binarySearch.dir/clean
+clean: CMakeFiles/binSearch.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/binarySearch.dir
+# Target rules for target CMakeFiles/binSearch.dir
 
 # All Build rule for target.
-CMakeFiles/binarySearch.dir/all:
-	$(MAKE) -f CMakeFiles/binarySearch.dir/build.make CMakeFiles/binarySearch.dir/depend
-	$(MAKE) -f CMakeFiles/binarySearch.dir/build.make CMakeFiles/binarySearch.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vivek/programs/binary_search/types/build/CMakeFiles --progress-num=1,2 "Built target binarySearch"
-.PHONY : CMakeFiles/binarySearch.dir/all
+CMakeFiles/binSearch.dir/all:
+	$(MAKE) -f CMakeFiles/binSearch.dir/build.make CMakeFiles/binSearch.dir/depend
+	$(MAKE) -f CMakeFiles/binSearch.dir/build.make CMakeFiles/binSearch.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vivek/programs/binary_search/types/build/CMakeFiles --progress-num=1,2 "Built target binSearch"
+.PHONY : CMakeFiles/binSearch.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/binarySearch.dir/rule: cmake_check_build_system
+CMakeFiles/binSearch.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/binary_search/types/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/binarySearch.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/binSearch.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/binary_search/types/build/CMakeFiles 0
-.PHONY : CMakeFiles/binarySearch.dir/rule
+.PHONY : CMakeFiles/binSearch.dir/rule
 
 # Convenience name for target.
-binarySearch: CMakeFiles/binarySearch.dir/rule
+binSearch: CMakeFiles/binSearch.dir/rule
 
-.PHONY : binarySearch
+.PHONY : binSearch
 
 # clean rule for target.
-CMakeFiles/binarySearch.dir/clean:
-	$(MAKE) -f CMakeFiles/binarySearch.dir/build.make CMakeFiles/binarySearch.dir/clean
-.PHONY : CMakeFiles/binarySearch.dir/clean
+CMakeFiles/binSearch.dir/clean:
+	$(MAKE) -f CMakeFiles/binSearch.dir/build.make CMakeFiles/binSearch.dir/clean
+.PHONY : CMakeFiles/binSearch.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

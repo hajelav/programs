@@ -41,13 +41,15 @@ int binSearchRight(vector<int>& nums, int low, int high, int key) {
 
     if(low == high && key == nums[low])
         return low;
+    if(low == mid && key == nums[low] && key == nums[high])
+        return high;
 
     if(key == nums[mid]) {
-        return binSearchLeft(nums, mid, high, key);   
+        return binSearchRight(nums, mid, high, key);   
     } else if(key < nums[mid]) {
-        return binSearchLeft(nums, low, mid-1, key);
+        return binSearchRight(nums, low, mid-1, key);
     } else {
-        return binSearchLeft(nums, mid+1, high, key);
+        return binSearchRight(nums, mid+1, high, key);
     }
 
 }
@@ -61,20 +63,40 @@ int main() {
     ********************************************/
     //search for element outside the arrray
     int idx1 = binSearchLeft(V1, 0, V1.size()-1, 3);
-    cout <<  idx1 << endl;
+    cout << "binSearchLeft:" << idx1 << endl;
     int idx2 = binSearchLeft(V1, 0, V1.size()-1, 10);
-    cout <<  idx2 << endl;
+    cout << "binSearchLeft:" << idx2 << endl;
 
     //search for element present in the list
     int idx3 = binSearchLeft(V1, 0, V1.size()-1, 4);
-    cout <<  idx3 << endl;
+    cout << "binSearchLeft:" <<  idx3 << endl;
     int idx4 = binSearchLeft(V1, 0, V1.size()-1, 7);
-    cout <<  idx4 << endl;
+    cout << "binSearchLeft:" <<  idx4 << endl;
 
     //searh for an element not present
     int idx5 = binSearchLeft(V1, 0, V1.size()-1, 6);
-    cout <<  idx5 << endl;
+    cout << "binSearchLeft:" <<  idx5 << endl;
 
+    cout << "*********************************************" << endl;
+
+    /*******************************************
+     * TESTTING binSearchRight
+    ********************************************/
+     //search for element outside the arrray
+    int idx6 = binSearchRight(V1, 0, V1.size()-1, 3);
+    cout << "binSearchRight:" << idx6 << endl;
+    int idx7 = binSearchRight(V1, 0, V1.size()-1, 10);
+    cout << "binSearchRight:" << idx7 << endl;
+
+    //search for element present in the list
+    int idx8 = binSearchRight(V1, 0, V1.size()-1, 4);
+    cout << "binSearchRight:" <<  idx8 << endl;
+    int idx9 = binSearchRight(V1, 0, V1.size()-1, 7);
+    cout << "binSearchRight:" <<  idx9 << endl;
+
+    //searh for an element not present
+    int idx10 = binSearchRight(V1, 0, V1.size()-1, 6);
+    cout << "binSearchRight:" <<  idx10 << endl;
 
     return 0;
 }
