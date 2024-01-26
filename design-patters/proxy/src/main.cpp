@@ -19,7 +19,7 @@ int main(int argc, char const *argv[])
     realImage->display();
 
     //creating a proxy image object
-    shared_ptr<AbstractSubjectImage> proxyImage = make_shared<ProxyImage>("Sample.jpg");
+    shared_ptr<AbstractSubjectImage> proxyImage = make_shared<ProxyImage>("Sample2.jpg");
     proxyImage->display();
 
     return 0;

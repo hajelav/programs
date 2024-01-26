@@ -6,6 +6,7 @@
 #include <iostream>
 using namespace std;
 
+//forward declaration
 class AbstractPublisher;
 
 class AbstractSubscriber {

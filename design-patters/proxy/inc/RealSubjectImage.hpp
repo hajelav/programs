@@ -12,10 +12,10 @@ private:
     string fileName;
 public:
     void display() override {
-        cout << "Diplaying image" << endl;
+        cout << "Diplaying real image:" << fileName << endl;
     }
     void loadFromDisk() {
-        cout << "Loading image from disk:" << fileName << endl;
+        cout << "Loading real image from disk:" << fileName << endl;
     }
 
     RealSubjectImage(string fName) : fileName(fName) {
