@@ -15,6 +15,7 @@ private:
     string name;
 
 public:
+    CompositeComponent(string name) : name(name) {}
 
     void add(AbstractComponent* component) {
         children.push_back(component);
@@ -27,7 +28,7 @@ public:
         }
     }
 
-    CompositeComponent(string name) : name(name) {}
+    
     ~CompositeComponent() {
         for(auto &a : children) {
             delete a;
