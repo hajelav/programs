@@ -1,6 +1,10 @@
 
 /*
- *  Consider a time scale. At random points in time, there will be register callback functions invoked. The callback functions are waiting on an event that will be fired at some point in time. By the time the caller registers the callback, if the event had happened, the caller should execute the function, otherwise, the callback needs to be registered and executed once the event has fired. After the event has fired, any callback dependent on the event can be executed without having to register
+ Consider a time scale. At random points in time, there will be register callback functions invoked. 
+ The callback functions are waiting on an event that will be fired at some point in time. By the time the 
+ caller registers the callback, if the event had happened, the caller should execute the function, otherwise, 
+ the callback needs to be registered and executed once the event has fired. After the event has fired, any 
+ callback dependent on the event can be executed without having to register
  */
 
 #include <stdio.h>
