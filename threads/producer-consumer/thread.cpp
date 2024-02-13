@@ -73,32 +73,6 @@ class Buffer {
     
 };
 
-void* producer(void* data) {
-
-    //int *t = static_cast<int*>(data);
-    //cout << "Thread :" << *t << endl;
-   
-    while(1) {
-         Buffer *buf = static_cast<Buffer*>(data);
-        int num = rand()%10;
-        cout << "Adding : " << num << endl;
-        buf->enqueue(num);
-    }
-
-}
-
-void* consumer(void* data) {
-
-    //int *t = static_cast<int*>(data);
-    //cout << "Thread :" << *t << endl;
-     
-    while(1) {
-        Buffer *buf = static_cast<Buffer*>(data);
-        cout << "Removing :" << buf->dequeue() << endl;
-    }
-}
-
-
 int main() {
 
     //create a vector or producers
