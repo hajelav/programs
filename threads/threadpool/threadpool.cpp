@@ -3,13 +3,13 @@
 #include <pthread.h>
 #include <stdbool.h>
 #include <unistd.h>
-#include <queue>
+#include <Queue.h>
 
 using namespace std;
 
 typedef struct task
 {
-    void (*func)(void *);
+    void (*cb)(void *);
     void *args;
 } TASK;
 
@@ -24,16 +24,38 @@ class ThreadPool
 
     }
 
-    void AddTask(TASK* task) {
-        
+    /* this is the function executed by threads in a thread pool, 
+    any thread picks up any task from the taskQueue and call the function
+    associated  with that task. These tasks are added by the clients. whenever a thread
+    works on a task , it calls its cb functon */
+    void workers() {
+
+        pthread_mutex_lock(&mutex);
+        pthread_mutex_unlock(&mutex);
+
     }
+
+    void addTask(TASK* task) {
+
+        /* push the tasks into the queue in a thread safe manner*/
+        pthread_mutex_lock(&mutex);
+        while(currSize == qSize) {
+            pthread_cond_wait(&full, &mutex);
+        }   
+        /* increment the size of the queue*/
+        currSize++;
+        taskQueue.push(task);
+        pthread_cond_signal(&empty);
+        pthread_mutex_unlock(&mutex);
+
+    };
 
 
 
 private:
     int currSize;
     int qSize;
-    queue<int> taskQueue;
+    queue<TASK*> taskQueue;
     // locking valriable
     pthread_mutex_t mutex;
     pthread_cond_t full;
