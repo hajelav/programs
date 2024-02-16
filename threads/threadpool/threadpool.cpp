@@ -30,8 +30,23 @@ class ThreadPool
     works on a task , it calls its cb functon */
     void workers() {
 
-        pthread_mutex_lock(&mutex);
-        pthread_mutex_unlock(&mutex);
+
+        while(1) {
+            pthread_mutex_lock(&mutex);
+            while(currSize == 0) {
+                pthread_cond_wait(&empty, &mutex);
+            }
+            /* fetch the task from the front */
+            TASK *task = taskQueue.front();
+            /* call the cb requisted by the client in Add task function */
+            task->cb(task->args);
+            /* signal if there are any tasks to be added */
+            pthread_cond_signal(&full);
+            /* decrement the size of the queue */
+            currSize--;
+
+            pthread_mutex_unlock(&mutex);
+        }
 
     }
 
