@@ -554,3 +554,130 @@ void threadpool_free(struct threadpool *pool, int blocking)
 		}
 	}
 }
+
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <stdbool.h>
+#include <unistd.h>
+
+#define MAX_THREADS 4 // Define the maximum number of threads in the pool
+
+// Define a structure to represent a task
+typedef struct {
+    void (*function)(void*); // Function pointer to the task function
+    void *arg; // Argument to be passed to the task function
+} Task;
+
+// Define a structure to represent the thread pool
+typedef struct {
+    pthread_t threads[MAX_THREADS]; // Array to store thread IDs
+    Task queue[MAX_THREADS * 2]; // Array to store the task queue
+    int queueSize; // Current size of the task queue
+    int queueFront; // Index of the front of the task queue
+    int queueRear; // Index of the rear of the task queue
+    pthread_mutex_t queueMutex; // Mutex to protect access to the task queue
+    pthread_cond_t queueNotEmpty; // Condition variable to signal that the task queue is not empty
+    pthread_cond_t queueNotFull; // Condition variable to signal that the task queue is not full
+    bool stop; // Flag to indicate whether the thread pool should stop
+} ThreadPool;
+
+// Function executed by worker threads
+void *ThreadPool_Worker(void *arg) {
+    ThreadPool *pool = (ThreadPool*)arg;
+    while (true) {
+        pthread_mutex_lock(&pool->queueMutex);
+        while (pool->queueSize == 0 && !pool->stop) {
+            pthread_cond_wait(&pool->queueNotEmpty, &pool->queueMutex);
+        }
+        if (pool->stop) {
+            pthread_mutex_unlock(&pool->queueMutex);
+            pthread_exit(NULL);
+        }
+        Task task = pool->queue[pool->queueFront];
+        pool->queueFront = (pool->queueFront + 1) % (MAX_THREADS * 2);
+        pool->queueSize--;
+        pthread_cond_signal(&pool->queueNotFull);
+        pthread_mutex_unlock(&pool->queueMutex);
+
+        // Execute the task
+        task.function(task.arg);
+    }
+}
+
+// Function to initialize the thread pool
+void ThreadPool_Init(ThreadPool *pool) {
+    pool->queueSize = 0;
+    pool->queueFront = 0;
+    pool->queueRear = 0;
+    pthread_mutex_init(&pool->queueMutex, NULL);
+    pthread_cond_init(&pool->queueNotEmpty, NULL);
+    pthread_cond_init(&pool->queueNotFull, NULL);
+    pool->stop = false;
+
+    // Create worker threads
+    for (int i = 0; i < MAX_THREADS; ++i) {
+        pthread_create(&pool->threads[i], NULL, ThreadPool_Worker, (void*)pool);
+    }
+}
+
+
+// Function to add a task to the thread pool
+void ThreadPool_AddTask(ThreadPool *pool, void (*function)(void*), void *arg) {
+    
+    pthread_mutex_lock(&pool->queueMutex);
+    while (pool->queueSize == MAX_THREADS * 2) {
+        pthread_cond_wait(&pool->queueNotFull, &pool->queueMutex);
+    }
+    pool->queue[pool->queueRear].function = function;
+    pool->queue[pool->queueRear].arg = arg;
+    pool->queueRear = (pool->queueRear + 1) % (MAX_THREADS * 2);
+    pool->queueSize++;
+    pthread_cond_signal(&pool->queueNotEmpty);
+    pthread_mutex_unlock(&pool->queueMutex);
+}
+
+// Function to destroy the thread pool
+void ThreadPool_Destroy(ThreadPool *pool) {
+    pthread_mutex_lock(&pool->queueMutex);
+    pool->stop = true;
+    pthread_mutex_unlock(&pool->queueMutex);
+    pthread_cond_broadcast(&pool->queueNotEmpty);
+
+    for (int i = 0; i < MAX_THREADS; ++i) {
+        pthread_join(pool->threads[i], NULL);
+    }
+
+    pthread_mutex_destroy(&pool->queueMutex);
+    pthread_cond_destroy(&pool->queueNotEmpty);
+    pthread_cond_destroy(&pool->queueNotFull);
+}
+
+// Sample task function
+void SampleTask(void *arg) {
+    int *num = (int*)arg;
+    printf("Task executed with argument: %d\n", *num);
+}
+
+int main() {
+    ThreadPool pool;
+    ThreadPool_Init(&pool);
+
+    // Enqueue some sample tasks
+    for (int i = 0; i < 10; ++i) {
+        int *num = malloc(sizeof(int));
+        *num = i;
+        ThreadPool_AddTask(&pool, SampleTask, num);
+    }
+
+    // Wait for a while to allow all tasks to complete
+    sleep(2);
+
+    // Destroy the thread pool
+    ThreadPool_Destroy(&pool);
+
+    return 0;
+}
