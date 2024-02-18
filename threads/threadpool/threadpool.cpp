@@ -16,6 +16,7 @@ typedef struct task
 class ThreadPool
 {
 
+public:
     ThreadPool(int size) : qSize(size) {
     currSize = 0;
     pthread_mutex_init(&mutex, NULL);
@@ -76,3 +77,14 @@ private:
     pthread_cond_t full;
     pthread_cond_t empty;
 };
+
+
+void simpleTask( int num) {
+    cout << "Task : " << num << endl;
+}
+int main() {
+
+ThreadPool *pool = new ThreadPool(8);
+
+
+}
