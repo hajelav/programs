@@ -54,6 +54,41 @@ int binSearchRight(vector<int>& nums, int low, int high, int key) {
 
 }
 
+/*
+if the target is present - return the leftmost index
+if the target is less than first element - return the first element
+if the target is more then last element - return the last element
+if the target is not present but lies between first and last element - return the element
+smaller than the target
+ */
+
+int binSearch(vector<int>& ts, int low, int high, int target) {
+
+        if (low == high)
+            return low;
+
+        int mid = low + ((high - low) >> 1);
+
+        if (low == mid && target == ts[mid])
+            return low;
+        if (low == mid  && target < ts[high])
+            return low;
+        if (low == mid  && target > ts[high])
+            return high;
+        if (low == mid  && target == ts[high])
+            return high;
+        
+        if (ts[mid] == target) {
+            return binSearch(ts, low, mid, target);
+        } else if (ts[mid] < target) {
+            return binSearch(ts, mid, high, target);
+        } else {
+            return binSearch(ts, low, mid - 1, target);
+        }
+
+        
+    }
+
 int main() {
 
     vector<int> V1 = {4,4,4,4,5,5,7,7,7};
@@ -97,6 +132,29 @@ int main() {
     //searh for an element not present
     int idx10 = binSearchRight(V1, 0, V1.size()-1, 6);
     cout << "binSearchRight:" <<  idx10 << endl;
+
+
+
+    /*******************************************
+     * TESTTING binSearch
+    ********************************************/
+    cout << "****************************************************" << endl;
+     //search for element outside the arrray
+    int idx11 = binSearch(V1, 0, V1.size()-1, 3);
+    cout << "binSearch:" << idx11 << endl;
+    int idx12 = binSearch(V1, 0, V1.size()-1, 10);
+    cout << "binSearch:" << idx12 << endl;
+
+    //search for element present in the list
+    int idx13 = binSearch(V1, 0, V1.size()-1, 4);
+    cout << "binSearch:" <<  idx13 << endl;
+    int idx14 = binSearch(V1, 0, V1.size()-1, 7);
+    cout << "binSearch:" <<  idx14 << endl;
+
+    //searh for an element not present
+    int idx15 = binSearch(V1, 0, V1.size()-1, 6);
+    cout << "binSearch:" <<  idx15 << endl;
+
 
     return 0;
 }
