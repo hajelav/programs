@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "AbstractPizza.hpp"
+#include <memory>
 
 using namespace std;
 
@@ -10,11 +11,11 @@ class PizzastoreFactory {
 
     public:
 
-        virtual  AbstractPizza* createPizza(string item) = 0;
+        virtual  shared_ptr<AbstractPizza> createPizza(string item) = 0;
         
         virtual void orderPizza(string type) {
 
-            AbstractPizza *pizza = createPizza(type);
+            shared_ptr<AbstractPizza> pizza = createPizza(type);
             pizza = createPizza(type);
             pizza->prepare();
             pizza->bake();
@@ -22,7 +23,7 @@ class PizzastoreFactory {
             pizza->box();
         }
 
-        AbstractPizza* pizza;
+        shared_ptr<AbstractPizza> pizza;
 };
 
 

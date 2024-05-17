@@ -11,12 +11,12 @@ using namespace std;
 class ConcreteNYPizzaStore : public PizzastoreFactory {
 
     public:
-        AbstractPizza* createPizza(string item) {
+        shared_ptr<AbstractPizza> createPizza(string item) {
             if(item == "cheese") {
-                pizza = new ConcreteNYStyleCheesePizza();
+                pizza = make_shared<ConcreteNYStyleCheesePizza>();
 
             } else if(item == "veggie") {
-                pizza = new ConcreteNYStyleVeggiePizza();
+                pizza = make_shared<ConcreteNYStyleVeggiePizza>();
 
             } else {
                 return nullptr;

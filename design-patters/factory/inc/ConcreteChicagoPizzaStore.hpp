@@ -11,12 +11,12 @@
 class ConcreteChicagoPizzaStore : public PizzastoreFactory {
 
        public:
-        AbstractPizza* createPizza(string item) {
+        shared_ptr<AbstractPizza> createPizza(string item) {
             if(item == "cheese") {
-                pizza = new ConcreteChicagoStyleCheesePizza();
+                pizza = make_shared<ConcreteChicagoStyleCheesePizza>();
 
             } else if(item == "veggie") {
-                pizza = new ConcreteChicagoStyleVeggiePizza();
+                pizza = make_shared<ConcreteChicagoStyleVeggiePizza>();
 
             } else {
                 return nullptr;

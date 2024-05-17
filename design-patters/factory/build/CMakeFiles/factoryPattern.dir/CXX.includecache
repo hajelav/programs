@@ -53,6 +53,8 @@ iostream
 -
 AbstractPizza.hpp
 ../inc/AbstractPizza.hpp
+memory
+-
 
 /home/vivek/programs/design-patters/factory/src/main.cpp
 AbstractPizza.hpp
@@ -71,4 +73,8 @@ ConcreteNYStyleCheesePizza.hpp
 /home/vivek/programs/design-patters/factory/src/ConcreteNYStyleCheesePizza.hpp
 ConcreteNYStyleVeggiePizza.hpp
 /home/vivek/programs/design-patters/factory/src/ConcreteNYStyleVeggiePizza.hpp
+iostream
+-
+memory
+-
 
