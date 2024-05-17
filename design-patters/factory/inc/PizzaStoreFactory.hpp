@@ -16,7 +16,7 @@ class PizzastoreFactory {
         virtual void orderPizza(string type) {
 
             shared_ptr<AbstractPizza> pizza = createPizza(type);
-            pizza = createPizza(type);
+            //pizza = createPizza(type);
             pizza->prepare();
             pizza->bake();
             pizza->cut();

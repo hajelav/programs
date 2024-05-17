@@ -16,7 +16,7 @@ class ConcreteChicagoStyleCheesePizza : public AbstractPizza {
         }
         //overriding the function from the base class
         void cut() override {
-            cout << "Cutting the pizza into square slices" << endl;
+            cout << "Cutting the chiago style cheese pizza into square slices" << endl;
         }
         
 };
