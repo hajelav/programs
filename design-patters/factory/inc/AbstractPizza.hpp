@@ -11,6 +11,12 @@ class AbstractPizza {
 
     public:
 
+        /**
+         * A method to prepare the pizza by tossing dough, adding sauce, and toppings.
+         *
+         * @return void
+         *
+         */
         void prepare() {
             cout << "Preparing " << name << endl;
             cout << "Tossing Dough..." << endl;

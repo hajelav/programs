@@ -9,6 +9,11 @@
 
 using namespace std;
 
+/**
+ * The main function that demonstrates creating pizza stores and ordering pizzas.
+ *
+ * @return 0 indicating successful execution
+ */
 int main() {
 
     //create a NY pizza store
