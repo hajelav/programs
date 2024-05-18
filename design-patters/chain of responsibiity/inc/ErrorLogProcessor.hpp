@@ -14,9 +14,8 @@ public:
      *
      * @param nextLogger A pointer to the next logger in the chain of responsibility.
      */
-ErrorLogProcessor(AbstractLogger* nextLogger) : AbstractLogger(nextLogger) {
-    // This constructor is used to initialize the next logger
-    // in the chain of responsibility.
+ErrorLogProcessor(shared_ptr<AbstractLogger> nextLogger) : AbstractLogger(nextLogger) {
+    cout << "ErrorLogProcessor constructed with next logger " << nextLogger.get() << endl;
 }
 
 /**
@@ -26,14 +25,18 @@ ErrorLogProcessor(AbstractLogger* nextLogger) : AbstractLogger(nextLogger) {
  * @param message The message to be logged.
  */
 void log(int level, string message) {
+    // Print the log level and message before processing
+    cout << "ErrorLogProcessor: Logging level " << level << ", message " << message << endl;
+
     // If the logging level is ERROR, log the message
     if(level == ERROR) {
         cout << "ERROR " << message << endl;
     } else {
         // If the level is not ERROR, pass the message to the next logger
-        cout << "Cannot handle " << level << " passing to next logger" << endl;
-        // Call the log function of the next logger in the chain
-        nextLogger->log(level, message);
+        cout << "ErrorLogProcessor: Level not ERROR, passing to next logger" << endl;
+         nextLogger->log(level, message);
+
+        
     }
 }
 

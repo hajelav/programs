@@ -9,6 +9,8 @@
 ../inc/AbstractLogger.hpp
 iostream
 -
+memory
+-
 
 ../inc/DebugLogProcessor.hpp
 AbstractLogger.hpp

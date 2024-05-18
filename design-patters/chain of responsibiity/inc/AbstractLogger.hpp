@@ -2,6 +2,7 @@
 #define ABSTRACT_LOGGER_H
 
 #include<iostream>
+#include <memory>
 using namespace std;
 
 class AbstractLogger {
@@ -9,8 +10,9 @@ class AbstractLogger {
         static int INFO;
         static int DEBUG;
         static int ERROR;
+        static int DEFAULT;
 
-        AbstractLogger(AbstractLogger* logger) {
+        AbstractLogger(shared_ptr<AbstractLogger> logger) {
             nextLogger = logger;
         }
 
@@ -21,11 +23,12 @@ class AbstractLogger {
         }
 
         //data
-        AbstractLogger* nextLogger;
+        shared_ptr<AbstractLogger> nextLogger;
 };
 
-int AbstractLogger::INFO = 1;
-int AbstractLogger::DEBUG = 2;
+int AbstractLogger::DEBUG = 1;
+int AbstractLogger::INFO = 2;
 int AbstractLogger::ERROR = 3;
+int AbstractLogger::DEFAULT = 0;
 
 #endif /* ABSTRACT_LOGGER_H */

@@ -21,29 +21,38 @@ Client: Initiates requests and passes them to the first handler in the chain. Th
  * @brief Main function to demonstrate the chain of responsibility pattern
  *        This pattern allows multiple objects to handle a request without explicitly specifying the handler.
  *        The request is passed along the chain of handlers until it is handled by one of them.
+ *
  * @param argc The number of command line arguments
  * @param argv An array of strings representing the command line arguments
+ *
  * @return 0 indicating successful execution
+ *
+ * @throws None
  */
 int main(int argc, const char** argv) {
-    std::cout << "Creating logger chain:" << std::endl;
-    // Create a chain of loggers: Debug->info->error
+    // Create a chain of loggers: errror->info->debug
     // The logger takes a pointer to the next logger in the chain in its constructor
     // The last logger in the chain should be nullptr
-    AbstractLogger *logger = new DebugLogProcessor(new InfoLogProcessor( new ErrorLogProcessor(nullptr)));
+    std::cout << "Creating logger chain:" << std::endl;
+    
+    // Create a chain of loggers with the following order: error -> info -> debug
+    // Each logger is linked to the next logger in the chain
+    shared_ptr<AbstractLogger> logger = make_shared<ErrorLogProcessor>(
+        make_shared<InfoLogProcessor>(
+            make_shared<DebugLogProcessor>(nullptr)
+        )
+    );
+    
     std::cout << "Logger chain created" << std::endl;
 
     // Log information, error, and debug messages
     // The logger decides which handler to pass the message to based on the log level
-    std::cout << "Logging info message:" << std::endl;
-    logger->log(AbstractLogger::INFO, "I am info log");
-    std::cout << "Info message logged" << std::endl;
-    std::cout << "Logging error message:" << std::endl;
     logger->log(AbstractLogger::ERROR, "I am error log");
-    std::cout << "Error message logged" << std::endl;
-    std::cout << "Logging debug message:" << std::endl;
-    logger->log(AbstractLogger::DEBUG, "I am debug log");
-    std::cout << "Debug message logged" << std::endl;
 
+    logger->log(AbstractLogger::INFO, "I am info log");
+     
+    logger->log(AbstractLogger::DEBUG, "I am debug log");
+     logger->log(AbstractLogger::DEFAULT, "I am debug log");
+   
     return 0;
 }
