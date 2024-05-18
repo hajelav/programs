@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.12)  # Minimum CMake version required
 project(MyProject)  # Name your project
 
 # Specify the C++ standard
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Define the sources for your project

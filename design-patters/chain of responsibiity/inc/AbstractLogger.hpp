@@ -2,7 +2,7 @@
 #define ABSTRACT_LOGGER_H
 
 #include<iostream>
- using namespace std;
+using namespace std;
 
 class AbstractLogger {
     public:
