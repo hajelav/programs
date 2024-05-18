@@ -10,7 +10,10 @@
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c17",
             "cppStandard": "gnu++14",
-            "intelliSenseMode": "linux-gcc-x64"
+            "intelliSenseMode": "linux-gcc-x64",
+            "editor.tabSize": 4,
+            "editor.insertSpaces": false,
+
         }
     ],
     "version": 4

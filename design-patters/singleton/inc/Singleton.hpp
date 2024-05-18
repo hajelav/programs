@@ -1,30 +1,29 @@
-#include <iostream>
+#ifndef SINGLETON_HPP
+#define SINGLETON_HPP
 
-class Singleton {
+#include <memory>
 
-    public:
+using namespace std;
+class Singleton
+{
+private:
+    Singleton(const Singleton &) = delete;
+    Singleton &operator=(const Singleton &) = delete;
 
-    static Singleton* getInstance() {
-        if(instance == nullptr) {
-            instance = new Singleton();
-        } else {
-            return instance;
+    static unique_ptr<Singleton> instance;
+    Singleton() {}
+
+public:
+    static Singleton &getInstance()
+    {
+        if (!instance)
+        {
+            instance = make_unique<Singleton>();
         }
-        return instance;
+        return *instance;
     }
-
-    private:
-        //private constructor to prevent external instantiation
-        Singleton() {}
-        //private destructor to prevent external deletion
-        ~Singleton() {}
-        //private copy constructor and assignment operator to prevent copying
-        Singleton(const Singleton&) = delete;
-        Singleton& operator=(const Singleton&) = delete;
-
-
-        static Singleton* instance; 
 };
 
-Singleton* Singleton::instance = nullptr;
+unique_ptr<Singleton> Singleton::instance = nullptr;
 
+#endif // SINGLETON_HPP

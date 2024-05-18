@@ -4,14 +4,18 @@
 #include "AbstractNewSystemAdapter.hpp"
 #include "OldSystemAdaptee.hpp"
 
+#include <memory>
+#include <iostream>
+
 class ConcreteAdaptor : public AbstractNewSystemAdapter {
 
     public:
         void doNewStuff() override {
-            oldSystem->doOldStuff();
+            cout << "New system doing new stuff" << endl;
+            oldSystem = make_shared<OldSystemAdaptee>();             oldSystem->doOldStuff();
         }
     private:
-        OldSystemAdaptee* oldSystem;
+        shared_ptr<OldSystemAdaptee> oldSystem;
         
 };
 

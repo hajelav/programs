@@ -8,7 +8,7 @@ using namespace std;
 class OldSystemAdaptee {
     public:
         void doOldStuff() {
-            cout << "Old system doing old stuff" << endl;
+            cout << "Called from New interface. Old system doing old stuff" << endl;
         }
 };
 

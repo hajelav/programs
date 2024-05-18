@@ -7,7 +7,7 @@
 #IncludeRegexTransform: 
 
 ../inc/Singleton.hpp
-iostream
+memory
 -
 
 /home/vivek/programs/design-patters/singleton/src/main.cpp

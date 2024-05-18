@@ -5,4 +5,4 @@ CMakeFiles/adapterPattern.dir/src/main.cpp.o
  ../inc/AbstractNewSystemAdapter.hpp
  ../inc/ConcreteAdapter.hpp
  ../inc/OldSystemAdaptee.hpp
- /home/vivek/programs/design-patters/adaptor/src/main.cpp
+ /home/vivek/programs/design-patters/adapter/src/main.cpp

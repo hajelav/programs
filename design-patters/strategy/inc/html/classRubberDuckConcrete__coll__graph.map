@@ -1,0 +1,6 @@
+<map id="RubberDuckConcrete" name="RubberDuckConcrete">
+<area shape="rect" id="node1" title=" " alt="" coords="99,171,258,197"/>
+<area shape="rect" id="node2" href="$classDuck.html" title=" " alt="" coords="151,95,206,121"/>
+<area shape="rect" id="node3" href="$classAbstractFlyBehavior.html" title=" " alt="" coords="5,5,160,32"/>
+<area shape="rect" id="node4" href="$classAbstractQuackBehaviour.html" title=" " alt="" coords="185,5,367,32"/>
+</map>
