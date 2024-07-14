@@ -10,11 +10,12 @@ Implementing producer/consumer problem using condition variables
 #include <queue>
 #include <thread>
 #include <functional>
+#include <unistd.h>
 
 using namespace std;
 
 #define NUM_PRODUCER_THREADS 5
-#define NUM_CONSUMER_THREADS 5
+#define NUM_CONSUMER_THREADS 10
 
 class ProducerConsumer
 {
@@ -39,8 +40,8 @@ public:
         // Create producer threads
         for (int i = 0; i < NUM_PRODUCER_THREADS; ++i)
         {
-            int num = rand() % m_bufSize;
-            producer_threads.push_back(thread(&ProducerConsumer::enqueue, this, num, i));
+            //int num = rand() % m_bufSize;
+            producer_threads.push_back(thread(&ProducerConsumer::enqueue, this, i, i));
         }
 
         // Create consumer threads
@@ -71,24 +72,26 @@ public:
     void enqueue(int num, int tid)
     {
 
+        while(true) {
         pthread_mutex_lock(&mutex);
         // block the producer thread when the Q is full
         while (m_currSize == m_bufSize - 1)
             pthread_cond_wait(&producer, &mutex);
-        cout << "Thread " << tid << " pushing " << num << endl;
+        cout << "Producer thread " << tid << " pushing " << num << endl;
         m_buf.push(num);
+        //sleep(1);
         this_thread::sleep_for(chrono::milliseconds(rand() % 100));
         m_currSize++;
 
         // send signal to consumer that element is ready to be consumed
         pthread_cond_signal(&consumer);
         pthread_mutex_unlock(&mutex);
+        }
     }
 
     int dequeue(int tid)
     {
-        while (true)
-        {
+        while(true) {
             int front;
             pthread_mutex_lock(&mutex);
             // block the consumer, when the Q is empty
@@ -96,8 +99,9 @@ public:
                 pthread_cond_wait(&consumer, &mutex);
             front = m_buf.front();
             //this_thread::sleep_for(chrono::milliseconds(rand() % 100));
-            cout << "Thread " << tid << " consumed " << front << endl;
+            cout << "Consumer thread " << tid << " consumed " << front << endl;
             m_buf.pop();
+            sleep(1);
             m_currSize--;
             pthread_cond_signal(&producer);
             pthread_mutex_unlock(&mutex);
