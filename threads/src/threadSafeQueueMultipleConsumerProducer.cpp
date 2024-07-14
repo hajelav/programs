@@ -5,8 +5,8 @@
 
 using namespace std;
 
-const int NUM_PRODUCERS = 5;
-const int NUM_CONSUMERS = 5;
+const int NUM_PRODUCERS = 3;
+const int NUM_CONSUMERS = 2;
 const int ITEMS_PER_PRODUCER = 3;
 
 class TSQueue
