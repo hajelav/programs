@@ -19,6 +19,7 @@ public:
 
     ThreadPool(size_t numThreads) : stop(false)
     {
+         cout << "Starting  threadpool .." << endl;
         /* In the constructor start all the threads
          */
         pthread_mutex_init(&mutex, nullptr);
@@ -46,7 +47,9 @@ public:
     }
     ~ThreadPool()
     {
+        
         pthread_mutex_lock(&mutex);
+        cout << "calling destructor" << endl;
         stop = true;
         pthread_cond_broadcast(&cond);
         pthread_mutex_unlock(&mutex);
@@ -56,6 +59,11 @@ public:
         }
         pthread_mutex_destroy(&mutex);
         pthread_cond_destroy(&cond);
+    }
+
+    void stopThreadPool() {
+        stop = true;
+        cout << "Stopping threadpool .." << endl;
     }
 
 private:
