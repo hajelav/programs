@@ -36,13 +36,6 @@ class Account {
 };
 
 
-void* thread_function(void *arg) {
-
-    //int thread_num = *((int *)arg);
-    int thread_num = 0;
-    printf("Hello from thread %d!\n", thread_num);
-    pthread_exit(NULL);
-}
 
 //producer thread function
 void* consumer(void* data) {
