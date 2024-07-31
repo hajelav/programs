@@ -1,0 +1,145 @@
+1. signal handling
+vivek@vivek:~/matic/shell/build$ ../bin/shell 
+[2024-04-20 21:52:38] [INFO] Starting shell...
+$top
+
+top - 21:52:41 up 58 min,  1 user,  load average: 1.14, 0.98, 1.03
+Tasks: 368 total,   1 running, 367 sleeping,   0 stopped,   0 zombie
+%Cpu(s): 23.9 us,  6.0 sy,  0.0 ni, 69.4 id,  0.0 wa,  0.0 hi,  0.7 si,  0.0 st
+MiB Mem :  15876.9 total,   6333.5 free,   5444.3 used,   4099.1 buff/cache
+MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.   9307.5 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                                                                                                             
+   8007 vivek     20   0 1134.0g 158348 118840 S 118.8   1.0   1:13.26 chrome                                                                                                                              
+    964 root      20   0 2390640  99496  11688 S  37.5   0.6  22:34.90 DisplayLinkMana                                                                                                                     
+   6102 vivek     20   0   33.0g 397376 212412 S  18.8   2.4   2:29.23 chrome                                                                                                                              
+   1881 vivek     20   0 1569104  94608  48280 S  12.5   0.6   2:06.06 Xorg                                                                                                                                
+   2078 vivek     20   0 4768104 289884 106372 S   6.2   1.8   3:14.70 gnome-shell                                                                                                                         
+   2741 vivek     20   0 1122.8g 230832  70188 S   6.2   1.4   4:20.68 code                                                                                                                                
+   6148 vivek     20   0   32.4g 130016  99352 S   6.2   0.8   0:45.70 chrome                                                                                                                              
+   8379 vivek     20   0 1132.0g 306952 124396 S   6.2   1.9   0:29.89 chrome                                                                                                                              
+  11124 vivek     20   0   12140   4008   3204 R   6.2   0.0   0:00.01 top                                                                                                                                 
+      1 root      20   0  168508  11820   8464 S   0.0   0.1   0:01.55 systemd                                                                                                                             
+      2 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kthreadd                                                                                                                            
+      3 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_gp                                                                                                                              
+      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 rcu_par_gp                                                                                                                          
+      5 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 slub_flushwq                                                                                                                        
+      6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 netns                                                                                                                               
+      7 root      20   0       0      0      0 I   0.0   0.0   0:02.07 kworker/0:0-events                                                                                                                  
+      8 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/0:0H-events_highpri                                                                                                         
+     10 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 mm_percpu_wq                                                                                                                        
+     11 root      20   0       0      0      0 S   0.0   0.0   0:00.00 rcu_tasks_rude_                                                                                                                     
+                                                                                                                  
+[2024-04-20 21:52:44] [INFO] Received SIGINT signal: User pressed Ctrl+C.
+$
+
+
+
+2.
+$/bin/ls -l /usr/share
+total 1132
+drwxr-xr-x    2 root root  4096 Nov  8 11:52 aclocal
+drwxr-xr-x    2 root root  4096 Mar 16  2023 acpi-support
+drwxr-xr-x    2 root root  4096 Mar 16  2023 adduser
+drwxr-xr-x    6 root root  4096 Mar 16  2023 aisleriot
+drwxr-xr-x   10 root root  4096 Mar 16  2023 alsa
+drwxr-xr-x    2 root root  4096 Mar 16  2023 alsa-base
+drwxr-xr-x    2 root root  4096 Nov  8 11:01 appdata
+drwxr-xr-x    4 root root  4096 Mar 16  2023 app-install
+
+$cat /proc/mounts
+sysfs /sys sysfs rw,nosuid,nodev,noexec,relatime 0 0
+proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0
+udev /dev devtmpfs rw,nosuid,noexec,relatime,size=8088220k,nr_inodes=2022055,mode=755,inode64 0 0
+devpts /dev/pts devpts rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000 0 0
+tmpfs /run tmpfs rw,nosuid,nodev,noexec,relatime,size=1625792k,mode=755,inode64 0 0
+/dev/sda5 / ext4 rw,relatime,errors=remount-ro 0 0
+
+$/usr/bin/printf "The cat's name is %s.\n" 'Theodore Roosevelt'
+The cat's name is Theodore Roosevelt.
+$
+
+$/usr/bin/printf "Missing quote
+[2024-04-20 21:43:29] [ERROR] mismatched quotes
+$
+
+
+$cd /sys
+$ls
+block  bus  class  dev	devices  firmware  fs  hypervisor  kernel  module  power
+$cd /nonexistent
+[2024-04-20 21:44:18] [ERROR] Directory not found.
+[2024-04-20 21:44:18] [ERROR] Command execution failed.Exit code:1
+
+$head /nonexistent
+head: cannot open '/nonexistent' for reading: No such file or directory
+[2024-04-20 21:44:55] [ERROR] Command execution failed.Exit code:1
+$
+
+cd /sys
+$ls
+block  bus  class  dev	devices  firmware  fs  hypervisor  kernel  module  power
+$
+$/bin/ls -l
+total 0
+drwxr-xr-x   2 root root 0 Apr 20 20:54 block
+drwxr-xr-x  48 root root 0 Apr 20 20:54 bus
+drwxr-xr-x  80 root root 0 Apr 20 20:54 class
+drwxr-xr-x   4 root root 0 Apr 20 20:54 dev
+drwxr-xr-x  28 root root 0 Apr 20 20:54 devices
+drwxr-xr-x   6 root root 0 Apr 20 20:54 firmware
+drwxr-xr-x   8 root root 0 Apr 20 20:54 fs
+drwxr-xr-x   2 root root 0 Apr 20 20:54 hypervisor
+drwxr-xr-x  16 root root 0 Apr 20 20:54 kernel
+drwxr-xr-x 227 root root 0 Apr 20 20:54 module
+drwxr-xr-x   3 root root 0 Apr 20 20:54 power
+
+
+/bin/echo extra     spaces      will be        removed
+extra spaces will be removed
+$echo "but       not if    they're      in quotes"
+but       not if    they're      in quotes
+
+
+$cd    '/proc/sys'
+$pwd
+/proc/sys
+
+
+$mkdir '/tmp/"hello"'
+$cd     '/tmp/"hello"'
+$pwd
+/tmp/"hello"
+$cd ..
+$pwd
+/tmp
+$
+
+
+$false
+[2024-04-20 21:51:32] [ERROR] Command execution failed.Exit code:1
+$/bin/sh -c 'exit 7'
+[2024-04-20 21:51:51] [ERROR] Command execution failed.Exit code:7
+$exit
+[2024-04-20 21:52:01] [INFO] Exiting shell...
+vivek@vivek:~/matic/shell/build$ 
+
+3. EOF test
+
+$
+$[2024-04-20 21:53:59] [INFO] EOF encountered.
+[2024-04-20 21:53:59] [INFO] Exiting shell...
+vivek@vivek:~/matic/shell/build$ 
+
+4. Input command related tests - as per the func specs of assignment
+
+$echo a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+[2024-04-20 22:10:55] [ERROR] Argument length exceeds maximum allowed size.
+
+
+$echo aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+[2024-04-20 22:07:11] [ERROR] Command size exceeds maximum allowed size.
+
+
+
+

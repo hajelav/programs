@@ -1,0 +1,5 @@
+/home/vivek/matic/shell/build/CMakeFiles/rebuild_cache.dir
+/home/vivek/matic/shell/build/CMakeFiles/edit_cache.dir
+/home/vivek/matic/shell/build/src/CMakeFiles/rebuild_cache.dir
+/home/vivek/matic/shell/build/src/CMakeFiles/edit_cache.dir
+/home/vivek/matic/shell/build/src/CMakeFiles/shell.dir

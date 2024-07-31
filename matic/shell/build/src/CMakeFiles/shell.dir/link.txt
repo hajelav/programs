@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/shell.dir/main.cpp.o CMakeFiles/shell.dir/Shell.cpp.o  -o ../../bin/shell 
