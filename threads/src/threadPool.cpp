@@ -27,11 +27,13 @@ public:
         for (size_t i = 0; i < numThreads; ++i)
         {
             pthread_t thread;
+            /* each thread will execute thread_function() and run indefinitely
+            pass the threadpool object as an argument*/
             pthread_create(&thread, nullptr, thread_function, this);
             workersThreads.push_back(thread);
         }
     }
-    /* it enqueues the function and its arguments
+    /* main thread enqueues the function and its arguments
     into the task queue of the threadPool*/
     void
     enqueue(void (*userFunc)(void *), void *arg)
