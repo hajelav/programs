@@ -4,6 +4,7 @@
 #include <pthread.h>
 #include <unistd.h>
 
+using namespace std;
 class ReadersWriters {
 public:
     ReadersWriters() : readCount(0), isWriting(false) {
@@ -26,7 +27,7 @@ public:
         ++readCount;
         pthread_mutex_unlock(&mutex);
 
-        std::cout << "Reader " << id << " is reading." << std::endl;
+        cout << "Reader " << id << " is reading." << endl;
         sleep(1);
 
         pthread_mutex_lock(&mutex);
@@ -45,13 +46,13 @@ public:
         isWriting = true;
         pthread_mutex_unlock(&mutex);
 
-        std::cout << "Writer " << id << " is writing." << std::endl;
+        cout << "Writer " << id << " is writing." << endl;
         sleep(1);
 
         pthread_mutex_lock(&mutex);
         isWriting = false;
         pthread_cond_broadcast(&readLock);
-        pthread_cond_signal(&writeLock);
+        pthread_cond_signal(&readLock);
         pthread_mutex_unlock(&mutex);
     }
 
@@ -64,7 +65,7 @@ private:
 };
 
 void* readerTask(void* arg) {
-    std::pair<ReadersWriters*, int>* data = static_cast<std::pair<ReadersWriters*, int>*>(arg);
+    pair<ReadersWriters*, int>* data = static_cast<pair<ReadersWriters*, int>*>(arg);
     while (true) {
         data->first->reader(data->second);
         sleep(1);
@@ -73,7 +74,7 @@ void* readerTask(void* arg) {
 }
 
 void* writerTask(void* arg) {
-    std::pair<ReadersWriters*, int>* data = static_cast<std::pair<ReadersWriters*, int>*>(arg);
+    pair<ReadersWriters*, int>* data = static_cast<pair<ReadersWriters*, int>*>(arg);
     while (true) {
         data->first->writer(data->second);
         sleep(2);
@@ -86,11 +87,11 @@ int main() {
     pthread_t readers[5], writers[2];
 
     for (int i = 0; i < 5; ++i) {
-        pthread_create(&readers[i], nullptr, readerTask, new std::pair<ReadersWriters*, int>(&rw, i));
+        pthread_create(&readers[i], nullptr, readerTask, new pair<ReadersWriters*, int>(&rw, i));
     }
 
     for (int i = 0; i < 2; ++i) {
-        pthread_create(&writers[i], nullptr, writerTask, new std::pair<ReadersWriters*, int>(&rw, i));
+        pthread_create(&writers[i], nullptr, writerTask, new pair<ReadersWriters*, int>(&rw, i));
     }
 
     for (int i = 0; i < 5; ++i) {

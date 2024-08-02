@@ -97,7 +97,7 @@ private:
             tasks.pop();
 
             /* call the user defined function of the task
-           task.fist --> function name
+           task.first --> function name
            task.second --> function argument(void*)
            */
             task.first(task.second);
