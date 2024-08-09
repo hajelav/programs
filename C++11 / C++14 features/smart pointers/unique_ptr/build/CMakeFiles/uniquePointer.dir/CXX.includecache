@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/vivek/programs/C++11 features/smart pointers/unique_ptr/src/main.cpp
+/home/vivek/programs/C++11 / C++14 features/smart pointers/unique_ptr/src/main.cpp
 iostream
 -
 memory

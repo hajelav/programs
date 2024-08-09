@@ -30,7 +30,8 @@ int main() {
     std::shared_ptr<MyClass> sharedPtr2 = sharedPtr;
 
     // Both shared_ptrs share ownership of the same object
-    std::cout << "Use count: " << sharedPtr.use_count() << std::endl;
+    std::cout << "Use count(sharedPtr): " << sharedPtr.use_count() << std::endl;
+    std::cout << "Use count(sharedPtr2): " << sharedPtr2.use_count() << std::endl;
 
     // The object is automatically deleted when the last shared_ptr owning it is destroyed
     return 0;

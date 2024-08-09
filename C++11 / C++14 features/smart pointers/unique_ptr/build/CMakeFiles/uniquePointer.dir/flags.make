@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=gnu++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/home/vivek/programs/C++11 features/smart pointers/unique_ptr/vendor" -I"/home/vivek/programs/C++11 features/smart pointers/unique_ptr/inc" 
+CXX_INCLUDES = -I"/home/vivek/programs/C++11 / C++14 features/smart pointers/unique_ptr/vendor" -I"/home/vivek/programs/C++11 / C++14 features/smart pointers/unique_ptr/inc" 
 

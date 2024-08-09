@@ -1,16 +1,20 @@
 #include <iostream>
 
 // Function with trailing return type
+
+
 template <typename T, typename U>
-auto add(T a, U b) -> decltype(a + b) {
+auto add(T a, U b) -> decltype(a + b)
+{
     return a + b;
 }
 
-int main() {
+int main()
+{
     // Using the add function with different types
-    int result1 = add(5, 3);       // int + int
-    double result2 = add(2.5, 4);   // double + int
-    double result3 = add(3, 7.5);   // int + double
+    int result1 = add(5, 3);      // int + int
+    double result2 = add(2.5, 4); // double + int
+    double result3 = add(3, 7.5); // int + double
 
     // Displaying results
     std::cout << "Result 1: " << result1 << std::endl; // Result 1: 8
