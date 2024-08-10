@@ -19,5 +19,5 @@ include_directories(inc)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Create an executable from the sources
-add_executable(AbstractFactoryPattern ${SOURCES})
+add_executable(abstractFactoryPattern ${SOURCES})
 

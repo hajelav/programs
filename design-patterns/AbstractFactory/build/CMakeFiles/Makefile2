@@ -44,16 +44,16 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vivek/programs/design-patters/AbstractFactory
+CMAKE_SOURCE_DIR = /home/vivek/programs/design-patterns/AbstractFactory
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vivek/programs/design-patters/AbstractFactory/build
+CMAKE_BINARY_DIR = /home/vivek/programs/design-patterns/AbstractFactory/build
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/AbstractFactoryPattern.dir/all
+all: CMakeFiles/abstractFactoryPattern.dir/all
 
 .PHONY : all
 
@@ -63,36 +63,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/AbstractFactoryPattern.dir/clean
+clean: CMakeFiles/abstractFactoryPattern.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/AbstractFactoryPattern.dir
+# Target rules for target CMakeFiles/abstractFactoryPattern.dir
 
 # All Build rule for target.
-CMakeFiles/AbstractFactoryPattern.dir/all:
-	$(MAKE) -f CMakeFiles/AbstractFactoryPattern.dir/build.make CMakeFiles/AbstractFactoryPattern.dir/depend
-	$(MAKE) -f CMakeFiles/AbstractFactoryPattern.dir/build.make CMakeFiles/AbstractFactoryPattern.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vivek/programs/design-patters/AbstractFactory/build/CMakeFiles --progress-num=1,2 "Built target AbstractFactoryPattern"
-.PHONY : CMakeFiles/AbstractFactoryPattern.dir/all
+CMakeFiles/abstractFactoryPattern.dir/all:
+	$(MAKE) -f CMakeFiles/abstractFactoryPattern.dir/build.make CMakeFiles/abstractFactoryPattern.dir/depend
+	$(MAKE) -f CMakeFiles/abstractFactoryPattern.dir/build.make CMakeFiles/abstractFactoryPattern.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vivek/programs/design-patterns/AbstractFactory/build/CMakeFiles --progress-num=1,2 "Built target abstractFactoryPattern"
+.PHONY : CMakeFiles/abstractFactoryPattern.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/AbstractFactoryPattern.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patters/AbstractFactory/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/AbstractFactoryPattern.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patters/AbstractFactory/build/CMakeFiles 0
-.PHONY : CMakeFiles/AbstractFactoryPattern.dir/rule
+CMakeFiles/abstractFactoryPattern.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patterns/AbstractFactory/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/abstractFactoryPattern.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patterns/AbstractFactory/build/CMakeFiles 0
+.PHONY : CMakeFiles/abstractFactoryPattern.dir/rule
 
 # Convenience name for target.
-AbstractFactoryPattern: CMakeFiles/AbstractFactoryPattern.dir/rule
+abstractFactoryPattern: CMakeFiles/abstractFactoryPattern.dir/rule
 
-.PHONY : AbstractFactoryPattern
+.PHONY : abstractFactoryPattern
 
 # clean rule for target.
-CMakeFiles/AbstractFactoryPattern.dir/clean:
-	$(MAKE) -f CMakeFiles/AbstractFactoryPattern.dir/build.make CMakeFiles/AbstractFactoryPattern.dir/clean
-.PHONY : CMakeFiles/AbstractFactoryPattern.dir/clean
+CMakeFiles/abstractFactoryPattern.dir/clean:
+	$(MAKE) -f CMakeFiles/abstractFactoryPattern.dir/build.make CMakeFiles/abstractFactoryPattern.dir/clean
+.PHONY : CMakeFiles/abstractFactoryPattern.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

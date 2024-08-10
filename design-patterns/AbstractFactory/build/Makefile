@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vivek/programs/design-patters/AbstractFactory
+CMAKE_SOURCE_DIR = /home/vivek/programs/design-patterns/AbstractFactory
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vivek/programs/design-patters/AbstractFactory/build
+CMAKE_BINARY_DIR = /home/vivek/programs/design-patterns/AbstractFactory/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patters/AbstractFactory/build/CMakeFiles /home/vivek/programs/design-patters/AbstractFactory/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patterns/AbstractFactory/build/CMakeFiles /home/vivek/programs/design-patterns/AbstractFactory/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patters/AbstractFactory/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patterns/AbstractFactory/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named AbstractFactoryPattern
+# Target rules for targets named abstractFactoryPattern
 
 # Build rule for target.
-AbstractFactoryPattern: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 AbstractFactoryPattern
-.PHONY : AbstractFactoryPattern
+abstractFactoryPattern: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 abstractFactoryPattern
+.PHONY : abstractFactoryPattern
 
 # fast build rule for target.
-AbstractFactoryPattern/fast:
-	$(MAKE) -f CMakeFiles/AbstractFactoryPattern.dir/build.make CMakeFiles/AbstractFactoryPattern.dir/build
-.PHONY : AbstractFactoryPattern/fast
+abstractFactoryPattern/fast:
+	$(MAKE) -f CMakeFiles/abstractFactoryPattern.dir/build.make CMakeFiles/abstractFactoryPattern.dir/build
+.PHONY : abstractFactoryPattern/fast
 
 src/main.o: src/main.cpp.o
 
@@ -129,7 +129,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) -f CMakeFiles/AbstractFactoryPattern.dir/build.make CMakeFiles/AbstractFactoryPattern.dir/src/main.cpp.o
+	$(MAKE) -f CMakeFiles/abstractFactoryPattern.dir/build.make CMakeFiles/abstractFactoryPattern.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -138,7 +138,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) -f CMakeFiles/AbstractFactoryPattern.dir/build.make CMakeFiles/AbstractFactoryPattern.dir/src/main.cpp.i
+	$(MAKE) -f CMakeFiles/abstractFactoryPattern.dir/build.make CMakeFiles/abstractFactoryPattern.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -147,7 +147,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) -f CMakeFiles/AbstractFactoryPattern.dir/build.make CMakeFiles/AbstractFactoryPattern.dir/src/main.cpp.s
+	$(MAKE) -f CMakeFiles/abstractFactoryPattern.dir/build.make CMakeFiles/abstractFactoryPattern.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 # Help Target
@@ -158,7 +158,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... AbstractFactoryPattern"
+	@echo "... abstractFactoryPattern"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

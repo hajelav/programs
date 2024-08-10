@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/vivek/programs/design-patters/AbstractFactory/src/main.cpp" "/home/vivek/programs/design-patters/AbstractFactory/build/CMakeFiles/AbstractFactoryPattern.dir/src/main.cpp.o"
+  "/home/vivek/programs/design-patterns/AbstractFactory/src/main.cpp" "/home/vivek/programs/design-patterns/AbstractFactory/build/CMakeFiles/abstractFactoryPattern.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

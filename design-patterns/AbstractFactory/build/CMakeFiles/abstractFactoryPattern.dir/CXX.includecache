@@ -44,13 +44,13 @@ ConcreteWinButton.hpp
 memory
 -
 
-/home/vivek/programs/design-patters/AbstractFactory/src/main.cpp
+/home/vivek/programs/design-patterns/AbstractFactory/src/main.cpp
 iostream
 -
 memory
 -
 ConcreteMacFactory.hpp
-/home/vivek/programs/design-patters/AbstractFactory/src/ConcreteMacFactory.hpp
+/home/vivek/programs/design-patterns/AbstractFactory/src/ConcreteMacFactory.hpp
 ConcreteWinFactory.hpp
-/home/vivek/programs/design-patters/AbstractFactory/src/ConcreteWinFactory.hpp
+/home/vivek/programs/design-patterns/AbstractFactory/src/ConcreteWinFactory.hpp
 
