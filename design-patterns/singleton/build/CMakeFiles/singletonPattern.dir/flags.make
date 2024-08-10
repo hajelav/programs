@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=gnu++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/vivek/programs/design-patters/singleton/inc 
+CXX_INCLUDES = -I/home/vivek/programs/design-patterns/singleton/inc 
 

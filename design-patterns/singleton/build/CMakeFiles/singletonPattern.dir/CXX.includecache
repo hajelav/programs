@@ -10,11 +10,11 @@
 memory
 -
 
-/home/vivek/programs/design-patters/singleton/src/main.cpp
+/home/vivek/programs/design-patterns/singleton/src/main.cpp
 iostream
 -
 Singleton.hpp
-/home/vivek/programs/design-patters/singleton/src/Singleton.hpp
+/home/vivek/programs/design-patterns/singleton/src/Singleton.hpp
 iostream
 -
 assert.h

@@ -1,9 +1,14 @@
 {
-    "files.associations": {
-        "ostream": "cpp",
-        "string": "cpp",
-        "iostream": "cpp",
-        "functional": "cpp"
-    },
-    "cmake.configureOnOpen": false
+  "files.associations": {
+    "ostream": "cpp",
+    "string": "cpp",
+    "iostream": "cpp",
+    "functional": "cpp"
+  },
+  "cmake.configureOnOpen": false,
+  "editor.formatOnSave": true,
+  "prettier.bracketSameLine": true,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "prettier.semi": true
 }

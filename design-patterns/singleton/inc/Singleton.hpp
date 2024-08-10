@@ -6,14 +6,15 @@
 using namespace std;
 class Singleton
 {
-private:
+public:
+    // Delete copy constructor and assignment operator
     Singleton(const Singleton &) = delete;
+    /** Delete assignment operator */
     Singleton &operator=(const Singleton &) = delete;
 
     static unique_ptr<Singleton> instance;
     Singleton() {}
 
-public:
     static Singleton &getInstance()
     {
         if (!instance)
