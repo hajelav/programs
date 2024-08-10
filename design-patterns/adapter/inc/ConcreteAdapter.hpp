@@ -12,7 +12,8 @@ class ConcreteAdaptor : public AbstractNewSystemAdapter {
     public:
         void doNewStuff() override {
             cout << "New system doing new stuff" << endl;
-            oldSystem = make_shared<OldSystemAdaptee>();             oldSystem->doOldStuff();
+            oldSystem = make_shared<OldSystemAdaptee>();   
+            oldSystem->doOldStuff();
         }
     private:
         shared_ptr<OldSystemAdaptee> oldSystem;
