@@ -9,6 +9,14 @@
 ../inc/AbstractPublisher.hpp
 AbstractSubscriber.hpp
 ../inc/AbstractSubscriber.hpp
+iostream
+-
+vector
+-
+memory
+-
+map
+-
 
 ../inc/AbstractSubscriber.hpp
 AbstractSubscriber.hpp
@@ -34,15 +42,17 @@ AbstractPublisher.hpp
 iostream
 -
 
-/home/vivek/programs/design-patters/observer/src/main.cpp
+/home/vivek/programs/design-patterns/observer/src/main.cpp
 iostream
 -
+memory
+-
 AbstractPublisher.hpp
-/home/vivek/programs/design-patters/observer/src/AbstractPublisher.hpp
+/home/vivek/programs/design-patterns/observer/src/AbstractPublisher.hpp
 ConcretePublisher.hpp
-/home/vivek/programs/design-patters/observer/src/ConcretePublisher.hpp
+/home/vivek/programs/design-patterns/observer/src/ConcretePublisher.hpp
 AbstractSubscriber.hpp
-/home/vivek/programs/design-patters/observer/src/AbstractSubscriber.hpp
+/home/vivek/programs/design-patterns/observer/src/AbstractSubscriber.hpp
 ConcreteSubscriber.hpp
-/home/vivek/programs/design-patters/observer/src/ConcreteSubscriber.hpp
+/home/vivek/programs/design-patterns/observer/src/ConcreteSubscriber.hpp
 

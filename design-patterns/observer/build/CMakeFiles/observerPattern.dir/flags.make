@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=gnu++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/vivek/programs/design-patters/observer/inc 
+CXX_INCLUDES = -I/home/vivek/programs/design-patterns/observer/inc 
 

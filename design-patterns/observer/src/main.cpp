@@ -23,31 +23,31 @@
 // actions to be taken when notified by the subject.
 
 #include <iostream>
+#include <memory>
+
 #include "AbstractPublisher.hpp"
 #include "ConcretePublisher.hpp"
 #include "AbstractSubscriber.hpp"
 #include "ConcreteSubscriber.hpp"
 
+using namespace std;
 int main() {
 
-    //create the publisher
-    AbstractPublisher *publisher = new ConcretePublisher("message");
+    // Creating the publisher
+    shared_ptr<AbstractPublisher> publisher = make_shared<ConcretePublisher>("Hello from publisher");
+    /* create the subscribers*/
+    shared_ptr<AbstractSubscriber> subscriber1 = make_shared<ConcreteSubscriber>("subscriber1");
+    shared_ptr<AbstractSubscriber> subscriber2 = make_shared<ConcreteSubscriber>("subscriber2");
+    shared_ptr<AbstractSubscriber> subscriber3 = make_shared<ConcreteSubscriber>("subscriber3");
 
-    //create the subscriber 1
-    AbstractSubscriber* subscriber1 = new ConcreteSubscriber("subscriber1");
+
     publisher->registerSubscriber(subscriber1);
-     //create the subscriber 2
-    AbstractSubscriber* subscriber2 = new ConcreteSubscriber("subscriber2");
     publisher->registerSubscriber(subscriber2);
-     //create the subscriber 3
-    AbstractSubscriber* subscriber3 = new ConcreteSubscriber("subscriber3");
     publisher->registerSubscriber(subscriber3);
-
-    //publisher notify the subscribers
-    publisher->notifySubscribers();
-    //unsubscribe subscriber 1
+    publisher->publish();
     publisher->removeSubscriber(subscriber1);
-    publisher->notifySubscribers();
+    publisher->publish();
+
 
     
     return 0;
