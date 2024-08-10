@@ -10,8 +10,8 @@ class ConcreteNYStyleCheesePizza : public AbstractPizza {
     public:
         ConcreteNYStyleCheesePizza() {
             name = "NY style Sauce and cheese Pizza";
-            dough = "Thin crust dough";
-            sauce = "Marinara sauce";
+            dough = "Thin crust";
+            sauce = "Marinara";
             toppings.push_back("grated raggiano cheese");
         }
                

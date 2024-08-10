@@ -10,4 +10,4 @@ CMakeFiles/factoryPattern.dir/src/main.cpp.o
  ../inc/ConcreteNYStyleCheesePizza.hpp
  ../inc/ConcreteNYStyleVeggiePizza.hpp
  ../inc/PizzaStoreFactory.hpp
- /home/vivek/programs/design-patters/factory/src/main.cpp
+ /home/vivek/programs/design-patterns/factory/src/main.cpp

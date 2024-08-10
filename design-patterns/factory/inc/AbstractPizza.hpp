@@ -19,8 +19,8 @@ class AbstractPizza {
          */
         void prepare() {
             cout << "Preparing " << name << endl;
-            cout << "Tossing Dough..." << endl;
-            cout << "Adding sauce ..." << endl;
+            cout << "Tossing " << dough << " dough..." << endl;
+            cout << "Adding " << sauce  << " sauce..." << endl;
             cout << "Adding toppings : ";
             for(auto &a : toppings)
                 cout << a << " ";

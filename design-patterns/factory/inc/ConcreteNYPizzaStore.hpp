@@ -11,7 +11,14 @@ using namespace std;
 class ConcreteNYPizzaStore : public PizzastoreFactory {
 
     public:
+        ConcreteNYPizzaStore() {
+            pizza = nullptr;
+            cout << "NYPizzaStore constructed" << endl;
+        }
+
         shared_ptr<AbstractPizza> createPizza(string item) {
+
+
             if(item == "cheese") {
                 pizza = make_shared<ConcreteNYStyleCheesePizza>();
 
@@ -21,6 +28,7 @@ class ConcreteNYPizzaStore : public PizzastoreFactory {
             } else {
                 return nullptr;
             }
+            cout << "NYPizzaStore created " << item << " pizza" << endl;
             return pizza;
         }
 };

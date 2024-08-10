@@ -44,10 +44,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vivek/programs/design-patters/factory
+CMAKE_SOURCE_DIR = /home/vivek/programs/design-patterns/factory
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vivek/programs/design-patters/factory/build
+CMAKE_BINARY_DIR = /home/vivek/programs/design-patterns/factory/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -74,14 +74,14 @@ clean: CMakeFiles/factoryPattern.dir/clean
 CMakeFiles/factoryPattern.dir/all:
 	$(MAKE) -f CMakeFiles/factoryPattern.dir/build.make CMakeFiles/factoryPattern.dir/depend
 	$(MAKE) -f CMakeFiles/factoryPattern.dir/build.make CMakeFiles/factoryPattern.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vivek/programs/design-patters/factory/build/CMakeFiles --progress-num=1,2 "Built target factoryPattern"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/vivek/programs/design-patterns/factory/build/CMakeFiles --progress-num=1,2 "Built target factoryPattern"
 .PHONY : CMakeFiles/factoryPattern.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/factoryPattern.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patters/factory/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patterns/factory/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/factoryPattern.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patters/factory/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vivek/programs/design-patterns/factory/build/CMakeFiles 0
 .PHONY : CMakeFiles/factoryPattern.dir/rule
 
 # Convenience name for target.

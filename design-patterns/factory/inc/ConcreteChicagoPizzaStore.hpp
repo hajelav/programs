@@ -11,6 +11,10 @@
 class ConcreteChicagoPizzaStore : public PizzastoreFactory {
 
        public:
+       ConcreteChicagoPizzaStore() {
+           pizza = nullptr;
+           cout << "ChicagoPizzaStore constructed" << endl;
+       }
         shared_ptr<AbstractPizza> createPizza(string item) {
             if(item == "cheese") {
                 pizza = make_shared<ConcreteChicagoStyleCheesePizza>();
