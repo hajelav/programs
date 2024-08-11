@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/vivek/programs/design-patters/strategy/src/main.cpp" "/home/vivek/programs/design-patters/strategy/build/CMakeFiles/strategyPattern.dir/src/main.cpp.o"
+  "/home/vivek/programs/design-patterns/strategy/src/main.cpp" "/home/vivek/programs/design-patterns/strategy/build/CMakeFiles/strategyPattern.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

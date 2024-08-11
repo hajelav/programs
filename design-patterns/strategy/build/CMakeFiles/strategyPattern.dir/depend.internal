@@ -10,4 +10,4 @@ CMakeFiles/strategyPattern.dir/src/main.cpp.o
  ../inc/NoFlyConcrete.hpp
  ../inc/QuackConcrete.hpp
  ../inc/RubberDuckConcrete.hpp
- /home/vivek/programs/design-patters/strategy/src/main.cpp
+ /home/vivek/programs/design-patterns/strategy/src/main.cpp

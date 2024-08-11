@@ -6,8 +6,10 @@
 
 using namespace std;
 
-class NoFlyConcrete : public AbstractFlyBehavior {
-    void fly() {
+class NoFlyConcrete : public AbstractFlyBehavior
+{
+    void fly()
+    {
         cout << "I cannot fly" << endl;
     }
 };

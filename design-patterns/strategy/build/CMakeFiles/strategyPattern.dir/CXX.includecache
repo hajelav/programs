@@ -52,13 +52,13 @@ NoFlyConcrete.hpp
 iostream
 -
 
-/home/vivek/programs/design-patters/strategy/src/main.cpp
+/home/vivek/programs/design-patterns/strategy/src/main.cpp
 iostream
 -
 AbstractDuck.hpp
-/home/vivek/programs/design-patters/strategy/src/AbstractDuck.hpp
+/home/vivek/programs/design-patterns/strategy/src/AbstractDuck.hpp
 MallardDuckConcrete.hpp
-/home/vivek/programs/design-patters/strategy/src/MallardDuckConcrete.hpp
+/home/vivek/programs/design-patterns/strategy/src/MallardDuckConcrete.hpp
 RubberDuckConcrete.hpp
-/home/vivek/programs/design-patters/strategy/src/RubberDuckConcrete.hpp
+/home/vivek/programs/design-patterns/strategy/src/RubberDuckConcrete.hpp
 

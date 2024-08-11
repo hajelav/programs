@@ -16,7 +16,7 @@ int binSearchLeft(vector<int> &nums, int low, int high, int key)
 
     int mid = low + ((high - low) >> 1);
 
-    if (low == high && key == nums[low])
+    if (low == mid && key == nums[low])
         return low;
 
     if (key == nums[mid])
@@ -45,8 +45,6 @@ int binSearchRight(vector<int> &nums, int low, int high, int key)
 
     int mid = low + ((high - low) >> 1);
 
-    if (low == high && key == nums[low])
-        return low;
     if (low == mid && key == nums[low] && key == nums[high])
         return high;
 
@@ -107,6 +105,7 @@ int main()
 {
 
     vector<int> V1 = {4, 4, 4, 4, 5, 5, 7, 7, 7};
+    vector<int> V2 = {1, 2, 3, 4, 5, 7};
 
     /*******************************************
      * TESTTING binSearchLeft
@@ -126,6 +125,9 @@ int main()
     // searh for an element not present
     int idx5 = binSearchLeft(V1, 0, V1.size() - 1, 6);
     cout << "binSearchLeft:" << idx5 << endl;
+
+    int idx16 = binSearchLeft(V2, 0, V2.size() - 1, 3);
+    cout << "binSearchLeft:" << idx16 << endl;
 
     cout << "*********************************************" << endl;
 
@@ -147,6 +149,9 @@ int main()
     // searh for an element not present
     int idx10 = binSearchRight(V1, 0, V1.size() - 1, 6);
     cout << "binSearchRight:" << idx10 << endl;
+
+    int idx17 = binSearchRight(V2, 0, V2.size() - 1, 7);
+    cout << "binSearchRight:" << idx17 << endl;
 
     /*******************************************
      * TESTTING binSearch
