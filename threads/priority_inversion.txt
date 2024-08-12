@@ -1,29 +1,57 @@
-http://stackoverflow.com/questions/4252158/what-is-priority-inversion
 
+Priority inversion is a situation in concurrent or multi-threaded systems where a high-priority task is indirectly preempted by a lower-priority task, leading to potential performance degradation or even system failures. This inversion occurs when a low-priority task holds a resource needed by a high-priority task, and a medium-priority task preempts the low-priority task, causing the high-priority task to be blocked longer than expected.
 
-Imagine three (3) tasks of different priority: tLow, tMed and tHigh. tLow and tHigh access the same critical resource at different times; tMed does its own thing.
+1. How Priority Inversion Happens
+Let's break down the concept with a concrete example:
 
-tLow is running, tMed and tHigh are presently blocked (but not in critical section).
-tLow comes along and enters the critical section.
-tHigh unblocks and since it is the highest priority task in the system, it runs.
-tHigh then attempts to enter the critical resource but blocks as tLow is in there.
-tMed unblocks and since it is now the highest priority task in the system, it runs.
-tHigh can not run until tLow gives up the resource. tLow can not run until tMed blocks or ends. The priority of the tasks has been inverted; tHigh though it has the highest priority is at the bottom of the execution chain.
+Example Scenario:
+High-Priority Task (H): This task has the highest priority and should execute as soon as it's ready.
+Medium-Priority Task (M): This task has a priority lower than H but higher than L.
+Low-Priority Task (L): This task has the lowest priority.
+Sequence of Events:
+Task L acquires a resource (e.g., a mutex or a semaphore) to perform some operation.
+Task H becomes ready to run and needs the resource held by Task L. Since Task H has a higher priority, it should preempt Task L. However, it cannot proceed because the resource it needs is currently held by Task L. Thus, Task H is blocked and waiting for Task L to release the resource.
+Task M becomes ready to run and preempts Task L (since Task M has a higher priority than Task L but lower than Task H). Task M continues to run, while Task H remains blocked waiting for Task L to release the resource.
+In this scenario, Task H, despite being the highest-priority task, is indirectly preempted by Task M because Task M prevents Task L from running and releasing the resource. This causes Task H to experience an unexpected delay, which is the essence of priority inversion.
 
-To "solve" priority inversion, the priority of tLow must be bumped up to be at least as high as tHigh. Some may bump its priority to the highest possible priority level. Just as important as bumping up the priority level of tLow, is dropping the priority level of tLow at the appropriate time(s). Different systems will take different approaches.
+2. Consequences of Priority Inversion
+The consequences of priority inversion can be significant, particularly in real-time systems where tasks need to meet strict deadlines:
 
-When to drop the priority of tLow ...
+Missed Deadlines: High-priority tasks might miss their deadlines because they are blocked longer than expected.
+Reduced System Performance: The system's responsiveness and throughput can be degraded as tasks are not executed in the intended order of priority.
+Potential for Deadlock: In complex systems, priority inversion can increase the likelihood of deadlocks, particularly if multiple tasks are involved.
+3. Real-World Example: The Mars Pathfinder Incident
+A well-known real-world example of priority inversion occurred during the Mars Pathfinder mission in 1997. The spacecraft's operating system used a multi-threaded architecture, where high-priority tasks were responsible for maintaining communications with Earth, while lower-priority tasks handled data collection and processing.
 
-No other tasks are blocked on any of the resources that tLow has. This may be due to timeouts or the releasing of resources.
-No other tasks contributing to the raising the priority level of tLow are blocked on the resources that tLow has. This may be due to timeouts or the releasing of resources.
-When there is a change in which tasks are waiting for the resource(s), drop the priority of tLow to match the priority of the highest priority level task blocked on its resource(s).
-Method #2 is an improvement over method #1 in that it shortens the length of time that tLow has had its priority level bumped. Note that its priority level stays bumped at tHigh's priority level during this period.
+The Issue:
+A low-priority task held a resource (a mutex) needed by a high-priority task responsible for communication.
+A medium-priority task preempted the low-priority task, causing the high-priority task to be blocked longer than expected.
+As a result, the high-priority task failed to execute in time, leading to missed communication windows with Earth.
+Resolution:
+The issue was identified as priority inversion, and the system's design was adjusted to include priority inheritance (discussed below), which helped to mitigate the problem and allowed the mission to continue successfully.
+4. Mitigating Priority Inversion
+Several strategies exist to mitigate the effects of priority inversion:
 
-Method #3 allows the priority level of tLow to step down in increments if necessary instead of in one all-or-nothing step.
+4.1 Priority Inheritance
+Priority inheritance is the most common solution to priority inversion. When a low-priority task holds a resource needed by a higher-priority task, the system temporarily elevates the priority of the low-priority task to match that of the highest-priority task waiting for the resource. This ensures that the low-priority task runs and releases the resource as quickly as possible, reducing the time the high-priority task is blocked.
 
-Different systems will implement different methods depending upon what factors they consider important.
+Example Implementation:
 
-memory footprint
-complexity
-real time responsiveness
-developer knowledge
+Suppose Task H is waiting for a resource held by Task L. The system temporarily boosts Task L's priority to match that of Task H.
+Task L now has a higher priority than Task M, so Task M cannot preempt Task L.
+Task L completes its work, releases the resource, and its priority returns to normal. Task H can now proceed.
+4.2 Priority Ceiling Protocol
+In this protocol, each resource is assigned a priority ceiling, which is the highest priority of any task that might use the resource. When a task acquires a resource, its priority is temporarily elevated to the ceiling priority. This prevents any other tasks from preempting the current task until it releases the resource.
+
+Advantages:
+
+Prevents deadlock and minimizes the duration of priority inversion.
+Ensures that when a task is holding a resource, it cannot be preempted by tasks with lower priority ceilings.
+Disadvantages:
+
+The system must know in advance the highest priority of any task that might access each resource.
+4.3 Avoiding Blocking on Shared Resources
+Designing systems in such a way that high-priority tasks avoid blocking on shared resources can also mitigate priority inversion. This can be done by:
+
+Breaking tasks into smaller, non-blocking units that do not hold resources for long periods.
+Using non-blocking algorithms or data structures (e.g., lock-free or wait-free algorithms) where possible.

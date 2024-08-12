@@ -66,15 +66,14 @@ int binSearchRight(vector<int> &nums, int low, int high, int key)
 if the target is present - return the leftmost index
 if the target is less than first element - return the first element
 if the target is more then last element - return the last element
-if the target is not present but lies between first and last element - return the element
-smaller than the target
+if the target is not present but lies between first and last element - return the element smaller than the target
  */
 
 int binSearch(vector<int> &ts, int low, int high, int target)
 {
 
-    if (low == high)
-        return low;
+    // if (low == high)
+    // return low;
 
     int mid = low + ((high - low) >> 1);
 
