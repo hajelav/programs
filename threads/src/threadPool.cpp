@@ -1,3 +1,14 @@
+/*
+
+In threadpool design, we create a threadpool of threads
+and enqueue tasks in the threadpool. main thead enqueues
+the tasks and waits for the tasks to complete. the worker threads
+execute the tasks by looping on the task queue until it is empty.
+if the task queue is empty and there are no more tasks to execute
+the worker threads wait for new tasks to be enqueued.
+
+*/
+
 #include <pthread.h>
 #include <iostream>
 #include <vector>
@@ -19,7 +30,7 @@ public:
 
     ThreadPool(size_t numThreads) : stop(false)
     {
-         cout << "Starting  threadpool .." << endl;
+        cout << "Starting  threadpool .." << endl;
         /* In the constructor start all the threads
          */
         pthread_mutex_init(&mutex, nullptr);
@@ -44,12 +55,14 @@ public:
         */
         pthread_mutex_lock(&mutex);
         tasks.push({userFunc, arg});
+        /* once the task has been pushed, signal the pool thread
+        that the task is ready to be consumed */
         pthread_cond_signal(&cond);
         pthread_mutex_unlock(&mutex);
     }
     ~ThreadPool()
     {
-        
+
         pthread_mutex_lock(&mutex);
         cout << "calling destructor" << endl;
         stop = true;
@@ -63,7 +76,8 @@ public:
         pthread_cond_destroy(&cond);
     }
 
-    void stopThreadPool() {
+    void stopThreadPool()
+    {
         stop = true;
         cout << "Stopping threadpool .." << endl;
     }
