@@ -1,12 +1,10 @@
 /*
-
 In threadpool design, we create a threadpool of threads
 and enqueue tasks in the threadpool. main thead enqueues
 the tasks and waits for the tasks to complete. the worker threads
 execute the tasks by looping on the task queue until it is empty.
 if the task queue is empty and there are no more tasks to execute
 the worker threads wait for new tasks to be enqueued.
-
 */
 
 #include <pthread.h>
