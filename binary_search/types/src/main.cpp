@@ -8,7 +8,7 @@ using namespace std;
 simple binary searh which returns -1  when the element is not found
 else return the leftmost index of the found element
 */
-int binSearchLeft(vector<int> &nums, int low, int high, int key)
+int binSearchLeft(vector<int> &nums, int low, int high, int target)
 {
 
     if (low > high)
@@ -16,20 +16,23 @@ int binSearchLeft(vector<int> &nums, int low, int high, int key)
 
     int mid = low + ((high - low) >> 1);
 
-    if (low == mid && key == nums[low])
+    if (low == mid && nums[low] == target)
         return low;
+    if (low == mid && nums[high] == target)
+        return high;
 
-    if (key == nums[mid])
+    if (low == mid && (target < nums[low] || target > nums[high]))
+        return -1;
+    if (low == mid && target > nums[low] && target < nums[high])
+        return -1;
+
+    if (target <= nums[mid])
     {
-        return binSearchLeft(nums, low, mid, key);
-    }
-    else if (key < nums[mid])
-    {
-        return binSearchLeft(nums, low, mid - 1, key);
+        return binSearchLeft(nums, low, mid, target);
     }
     else
     {
-        return binSearchLeft(nums, mid + 1, high, key);
+        return binSearchLeft(nums, mid, high, target);
     }
 }
 
@@ -37,7 +40,7 @@ int binSearchLeft(vector<int> &nums, int low, int high, int key)
 simple binary searh which  returns-1 when the element is not found
 else return the right index of the found element
 */
-int binSearchRight(vector<int> &nums, int low, int high, int key)
+int binSearchRight(vector<int> &nums, int low, int high, int target)
 {
 
     if (low > high)
@@ -45,20 +48,23 @@ int binSearchRight(vector<int> &nums, int low, int high, int key)
 
     int mid = low + ((high - low) >> 1);
 
-    if (low == mid && key == nums[low] && key == nums[high])
+    if (low == mid && nums[high] == target)
         return high;
+    if (low == mid && nums[low] == target)
+        return low;
 
-    if (key == nums[mid])
+    if (low == mid && (target < nums[low] || target > nums[high]))
+        return -1;
+    if (low == mid && target > nums[low] && target < nums[high])
+        return -1;
+
+    if (target >= nums[mid])
     {
-        return binSearchRight(nums, mid, high, key);
-    }
-    else if (key < nums[mid])
-    {
-        return binSearchRight(nums, low, mid - 1, key);
+        return binSearchRight(nums, mid, high, target);
     }
     else
     {
-        return binSearchRight(nums, mid + 1, high, key);
+        return binSearchRight(nums, low, mid, target);
     }
 }
 
