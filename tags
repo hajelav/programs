@@ -8522,8 +8522,8 @@ binSearch	binary_search/types/CMakeLists.txt	/^add_executable(binSearch ${SOURCE
 binSearch	binary_search/types/build/Makefile	/^binSearch: cmake_check_build_system$/;"	t	language:Make
 binSearch	binary_search/types/src/main.cpp	/^int binSearch(vector<int> &ts, int low, int high, int target)$/;"	f	language:C++	typeref:typename:int
 binSearch/fast	binary_search/types/build/Makefile	/^binSearch\/fast:$/;"	t	language:Make
-binSearchLeft	binary_search/types/src/main.cpp	/^int binSearchLeft(vector<int> &nums, int low, int high, int key)$/;"	f	language:C++	typeref:typename:int
-binSearchRight	binary_search/types/src/main.cpp	/^int binSearchRight(vector<int> &nums, int low, int high, int key)$/;"	f	language:C++	typeref:typename:int
+binSearchLeft	binary_search/types/src/main.cpp	/^int binSearchLeft(vector<int> &nums, int low, int high, int target)$/;"	f	language:C++	typeref:typename:int
+binSearchRight	binary_search/types/src/main.cpp	/^int binSearchRight(vector<int> &nums, int low, int high, int target)$/;"	f	language:C++	typeref:typename:int
 binary_search	binary_search/Makefile	/^binary_search: $(OBJ)$/;"	t	language:Make
 binary_search	binary_search/binary_search.c	/^int binary_search(int *A, int low, int high, int key) {$/;"	f	language:C	typeref:typename:int
 binary_tree	trees/binary_tree/Makefile	/^binary_tree: $(OBJ)$/;"	t	language:Make
