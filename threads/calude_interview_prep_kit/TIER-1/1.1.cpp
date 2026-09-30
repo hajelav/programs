@@ -16,7 +16,7 @@ void *thread_func(void *args) {
 
     shared_counter++;
   }
-  cout << "THREAD: " << pthread_self() << " shared_counter :" << shared_counter << endl;
+  // cout << "THREAD: " << pthread_self() << " shared_counter :" << shared_counter << endl;
   pthread_mutex_unlock(&mtx);
   return nullptr;
 }
@@ -32,12 +32,11 @@ int main() {
     pthread_create(&threads[i], nullptr, thread_func, nullptr);
   }
 
-  // cout << "shared_counter:" << shared_counter << endl;
-
   // join the threads
   for (int i = 0; i < N; i++) {
     pthread_join(threads[i], nullptr);
   }
+  cout << "shared_counter:" << shared_counter << endl;
 
   return 0;
 }
