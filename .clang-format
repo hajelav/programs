@@ -1,0 +1,14 @@
+BasedOnStyle: LLVM
+IndentWidth: 2
+UseTab: Never
+ColumnLimit: 100
+AlignAfterOpenBracket: Align
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Inline
+BreakBeforeBraces: Attach
+SpaceBeforeParens: ControlStatements
+SpacesBeforeTrailingComments: 1
+
+# keep formatting tight and consistent
+SortIncludes: false
