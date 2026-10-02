@@ -10,14 +10,31 @@ using namespace std;
 int shared_counter = 0;
 pthread_mutex_t mtx = PTHREAD_MUTEX_INITIALIZER;
 
-void *thread_func(void *args) {
-  pthread_mutex_lock(&mtx);
+/*void *thread_func(void *args) {
+  // in this mechanism lock/unlock happens 100000 times for each thread - slow
   for (int i = 0; i < 1000000; i++) {
-
+    pthread_mutex_lock(&mtx);
     shared_counter++;
+    pthread_mutex_unlock(&mtx);
   }
   // cout << "THREAD: " << pthread_self() << " shared_counter :" << shared_counter << endl;
+
+  return nullptr;
+}*/
+
+void *thread_func(void *args) {
+
+  int local_counter = 0; // this is local variable to each thread
+  for (int i = 0; i < 1000000; i++) {
+
+    local_counter++;
+  }
+  pthread_mutex_lock(&mtx);
+  shared_counter += local_counter;
   pthread_mutex_unlock(&mtx);
+
+  // cout << "THREAD: " << pthread_self() << " shared_counter :" << shared_counter << endl;
+
   return nullptr;
 }
 
