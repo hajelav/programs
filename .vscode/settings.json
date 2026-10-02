@@ -16,6 +16,7 @@
   "prettier.trailingComma": "all",
   "prettier.semi": true,
   "editor.formatOnSave": true,
+  "editor.rulers": [],
   "editor.quickSuggestions": {
     "other": false,
     "comments": false,

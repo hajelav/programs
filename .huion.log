@@ -1,0 +1,88 @@
+2026-10-01 20:53:53.805 INFO log test start----------------------------------------------------------------------------------->
+2026-10-01 20:53:53.805 INFO log test end ----------------------------------------------------------------------------------------
+2026-10-01 20:53:53.808 INFO HnUsb ctx=0x7f99fa2c14f8, path=0x7f99fa2c1730
+2026-10-01 20:53:53.808 INFO HnUsb ctx=0x7f99fa2c2b50, path=0x7f99fa2c2d88
+2026-10-01 20:53:53.808 INFO Load tabletsession dll _dll= 0x5595e2ee6c60
+2026-10-01 20:53:53.808 INFO load tabletsession OK 
+2026-10-01 20:53:53.816 INFO after load dll
+2026-10-01 20:53:53.816 ERROR Cannot get tty state
+2026-10-01 20:53:53.816 INFO Open uhid-cdev /dev/uhid
+2026-10-01 20:53:53.816 INFO Create uhid device
+2026-10-01 20:53:53.817 INFO creat uhid dev success!
+2026-10-01 20:53:53.817 INFO create device ret = 0
+2026-10-01 20:53:53.817 ERROR Cannot get tty state
+2026-10-01 20:53:53.818 INFO Open uhid-cdev /dev/uhid
+2026-10-01 20:53:53.818 INFO Create uhid device
+2026-10-01 20:53:53.818 INFO creat uhid dev success!
+2026-10-01 20:53:53.818 INFO create device ret = 0
+2026-10-01 20:53:53.818 INFO create uinput pen  fd=8
+2026-10-01 20:53:53.839 INFO EXIT_SUCCESS *pFd=8
+2026-10-01 20:53:53.845 INFO init event OK
+2026-10-01 20:53:53.861 INFO Destroy uhid device
+2026-10-01 20:53:53.861 ERROR Wrong size written to uhid: 4368 != 8
+2026-10-01 20:53:53.861 INFO destroy uhid dev error!
+2026-10-01 20:53:53.863 INFO --> remove@/devices/virtual/input/input47/mouse1
+
+2026-10-01 20:53:53.895 INFO --> remove@/devices/virtual/input/input47/event15
+
+2026-10-01 20:53:53.936 INFO --> remove@/devices/virtual/input/input47
+
+2026-10-01 20:53:53.936 INFO create uinput pen  fd=8
+2026-10-01 20:53:53.937 INFO EXIT_SUCCESS *pFd=8
+2026-10-01 20:53:53.937 INFO --> add@/devices/virtual/input/input51
+
+2026-10-01 20:53:53.938 INFO --> add@/devices/virtual/input/input51/mouse1
+
+2026-10-01 20:53:53.938 INFO --> add@/devices/virtual/input/input51/event15
+
+2026-10-01 20:53:54.984 INFO On Timer TIMER_ID_DETECT_DEVICE 0
+2026-10-01 20:53:54.989 INFO Device Found
+  type: 046d 085e
+  path: 0002:0002:04
+  serial_number: (null)
+  Manufacturer: (null)
+  Product:      (null)
+  Release:      317
+  Interface:    4
+2026-10-01 20:53:54.989 INFO Device Found
+  type: 046d c534
+  path: 0001:0003:00
+  serial_number: (null)
+  Manufacturer: (null)
+  Product:      (null)
+  Release:      2901
+  Interface:    0
+2026-10-01 20:53:54.989 INFO Device Found
+  type: 046d c534
+  path: 0001:0003:01
+  serial_number: (null)
+  Manufacturer: (null)
+  Product:      (null)
+  Release:      2901
+  Interface:    1
+2026-10-01 20:53:54.989 INFO detect huion_blz_device start:
+2026-10-01 20:53:54.997 INFO isThisComputerHasBluetoothController(): false 
+
+2026-10-01 20:53:56.674 INFO on_screen_changed huion_reload_uhid_pen_event
+2026-10-01 20:53:56.675 INFO Destroy uhid device
+2026-10-01 20:53:56.675 ERROR Wrong size written to uhid: 4368 != 8
+2026-10-01 20:53:56.675 INFO destroy uhid dev error!
+2026-10-01 20:53:56.677 INFO --> remove@/devices/virtual/input/input51/mouse1
+
+2026-10-01 20:53:56.696 INFO --> remove@/devices/virtual/input/input51/event15
+
+2026-10-01 20:53:56.716 INFO --> remove@/devices/virtual/input/input51
+
+2026-10-01 20:53:56.716 INFO create uinput pen  fd=8
+2026-10-01 20:53:56.716 INFO --> add@/devices/virtual/input/input52
+
+2026-10-01 20:53:56.716 INFO --> add@/devices/virtual/input/input52/mouse1
+
+2026-10-01 20:53:56.716 INFO EXIT_SUCCESS *pFd=8
+2026-10-01 20:53:56.716 INFO --> add@/devices/virtual/input/input52/event15
+
+2026-10-01 20:53:56.716 INFO on_screen_changed on_screen_changed on_screen_changed
+2026-10-01 20:56:35.414 INFO --> remove@/devices/virtual/bdi/0:57
+
+2026-10-01 20:56:36.738 INFO --> add@/devices/virtual/bdi/0:57
+
