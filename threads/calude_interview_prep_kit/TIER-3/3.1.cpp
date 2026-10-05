@@ -121,7 +121,8 @@ void *producer_thread(void *args) {
     cout << "[producer] Creating task with delay " << delay << " sec" << endl;
     // assign function pointer (do not call)
     CALLBACK cb = user_function;
-    TASK *task = new TASK(currTime, cb, false, 0); // one shot timers
+    //TASK *task = new TASK(currTime, cb, false, 0); // one shot timers
+    TASK *task = new TASK(currTime, cb, false, 5); // periodic timers
     //push the task onto the queue
     mgr->insert(task);
     sleep(1);
