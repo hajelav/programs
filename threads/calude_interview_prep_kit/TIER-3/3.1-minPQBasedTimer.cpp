@@ -7,12 +7,14 @@
 #include <deque>     // queue
 #include <iostream>  // cout
 #include <queue>
+#include <unordered_map>
 
 using namespace std;
 
 /* Timer implementation using priority queue*/
 
 typedef void (*CALLBACK)(void);
+static int nextTaskId = 1;
 
 static struct timespec getRemainingTime(const struct timespec &now, const struct timespec &expiry) {
   struct timespec remaining;
@@ -23,12 +25,13 @@ static struct timespec getRemainingTime(const struct timespec &now, const struct
 
 /* Step 1 : create a Timer TASK*/
 typedef struct task {
+  int id;                          // unique task id used for cancellation
   struct timespec expiration_time; // absolute time when this task should run
   CALLBACK cb;                     // callback function registered by caller
   bool is_cancelled;               // if the task is cancelled by caller
   int period;                      // if > 0, task is periodic; else it is a one-shot task
-  task(struct timespec ts, CALLBACK c, bool is_cancelled, int period)
-      : expiration_time(ts), cb(c), is_cancelled(is_cancelled), period(period) {}
+  task(int taskId, struct timespec ts, CALLBACK c, bool is_cancelled, int period)
+      : id(taskId), expiration_time(ts), cb(c), is_cancelled(is_cancelled), period(period) {}
 } TASK;
 
 class TimerMgr {
@@ -51,6 +54,7 @@ public:
     cout << "[insert] Adding task with expiry " << task->expiration_time.tv_sec << " sec" << endl;
     // push the task in the priority queue; earliest expiry is processed first
     minPQ.push(task);
+    taskMap[task->id] = task;
     cout << "[insert] Queue size after push: " << minPQ.size() << endl;
     // wake the worker thread if it is sleeping
     pthread_cond_signal(&cv);
@@ -77,6 +81,16 @@ public:
       clock_gettime(CLOCK_REALTIME, &now);
     }
 
+    //check if the task has been cancelled
+    if (frontTask->is_cancelled) {
+      //remove the task from the queue and free the memory
+      minPQ.pop();
+      taskMap.erase(frontTask->id);
+      delete frontTask;
+      pthread_mutex_unlock(&mtx);
+      return;
+    }
+
     cout << "[worker] Executing callback now" << endl;
     frontTask->cb();
 
@@ -93,12 +107,23 @@ public:
       minPQ.pop();
       cout << "[worker] Removed task" << endl;
     }
+    pthread_mutex_unlock(&mtx);
+  }
 
+  void cancel(int taskId) {
+    pthread_mutex_lock(&mtx);
+    auto it = taskMap.find(taskId);
+    if (it != taskMap.end()) {
+      it->second->is_cancelled = true;
+      cout << "[cancel] Marked task " << taskId << " as cancelled" << endl;
+      pthread_cond_signal(&cv);
+    }
     pthread_mutex_unlock(&mtx);
   }
 
 private:
   priority_queue<TASK *, vector<TASK *>, comp> minPQ;
+  unordered_map<int, TASK *> taskMap;
   pthread_mutex_t mtx;
   pthread_cond_t cv;
 };
@@ -122,9 +147,15 @@ void *producer_thread(void *args) {
     // assign function pointer (do not call)
     CALLBACK cb = user_function;
     //TASK *task = new TASK(currTime, cb, false, 0); // one shot timers
-    TASK *task = new TASK(currTime, cb, false, 5); // periodic timers
+    TASK *task = new TASK(nextTaskId++, currTime, cb, false, 5); // periodic timers
     //push the task onto the queue
     mgr->insert(task);
+
+    // cancel the very first queued task after it is inserted
+    if (nextTaskId == 2) {
+      mgr->cancel(1);
+    }
+
     sleep(1);
   }
 
