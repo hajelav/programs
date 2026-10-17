@@ -20,26 +20,38 @@ typedef struct task {
   void *args;
   task(CALLBACK cb, void *args)
       : cb(cb), args(args) {}
-
 } TASK;
 
 class ThreadPool {
 
 public:
   ThreadPool(int capacity, int noOfThreads)
-      : capacity(capacity) {
+      : capacity(capacity), noOfThreads(noOfThreads), shutdown(false) {
     mtx = PTHREAD_MUTEX_INITIALIZER;
     full = PTHREAD_COND_INITIALIZER;
     empty = PTHREAD_COND_INITIALIZER;
     workers.resize(noOfThreads);
     cout << "[main] Creating thread pool with capacity=" << capacity
          << " and threads=" << noOfThreads << endl;
+
     //create worker threads
     for (int i = 0; i < noOfThreads; i++) {
       pthread_create(&workers[i], nullptr, ThreadPool::thread_func, this);
       cout << "[main] Worker thread " << i << " started" << endl;
     }
-    //join the threads
+  }
+
+  ~ThreadPool() {
+    shutdownThreadPool();
+  }
+
+  void shutdownThreadPool() {
+    pthread_mutex_lock(&mtx);
+    shutdown = true;
+    pthread_cond_broadcast(&empty);
+    pthread_cond_broadcast(&full);
+    pthread_mutex_unlock(&mtx);
+
     for (int i = 0; i < noOfThreads; i++) {
       pthread_join(workers[i], nullptr);
     }
@@ -50,9 +62,18 @@ public:
     /* producer thread operates here*/
     pthread_mutex_lock(&mtx);
     cout << "[push] Waiting for space in queue" << endl;
+    while (shutdown) {
+      pthread_mutex_unlock(&mtx);
+      return;
+    }
     //we have to wait if the queue is full
-    while ((int)buffer.size() >= capacity) {
+    while ((int)buffer.size() >= capacity && !shutdown) {
       pthread_cond_wait(&full, &mtx);
+    }
+    if (shutdown) {
+      pthread_mutex_unlock(&mtx);
+      delete task;
+      return;
     }
     //push the task into the q
     buffer.push_front(task);
@@ -67,21 +88,27 @@ public:
     pthread_mutex_lock(&mtx);
 
     cout << "[worker] Waiting for task" << endl;
-    //wait till there is atleast one task to be consumed in the buffer
-    while (buffer.size() <= 0) {
+    while (buffer.size() <= 0 && !shutdown) {
       pthread_cond_wait(&empty, &mtx);
     }
+
+    if (shutdown && buffer.empty()) {
+      pthread_mutex_unlock(&mtx);
+      cout << "[worker] Shutting down" << endl;
+      pthread_exit(nullptr);
+    }
+
     //consume the item
     TASK *task = buffer.back();
     cout << "[worker] Picked a task from queue. Remaining=" << buffer.size() - 1 << endl;
-    //call the task
-    task->cb(task->args);
     buffer.pop_back();
-    cout << "[worker] Completed task. Queue size now=" << buffer.size() << endl;
-    //signal the producer to produce the item
     pthread_cond_signal(&full);
-
     pthread_mutex_unlock(&mtx);
+
+    //call the task outside the lock
+    task->cb(task->args);
+    cout << "[worker] Completed task. Queue size now=" << buffer.size() << endl;
+    delete task;
   }
 
   static void *thread_func(void *args) {
@@ -100,6 +127,8 @@ private:
   deque<TASK *> buffer;
   vector<pthread_t> workers;
   int capacity;
+  int noOfThreads;
+  bool shutdown;
 };
 
 void print_task(void *args) {
@@ -118,7 +147,8 @@ int main() {
     cout << "[main] Enqueuing task with value=" << i << endl;
     tp->push(task);
   }
-
   cout << "[main] Done producing tasks" << endl;
+
+  delete tp;
   return 0;
 }
