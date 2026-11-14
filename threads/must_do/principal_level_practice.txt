@@ -1,0 +1,74 @@
+Principal-Level Pthreads Interview Practice
+==========================================
+
+Your current must-do exercises cover the pthread foundations: mutexes,
+condition variables, producer-consumer queues, thread pools, timers, and an
+LRU cache. These next problems emphasize lifecycle, fairness, contention,
+failure handling, and design trade-offs.
+
+Recommended problems
+--------------------
+
+1. Closable bounded queue
+   Extend 06_bounded_producer_consumer.cpp with close() and a defined drain
+   policy. After close, producers stop accepting work; consumers drain queued
+   items and then exit. Test closing while producers or consumers are blocked.
+
+2. Graceful thread-pool shutdown
+   Extend 07_thread_pool.cpp. Define what happens to queued tasks at shutdown,
+   stop accepting new submissions, wake all workers, and join them. Compare
+   graceful draining with immediate stopping.
+
+3. Fair readers-writers lock
+   Extend the reader/writer example so writers cannot starve while readers
+   can still run concurrently. Explain the fairness policy and throughput
+   trade-offs.
+
+4. Reusable barrier
+   Coordinate a fixed number of threads at repeated phases using a mutex and
+   condition variable. Use a generation or phase counter so a fast thread
+   entering the next phase cannot confuse threads leaving the previous one.
+
+5. Semaphore-based resource pool
+   Limit concurrent access to a fixed number of resources, such as database
+   connections. Cover acquisition, release, shutdown, and what happens if a
+   resource is not returned.
+
+6. Deadlock-free bank transfers
+   Run transfers between shared accounts. Protect balances and prevent
+   deadlock when a transfer touches two accounts. Explain lock ordering and
+   test that the total balance remains constant.
+
+7. Single-flight cache miss
+   When several threads request the same missing key, allow only one thread
+   to perform the expensive load while others wait for its result. Define how
+   load failures are propagated and in-flight entries are cleaned up.
+
+8. Sharded LRU cache
+   Partition keys across independently locked caches. Discuss reduced lock
+   contention versus losing strict global LRU ordering.
+
+9. Rate limiter
+   Implement a token-bucket limiter with pthread synchronization and timed
+   waits. Decide whether callers block or fail when limited, and consider
+   bursts, elapsed time, and shutdown.
+
+10. Thread-safe timer scheduler
+    Extend 08_timer_priority_queue.cpp with cancellation, rescheduling, and
+    shutdown. Ensure the worker wakes if a newly inserted timer becomes the
+    earliest deadline.
+
+Suggested order
+---------------
+
+Prioritize problems 1-6 first. Then try problems 7-9 as deeper design
+exercises. Treat the timer scheduler as a stretch problem.
+
+For each problem, be ready to explain:
+
+- The invariants protected by each mutex or condition variable.
+- Shutdown behavior and how blocked threads are awakened.
+- Fairness and performance trade-offs.
+- Failure handling and resource ownership.
+- Tests for blocked waiters, repeated start/stop, contention, and boundary
+  cases in addition to the normal path.
